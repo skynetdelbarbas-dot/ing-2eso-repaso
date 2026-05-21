@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Indefinite Pronouns — 2º ESO</title>
+<link rel="stylesheet" href="style.css?v=3">
+</head>
+<body data-topic="indefinite-pronouns">
+<div class="container">
+<nav class="sidebar">
+  <h1><a href="index.html" style="color:inherit;text-decoration:none">📚 Inglés 2º ESO</a></h1>
+  <div class="subtitle">Repaso para el examen final</div>
+  <h2>🗣️ Grammar</h2>
+  <a href="present-perfect.html" class="">Present Perfect S/C</a>
+  <a href="reported-speech.html" class="">Reported Speech</a>
+  <a href="conditionals.html" class="">Conditionals</a>
+  <a href="wish-if-only.html" class="">I wish / If only</a>
+  <a href="question-tags.html" class="">Question Tags</a>
+  <a href="articles.html" class="">Articles (a/an/the/∅)</a>
+  <a href="passive.html" class="">Passive Voice</a>
+  <a href="indefinite-pronouns.html" class=" active">Indefinite Pronouns</a>
+  <a href="nor-neither-so.html" class="">Nor / Neither / So</a>
+  <h2>📖 Vocabulary</h2>
+  <a href="vocabulary.html">Units 1-3, 5-11</a>
+  <h2>🎯 Simulacro</h2>
+  <a href="simulacro.html">Examen mixto</a>
+
+</nav>
+<main class="main">
+  <div class="breadcrumb"><a href="index.html">Inicio</a> / Indefinite Pronouns</div>
+  <h1 class="page-title">Indefinite Pronouns</h1>
+  <p class="intro">someone, anyone, no one, everyone, something, anything...</p>
+
+  <div class="section">
+    <h2>📖 Teoría rápida</h2>
+    <div class="theory-box"><strong>Some-</strong> → afirmativas.<br><strong>Any-</strong> → negativas e interrogativas.<br><strong>No-</strong> → negativo (frase afirmativa en forma).<br><strong>Every-</strong> → todos.</div><div class="example"><span class="en">I need <strong>something</strong> to drink.</span></div><div class="example"><span class="en">Do you have <strong>anything</strong>?</span></div>
+  </div>
+
+  <div class="section">
+    <h2>✏️ Ejercicio 1 — <span id="round-label">Ronda 1/3</span></h2>
+    <p style="color:var(--text2);margin-bottom:14px">Completa cada frase.</p>
+    <div id="ex-indefinite_pronouns"></div>
+    <div class="btn-section">
+      <button class="btn btn-check-all" onclick="checkAllIndefinitePronouns()">✅ Corregir todo</button>
+      <button class="btn btn-reset" onclick="resetIndefinitePronouns()">🔄 Limpiar todo</button>
+      <button class="btn btn-next" onclick="nextRound()" id="btn-next-round">▶️ Siguiente ronda</button>
+    </div>
+    <div id="ex-indefinite_pronouns-score" class="score-box" style="display:none"></div>
+  </div>
+</main>
+</div>
+
+<script src="exercises.js?v=6"></script>
+<script>
+// ============================================================
+// POOL DE PREGUNTAS (~44)
+// ============================================================
+var INDEFINITE_PRONOUNS_POOL = [
+  // --- something / anything / nothing / everything ---
+  {stem: "I couldn't find __________________ interesting to read.", answer: "anything", alts: []},
+  {stem: "Would you like __________________ to drink?", answer: "something", alts: []},
+  {stem: "I have __________________ to wear to the party.", answer: "nothing", alts: ["anything"]},
+  {stem: "There is __________________ wrong with my phone.", answer: "something", alts: []},
+  {stem: "__________________ is ready for the trip.", answer: "everything", alts: ["everybody"]},
+  {stem: "I need __________________ to eat. I'm hungry.", answer: "something", alts: []},
+  {stem: "There's __________________ in the fridge. We need to buy food.", answer: "nothing", alts: []},
+  {stem: "Did you buy __________________ at the supermarket?", answer: "anything", alts: []},
+  {stem: "She knows __________________ about computers. She's an expert.", answer: "everything", alts: []},
+  {stem: "I don't want __________________ from you.", answer: "anything", alts: []},
+  {stem: "__________________ is possible if you try hard enough.", answer: "everything", alts: []},
+  {stem: "He ate __________________ on his plate. It's all gone.", answer: "everything", alts: []},
+  {stem: "I can't hear __________________. It's too noisy.", answer: "anything", alts: []},
+  {stem: "Is there __________________ in the bag?", answer: "anything", alts: []},
+
+  // --- someone / anyone / no one / everyone ---
+  {stem: "__________________ called while you were out.", answer: "someone", alts: ["somebody"]},
+  {stem: "__________________ knows the answer.", answer: "no one", alts: ["nobody"]},
+  {stem: "Is there __________________ I can do to help?", answer: "anything", alts: []},
+  {stem: "She didn't tell __________________ about her plans.", answer: "anyone", alts: ["anybody"]},
+  {stem: "__________________ at the office knows my name.", answer: "everyone", alts: ["everybody"]},
+  {stem: "__________________ knows where my keys are? I can't find them.", answer: "anyone", alts: ["anybody"]},
+  {stem: "__________________ called the police after the accident.", answer: "someone", alts: ["somebody"]},
+  {stem: "There's __________________ at the door. Go see who it is.", answer: "someone", alts: ["somebody"]},
+  {stem: "__________________ was late for the meeting. All 20 people arrived on time.", answer: "no one", alts: ["nobody"]},
+  {stem: "I don't know __________________ who can help us.", answer: "anyone", alts: ["anybody"]},
+  {stem: "__________________ needs to finish this report by Friday.", answer: "everyone", alts: ["everybody"]},
+  {stem: "__________________ left their umbrella in the classroom.", answer: "someone", alts: ["somebody"]},
+  {stem: "She said __________________ about the party. It's a secret.", answer: "nothing", alts: []},
+  {stem: "__________________ is in the office. It's empty.", answer: "no one", alts: ["nobody"]},
+
+  // --- somewhere / anywhere / nowhere / everywhere ---
+  {stem: "I couldn't find my keys __________________.", answer: "anywhere", alts: []},
+  {stem: "I need to go __________________ quiet to study.", answer: "somewhere", alts: []},
+  {stem: "We looked __________________ but we didn't find the cat.", answer: "everywhere", alts: []},
+  {stem: "There's __________________ to park in the city centre.", answer: "nowhere", alts: []},
+  {stem: "Is there __________________ we can sit?", answer: "anywhere", alts: []},
+  {stem: "I've seen that movie __________________ before.", answer: "somewhere", alts: []},
+  {stem: "My glasses are __________________! I can't find them.", answer: "nowhere", alts: []},
+  {stem: "She's been __________________ in Europe: Paris, Rome, Berlin...", answer: "everywhere", alts: []},
+
+  // --- some / any / no ---
+  {stem: "There isn't __________________ milk left.", answer: "any", alts: []},
+  {stem: "Can I have __________________ water, please?", answer: "some", alts: []},
+  {stem: "I don't have __________________ money on me.", answer: "any", alts: []},
+  {stem: "Would you like __________________ tea?", answer: "some", alts: []},
+  {stem: "There are __________________ apples in the kitchen.", answer: "some", alts: []},
+  {stem: "I have __________________ homework tonight.", answer: "no", alts: []},
+  {stem: "She didn't make __________________ mistakes.", answer: "any", alts: []},
+  {stem: "We have __________________ time left. Hurry up!", answer: "no", alts: []}
+];
+
+var ROUND_SIZE = 12;
+var TOTAL_ROUNDS = 3;
+var currentData = [];
+var roundNum = 1;
+
+// ============================================================
+// Utilidad: seleccionar N aleatorios sin repetir
+// ============================================================
+function pickRandom(arr, n) {
+  var shuffled = arr.slice();
+  for (var i = shuffled.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = shuffled[i];
+    shuffled[i] = shuffled[j];
+    shuffled[j] = tmp;
+  }
+  return shuffled.slice(0, n);
+}
+
+// ============================================================
+// Gestión de rondas
+// ============================================================
+function loadRound() {
+  try {
+    roundNum = parseInt(localStorage.getItem('indefinite-pronouns-round')) || 1;
+  } catch(e) { roundNum = 1; }
+  if (roundNum < 1) roundNum = 1;
+  if (roundNum > TOTAL_ROUNDS) roundNum = TOTAL_ROUNDS;
+}
+
+function saveRound() {
+  try { localStorage.setItem('indefinite-pronouns-round', roundNum); } catch(e) {}
+}
+
+function startRound() {
+  currentData = pickRandom(INDEFINITE_PRONOUNS_POOL, ROUND_SIZE);
+  var container = document.getElementById('ex-indefinite_pronouns');
+  container.innerHTML = '';
+  renderExercises(currentData, 'ex-indefinite_pronouns', 'Ej: someone, anything, nobody...');
+  document.getElementById('round-label').textContent = 'Ronda ' + roundNum + '/' + TOTAL_ROUNDS;
+  var btn = document.getElementById('btn-next-round');
+  if (roundNum >= TOTAL_ROUNDS) {
+    btn.textContent = '🔄 Empezar de nuevo';
+    btn.disabled = false;
+  } else {
+    btn.textContent = '▶️ Siguiente ronda';
+    btn.disabled = false;
+  }
+  // Reset score
+  var scoreBox = document.getElementById('ex-indefinite_pronouns-score');
+  if (scoreBox) { scoreBox.style.display = 'none'; scoreBox.innerHTML = ''; }
+  // Reset inputs feedback
+  for (var i = 1; i <= ROUND_SIZE; i++) {
+    var fb = document.getElementById('fb-ex-indefinite_pronouns-' + i);
+    if (fb) { fb.className = 'feedback-line'; fb.textContent = ''; }
+    var hint = document.getElementById('hint-ex-indefinite_pronouns-' + i);
+    if (hint) { hint.className = 'hint-box'; hint.innerHTML = ''; }
+  }
+}
+
+function nextRound() {
+  if (roundNum >= TOTAL_ROUNDS) {
+    roundNum = 1;
+    saveRound();
+    startRound();
+    return;
+  }
+  roundNum++;
+  saveRound();
+  startRound();
+}
+
+// ============================================================
+// Inicialización
+// ============================================================
+loadRound();
+startRound();
+
+// ============================================================
+// Corrección
+// ============================================================
+function checkAllIndefinitePronouns() {
+  var correct = 0;
+  var answered = 0;
+  var total = currentData.length;
+  for (var i = 1; i <= total; i++) {
+    checkOne('ex-indefinite_pronouns', i);
+    var inp = document.getElementById('inp-ex-indefinite_pronouns-' + i);
+    if (inp) {
+      var _empty = inp.value.trim() === '';
+      if (!_empty || inp.classList.contains('correct')) {
+        answered++;
+        if (inp.classList.contains('correct')) correct++;
+      }
+    }
+  }
+  var denom = answered > 0 ? answered : 1;
+  var pct = Math.round((correct / denom) * 100);
+  var score = document.getElementById('ex-indefinite_pronouns-score');
+  score.style.display = 'block';
+  var msg = '🎯 ' + correct + '/' + answered + ' correctas (' + pct + '%)';
+  if (answered === 0) msg = '✏️ Responde al menos una pregunta';
+  else if (pct === 100) msg += ' ¡Perfecto! 🏆';
+  else if (pct >= 70) msg += ' Muy bien 👍';
+  else msg += ' Sigue practicando 💪';
+  score.innerHTML = '<span class="big">' + correct + '/' + answered + '</span><br>' + msg;
+}
+
+function resetIndefinitePronouns() {
+  resetAll('ex-indefinite_pronouns', currentData.length);
+}
+</script>
+</body>
+</html>

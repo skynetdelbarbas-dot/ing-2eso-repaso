@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>I wish / If only — 2º ESO</title>
+<link rel="stylesheet" href="style.css?v=3">
+</head>
+<body data-topic="wish-if-only">
+<div class="container">
+<nav class="sidebar">
+  <h1><a href="index.html" style="color:inherit;text-decoration:none">📚 Inglés 2º ESO</a></h1>
+  <div class="subtitle">Repaso para el examen final</div>
+  <h2>🗣️ Grammar</h2>
+  <a href="present-perfect.html">Present Perfect S/C</a>
+  <a href="reported-speech.html">Reported Speech</a>
+  <a href="conditionals.html">Conditionals</a>
+  <a href="wish-if-only.html" class="active">I wish / If only</a>
+  <a href="question-tags.html">Question Tags</a>
+  <a href="articles.html">Articles (a/an/the/∅)</a>
+  <a href="passive.html">Passive Voice</a>
+  <a href="indefinite-pronouns.html">Indefinite Pronouns</a>
+  <a href="nor-neither-so.html">Nor / Neither / So</a>
+  <h2>📖 Vocabulary</h2>
+  <a href="vocabulary.html">Units 1-3, 5-11</a>
+  <h2>🎯 Simulacro</h2>
+  <a href="simulacro.html">Examen mixto</a>
+</nav>
+
+<main class="main">
+  <div class="breadcrumb"><a href="index.html">Inicio</a> / I wish / If only</div>
+  <h1 class="page-title">I wish / If only</h1>
+  <p class="intro">Expresa deseos sobre el presente, pasado o futuro.</p>
+
+  <div class="section">
+    <h2>📖 Teoría rápida</h2>
+    <div class="theory-box">
+      <strong>Deseo sobre el PRESENTE:</strong> <code>I wish + Past Simple</code><br>
+      <em>I wish I were taller.</em> (No soy alto ahora)<br><br>
+      <strong>Deseo sobre el PASADO:</strong> <code>I wish + Past Perfect</code><br>
+      <em>I wish I had studied more.</em> (No estudié suficiente)<br><br>
+      <strong>Deseo sobre el FUTURO / queja:</strong> <code>I wish + would</code><br>
+      <em>I wish it would stop raining.</em> (Está lloviendo y me molesta)
+    </div>
+    <div class="example"><span class="en">If only I had more time!</span> <span class="es">— ¡Si tuviera más tiempo!</span></div>
+  </div>
+
+  <div class="section">
+    <h2>✏️ Ejercicio 1 — Complete the sentences <span id="round-label">Ronda 1/3</span></h2>
+    <p style="color:var(--text2);margin-bottom:14px">Completa con la forma verbal correcta.</p>
+    <div id="ex-wish-gap"></div>
+    <div class="btn-section">
+      <button class="btn btn-check-all" onclick="checkAllWish()">✅ Corregir todo</button>
+      <button class="btn btn-reset" onclick="resetWish()">🔄 Limpiar todo</button>
+      <button class="btn btn-next" onclick="nextRound()" id="btn-next-round">▶️ Siguiente ronda</button>
+    </div>
+    <div id="ex-wish-gap-score" class="score-box" style="display:none"></div>
+  </div>
+</main>
+</div>
+
+<script src="exercises.js?v=6"></script>
+<script>
+// ============================================================
+// POOL DE PREGUNTAS (~35)
+// ============================================================
+var WISH_POOL = [
+  // --- Present wish (Past Simple) ---
+  {stem:"I wish we __________________ (live) in the city now.", answer:"lived", alts:["were living"]},
+  {stem:"Tom and Sarah wish they __________________ (have) a bigger house.", answer:"had", alts:[]},
+  {stem:"If only Susan __________________ (can) call me right now.", answer:"could", alts:[]},
+  {stem:"I wish I __________________ (know) the answer to this question.", answer:"knew", alts:[]},
+  {stem:"If only I __________________ (be) taller!", answer:"were", alts:[]},
+  {stem:"She wishes she __________________ (speak) French fluently.", answer:"spoke", alts:[]},
+  {stem:"I wish I __________________ (have) a car.", answer:"had", alts:[]},
+  {stem:"If only we __________________ (not have to) go to school on Saturdays.", answer:"didn't have to", alts:["did not have to"]},
+  {stem:"He wishes he __________________ (be) better at maths.", answer:"were", alts:["was"]},
+  {stem:"I wish I __________________ (can) fly.", answer:"could", alts:[]},
+
+  // --- Past wish (Past Perfect) ---
+  {stem:"If only we __________________ (not go) to the party yesterday.", answer:"hadn't gone", alts:["had not gone"]},
+  {stem:"Now they wish they __________________ (send) that e-mail then.", answer:"hadn't sent", alts:["had not sent"]},
+  {stem:"I wish I __________________ (travel) when I was younger.", answer:"had travelled", alts:["had traveled"]},
+  {stem:"We wish we __________________ (leave) earlier to catch the morning train.", answer:"had left", alts:[]},
+  {stem:"If only I __________________ (study) more for the exam!", answer:"had studied", alts:[]},
+  {stem:"She wishes she __________________ (not say) that to her mother.", answer:"hadn't said", alts:["had not said"]},
+  {stem:"I wish I __________________ (buy) that dress when I had the chance.", answer:"had bought", alts:[]},
+  {stem:"If only they __________________ (tell) us the truth!", answer:"had told", alts:[]},
+  {stem:"He wishes he __________________ (not spend) all his money on video games.", answer:"hadn't spent", alts:["had not spent"]},
+  {stem:"We wish we __________________ (take) the train instead of the bus.", answer:"had taken", alts:[]},
+
+  // --- Future / complaint wish (would) ---
+  {stem:"He wishes it __________________ (stop) raining. He wants to go out later.", answer:"would stop", alts:["stopped"]},
+  {stem:"I wish Ann __________________ (treat) her parents more politely!", answer:"would treat", alts:["treated"]},
+  {stem:"His parents wish he __________________ (become) a lawyer in the near future.", answer:"would become", alts:[]},
+  {stem:"I wish you __________________ (stop) making so much noise!", answer:"would stop", alts:[]},
+  {stem:"She wishes her neighbours __________________ (not play) loud music at night.", answer:"wouldn't play", alts:["would not play"]},
+  {stem:"If only he __________________ (listen) to my advice!", answer:"would listen", alts:[]},
+  {stem:"I wish they __________________ (arrive) on time for once.", answer:"would arrive", alts:[]},
+  {stem:"He wishes his brother __________________ (not borrow) his clothes without asking.", answer:"wouldn't borrow", alts:["would not borrow"]},
+  {stem:"If only the teacher __________________ (give) us less homework!", answer:"would give", alts:[]},
+  {stem:"I wish you __________________ (tell) me the truth.", answer:"would tell", alts:[]}
+];
+
+// ============================================================
+// Round system
+// ============================================================
+var ROUND_SIZE = 12;
+var TOTAL_ROUNDS = 3;
+var currentData = [];
+var roundNum = 1;
+
+function pickRandom(arr, n) {
+  var shuffled = arr.slice();
+  for (var i = shuffled.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = shuffled[i];
+    shuffled[i] = shuffled[j];
+    shuffled[j] = tmp;
+  }
+  return shuffled.slice(0, n);
+}
+
+function loadRound() {
+  try {
+    roundNum = parseInt(localStorage.getItem('wish-if-only-round')) || 1;
+  } catch(e) { roundNum = 1; }
+  if (roundNum < 1) roundNum = 1;
+  if (roundNum > TOTAL_ROUNDS) roundNum = TOTAL_ROUNDS;
+}
+
+function saveRound() {
+  try { localStorage.setItem('wish-if-only-round', roundNum); } catch(e) {}
+}
+
+function startRound() {
+  currentData = pickRandom(WISH_POOL, ROUND_SIZE);
+  var container = document.getElementById('ex-wish-gap');
+  container.innerHTML = '';
+  renderExercises(currentData, 'ex-wish-gap', 'Ej: lived, had gone, would stop...');
+  document.getElementById('round-label').textContent = 'Ronda ' + roundNum + '/' + TOTAL_ROUNDS;
+  var btn = document.getElementById('btn-next-round');
+  if (roundNum >= TOTAL_ROUNDS) {
+    btn.textContent = '🔄 Empezar de nuevo';
+    btn.disabled = false;
+  } else {
+    btn.textContent = '▶️ Siguiente ronda';
+    btn.disabled = false;
+  }
+  // Reset score
+  var scoreBox = document.getElementById('ex-wish-gap-score');
+  if (scoreBox) { scoreBox.style.display = 'none'; scoreBox.innerHTML = ''; }
+  // Reset inputs feedback
+  for (var i = 1; i <= ROUND_SIZE; i++) {
+    var fb = document.getElementById('fb-ex-wish-gap-' + i);
+    if (fb) { fb.className = 'feedback-line'; fb.textContent = ''; }
+    var hint = document.getElementById('hint-ex-wish-gap-' + i);
+    if (hint) { hint.className = 'hint-box'; hint.innerHTML = ''; }
+  }
+}
+
+function nextRound() {
+  if (roundNum >= TOTAL_ROUNDS) {
+    roundNum = 1;
+    saveRound();
+    startRound();
+    return;
+  }
+  roundNum++;
+  saveRound();
+  startRound();
+}
+
+// ============================================================
+// Inicialización
+// ============================================================
+loadRound();
+startRound();
+
+// ============================================================
+// Corrección
+// ============================================================
+function checkAllWish() {
+  var correct = 0;
+  var answered = 0;
+  var total = currentData.length;
+  for (var i = 1; i <= total; i++) {
+    checkOne('ex-wish-gap', i);
+    var inp = document.getElementById('inp-ex-wish-gap-' + i);
+    if (inp) {
+      var _empty = inp.value.trim() === '';
+      if (!_empty || inp.classList.contains('correct')) {
+        answered++;
+        if (inp.classList.contains('correct')) correct++;
+      }
+    }
+  }
+  var denom = answered > 0 ? answered : 1;
+  var pct = Math.round((correct / denom) * 100);
+  var score = document.getElementById('ex-wish-gap-score');
+  score.style.display = 'block';
+  var msg = '🎯 ' + correct + '/' + answered + ' correctas (' + pct + '%)';
+  if (answered === 0) msg = '✏️ Responde al menos una pregunta';
+  else if (pct === 100) msg += ' ¡Perfecto! 🏆';
+  else if (pct >= 70) msg += ' Muy bien 👍';
+  else msg += ' Sigue practicando 💪';
+  score.innerHTML = '<span class="big">' + correct + '/' + answered + '</span><br>' + msg;
+}
+
+function resetWish() {
+  resetAll('ex-wish-gap', currentData.length);
+}
+</script>
+</body>
+</html>

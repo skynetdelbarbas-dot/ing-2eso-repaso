@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vocabulary — 2º ESO</title>
+<link rel="stylesheet" href="style.css?v=3">
+</head>
+<body data-topic="vocabulary">
+<div class="container">
+<nav class="sidebar">
+  <h1><a href="index.html" style="color:inherit;text-decoration:none">📚 Inglés 2º ESO</a></h1>
+  <div class="subtitle">Repaso para el examen final</div>
+  <h2>🗣️ Grammar</h2>
+  <a href="present-perfect.html" class="">Present Perfect S/C</a>
+  <a href="reported-speech.html" class="">Reported Speech</a>
+  <a href="conditionals.html" class="">Conditionals</a>
+  <a href="wish-if-only.html" class="">I wish / If only</a>
+  <a href="question-tags.html" class="">Question Tags</a>
+  <a href="articles.html" class="">Articles (a/an/the/∅)</a>
+  <a href="passive.html" class="">Passive Voice</a>
+  <a href="indefinite-pronouns.html" class="">Indefinite Pronouns</a>
+  <a href="nor-neither-so.html" class="">Nor / Neither / So</a>
+  <h2>📖 Vocabulary</h2>
+  <a href="vocabulary.html">Units 1-3, 5-11</a>
+  <h2>🎯 Simulacro</h2>
+  <a href="simulacro.html">Examen mixto</a>
+
+</nav>
+<main class="main">
+  <div class="breadcrumb"><a href="index.html">Inicio</a> / Vocabulary</div>
+  <h1 class="page-title">Vocabulary</h1>
+  <p class="intro">Units 1-3, 5-11 del libro de texto.</p>
+
+  <div class="section">
+    <h2>📖 Resumen</h2>
+    <div class="theory-box">
+      <strong>U1:</strong> Personality adjectives (generous, lazy, honest...)<br>
+      <strong>U3:</strong> Expressions with GET (get up, get on, get in...)<br>
+      <strong>U5:</strong> Music + Expressions with OUT<br>
+      <strong>U6:</strong> Environment (recycle, carbon footprint...)<br>
+      <strong>U7:</strong> Expressions with ABOUT (worry about, think about...)<br>
+      <strong>U8:</strong> Directions + Science<br>
+      <strong>U9:</strong> Jobs — work as/for/in<br>
+      <strong>U10:</strong> Time linkers (when, as soon as, until...)<br>
+      <strong>U11:</strong> Expressions with MAKE (make plans, make someone laugh...)
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>✏️ Ejercicio 1 — Vocabulary mix — <span id="round-label">Ronda 1/3</span></h2>
+    <p style="color:var(--text2);margin-bottom:14px">Completa cada frase con la palabra o expresión correcta.</p>
+    <div id="ex-vocab"></div>
+    <div class="btn-section">
+      <button class="btn btn-check-all" onclick="checkAllVocab()">✅ Corregir todo</button>
+      <button class="btn btn-reset" onclick="resetVocab()">🔄 Limpiar todo</button>
+      <button class="btn btn-next" onclick="nextRound()" id="btn-next-round">▶️ Siguiente ronda</button>
+    </div>
+    <div id="ex-vocab-score" class="score-box" style="display:none"></div>
+  </div>
+</main>
+</div>
+
+<script src="exercises.js?v=6"></script>
+<script>
+// ============================================================
+// POOL DE PREGUNTAS (~47)
+// ============================================================
+var VOCAB_POOL = [
+  // --- U1: Personality adjectives ---
+  {stem: "She always shares her things. She is very __________________.", answer: "generous", alts: []},
+  {stem: "He never does his homework. He is really __________________.", answer: "lazy", alts: []},
+  {stem: "My sister always tells the truth. She is __________________.", answer: "honest", alts: []},
+  {stem: "He gets angry easily. He is very __________________.", answer: "impatient", alts: ["temperamental"]},
+  {stem: "She always helps others. She is so __________________.", answer: "kind", alts: ["helpful"]},
+  {stem: "My brother is very __________________. He talks to everyone.", answer: "friendly", alts: ["outgoing", "sociable"]},
+  {stem: "She never lies. She is very __________________.", answer: "honest", alts: ["truthful"]},
+  {stem: "He doesn't like waiting. He's very __________________.", answer: "impatient", alts: []},
+  {stem: "She always thinks about other people's feelings. She's __________________.", answer: "caring", alts: ["considerate", "thoughtful"]},
+  {stem: "He loves meeting new people. He's very __________________.", answer: "outgoing", alts: ["friendly", "sociable"]},
+
+  // --- U3: Expressions with GET ---
+  {stem: "I need to __________________ early tomorrow (levantarse).", answer: "get up", alts: []},
+  {stem: "Let's __________________ the bus at the next stop (subir).", answer: "get on", alts: []},
+  {stem: "I can't __________________ this noise (soportar).", answer: "stand", alts: ["tolerate", "get used to"]},
+  {stem: "She __________________ well with all her classmates (llevarse bien).", answer: "gets on", alts: ["gets along"]},
+  {stem: "I need to __________________ of the car (bajarse).", answer: "get out", alts: []},
+  {stem: "He __________________ the train at the station (bajarse).", answer: "got off", alts: ["got out of"]},
+  {stem: "I want to __________________ this jacket. It doesn't fit (quitarse).", answer: "take off", alts: ["get off"]},
+  {stem: "We need to __________________ home before dark (llegar).", answer: "get", alts: ["get to"]},
+  {stem: "He's trying to __________________ smoking (dejar).", answer: "give up", alts: ["quit"]},
+  {stem: "She __________________ her coat and left (ponerse).", answer: "put on", alts: ["got dressed in"]},
+
+  // --- U5: Music + Expressions with OUT ---
+  {stem: "She plays the __________________ in an orchestra.", answer: "violin", alts: ["flute", "piano", "guitar", "drums"]},
+  {stem: "Let's __________________ for dinner tonight (salir).", answer: "eat out", alts: ["go out"]},
+  {stem: "He plays the __________________ in a rock band.", answer: "guitar", alts: ["drums", "piano"]},
+  {stem: "She has a beautiful __________________. She sings very well.", answer: "voice", alts: []},
+  {stem: "I can't __________________ what he's saying. It's too loud (oír).", answer: "hear", alts: ["make out"]},
+  {stem: "Let's __________________ who can run the fastest (descubrir).", answer: "find out", alts: []},
+
+  // --- U6: Environment ---
+  {stem: "We should __________________ more to save the planet.", answer: "recycle", alts: []},
+  {stem: "______________ change is a serious problem.", answer: "climate", alts: []},
+  {stem: "We need to reduce our carbon __________________.", answer: "footprint", alts: []},
+  {stem: "We shouldn't waste __________________ water.", answer: "so much", alts: ["too much"]},
+  {stem: "We must protect endangered __________________.", answer: "species", alts: ["animals"]},
+  {stem: "Solar and wind are forms of renewable __________________.", answer: "energy", alts: []},
+
+  // --- U7: Expressions with ABOUT ---
+  {stem: "I'm __________________ organizing the school party.", answer: "thinking about", alts: ["excited about"]},
+  {stem: "Don't worry __________________ the food. I'll bring pizza.", answer: "about", alts: []},
+  {stem: "I'm very excited __________________ my holiday next week.", answer: "about", alts: []},
+  {stem: "She's worried __________________ her exam results.", answer: "about", alts: []},
+  {stem: "We need to talk __________________ the problem.", answer: "about", alts: []},
+  {stem: "He's crazy __________________ football. He never misses a match.", answer: "about", alts: []},
+
+  // --- U8: Directions + Science ---
+  {stem: "Go straight __________________ and turn left at the bank.", answer: "ahead", alts: ["on"]},
+  {stem: "A __________________ studies plants and animals.", answer: "biologist", alts: ["scientist"]},
+  {stem: "Turn __________________ at the traffic lights (izquierda).", answer: "left", alts: []},
+  {stem: "Go __________________ the street and you'll see the museum (cruzar).", answer: "across", alts: ["along"]},
+  {stem: "The chemist's is __________________ the corner of the street (en la esquina).", answer: "on", alts: ["at"]},
+  {stem: "A __________________ studies the stars and planets.", answer: "astronomer", alts: ["scientist"]},
+
+  // --- U9: Jobs — work as/for/in ---
+  {stem: "She works __________________ a nurse at the hospital.", answer: "as", alts: []},
+  {stem: "My dad works __________________ a big company.", answer: "for", alts: []},
+  {stem: "I work __________________ an office in the city centre.", answer: "in", alts: []},
+  {stem: "She wants to work __________________ a doctor when she grows up.", answer: "as", alts: []},
+  {stem: "He works __________________ a hospital in Barcelona.", answer: "in", alts: ["at"]},
+  {stem: "My uncle works __________________ a bank.", answer: "for", alts: ["in"]},
+
+  // --- U10: Time linkers ---
+  {stem: "I was doing my homework __________________ my mum called.", answer: "when", alts: []},
+  {stem: "I will call you __________________ I finish work.", answer: "as soon as", alts: ["when", "after"]},
+  {stem: "Wait here __________________ I come back.", answer: "until", alts: ["till"]},
+  {stem: "She studied __________________ she fell asleep.", answer: "until", alts: ["till"]},
+  {stem: "__________________ I arrived, the film had already started.", answer: "when", alts: ["by the time"]},
+  {stem: "Please close the door __________________ you leave.", answer: "when", alts: ["as soon as", "before"]},
+
+  // --- U11: Expressions with MAKE ---
+  {stem: "Let's __________________ plans for the weekend.", answer: "make", alts: []},
+  {stem: "She always __________________ me laugh.", answer: "makes", alts: []},
+  {stem: "He asked me __________________ help him.", answer: "to", alts: []},
+  {stem: "Can you __________________ me a favour?", answer: "do", alts: ["make"]},
+  {stem: "I need to __________________ a decision soon.", answer: "make", alts: []},
+  {stem: "She __________________ her bed every morning.", answer: "makes", alts: []},
+  {stem: "Don't __________________ so much noise! The baby is sleeping.", answer: "make", alts: []},
+  {stem: "I have to __________________ a phone call.", answer: "make", alts: []}
+];
+
+var ROUND_SIZE = 12;
+var TOTAL_ROUNDS = 3;
+var currentData = [];
+var roundNum = 1;
+
+// ============================================================
+// Utilidad: seleccionar N aleatorios sin repetir
+// ============================================================
+function pickRandom(arr, n) {
+  var shuffled = arr.slice();
+  for (var i = shuffled.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = shuffled[i];
+    shuffled[i] = shuffled[j];
+    shuffled[j] = tmp;
+  }
+  return shuffled.slice(0, n);
+}
+
+// ============================================================
+// Gestión de rondas
+// ============================================================
+function loadRound() {
+  try {
+    roundNum = parseInt(localStorage.getItem('vocab-round')) || 1;
+  } catch(e) { roundNum = 1; }
+  if (roundNum < 1) roundNum = 1;
+  if (roundNum > TOTAL_ROUNDS) roundNum = TOTAL_ROUNDS;
+}
+
+function saveRound() {
+  try { localStorage.setItem('vocab-round', roundNum); } catch(e) {}
+}
+
+function startRound() {
+  currentData = pickRandom(VOCAB_POOL, ROUND_SIZE);
+  var container = document.getElementById('ex-vocab');
+  container.innerHTML = '';
+  renderExercises(currentData, 'ex-vocab', 'Escribe la palabra...');
+  document.getElementById('round-label').textContent = 'Ronda ' + roundNum + '/' + TOTAL_ROUNDS;
+  var btn = document.getElementById('btn-next-round');
+  if (roundNum >= TOTAL_ROUNDS) {
+    btn.textContent = '🔄 Empezar de nuevo';
+    btn.disabled = false;
+  } else {
+    btn.textContent = '▶️ Siguiente ronda';
+    btn.disabled = false;
+  }
+  // Reset score
+  var scoreBox = document.getElementById('ex-vocab-score');
+  if (scoreBox) { scoreBox.style.display = 'none'; scoreBox.innerHTML = ''; }
+  // Reset inputs feedback
+  for (var i = 1; i <= ROUND_SIZE; i++) {
+    var fb = document.getElementById('fb-ex-vocab-' + i);
+    if (fb) { fb.className = 'feedback-line'; fb.textContent = ''; }
+    var hint = document.getElementById('hint-ex-vocab-' + i);
+    if (hint) { hint.className = 'hint-box'; hint.innerHTML = ''; }
+  }
+}
+
+function nextRound() {
+  if (roundNum >= TOTAL_ROUNDS) {
+    roundNum = 1;
+    saveRound();
+    startRound();
+    return;
+  }
+  roundNum++;
+  saveRound();
+  startRound();
+}
+
+// ============================================================
+// Inicialización
+// ============================================================
+loadRound();
+startRound();
+
+// ============================================================
+// Corrección
+// ============================================================
+function checkAllVocab() {
+  var correct = 0;
+  var answered = 0;
+  var total = currentData.length;
+  for (var i = 1; i <= total; i++) {
+    checkOne('ex-vocab', i);
+    var inp = document.getElementById('inp-ex-vocab-' + i);
+    if (inp) {
+      var _empty = inp.value.trim() === '';
+      if (!_empty || inp.classList.contains('correct')) {
+        answered++;
+        if (inp.classList.contains('correct')) correct++;
+      }
+    }
+  }
+  var denom = answered > 0 ? answered : 1;
+  var pct = Math.round((correct / denom) * 100);
+  var score = document.getElementById('ex-vocab-score');
+  score.style.display = 'block';
+  var msg = '🎯 ' + correct + '/' + answered + ' correctas (' + pct + '%)';
+  if (answered === 0) msg = '✏️ Responde al menos una pregunta';
+  else if (pct === 100) msg += ' ¡Perfecto! 🏆';
+  else if (pct >= 70) msg += ' Muy bien 👍';
+  else msg += ' Sigue practicando 💪';
+  score.innerHTML = '<span class="big">' + correct + '/' + answered + '</span><br>' + msg;
+}
+
+function resetVocab() {
+  resetAll('ex-vocab', currentData.length);
+}
+</script>
+</body>
+</html>

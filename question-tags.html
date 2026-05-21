@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Question Tags — 2º ESO</title>
+<link rel="stylesheet" href="style.css?v=3">
+</head>
+<body data-topic="question-tags">
+<div class="container">
+<nav class="sidebar">
+  <h1><a href="index.html" style="color:inherit;text-decoration:none">📚 Inglés 2º ESO</a></h1>
+  <div class="subtitle">Repaso para el examen final</div>
+  <h2>🗣️ Grammar</h2>
+  <a href="present-perfect.html" class="">Present Perfect S/C</a>
+  <a href="reported-speech.html" class="">Reported Speech</a>
+  <a href="conditionals.html" class="">Conditionals</a>
+  <a href="wish-if-only.html" class="">I wish / If only</a>
+  <a href="question-tags.html" class=" active">Question Tags</a>
+  <a href="articles.html" class="">Articles (a/an/the/∅)</a>
+  <a href="passive.html" class="">Passive Voice</a>
+  <a href="indefinite-pronouns.html" class="">Indefinite Pronouns</a>
+  <a href="nor-neither-so.html" class="">Nor / Neither / So</a>
+  <h2>📖 Vocabulary</h2>
+  <a href="vocabulary.html">Units 1-3, 5-11</a>
+  <h2>🎯 Simulacro</h2>
+  <a href="simulacro.html">Examen mixto</a>
+
+</nav>
+<main class="main">
+  <div class="breadcrumb"><a href="index.html">Inicio</a> / Question Tags</div>
+  <h1 class="page-title">Question Tags</h1>
+  <p class="intro">Las "preguntas colgantes" al final de la frase.</p>
+
+  <div class="section">
+    <h2>📖 Teoría rápida</h2>
+    <div class="theory-box"><strong>Afirmativa → tag negativa. Negativa → tag afirmativa.</strong><br>Usa el mismo auxiliar (do/does, is/are, have/has, can, will...)<br><code>Let's → shall we?</code> · <code>I am → aren't I?</code><br><code>Imperativo → will you?</code></div><div class="example"><span class="en">She is professional, <strong>isn't she?</strong></span></div><div class="example"><span class="en">You don't know him, <strong>do you?</strong></span></div>
+  </div>
+
+  <div class="section">
+    <h2>✏️ Ejercicio 1 <span id="round-label">Ronda 1/3</span></h2>
+    <p style="color:var(--text2);margin-bottom:14px">Completa cada frase.</p>
+    <div id="ex-question_tags"></div>
+    <div class="btn-section">
+      <button class="btn btn-check-all" onclick="checkAllQuestionTags()">✅ Corregir todo</button>
+      <button class="btn btn-reset" onclick="resetQuestionTags()">🔄 Limpiar todo</button>
+      <button class="btn btn-next" onclick="nextRound()" id="btn-next-round">▶️ Siguiente ronda</button>
+    </div>
+    <div id="ex-question_tags-score" class="score-box" style="display:none"></div>
+  </div>
+</main>
+</div>
+
+<script src="exercises.js?v=6"></script>
+<script>
+// ============================================================
+// POOL DE PREGUNTAS (~40)
+// ============================================================
+var QUESTION_TAGS_POOL = [
+  // --- to be ---
+  {stem:"She isn't happy about the wedding, __________________?", answer:"is she", alts:[]},
+  {stem:"She was in Lisbon last week, __________________?", answer:"wasn't she", alts:[]},
+  {stem:"She isn't coming with you, __________________?", answer:"is she", alts:[]},
+  {stem:"It is snowing in Boston, __________________?", answer:"isn't it", alts:[]},
+  {stem:"You were at the party last night, __________________?", answer:"weren't you", alts:[]},
+  {stem:"He isn't a teacher, __________________?", answer:"is he", alts:[]},
+  {stem:"They are from Italy, __________________?", answer:"aren't they", alts:[]},
+  {stem:"I am on the wrong bus, __________________?", answer:"aren't i", alts:["am i not"]},
+  {stem:"I am too old to run a marathon, __________________?", answer:"aren't i", alts:[]},
+  {stem:"That isn't your car, __________________?", answer:"is it", alts:[]},
+
+  // --- do/does/did ---
+  {stem:"You took part in the race, __________________?", answer:"didn't you", alts:[]},
+  {stem:"Olivia feeds your cat every night, __________________?", answer:"doesn't she", alts:[]},
+  {stem:"They didn't pass the exam, __________________?", answer:"did they", alts:[]},
+  {stem:"You don't know where my keys are, __________________?", answer:"do you", alts:[]},
+  {stem:"Simon apologised for being late, __________________?", answer:"didn't he", alts:[]},
+  {stem:"Cameron teaches in a private studio, __________________?", answer:"doesn't he", alts:[]},
+  {stem:"Debbie doesn't work for you anymore, __________________?", answer:"does she", alts:[]},
+  {stem:"The students wanted to surprise her, __________________?", answer:"didn't they", alts:[]},
+  {stem:"You like chocolate, __________________?", answer:"don't you", alts:[]},
+  {stem:"He doesn't play tennis, __________________?", answer:"does he", alts:[]},
+  {stem:"They arrived late, __________________?", answer:"didn't they", alts:[]},
+  {stem:"Your sister studies French, __________________?", answer:"doesn't she", alts:[]},
+
+  // --- have/has ---
+  {stem:"Lily hasn't seen her siblings, __________________?", answer:"has she", alts:[]},
+  {stem:"They have borrowed two books, __________________?", answer:"haven't they", alts:[]},
+  {stem:"He has finished his homework, __________________?", answer:"hasn't he", alts:[]},
+  {stem:"She hasn't eaten anything, __________________?", answer:"has she", alts:[]},
+
+  // --- will ---
+  {stem:"You will book the flights, __________________?", answer:"won't you", alts:[]},
+  {stem:"Fiona will help me, __________________?", answer:"won't she", alts:[]},
+  {stem:"They won't come to the party, __________________?", answer:"will they", alts:[]},
+
+  // --- can/could ---
+  {stem:"You could post your pictures online, __________________?", answer:"couldn't you", alts:[]},
+  {stem:"She can swim very well, __________________?", answer:"can't she", alts:[]},
+  {stem:"He can't drive a car, __________________?", answer:"can he", alts:[]},
+
+  // --- imperatives & let's ---
+  {stem:"Let's go shopping, __________________?", answer:"shall we", alts:[]},
+  {stem:"Give Sam a lift if it rains, __________________?", answer:"will you", alts:[]},
+  {stem:"Don't forget to text me, __________________?", answer:"will you", alts:[]},
+  {stem:"Take the dog for a walk, __________________?", answer:"will you", alts:[]},
+  {stem:"Let's begin, __________________?", answer:"shall we", alts:[]},
+  {stem:"Don't stay up late, __________________?", answer:"will you", alts:[]},
+  {stem:"Close the window, __________________?", answer:"will you", alts:[]},
+  {stem:"Let's have a break, __________________?", answer:"shall we", alts:[]}
+];
+
+// ============================================================
+// Round system
+// ============================================================
+var ROUND_SIZE = 13;
+var TOTAL_ROUNDS = 3;
+var currentData = [];
+var roundNum = 1;
+
+function pickRandom(arr, n) {
+  var shuffled = arr.slice();
+  for (var i = shuffled.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = shuffled[i];
+    shuffled[i] = shuffled[j];
+    shuffled[j] = tmp;
+  }
+  return shuffled.slice(0, n);
+}
+
+function loadRound() {
+  try {
+    roundNum = parseInt(localStorage.getItem('question-tags-round')) || 1;
+  } catch(e) { roundNum = 1; }
+  if (roundNum < 1) roundNum = 1;
+  if (roundNum > TOTAL_ROUNDS) roundNum = TOTAL_ROUNDS;
+}
+
+function saveRound() {
+  try { localStorage.setItem('question-tags-round', roundNum); } catch(e) {}
+}
+
+function startRound() {
+  currentData = pickRandom(QUESTION_TAGS_POOL, ROUND_SIZE);
+  var container = document.getElementById('ex-question_tags');
+  container.innerHTML = '';
+  renderExercises(currentData, 'ex-question_tags', 'Ej: is she, aren\'t I, will you...');
+  document.getElementById('round-label').textContent = 'Ronda ' + roundNum + '/' + TOTAL_ROUNDS;
+  var btn = document.getElementById('btn-next-round');
+  if (roundNum >= TOTAL_ROUNDS) {
+    btn.textContent = '🔄 Empezar de nuevo';
+    btn.disabled = false;
+  } else {
+    btn.textContent = '▶️ Siguiente ronda';
+    btn.disabled = false;
+  }
+  // Reset score
+  var scoreBox = document.getElementById('ex-question_tags-score');
+  if (scoreBox) { scoreBox.style.display = 'none'; scoreBox.innerHTML = ''; }
+  // Reset inputs feedback
+  for (var i = 1; i <= ROUND_SIZE; i++) {
+    var fb = document.getElementById('fb-ex-question_tags-' + i);
+    if (fb) { fb.className = 'feedback-line'; fb.textContent = ''; }
+    var hint = document.getElementById('hint-ex-question_tags-' + i);
+    if (hint) { hint.className = 'hint-box'; hint.innerHTML = ''; }
+  }
+}
+
+function nextRound() {
+  if (roundNum >= TOTAL_ROUNDS) {
+    roundNum = 1;
+    saveRound();
+    startRound();
+    return;
+  }
+  roundNum++;
+  saveRound();
+  startRound();
+}
+
+// ============================================================
+// Inicialización
+// ============================================================
+loadRound();
+startRound();
+
+// ============================================================
+// Corrección
+// ============================================================
+function checkAllQuestionTags() {
+  var correct = 0;
+  var answered = 0;
+  var total = currentData.length;
+  for (var i = 1; i <= total; i++) {
+    checkOne('ex-question_tags', i);
+    var inp = document.getElementById('inp-ex-question_tags-' + i);
+    if (inp) {
+      var _empty = inp.value.trim() === '';
+      if (!_empty || inp.classList.contains('correct')) {
+        answered++;
+        if (inp.classList.contains('correct')) correct++;
+      }
+    }
+  }
+  var denom = answered > 0 ? answered : 1;
+  var pct = Math.round((correct / denom) * 100);
+  var score = document.getElementById('ex-question_tags-score');
+  score.style.display = 'block';
+  var msg = '🎯 ' + correct + '/' + answered + ' correctas (' + pct + '%)';
+  if (answered === 0) msg = '✏️ Responde al menos una pregunta';
+  else if (pct === 100) msg += ' ¡Perfecto! 🏆';
+  else if (pct >= 70) msg += ' Muy bien 👍';
+  else msg += ' Sigue practicando 💪';
+  score.innerHTML = '<span class="big">' + correct + '/' + answered + '</span><br>' + msg;
+}
+
+function resetQuestionTags() {
+  resetAll('ex-question_tags', currentData.length);
+}
+</script>
+</body>
+</html>

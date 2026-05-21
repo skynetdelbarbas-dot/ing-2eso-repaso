@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulacro — 2º ESO</title>
+<link rel="stylesheet" href="style.css?v=3">
+</head>
+<body data-topic="simulacro">
+<div class="container">
+<nav class="sidebar">
+  <h1><a href="index.html" style="color:inherit;text-decoration:none">📚 Inglés 2º ESO</a></h1>
+  <div class="subtitle">Repaso para el examen final</div>
+  <h2>🗣️ Grammar</h2>
+  <a href="present-perfect.html" class="">Present Perfect S/C</a>
+  <a href="reported-speech.html" class="">Reported Speech</a>
+  <a href="conditionals.html" class="">Conditionals</a>
+  <a href="wish-if-only.html" class="">I wish / If only</a>
+  <a href="question-tags.html" class="">Question Tags</a>
+  <a href="articles.html" class="">Articles (a/an/the/∅)</a>
+  <a href="passive.html" class="">Passive Voice</a>
+  <a href="indefinite-pronouns.html" class="">Indefinite Pronouns</a>
+  <a href="nor-neither-so.html" class="">Nor / Neither / So</a>
+  <h2>📖 Vocabulary</h2>
+  <a href="vocabulary.html">Units 1-3, 5-11</a>
+  <h2>🎯 Simulacro</h2>
+  <a href="simulacro.html">Examen mixto</a>
+
+</nav>
+<main class="main">
+  <div class="breadcrumb"><a href="index.html">Inicio</a> / Simulacro</div>
+  <h1 class="page-title">🎯 Simulacro</h1>
+  <p class="intro">Examen mixto con todos los temas.</p>
+
+  <div class="section">
+    <h2>Instrucciones</h2>
+    <div class="theory-box">
+      Este simulacro mezcla <strong>todos los temas</strong> del examen.<br>
+      Intenta completar las 15 preguntas sin mirar las soluciones.<br>
+      Luego pulsa "Corregir todo" para ver tu nota.
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>✏️ Examen mixto</h2>
+    <div id="ex-sim"></div>
+    <div class="btn-section">
+      <button class="btn btn-check-all" onclick="checkAllSim()">✅ Corregir todo</button>
+      <button class="btn btn-reset" onclick="resetSim()">🔄 Limpiar todo</button>
+    </div>
+    <div id="ex-sim-score" class="score-box" style="display:none"></div>
+  </div>
+</main>
+</div>
+
+<script src="exercises.js?v=6"></script>
+<script>
+const SIM_DATA = [{"stem": "I haven't seen him __________________ ages.", "answer": "for", "alts": []}, {"stem": "If I __________________ (be) you, I would study harder.", "answer": "were", "alts": []}, {"stem": "She said she __________________ (be) tired.", "answer": "was", "alts": []}, {"stem": "This book __________________ (write) by J.K. Rowling.", "answer": "was written", "alts": []}, {"stem": "You don't like coffee, __________________?", "answer": "do you", "alts": []}, {"stem": "I wish I __________________ (know) the answer.", "answer": "knew", "alts": []}, {"stem": "There isn't __________________ milk in the fridge.", "answer": "any", "alts": []}, {"stem": "If it rains, we __________________ (stay) at home.", "answer": "will stay", "alts": []}, {"stem": "Let's go to the cinema, __________________?", "answer": "shall we", "alts": []}, {"stem": "I __________________ (not finish) my homework yet.", "answer": "haven't finished", "alts": ["have not finished"]}, {"stem": "If I had known, I __________________ (tell) you.", "answer": "would have told", "alts": []}, {"stem": "He can't swim and __________________ can I.", "answer": "neither", "alts": ["nor"]}, {"stem": "______________ you ever __________________ (be) to Rome?", "answer": "have been", "alts": []}, {"stem": "Mount Everest is __________________ highest mountain.", "answer": "the", "alts": []}, {"stem": "She asked me __________________ help her.", "answer": "to", "alts": []}];
+
+renderExercises(SIM_DATA, "ex-sim", "Escribe la respuesta...");
+
+function checkAllSim() {
+  let correct = 0;
+  const total = SIM_DATA.length;
+  for (let i = 1; i <= total; i++) {
+    checkOne("ex-sim", i);
+    const inp = document.getElementById("inp-ex-sim-" + i);
+    if (inp && inp.classList.contains('correct')) correct++;
+  }
+  const pct = Math.round((correct / total) * 100);
+  const score = document.getElementById('ex-sim-score');
+  score.style.display = 'block';
+  let msg = `🎯 ${correct}/${total} correctas (${pct}%)`;
+  if (pct === 100) msg += ' ¡Perfecto! 🏆';
+  else if (pct >= 70) msg += ' Muy bien 👍';
+  else msg += ' Sigue practicando 💪';
+  score.innerHTML = `<span class="big">${correct}/${total}</span><br>${msg}`;
+}
+
+function resetSim() {
+  resetAll("ex-sim", SIM_DATA.length);
+}
+</script>
+</body>
+</html>

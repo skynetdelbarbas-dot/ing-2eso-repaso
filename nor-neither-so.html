@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nor / Neither / So — 2º ESO</title>
+<link rel="stylesheet" href="style.css?v=3">
+</head>
+<body data-topic="nor-neither-so">
+<div class="container">
+<nav class="sidebar">
+  <h1><a href="index.html" style="color:inherit;text-decoration:none">📚 Inglés 2º ESO</a></h1>
+  <div class="subtitle">Repaso para el examen final</div>
+  <h2>🗣️ Grammar</h2>
+  <a href="present-perfect.html">Present Perfect S/C</a>
+  <a href="reported-speech.html">Reported Speech</a>
+  <a href="conditionals.html">Conditionals</a>
+  <a href="wish-if-only.html">I wish / If only</a>
+  <a href="question-tags.html">Question Tags</a>
+  <a href="articles.html">Articles (a/an/the/∅)</a>
+  <a href="passive.html">Passive Voice</a>
+  <a href="indefinite-pronouns.html">Indefinite Pronouns</a>
+  <a href="nor-neither-so.html" class="active">Nor / Neither / So</a>
+  <h2>📖 Vocabulary</h2>
+  <a href="vocabulary.html">Units 1-3, 5-11</a>
+  <h2>🎯 Simulacro</h2>
+  <a href="simulacro.html">Examen mixto</a>
+</nav>
+
+<main class="main">
+  <div class="breadcrumb"><a href="index.html">Inicio</a> / Nor / Neither / So</div>
+  <h1 class="page-title">Nor / Neither / So</h1>
+  <p class="intro">Expresa acuerdo con frases afirmativas y negativas.</p>
+
+  <div class="section">
+    <h2>📖 Teoría rápida</h2>
+    <div class="theory-box">
+      <strong>SO + auxiliar + sujeto</strong> → acuerdo <strong>positivo</strong>.<br>
+      <em>"She likes pizza." → "So do I."</em><br><br>
+      <strong>NEITHER / NOR + auxiliar + sujeto</strong> → acuerdo <strong>negativo</strong>.<br>
+      <em>"She doesn't like pizza." → "Neither do I." / "Nor do I."</em><br><br>
+      El auxiliar debe coincidir: <code>is → so am I</code> · <code>can → so can she</code> · <code>has → so has he</code> · <code>does → so does he</code>
+    </div>
+    <div class="example"><span class="en">I love chocolate. → <strong>So do I.</strong></span></div>
+    <div class="example"><span class="en">I don't like spiders. → <strong>Neither do I.</strong></span></div>
+  </div>
+
+  <div class="section" id="ex-ns">
+    <h2>✏️ Ejercicios — <span id="round-label">Ronda 1/3</span></h2>
+    <p style="color:var(--text2);margin-bottom:14px">Escribe la respuesta completa. Hay <strong>múltiples respuestas posibles</strong> (según contexto), aceptamos cualquier combinación correcta de so/neither/nor + auxiliar + sujeto.</p>
+    <div id="ex-list-ns"></div>
+    <div class="btn-section">
+      <button class="btn btn-check-all" onclick="checkAllNS()">✅ Corregir todo</button>
+      <button class="btn btn-reset" onclick="resetNS()">🔄 Limpiar todo</button>
+      <button class="btn btn-next" onclick="nextRound()" id="btn-next-round">▶️ Siguiente ronda</button>
+    </div>
+    <div id="ns-score" class="score-box" style="display:none"></div>
+  </div>
+</main>
+</div>
+
+<script src="exercises.js?v=6"></script>
+<script>
+var NS_POOL = [
+  { stem: "I don't like broccoli.", expected: ["neither do i", "nor do i"] },
+  { stem: "She is a doctor.", expected: ["so is he", "so is she", "so am i"] },
+  { stem: "I haven't finished my homework.", expected: ["neither has tom", "nor has tom"] },
+  { stem: "They love pizza.", expected: ["so do we", "so do they", "so do i"] },
+  { stem: "He can't swim.", expected: ["neither can his brother", "nor can his brother", "neither can he", "nor can he"] },
+  { stem: "She passed the exam.", expected: ["so did i", "so did she", "so did he"] },
+  { stem: "I don't want to go out.", expected: ["neither do they", "nor do they", "neither do i", "nor do i"] },
+  { stem: "My mum is tired.", expected: ["so am i", "so is she", "so is he"] },
+  { stem: "He hasn't been to Paris.", expected: ["neither have i", "nor have i", "neither has she", "nor has she"] },
+  { stem: "They are going to the party.", expected: ["so are we", "so are they", "so am i"] },
+  { stem: "I can't play the guitar.", expected: ["neither can she", "nor can she", "neither can i", "nor can i"] },
+  { stem: "She speaks French.", expected: ["so do i", "so does he", "so does she"] },
+  { stem: "We don't have any money.", expected: ["neither do they", "nor do they", "neither do we", "nor do we"] },
+  { stem: "He was late.", expected: ["so was i", "so was she", "so was he"] },
+  { stem: "I won't tell anyone.", expected: ["neither will she", "nor will she", "neither will i", "nor will i"] },
+  { stem: "I love ice cream.", expected: ["so do i", "so does she", "so does he"] },
+  { stem: "She can't drive.", expected: ["neither can i", "nor can i", "neither can he", "nor can he"] },
+  { stem: "They are happy.", expected: ["so am i", "so is she", "so are we"] },
+  { stem: "I have a dog.", expected: ["so do i", "so does she", "so does he"] },
+  { stem: "He doesn't like coffee.", expected: ["neither do i", "nor do i", "neither does she", "nor does she"] },
+  { stem: "We are tired.", expected: ["so am i", "so is she", "so are they"] },
+  { stem: "She will help us.", expected: ["so will i", "so will he", "so will they"] },
+  { stem: "I didn't see the film.", expected: ["neither did i", "nor did i", "neither did she", "nor did she"] },
+  { stem: "He was born in 2000.", expected: ["so was i", "so was she", "so was he"] },
+  { stem: "They don't eat meat.", expected: ["neither do i", "nor do i", "neither do we", "nor do we"] },
+  { stem: "She can speak three languages.", expected: ["so can i", "so can he", "so can she"] },
+  { stem: "I've been to London.", expected: ["so have i", "so has she", "so has he"] },
+  { stem: "He isn't coming to the party.", expected: ["neither am i", "nor am i", "neither is she", "nor is she"] },
+  { stem: "They were at school yesterday.", expected: ["so was i", "so was she", "so were we"] },
+  { stem: "I would like to go.", expected: ["so would i", "so would she", "so would he"] },
+  { stem: "She doesn't have a car.", expected: ["neither do i", "nor do i", "neither does he", "nor does he"] },
+  { stem: "We'll be there on time.", expected: ["so will i", "so will she", "so will they"] },
+  { stem: "I couldn't sleep last night.", expected: ["neither could i", "nor could i", "neither could she", "nor could she"] },
+  { stem: "He has finished his work.", expected: ["so have i", "so has she", "so has he"] },
+  { stem: "They aren't interested.", expected: ["neither am i", "nor am i", "neither is she", "nor is she"] },
+];
+
+var ROUND_SIZE = 12;
+var TOTAL_ROUNDS = 3;
+var currentData = [];
+var roundNum = 1;
+
+function pickRandom(arr, n) {
+  var shuffled = arr.slice();
+  for (var i = shuffled.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = shuffled[i];
+    shuffled[i] = shuffled[j];
+    shuffled[j] = tmp;
+  }
+  return shuffled.slice(0, n);
+}
+
+function loadRound() {
+  try { roundNum = parseInt(localStorage.getItem('nor-neither-round')) || 1; } catch(e) { roundNum = 1; }
+  if (roundNum < 1) roundNum = 1;
+  if (roundNum > TOTAL_ROUNDS) roundNum = TOTAL_ROUNDS;
+}
+
+function saveRound() {
+  try { localStorage.setItem('nor-neither-round', roundNum); } catch(e) {}
+}
+
+function startRound() {
+  currentData = pickRandom(NS_POOL, ROUND_SIZE);
+  renderNS();
+  document.getElementById('round-label').textContent = 'Ronda ' + roundNum + '/' + TOTAL_ROUNDS;
+  var btn = document.getElementById('btn-next-round');
+  if (roundNum >= TOTAL_ROUNDS) {
+    btn.textContent = '🔄 Empezar de nuevo';
+    btn.disabled = false;
+  } else {
+    btn.textContent = '▶️ Siguiente ronda';
+    btn.disabled = false;
+  }
+  var scoreBox = document.getElementById('ns-score');
+  if (scoreBox) { scoreBox.style.display = 'none'; scoreBox.innerHTML = ''; }
+}
+
+function nextRound() {
+  if (roundNum >= TOTAL_ROUNDS) {
+    roundNum = 1;
+    saveRound();
+    startRound();
+    return;
+  }
+  roundNum++;
+  saveRound();
+  startRound();
+}
+
+// Render
+function renderNS() {
+  var container = document.getElementById('ex-list-ns');
+  container.innerHTML = '';
+  currentData.forEach(function(ex, i) {
+    var num = i + 1;
+    var card = document.createElement('div');
+    card.className = 'exercise-card';
+    card.id = 'ex-ns-' + num;
+    card.innerHTML = [
+      '<p class="stem"><strong>', num, '.</strong> ', ex.stem, '</p>',
+      '<p style="font-size:0.85rem;color:var(--text2);margin-bottom:6px">→ Escribe la respuesta completa:</p>',
+      '<input type="text" id="inp-ns-', num, '" placeholder="Ej: so do I, neither can she...">',
+      '<div class="btn-row">',
+        '<button class="btn-sm btn-check" onclick="checkNS(', num, ')">✅ Corregir</button>',
+        '<button class="btn-sm btn-answer" onclick="showAnswerNS(', num, ')">💡 Mostrar respuesta</button>',
+      '</div>',
+      '<div id="fb-ns-', num, '" class="feedback-line"></div>',
+      '<div id="hint-ns-', num, '" class="hint-box"></div>'
+    ].join('');
+    container.appendChild(card);
+  });
+}
+
+function checkNS(num) {
+  var input = document.getElementById('inp-ns-' + num);
+  var fb = document.getElementById('fb-ns-' + num);
+  var hint = document.getElementById('hint-ns-' + num);
+  if (!input || !fb) return;
+  var val = input.value.trim().toLowerCase();
+  var valid = currentData[num-1].expected;
+  if (valid.indexOf(val) !== -1) {
+    input.classList.remove('wrong');
+    input.classList.add('correct');
+    fb.className = 'feedback-line show ok';
+    fb.textContent = '✅ ¡Correcto!';
+    if (hint) hint.classList.remove('show');
+  } else {
+    input.classList.remove('correct');
+    input.classList.add('wrong');
+    fb.className = 'feedback-line show ko';
+    fb.textContent = '❌ Incorrecto. Revisa que el auxiliar coincida con la frase.';
+    if (hint) {
+      hint.className = 'hint-box show';
+      hint.innerHTML = '<strong>Posibles respuestas:</strong> <span class="correct-answer">' + valid.join(' · ') + '</span>';
+    }
+  }
+}
+
+function showAnswerNS(num) {
+  var input = document.getElementById('inp-ns-' + num);
+  var hint = document.getElementById('hint-ns-' + num);
+  if (!input) return;
+  var answers = currentData[num-1].expected;
+  input.value = answers[0];
+  input.classList.remove('wrong', 'correct');
+  if (hint) {
+    hint.className = 'hint-box show';
+    hint.innerHTML = '<strong>Posibles respuestas:</strong> <span class="correct-answer">' + answers.join(' · ') + '</span>';
+  }
+  var fb = document.getElementById('fb-ns-' + num);
+  if (fb) fb.className = 'feedback-line';
+}
+
+function checkAllNS() {
+  var correct = 0;
+  var answered = 0;
+  var total = currentData.length;
+  for (var i = 1; i <= total; i++) {
+    checkNS(i);
+    var inp = document.getElementById('inp-ns-' + i);
+    if (inp) {
+      var _empty = inp.value.trim() === '';
+      if (!_empty || inp.classList.contains('correct')) {
+        answered++;
+        if (inp.classList.contains('correct')) correct++;
+      }
+    }
+  }
+  var denom = answered > 0 ? answered : 1;
+  var pct = Math.round((correct / denom) * 100);
+  var score = document.getElementById('ns-score');
+  score.style.display = 'block';
+  var msg = '🎯 ' + correct + '/' + answered + ' correctas (' + pct + '%)';
+  if (answered === 0) msg = '✏️ Responde al menos una pregunta';
+  else if (pct === 100) msg += ' ¡Perfecto! 🏆';
+  else if (pct >= 70) msg += ' Muy bien 👍';
+  else msg += ' Sigue practicando 💪';
+  score.innerHTML = '<span class="big">' + correct + '/' + answered + '</span><br>' + msg;
+}
+
+function resetNS() {
+  for (var i = 0; i < currentData.length; i++) {
+    var num = i + 1;
+    var input = document.getElementById('inp-ns-' + num);
+    if (input) {
+      input.value = '';
+      input.classList.remove('correct', 'wrong');
+    }
+    var fb = document.getElementById('fb-ns-' + num);
+    if (fb) { fb.className = 'feedback-line'; fb.textContent = ''; }
+    var hint = document.getElementById('hint-ns-' + num);
+    if (hint) { hint.className = 'hint-box'; hint.innerHTML = ''; }
+  }
+  var scoreBox = document.getElementById('ns-score');
+  if (scoreBox) { scoreBox.style.display = 'none'; scoreBox.innerHTML = ''; }
+}
+
+loadRound();
+startRound();
+</script>
+</body>
+</html>

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reported Speech — 2º ESO</title>
+<link rel="stylesheet" href="style.css?v=3">
+<style>
+.exercise-card textarea {
+  width: 100%;
+  max-width: 600px;
+  min-height: 50px;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  margin-bottom: 8px;
+  resize: vertical;
+  transition: border-color 0.2s;
+}
+.exercise-card textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+</style>
+</head>
+<body data-topic="reported-speech">
+<div class="container">
+<nav class="sidebar">
+  <h1><a href="index.html" style="color:inherit;text-decoration:none">📚 Inglés 2º ESO</a></h1>
+  <div class="subtitle">Repaso para el examen final</div>
+  <h2>🗣️ Grammar</h2>
+  <a href="present-perfect.html">Present Perfect S/C</a>
+  <a href="reported-speech.html" class="active">Reported Speech</a>
+  <a href="conditionals.html">Conditionals</a>
+  <a href="wish-if-only.html">I wish / If only</a>
+  <a href="question-tags.html">Question Tags</a>
+  <a href="articles.html">Articles (a/an/the/∅)</a>
+  <a href="passive.html">Passive Voice</a>
+  <a href="indefinite-pronouns.html">Indefinite Pronouns</a>
+  <a href="nor-neither-so.html">Nor / Neither / So</a>
+  <h2>📖 Vocabulary</h2>
+  <a href="vocabulary.html">Units 1-3, 5-11</a>
+  <h2>🎯 Simulacro</h2>
+  <a href="simulacro.html">Examen mixto</a>
+</nav>
+
+<main class="main">
+  <div class="breadcrumb"><a href="index.html">Inicio</a> / Reported Speech</div>
+  <h1 class="page-title">Reported Speech</h1>
+  <p class="intro">Aprende a transformar frases directas en estilo indirecto.</p>
+
+  <div class="section">
+    <h2>📖 Teoría rápida</h2>
+    <div class="theory-box">
+      <strong>PASO 1:</strong> Quita las comillas y ajusta los pronombres.<br>
+      <strong>PASO 2:</strong> Cambia el tiempo verbal "un paso atrás":<br>
+      <code>Present Simple → Past Simple</code> · <code>Present Continuous → Past Continuous</code><br>
+      <code>Present Perfect → Past Perfect</code> · <code>Past Simple → Past Perfect</code><br>
+      <code>Will → Would</code> · <code>Can → Could</code> · <code>May → Might</code><br>
+      <strong>PASO 3:</strong> Ajusta expresiones de tiempo:<br>
+      <code>today → that day</code> · <code>tomorrow → the next day / the following day</code><br>
+      <code>yesterday → the day before</code> · <code>now → then</code>
+    </div>
+    <div class="example"><span class="en">"I am tired." → She said (that) she was tired.</span></div>
+    <div class="example"><span class="en">"I will help you." → He promised (that) he would help me.</span></div>
+  </div>
+
+  <div class="section" id="ex-rs">
+    <h2>✏️ Ejercicios — <span id="round-label">Ronda 1/3</span></h2>
+    <p style="color:var(--text2);margin-bottom:14px">Escribe la frase completa en estilo indirecto en el recuadro.</p>
+    <div id="ex-rs-list"></div>
+    <div class="btn-section">
+      <button class="btn btn-check-all" onclick="checkAllRS()">✅ Corregir todo</button>
+      <button class="btn btn-reset" onclick="resetRS()">🔄 Limpiar todo</button>
+      <button class="btn btn-next" onclick="nextRound()" id="btn-next-round">▶️ Siguiente ronda</button>
+    </div>
+    <div id="rs-score" class="score-box" style="display:none"></div>
+  </div>
+
+</main>
+</div>
+
+<script src="exercises.js?v=6"></script>
+<script>
+var RS_POOL = [
+  { id: 1, stem: 'He said, "I will be there by noon."', answer: "he said (that) he would be there by noon", alts: ["he said he would be there by noon"] },
+  { id: 2, stem: 'The twins said, "We are five years old."', answer: "the twins said (that) they were five years old", alts: ["the twins said they were five years old"] },
+  { id: 3, stem: 'Mum said, "You will have to get up early for the trip tomorrow."', answer: "mum said (that) i would have to get up early for the trip the next day", alts: ["mum said (that) i would have to get up early for the trip the following day"] },
+  { id: 4, stem: 'The teacher told her, "You speak English very well."', answer: "the teacher told her (that) she spoke english very well", alts: ["the teacher told her she spoke english very well"] },
+  { id: 5, stem: 'The doctor said, "Your mother will recover quickly."', answer: "the doctor said (that) my mother would recover quickly", alts: ["the doctor said (that) her mother would recover quickly"] },
+  { id: 6, stem: 'My aunt said, "I am leaving early on Friday morning."', answer: "my aunt said (that) she was leaving early on friday morning", alts: [] },
+  { id: 7, stem: 'The boy said, "I have been to Australia before."', answer: "the boy said (that) he had been to australia before", alts: [] },
+  { id: 8, stem: 'Herbert said, "We are going to live in Manchester."', answer: "herbert said (that) they were going to live in manchester", alts: [] },
+  { id: 9, stem: 'Jennifer said, "I have already read that book."', answer: "jennifer said (that) she had already read that book", alts: [] },
+  { id: 10, stem: 'Jim said, "I hope it won\'t rain tomorrow."', answer: "jim said (that) he hoped it wouldn't rain the next day", alts: ["jim said (that) he hoped it wouldn't rain the following day"] },
+  { id: 11, stem: 'My mum said, "You can go shopping later."', answer: "my mum said (that) i could go shopping later", alts: [] },
+  { id: 12, stem: 'She told me, "We are going to spend the weekend in Barcelona."', answer: "she told me (that) they were going to spend the weekend in barcelona", alts: [] },
+  { id: 13, stem: 'He said, "I have finished my homework."', answer: "he said (that) he had finished his homework", alts: [] },
+  { id: 14, stem: 'She said, "I don\'t like coffee."', answer: "she said (that) she didn't like coffee", alts: ["she said (that) she did not like coffee"] },
+  { id: 15, stem: 'Tom said, "I am studying for my exam."', answer: "tom said (that) he was studying for his exam", alts: [] },
+  { id: 16, stem: 'They said, "We have never been to Japan."', answer: "they said (that) they had never been to japan", alts: [] },
+  { id: 17, stem: 'She said, "I will call you later."', answer: "she said (that) she would call me later", alts: ["she said (that) she would call you later"] },
+  { id: 18, stem: 'He said, "I can swim very well."', answer: "he said (that) he could swim very well", alts: [] },
+  { id: 19, stem: 'My sister said, "I am reading a great book."', answer: "my sister said (that) she was reading a great book", alts: [] },
+  { id: 20, stem: 'The man said, "I work in a bank."', answer: "the man said (that) he worked in a bank", alts: [] },
+  { id: 21, stem: 'She said, "I bought a new car yesterday."', answer: "she said (that) she had bought a new car the day before", alts: ["she said (that) she had bought a new car the previous day"] },
+  { id: 22, stem: 'He said, "We are moving to London next month."', answer: "he said (that) they were moving to london the following month", alts: ["he said (that) they were moving to london the next month"] },
+  { id: 23, stem: 'The teacher said, "You must do your homework."', answer: "the teacher said (that) i had to do my homework", alts: ["the teacher said (that) we had to do our homework"] },
+  { id: 24, stem: 'She said, "I may be late for the meeting."', answer: "she said (that) she might be late for the meeting", alts: [] },
+  { id: 25, stem: 'He said, "I have been working all day."', answer: "he said (that) he had been working all day", alts: [] },
+  { id: 26, stem: 'They said, "We will help you with the project."', answer: "they said (that) they would help me with the project", alts: ["they said (that) they would help us with the project"] },
+  { id: 27, stem: 'She said, "I don\'t know the answer."', answer: "she said (that) she didn't know the answer", alts: ["she said (that) she did not know the answer"] },
+  { id: 28, stem: 'He said, "I saw that movie last week."', answer: "he said (that) he had seen that movie the week before", alts: ["he said (that) he had seen that movie the previous week"] },
+  { id: 29, stem: 'My mum said, "Dinner is ready."', answer: "my mum said (that) dinner was ready", alts: [] },
+  { id: 30, stem: 'Peter said, "I am feeling tired today."', answer: "peter said (that) he was feeling tired that day", alts: [] },
+];
+
+var ROUND_SIZE = 10;
+var TOTAL_ROUNDS = 3;
+var currentData = [];
+var roundNum = 1;
+
+function pickRandom(arr, n) {
+  var shuffled = arr.slice();
+  for (var i = shuffled.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = shuffled[i];
+    shuffled[i] = shuffled[j];
+    shuffled[j] = tmp;
+  }
+  return shuffled.slice(0, n);
+}
+
+function loadRound() {
+  try { roundNum = parseInt(localStorage.getItem('reported-speech-round')) || 1; } catch(e) { roundNum = 1; }
+  if (roundNum < 1) roundNum = 1;
+  if (roundNum > TOTAL_ROUNDS) roundNum = TOTAL_ROUNDS;
+}
+
+function saveRound() {
+  try { localStorage.setItem('reported-speech-round', roundNum); } catch(e) {}
+}
+
+function startRound() {
+  var raw = pickRandom(RS_POOL, ROUND_SIZE);
+  // Re-assign sequential IDs
+  currentData = raw.map(function(item, idx) {
+    return { id: idx + 1, stem: item.stem, answer: item.answer, alts: item.alts };
+  });
+  renderRS();
+  document.getElementById('round-label').textContent = 'Ronda ' + roundNum + '/' + TOTAL_ROUNDS;
+  var btn = document.getElementById('btn-next-round');
+  if (roundNum >= TOTAL_ROUNDS) {
+    btn.textContent = '🔄 Empezar de nuevo';
+    btn.disabled = false;
+  } else {
+    btn.textContent = '▶️ Siguiente ronda';
+    btn.disabled = false;
+  }
+  var scoreBox = document.getElementById('rs-score');
+  if (scoreBox) { scoreBox.style.display = 'none'; scoreBox.innerHTML = ''; }
+}
+
+function nextRound() {
+  if (roundNum >= TOTAL_ROUNDS) {
+    roundNum = 1;
+    saveRound();
+    startRound();
+    return;
+  }
+  roundNum++;
+  saveRound();
+  startRound();
+}
+
+// Render all exercises (custom, uses textarea)
+function renderRS() {
+  var container = document.getElementById('ex-rs-list');
+  container.innerHTML = '';
+  currentData.forEach(function(ex) {
+    var card = document.createElement('div');
+    card.className = 'exercise-card';
+    card.id = 'ex-rs-' + ex.id;
+    card.innerHTML = [
+      '<p class="stem"><strong>', ex.id, '.</strong> ', ex.stem, '</p>',
+      '<textarea id="ta-rs-', ex.id, '" placeholder="Escribe la frase en reported speech..."></textarea>',
+      '<div class="btn-row">',
+        '<button class="btn-sm btn-check" onclick="checkRS(', ex.id, ')">✅ Corregir</button>',
+        '<button class="btn-sm btn-answer" onclick="showRS(', ex.id, ')">💡 Mostrar respuesta</button>',
+      '</div>',
+      '<div id="fb-rs-', ex.id, '" class="feedback-line"></div>',
+      '<div id="hint-rs-', ex.id, '" class="hint-box"></div>'
+    ].join('');
+    container.appendChild(card);
+  });
+}
+
+function getRS(exId) {
+  for (var i = 0; i < currentData.length; i++) {
+    if (currentData[i].id === exId) return currentData[i];
+  }
+  return null;
+}
+
+function checkRS(id) {
+  var ta = document.getElementById('ta-rs-' + id);
+  var fb = document.getElementById('fb-rs-' + id);
+  var hint = document.getElementById('hint-rs-' + id);
+  if (!ta || !fb) return;
+  var val = ta.value.trim().toLowerCase().replace(/\(that\)/g, '').replace(/\bthat\s/g, '').trim();
+  var ex = getRS(id);
+  if (!ex) return;
+  var valid = [ex.answer].concat(ex.alts || []).map(function(a) {
+    return a.toLowerCase().replace(/\(that\)/g, '').replace(/\bthat\s/g, '').trim();
+  });
+  if (valid.indexOf(val) !== -1) {
+    ta.classList.remove('wrong');
+    ta.classList.add('correct');
+    fb.className = 'feedback-line show ok';
+    fb.textContent = '✅ ¡Correcto!';
+    if (hint) hint.classList.remove('show');
+  } else {
+    ta.classList.remove('correct');
+    ta.classList.add('wrong');
+    fb.className = 'feedback-line show ko';
+    fb.textContent = '❌ Incorrecto';
+    if (hint) {
+      hint.className = 'hint-box show';
+      hint.innerHTML = '<strong>Respuesta:</strong> <span class="correct-answer">' + ex.answer + '</span>';
+    }
+  }
+}
+
+function showRS(id) {
+  var ta = document.getElementById('ta-rs-' + id);
+  var hint = document.getElementById('hint-rs-' + id);
+  var ex = getRS(id);
+  if (!ta || !ex) return;
+  ta.value = ex.answer;
+  ta.classList.remove('wrong', 'correct');
+  if (hint) {
+    hint.className = 'hint-box show';
+    hint.innerHTML = '<strong>Respuesta:</strong> <span class="correct-answer">' + ex.answer + '</span>';
+  }
+  var fb = document.getElementById('fb-rs-' + id);
+  if (fb) fb.className = 'feedback-line';
+}
+
+function checkAllRS() {
+  var correct = 0;
+  var answered = 0;
+  currentData.forEach(function(ex) {
+    checkRS(ex.id);
+    var ta = document.getElementById('ta-rs-' + ex.id);
+    if (ta) {
+      var _empty = ta.value.trim() === '';
+      if (!_empty || ta.classList.contains('correct')) {
+        answered++;
+        if (ta.classList.contains('correct')) correct++;
+      }
+    }
+  });
+  var denom = answered > 0 ? answered : 1;
+  var pct = Math.round((correct / denom) * 100);
+  var score = document.getElementById('rs-score');
+  score.style.display = 'block';
+  var msg = '🎯 ' + correct + '/' + answered + ' correctas (' + pct + '%)';
+  if (answered === 0) msg = '✏️ Responde al menos una pregunta';
+  else if (pct === 100) msg += ' ¡Perfecto! 🏆';
+  else if (pct >= 70) msg += ' Muy bien 👍';
+  else msg += ' Sigue practicando 💪';
+  score.innerHTML = '<span class="big">' + correct + '/' + answered + '</span><br>' + msg;
+}
+
+function resetRS() {
+  for (var i = 0; i < currentData.length; i++) {
+    var id = currentData[i].id;
+    var ta = document.getElementById('ta-rs-' + id);
+    if (ta) {
+      ta.value = '';
+      ta.classList.remove('correct', 'wrong');
+    }
+    var fb = document.getElementById('fb-rs-' + id);
+    if (fb) { fb.className = 'feedback-line'; fb.textContent = ''; }
+    var hint = document.getElementById('hint-rs-' + id);
+    if (hint) { hint.className = 'hint-box'; hint.innerHTML = ''; }
+  }
+  var scoreBox = document.getElementById('rs-score');
+  if (scoreBox) { scoreBox.style.display = 'none'; scoreBox.innerHTML = ''; }
+}
+
+loadRound();
+startRound();
+</script>
+</body>
+</html>

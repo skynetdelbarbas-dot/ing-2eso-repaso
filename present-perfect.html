@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Present Perfect S/C — 2º ESO</title>
+<link rel="stylesheet" href="style.css?v=3">
+</head>
+<body data-topic="present-perfect">
+<div class="container">
+<nav class="sidebar">
+  <h1><a href="index.html" style="color:inherit;text-decoration:none">📚 Inglés 2º ESO</a></h1>
+  <div class="subtitle">Repaso para el examen final</div>
+  <h2>🗣️ Grammar</h2>
+  <a href="present-perfect.html" class=" active">Present Perfect S/C</a>
+  <a href="reported-speech.html" class="">Reported Speech</a>
+  <a href="conditionals.html" class="">Conditionals</a>
+  <a href="wish-if-only.html" class="">I wish / If only</a>
+  <a href="question-tags.html" class="">Question Tags</a>
+  <a href="articles.html" class="">Articles (a/an/the/∅)</a>
+  <a href="passive.html" class="">Passive Voice</a>
+  <a href="indefinite-pronouns.html" class="">Indefinite Pronouns</a>
+  <a href="nor-neither-so.html" class="">Nor / Neither / So</a>
+  <h2>📖 Vocabulary</h2>
+  <a href="vocabulary.html">Units 1-3, 5-11</a>
+  <h2>🎯 Simulacro</h2>
+  <a href="simulacro.html">Examen mixto</a>
+
+</nav>
+<main class="main">
+  <div class="breadcrumb"><a href="index.html">Inicio</a> / Present Perfect S/C</div>
+  <h1 class="page-title">⏳ Present Perfect Simple &amp; Continuous</h1>
+  <p class="intro">Repasa cuándo usar cada forma y practica con ejercicios.</p>
+
+  <!-- TEORÍA -->
+  <div class="section">
+    <h2>📖 Teoría rápida</h2>
+    <h3>Present Perfect Simple</h3>
+    <div class="theory-box">
+      <strong>Estructura:</strong> <code>have/has + Past Participle</code><br>
+      <strong>Usos:</strong> acciones que empezaron en el pasado y siguen, experiencias vitales, resultados recientes.<br>
+      <strong>Palabras clave:</strong> <code>already, yet, just, ever, never</code>
+    </div>
+    <h3>Present Perfect Continuous</h3>
+    <div class="theory-box">
+      <strong>Estructura:</strong> <code>have/has + been + verb-ing</code><br>
+      <strong>Usos:</strong> énfasis en la duración, acciones que acaban de terminar.<br>
+      <strong>Palabras clave:</strong> <code>for, since, lately, all day</code>
+    </div>
+    <div class="example"><span class="en">I have been waiting for half an hour.</span></div>
+    <div class="example"><span class="en">She has just finished her homework.</span></div>
+  </div>
+
+  <!-- EJERCICIO ÚNICO CON RONDAS -->
+  <div class="section">
+    <h2>✏️ Ejercicios — <span id="round-label">Ronda 1/3</span></h2>
+    <p style="color:var(--text2);margin-bottom:14px">Escribe la forma correcta del verbo en cada frase.</p>
+    <div id="ex-pp"></div>
+    <div class="btn-section">
+      <button class="btn btn-check-all" onclick="checkAllPP()">✅ Corregir todo</button>
+      <button class="btn btn-reset" onclick="resetPP()">🔄 Limpiar todo</button>
+      <button class="btn btn-next" onclick="nextRound()" id="btn-next-round">▶️ Siguiente ronda</button>
+    </div>
+    <div id="ex-pp-score" class="score-box" style="display:none"></div>
+  </div>
+</main>
+</div>
+
+<script src="exercises.js?v=6"></script>
+<script>
+// ============================================================
+// POOL DE PREGUNTAS (~65)
+// Temas: Present Perfect Simple vs Continuous,
+//        Past Simple vs Present Perfect,
+//        just / already / yet
+// ============================================================
+var PRESENT_PERFECT_POOL = [
+  // ============ PP SIMPLE vs CONTINUOUS (30 + 5 nuevas) ============
+  {stem:"The earth __________________ here for billions of years (be).", answer:"has been", alts:[]},
+  {stem:"We ________________________ cards for the last few hours (play).", answer:"have been playing", alts:[]},
+  {stem:"We ________________________ problems with our new car recently (have).", answer:"have been having", alts:["have had"]},
+  {stem:"____________________________ on anything interesting lately? (you work)", answer:"have you been working", alts:[]},
+  {stem:"Cuba ________________________ a socialist country since 1959 (be).", answer:"has been", alts:[]},
+  {stem:"I ________________________ care of my neighbour's cats (take).", answer:"have been taking", alts:[]},
+  {stem:"I ________________________ my car for three years (have).", answer:"have had", alts:[]},
+  {stem:"______________________________ an important fight? (the boxer, ever, win)", answer:"has the boxer ever won", alts:[]},
+  {stem:"John and Mary ________________________ with each other since they got married (quarrel).", answer:"have been quarrelling", alts:["have quarrelled"]},
+  {stem:"It ________________________ hard since last night (rain).", answer:"has been raining", alts:["has rained"]},
+  {stem:"I'm tired because I ________________________ well lately (not feel).", answer:"haven't been feeling", alts:["have not been feeling"]},
+  {stem:"_______________________________ your problems? (your parents, always, understand)", answer:"have your parents always understood", alts:[]},
+  {stem:"The patient ________________________ penicillin for several days now (take).", answer:"has been taking", alts:[]},
+  {stem:"A big earthquake ________________________ San Francisco since 1906 (not hit).", answer:"has not hit", alts:["hasn't hit"]},
+  {stem:"They ___________________________ in San Francisco since they arrived 20 years ago (live).", answer:"have been living", alts:["have lived"]},
+  {stem:"He got ill five weeks ago and ________________________ yet (not recover).", answer:"has not recovered", alts:["hasn't recovered"]},
+  {stem:"Everyone in the Middle East ________________________ about the situation for decades (worry).", answer:"has been worrying", alts:["has worried"]},
+  {stem:"We ________________________ very cold weather this year (have).", answer:"have had", alts:[]},
+  {stem:"Where ________________________ the money? (you, hide)", answer:"have you hidden", alts:[]},
+  {stem:"At last, my favourite team ________________________ against its most important rival (win).", answer:"has won", alts:[]},
+  {stem:"I ________________________ for 6 years (marry).", answer:"have been married", alts:[]},
+  {stem:"Dad ________________________ a number of jobs in the last few years (have).", answer:"has had", alts:[]},
+  {stem:"The bank is still closed. It ________________________ yet (not open).", answer:"hasn't opened", alts:["has not opened"]},
+  {stem:"Our daughter ___________________________ lipstick since she was 16 (wear).", answer:"has been wearing", alts:[]},
+  {stem:"She is angry because her boyfriend ________________________ up yet and she ________________________ for half an hour. (not show, wait)", answer:"hasn't shown has been waiting", alts:["has not shown has been waiting"]},
+  {stem:"I'm still waiting for an answer. They ________________________ up their minds yet (not make).", answer:"haven't made", alts:["have not made"]},
+  {stem:"How many times ________________________ the cat today? (Kim feed)", answer:"has kim fed", alts:[]},
+  {stem:"The kids ________________________ on my nerves. They ________________________ too much noise (get, make).", answer:"have been getting have been making", alts:[]},
+  {stem:"My company ________________________ a lot of money. They ________________________ hard on an important project. (make, work)", answer:"has been making have been working", alts:[]},
+  {stem:"They ________________________ our new refrigerator yet (not deliver).", answer:"haven't delivered", alts:["have not delivered"]},
+  {stem:"She ________________________ (study) English for three years now.", answer:"has been studying", alts:["has studied"]},
+  {stem:"I ________________________ (read) that book, it's great!", answer:"have read", alts:["'ve read"]},
+  {stem:"How long ________________________ (you / wait) for the bus?", answer:"have you been waiting", alts:[]},
+  {stem:"The children ________________________ (watch) TV all afternoon.", answer:"have been watching", alts:[]},
+  {stem:"He ________________________ (never / fly) in a plane before.", answer:"has never flown", alts:[]},
+
+  // ============ PAST SIMPLE vs PRESENT PERFECT (20 + 5 nuevas) ============
+  {stem:"Last night I __________________ (lose) my keys \u2013 I had to call my flatmate.", answer:"lost", alts:[]},
+  {stem:"I __________________ (lose) my keys \u2013 can you help me look for them?", answer:"have lost", alts:["'ve lost"]},
+  {stem:"I __________________ (visit) Paris three times.", answer:"have visited", alts:["'ve visited"]},
+  {stem:"Last year I __________________ (visit) Paris.", answer:"visited", alts:[]},
+  {stem:"I __________________ (know) my great grandmother for a few years - she died when I was eight.", answer:"knew", alts:[]},
+  {stem:"I __________________ (know) Julie for three years \u2013 we still meet once a month.", answer:"have known", alts:["'ve known"]},
+  {stem:"I __________________ (play) hockey since I was a child.", answer:"have played", alts:["'ve played"]},
+  {stem:"She __________________ (play) hockey at school, but she didn't like it.", answer:"played", alts:[]},
+  {stem:"Sorry, I __________________ (miss) the bus, so I'm going to be late.", answer:"have missed", alts:["'ve missed"]},
+  {stem:"I __________________ (miss) the bus, and then I __________________ (miss) the aeroplane too!", answer:"missed missed", alts:[]},
+  {stem:"Last month I __________________ (go) to Scotland.", answer:"went", alts:[]},
+  {stem:"I'm sorry, John isn't here. He __________________ (go) to the shops.", answer:"has gone", alts:["'s gone"]},
+  {stem:"We __________________ (finish) this room last week.", answer:"finished", alts:[]},
+  {stem:"I __________________ (finish) my exams finally!", answer:"have finished", alts:["'ve finished"]},
+  {stem:"Yesterday, I __________________ (see) all my friends.", answer:"saw", alts:[]},
+  {stem:"I __________________ (see) Julie three times this week!", answer:"have seen", alts:["'ve seen"]},
+  {stem:"She __________________ (live) in London since 1994.", answer:"has lived", alts:["'s lived"]},
+  {stem:"She __________________ (live) in London when she was a child.", answer:"lived", alts:[]},
+  {stem:"I __________________ (drink) three cups of coffee this morning.", answer:"have drunk", alts:["'ve drunk"]},
+  {stem:"I __________________ (drink) seven cups of coffee yesterday.", answer:"drank", alts:[]},
+  {stem:"I __________________ (never / be) to Australia.", answer:"have never been", alts:["'ve never been"]},
+  {stem:"We __________________ (already / see) that film twice.", answer:"have already seen", alts:["'ve already seen"]},
+  {stem:"My brother __________________ (buy) a new car last week.", answer:"bought", alts:[]},
+  {stem:"She __________________ (not / call) me yet.", answer:"hasn't called", alts:["has not called"]},
+  {stem:"__________________ (you / ever / eat) sushi?", answer:"have you ever eaten", alts:[]},
+
+  // ============ JUST / ALREADY / YET (10 + 5 nuevas) ============
+  {stem:"Is Adam at home? \u2014 No, he has __________________ left.", answer:"just", alts:[]},
+  {stem:"Maggie, let me introduce you to Anna. \u2014 Well, we know each other. We have __________________ met.", answer:"already", alts:[]},
+  {stem:"Granny, have you finished cooking the dinner __________________?", answer:"yet", alts:[]},
+  {stem:"Don't forget to empty the bin. \u2014 Mum, I've __________________ done it.", answer:"already", alts:[]},
+  {stem:"Is your dad going to buy a new phone? \u2014 No, he has __________________ bought it.", answer:"already", alts:[]},
+  {stem:"How about a cup of tea? \u2014 Thanks, but I've __________________ had one.", answer:"already", alts:[]},
+  {stem:"We're lucky! The bus hasn't left __________________.", answer:"yet", alts:[]},
+  {stem:"Your dog has __________________ returned home.", answer:"just", alts:[]},
+  {stem:"Have you paid the bill __________________?", answer:"yet", alts:[]},
+  {stem:"The pirate has __________________ found the treasure map, but he hasn't found the treasure __________________.", answer:"already yet", alts:[]},
+  {stem:"The film has __________________ started, hurry up!", answer:"just", alts:[]},
+  {stem:"I've __________________ finished my homework. Can I go out now?", answer:"already", alts:[]},
+  {stem:"She hasn't called me __________________.", answer:"yet", alts:[]},
+  {stem:"Don't worry, the train has __________________ arrived.", answer:"just", alts:[]},
+  {stem:"Have you done your homework __________________?", answer:"yet", alts:[]}
+];
+
+var ROUND_SIZE = 15;
+var TOTAL_ROUNDS = 3;
+var currentData = [];
+var roundNum = 1;
+
+// ============================================================
+// Utilidad: seleccionar N aleatorios sin repetir
+// ============================================================
+function pickRandom(arr, n) {
+  var shuffled = arr.slice();
+  for (var i = shuffled.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = shuffled[i];
+    shuffled[i] = shuffled[j];
+    shuffled[j] = tmp;
+  }
+  return shuffled.slice(0, n);
+}
+
+// ============================================================
+// Gestión de rondas
+// ============================================================
+function loadRound() {
+  try {
+    roundNum = parseInt(localStorage.getItem('present-perfect-round')) || 1;
+  } catch(e) { roundNum = 1; }
+  if (roundNum < 1) roundNum = 1;
+  if (roundNum > TOTAL_ROUNDS) roundNum = TOTAL_ROUNDS;
+}
+
+function saveRound() {
+  try { localStorage.setItem('present-perfect-round', roundNum); } catch(e) {}
+}
+
+function startRound() {
+  currentData = pickRandom(PRESENT_PERFECT_POOL, ROUND_SIZE);
+  var container = document.getElementById('ex-pp');
+  container.innerHTML = '';
+  renderExercises(currentData, 'ex-pp', 'Ej: has been, have seen...');
+  document.getElementById('round-label').textContent = 'Ronda ' + roundNum + '/' + TOTAL_ROUNDS;
+  var btn = document.getElementById('btn-next-round');
+  if (roundNum >= TOTAL_ROUNDS) {
+    btn.textContent = '🔄 Empezar de nuevo';
+    btn.disabled = false;
+  } else {
+    btn.textContent = '▶️ Siguiente ronda';
+    btn.disabled = false;
+  }
+  // Reset score
+  var scoreBox = document.getElementById('ex-pp-score');
+  if (scoreBox) { scoreBox.style.display = 'none'; scoreBox.innerHTML = ''; }
+  // Reset inputs feedback
+  for (var i = 1; i <= ROUND_SIZE; i++) {
+    var fb = document.getElementById('fb-ex-pp-' + i);
+    if (fb) { fb.className = 'feedback-line'; fb.textContent = ''; }
+    var hint = document.getElementById('hint-ex-pp-' + i);
+    if (hint) { hint.className = 'hint-box'; hint.innerHTML = ''; }
+  }
+}
+
+function nextRound() {
+  if (roundNum >= TOTAL_ROUNDS) {
+    roundNum = 1;
+    saveRound();
+    startRound();
+    return;
+  }
+  roundNum++;
+  saveRound();
+  startRound();
+}
+
+// ============================================================
+// Inicialización
+// ============================================================
+loadRound();
+startRound();
+
+// ============================================================
+// Corrección
+// ============================================================
+function checkAllPP() {
+  var correct = 0;
+  var answered = 0;
+  var total = currentData.length;
+  for (var i = 1; i <= total; i++) {
+    checkOne('ex-pp', i);
+    var inp = document.getElementById('inp-ex-pp-' + i);
+    if (inp) {
+      var _empty = inp.value.trim() === '';
+      if (!_empty || inp.classList.contains('correct')) {
+        answered++;
+        if (inp.classList.contains('correct')) correct++;
+      }
+    }
+  }
+  var denom = answered > 0 ? answered : 1;
+  var pct = Math.round((correct / denom) * 100);
+  var score = document.getElementById('ex-pp-score');
+  score.style.display = 'block';
+  var msg = '\uD83C\uDFAF ' + correct + '/' + answered + ' correctas (' + pct + '%)';
+  if (answered === 0) msg = '\u270F\uFE0F Responde al menos una pregunta';
+  else if (pct === 100) msg += ' \u00a1Perfecto! \uD83C\uDFC6';
+  else if (pct >= 70) msg += ' Muy bien \uD83D\uDC4D';
+  else msg += ' Sigue practicando \uD83D\uDCAA';
+  score.innerHTML = '<span class=\"big\">' + correct + '/' + answered + '</span><br>' + msg;
+}
+
+function resetPP() {
+  resetAll('ex-pp', currentData.length);
+}
+</script>
+</body>
+</html>

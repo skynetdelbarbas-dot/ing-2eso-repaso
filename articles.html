@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Articles (a/an/the/∅) — 2º ESO</title>
+<link rel="stylesheet" href="style.css?v=3">
+</head>
+<body data-topic="articles">
+<div class="container">
+<nav class="sidebar">
+  <h1><a href="index.html" style="color:inherit;text-decoration:none">📚 Inglés 2º ESO</a></h1>
+  <div class="subtitle">Repaso para el examen final</div>
+  <h2>🗣️ Grammar</h2>
+  <a href="present-perfect.html" class="">Present Perfect S/C</a>
+  <a href="reported-speech.html" class="">Reported Speech</a>
+  <a href="conditionals.html" class="">Conditionals</a>
+  <a href="wish-if-only.html" class="">I wish / If only</a>
+  <a href="question-tags.html" class="">Question Tags</a>
+  <a href="articles.html" class=" active">Articles (a/an/the/∅)</a>
+  <a href="passive.html" class="">Passive Voice</a>
+  <a href="indefinite-pronouns.html" class="">Indefinite Pronouns</a>
+  <a href="nor-neither-so.html" class="">Nor / Neither / So</a>
+  <h2>📖 Vocabulary</h2>
+  <a href="vocabulary.html">Units 1-3, 5-11</a>
+  <h2>🎯 Simulacro</h2>
+  <a href="simulacro.html">Examen mixto</a>
+
+</nav>
+<main class="main">
+  <div class="breadcrumb"><a href="index.html">Inicio</a> / Articles (a/an/the/∅)</div>
+  <h1 class="page-title">Articles (a/an/the/∅)</h1>
+  <p class="intro">Elige el artículo correcto o usa <strong>—</strong> (no article).</p>
+
+  <div class="section">
+    <h2>📖 Teoría rápida — Articles</h2>
+
+    <h3>A / AN</h3>
+    <div class="theory-box">
+      <strong>A</strong> + consonante: <em>a dog, a university</em><br>
+      <strong>An</strong> + vocal (sonido): <em>an apple, an hour</em>
+    </div>
+
+    <h3>THE (artículo definido)</h3>
+    <div class="theory-box">
+      Se usa cuando hablamos de algo <strong>específico</strong> o conocido:<br>
+      <em>the book you gave me, the Moon, the cinema</em>
+    </div>
+
+    <h3>NO ARTICLE (∅)</h3>
+    <div class="theory-box">
+      Nombres propios, deportes, idiomas, comidas, transportes, bed, school, hospital:<br>
+      <em>— Spanish, — football, by — train, at — school, go to — bed</em>
+    </div>
+
+    <h3>🌍 Reglas geográficas</h3>
+
+    <h4>Sin THE</h4>
+    <div class="theory-box">
+      <strong>Lagos individuales</strong><br>
+      <em>Lake Michigan, Lake Titicaca</em><br><br>
+      <strong>Islas individuales</strong><br>
+      <em>Ibiza, Mallorca, Madagascar</em><br><br>
+      <strong>Montañas individuales</strong><br>
+      <em>Mount Everest, Mount Fuji</em><br><br>
+      <strong>Continentes</strong><br>
+      <em>Africa, Asia, Europe</em><br><br>
+      <strong>Países (la mayoría)</strong><br>
+      <em>Spain, France, Japan</em><br><br>
+      <strong>Ciudades</strong><br>
+      <em>Madrid, London, New York</em><br><br>
+      <strong>Calles, plazas, parques, playas</strong><br>
+      <em>Fifth Avenue, Central Park, Barceloneta Beach</em>
+    </div>
+
+    <h4>Con THE</h4>
+    <div class="theory-box">
+      <strong>Archipiélagos</strong><br>
+      <em>the Canary Islands, the Bahamas</em><br><br>
+      <strong>Cordilleras</strong><br>
+      <em>the Alps, the Rocky Mountains</em><br><br>
+      <strong>Países en plural / con Republic/Kingdom</strong><br>
+      <em>the USA, the UK, the Netherlands</em><br><br>
+      <strong>Mares y océanos</strong><br>
+      <em>the Mediterranean Sea, the Atlantic Ocean</em><br><br>
+      <strong>Ríos</strong><br>
+      <em>the Amazon, the Nile, the Thames</em>
+    </div>
+
+    <div class="example">
+      <span class="en">Mount Everest is <strong>the</strong> highest mountain in <strong>—</strong> Asia.</span><br>
+      <span class="en"><strong>—</strong> Ibiza is in <strong>the</strong> Mediterranean Sea.</span><br>
+      <span class="en"><strong>—</strong> Spain is near <strong>the</strong> Atlantic Ocean.</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>✏️ Ejercicios — <span id="round-label">Ronda 1/3</span></h2>
+    <p style="color:var(--text2);margin-bottom:14px">Completa cada frase con <strong>a</strong>, <strong>an</strong>, <strong>the</strong> o <strong>—</strong> (no article).</p>
+    <div id="ex-articles"></div>
+    <div class="btn-section">
+      <button class="btn btn-check-all" onclick="checkAllArticles()">✅ Corregir todo</button>
+      <button class="btn btn-reset" onclick="resetArticles()">🔄 Limpiar todo</button>
+      <button class="btn btn-next" onclick="nextRound()" id="btn-next-round">▶️ Siguiente ronda</button>
+    </div>
+    <div id="ex-articles-score" class="score-box" style="display:none"></div>
+  </div>
+</main>
+</div>
+
+<script src="exercises.js?v=6"></script>
+<script>
+// ============================================================
+// POOL DE PREGUNTAS (~50)
+// ============================================================
+var ARTICLES_POOL = [
+  // --- a/an ---
+  {stem:"I saw __________________ elephant at the zoo.", answer:"an", alts:[]},
+  {stem:"He is __________________ honest man.", answer:"an", alts:[]},
+  {stem:"He gave me __________________ useful piece of advice.", answer:"a", alts:[]},
+  {stem:"She's __________________ university student.", answer:"a", alts:[]},
+  {stem:"It was __________________ one-hour meeting.", answer:"a", alts:[]},
+  {stem:"I need __________________ umbrella, it's raining.", answer:"an", alts:[]},
+  {stem:"She is __________________ European citizen.", answer:"a", alts:[]},
+  {stem:"He waited for __________________ hour.", answer:"an", alts:[]},
+  {stem:"That's __________________ unique opportunity.", answer:"a", alts:[]},
+  {stem:"My brother is __________________ doctor.", answer:"a", alts:[]},
+  {stem:"I need __________________ new pair of shoes.", answer:"a", alts:[]},
+  {stem:"She's __________________ old friend of mine.", answer:"an", alts:[]},
+  {stem:"He ate __________________ orange for breakfast.", answer:"an", alts:[]},
+  {stem:"It's __________________ interesting book.", answer:"an", alts:[]},
+  {stem:"She has __________________ dog and __________________ cat.", answer:"a a", alts:[]},
+
+  // --- the ---
+  {stem:"She plays __________________ piano very well.", answer:"the", alts:[]},
+  {stem:"I love __________________ music from the 80s.", answer:"the", alts:[]},
+  {stem:"Let's meet at __________________ school gate.", answer:"the", alts:[]},
+  {stem:"______________ Mediterranean Sea is beautiful.", answer:"the", alts:[]},
+  {stem:"______________ United Kingdom is an island.", answer:"the", alts:[]},
+  {stem:"Mount Everest is __________________ highest mountain.", answer:"the", alts:[]},
+  {stem:"Please close __________________ door.", answer:"the", alts:[]},
+  {stem:"______________ Sun is very hot today.", answer:"the", alts:[]},
+  {stem:"Can you turn off __________________ TV?", answer:"the", alts:[]},
+  {stem:"She is __________________ best student in class.", answer:"the", alts:[]},
+  {stem:"______________ capital of Spain is Madrid.", answer:"the", alts:[]},
+  {stem:"______________ Moon was full last night.", answer:"the", alts:[]},
+  {stem:"______________ Amazon is a very long river.", answer:"the", alts:[]},
+  {stem:"______________ Pacific Ocean is huge.", answer:"the", alts:[]},
+  {stem:"______________ Thames flows through London.", answer:"the", alts:[]},
+  {stem:"______________ Sahara Desert is very hot.", answer:"the", alts:[]},
+  {stem:"______________ Netherlands is a flat country.", answer:"the", alts:[]},
+  {stem:"______________ Canary Islands are in Spain.", answer:"the", alts:[]},
+  {stem:"______________ Alps are in Europe.", answer:"the", alts:[]},
+  {stem:"______________ Rocky Mountains are in North America.", answer:"the", alts:[]},
+  {stem:"______________ Bahamas are a popular destination.", answer:"the", alts:[]},
+  {stem:"______________ Red Sea is between Africa and Asia.", answer:"the", alts:[]},
+
+  // --- no article (—) ---
+  {stem:"We usually have __________________ lunch at 2 p.m.", answer:"-", alts:["—","no article","∅"]},
+  {stem:"They went to __________________ bed early.", answer:"-", alts:["—","no article","∅"]},
+  {stem:"She speaks __________________ French and __________________ German.", answer:"-", alts:["—","no article","∅"]},
+  {stem:"I prefer to travel by __________________ train.", answer:"-", alts:["—","no article","∅"]},
+  {stem:"I go to __________________ school by __________________ bus.", answer:"-", alts:["—","no article","∅"]},
+  {stem:"She's good at __________________ tennis.", answer:"-", alts:["—","no article","∅"]},
+  {stem:"He speaks __________________ Japanese fluently.", answer:"-", alts:["—","no article","∅"]},
+  {stem:"We had __________________ dinner at 8 o'clock.", answer:"-", alts:["—","no article","∅"]},
+  {stem:"She's in __________________ hospital.", answer:"-", alts:["—","no article","∅"]},
+  {stem:"We play __________________ football on Saturdays.", answer:"-", alts:["—","no article","∅"]},
+  {stem:"______________ breakfast is ready.", answer:"-", alts:["—","no article","∅"]},
+  {stem:"He's interested in __________________ history.", answer:"-", alts:["—","no article","∅"]},
+  {stem:"______________ Lake Victoria is in Africa.", answer:"-", alts:["—","no article","∅"]},
+  {stem:"______________ Mount Kilimanjaro is very tall.", answer:"-", alts:["—","no article","∅"]},
+  {stem:"______________ Europe is a continent.", answer:"-", alts:["—","no article","∅"]},
+  {stem:"______________ Tokyo is a very big city.", answer:"-", alts:["—","no article","∅"]},
+  {stem:"______________ Jamaica is a Caribbean island.", answer:"-", alts:["—","no article","∅"]},
+  {stem:"______________ Hyde Park is in London.", answer:"-", alts:["—","no article","∅"]},
+  {stem:"______________ Barcelona is on the coast.", answer:"-", alts:["—","no article","∅"]},
+  {stem:"______________ Madagascar is an island.", answer:"-", alts:["—","no article","∅"]},
+  {stem:"______________ Oxford Street is a famous shopping street.", answer:"-", alts:["—","no article","∅"]}
+];
+
+var ROUND_SIZE = 15;
+var TOTAL_ROUNDS = 3;
+var currentData = [];
+var roundNum = 1;
+
+// ============================================================
+// Utilidad: seleccionar N aleatorios sin repetir
+// ============================================================
+function pickRandom(arr, n) {
+  var shuffled = arr.slice();
+  for (var i = shuffled.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = shuffled[i];
+    shuffled[i] = shuffled[j];
+    shuffled[j] = tmp;
+  }
+  return shuffled.slice(0, n);
+}
+
+// ============================================================
+// Gestión de rondas
+// ============================================================
+function loadRound() {
+  try {
+    roundNum = parseInt(localStorage.getItem('articles-round')) || 1;
+  } catch(e) { roundNum = 1; }
+  if (roundNum < 1) roundNum = 1;
+  if (roundNum > TOTAL_ROUNDS) roundNum = TOTAL_ROUNDS;
+}
+
+function saveRound() {
+  try { localStorage.setItem('articles-round', roundNum); } catch(e) {}
+}
+
+function startRound() {
+  currentData = pickRandom(ARTICLES_POOL, ROUND_SIZE);
+  var container = document.getElementById('ex-articles');
+  container.innerHTML = '';
+  renderExercises(currentData, 'ex-articles', 'Ej: a, an, the, —');
+  document.getElementById('round-label').textContent = 'Ronda ' + roundNum + '/' + TOTAL_ROUNDS;
+  var btn = document.getElementById('btn-next-round');
+  if (roundNum >= TOTAL_ROUNDS) {
+    btn.textContent = '🔄 Empezar de nuevo';
+    btn.disabled = false;
+  } else {
+    btn.textContent = '▶️ Siguiente ronda';
+    btn.disabled = false;
+  }
+  // Reset score
+  var scoreBox = document.getElementById('ex-articles-score');
+  if (scoreBox) { scoreBox.style.display = 'none'; scoreBox.innerHTML = ''; }
+  // Reset inputs feedback
+  for (var i = 1; i <= ROUND_SIZE; i++) {
+    var fb = document.getElementById('fb-ex-articles-' + i);
+    if (fb) { fb.className = 'feedback-line'; fb.textContent = ''; }
+    var hint = document.getElementById('hint-ex-articles-' + i);
+    if (hint) { hint.className = 'hint-box'; hint.innerHTML = ''; }
+  }
+}
+
+function nextRound() {
+  if (roundNum >= TOTAL_ROUNDS) {
+    roundNum = 1;
+    saveRound();
+    startRound();
+    return;
+  }
+  roundNum++;
+  saveRound();
+  startRound();
+}
+
+// ============================================================
+// Inicialización
+// ============================================================
+loadRound();
+startRound();
+
+// ============================================================
+// Corrección
+// ============================================================
+function checkAllArticles() {
+  var correct = 0;
+  var answered = 0;
+  var total = currentData.length;
+  for (var i = 1; i <= total; i++) {
+    checkOne('ex-articles', i);
+    var inp = document.getElementById('inp-ex-articles-' + i);
+    if (inp) {
+      var _empty = inp.value.trim() === '';
+      if (!_empty || inp.classList.contains('correct')) {
+        answered++;
+        if (inp.classList.contains('correct')) correct++;
+      }
+    }
+  }
+  var denom = answered > 0 ? answered : 1;
+  var pct = Math.round((correct / denom) * 100);
+  var score = document.getElementById('ex-articles-score');
+  score.style.display = 'block';
+  var msg = '🎯 ' + correct + '/' + answered + ' correctas (' + pct + '%)';
+  if (answered === 0) msg = '✏️ Responde al menos una pregunta';
+  else if (pct === 100) msg += ' ¡Perfecto! 🏆';
+  else if (pct >= 70) msg += ' Muy bien 👍';
+  else msg += ' Sigue practicando 💪';
+  score.innerHTML = '<span class="big">' + correct + '/' + answered + '</span><br>' + msg;
+}
+
+function resetArticles() {
+  resetAll('ex-articles', currentData.length);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Passive Voice — 2º ESO</title>
+<link rel="stylesheet" href="style.css?v=3">
+</head>
+<body data-topic="passive">
+<div class="container">
+<nav class="sidebar">
+  <h1><a href="index.html" style="color:inherit;text-decoration:none">📚 Inglés 2º ESO</a></h1>
+  <div class="subtitle">Repaso para el examen final</div>
+  <h2>🗣️ Grammar</h2>
+  <a href="present-perfect.html" class="">Present Perfect S/C</a>
+  <a href="reported-speech.html" class="">Reported Speech</a>
+  <a href="conditionals.html" class="">Conditionals</a>
+  <a href="wish-if-only.html" class="">I wish / If only</a>
+  <a href="question-tags.html" class="">Question Tags</a>
+  <a href="articles.html" class="">Articles (a/an/the/∅)</a>
+  <a href="passive.html" class=" active">Passive Voice</a>
+  <a href="indefinite-pronouns.html" class="">Indefinite Pronouns</a>
+  <a href="nor-neither-so.html" class="">Nor / Neither / So</a>
+  <h2>📖 Vocabulary</h2>
+  <a href="vocabulary.html">Units 1-3, 5-11</a>
+  <h2>🎯 Simulacro</h2>
+  <a href="simulacro.html">Examen mixto</a>
+
+</nav>
+<main class="main">
+  <div class="breadcrumb"><a href="index.html">Inicio</a> / Passive Voice</div>
+  <h1 class="page-title">Passive Voice</h1>
+  <p class="intro">Transforma frases activas en pasivas.</p>
+
+  <div class="section">
+    <h2>📖 Teoría rápida</h2>
+    <div class="theory-box"><strong>to be + past participle</strong><br>Present Simple: is/are + p.p.<br>Past Simple: was/were + p.p.<br>Present Perfect: has/have been + p.p.<br>Future: will be + p.p.<br>Modals: can/must/should be + p.p.</div><div class="example"><span class="en">Someone built this house → This house <strong>was built</strong>.</span></div>
+  </div>
+
+  <div class="section">
+    <h2>✏️ Ejercicio 1 — <span id="round-label">Ronda 1/3</span></h2>
+    <p style="color:var(--text2);margin-bottom:14px">Completa cada frase.</p>
+    <div id="ex-passive"></div>
+    <div class="btn-section">
+      <button class="btn btn-check-all" onclick="checkAllPassive()">✅ Corregir todo</button>
+      <button class="btn btn-reset" onclick="resetPassive()">🔄 Limpiar todo</button>
+      <button class="btn btn-next" onclick="nextRound()" id="btn-next-round">▶️ Siguiente ronda</button>
+    </div>
+    <div id="ex-passive-score" class="score-box" style="display:none"></div>
+  </div>
+</main>
+</div>
+
+<script src="exercises.js?v=6"></script>
+<script>
+// ============================================================
+// POOL DE PREGUNTAS (~46)
+// ============================================================
+var PASSIVE_POOL = [
+  // --- Present Simple passive ---
+  {stem: "Someone stole my bike. → My bike __________________ by someone.", answer: "was stolen", alts: []},
+  {stem: "People speak English worldwide. → English __________________ worldwide.", answer: "is spoken", alts: []},
+  {stem: "They deliver the mail every day. → The mail __________________ every day.", answer: "is delivered", alts: []},
+  {stem: "The chef cooks the meals. → The meals __________________ by the chef.", answer: "are cooked", alts: []},
+  {stem: "They clean the rooms daily. → The rooms __________________ daily.", answer: "are cleaned", alts: []},
+  {stem: "People grow rice in China. → Rice __________________ in China.", answer: "is grown", alts: []},
+  {stem: "They make cheese from milk. → Cheese __________________ from milk.", answer: "is made", alts: []},
+  {stem: "The company sells products online. → Products __________________ online.", answer: "are sold", alts: []},
+  {stem: "They teach English at this school. → English __________________ at this school.", answer: "is taught", alts: []},
+  {stem: "People consider him a genius. → He __________________ a genius.", answer: "is considered", alts: []},
+
+  // --- Past Simple passive ---
+  {stem: "Shakespeare wrote Hamlet. → Hamlet __________________ by Shakespeare.", answer: "was written", alts: []},
+  {stem: "They built this church in 1800. → This church __________________ in 1800.", answer: "was built", alts: []},
+  {stem: "My grandfather painted this picture. → This picture __________________ by my grandfather.", answer: "was painted", alts: []},
+  {stem: "The students finished the project. → The project __________________ by the students.", answer: "was finished", alts: []},
+  {stem: "They invited all the neighbours. → All the neighbours __________________.", answer: "were invited", alts: []},
+  {stem: "The company hired 50 new workers. → 50 new workers __________________ by the company.", answer: "were hired", alts: []},
+  {stem: "They closed the factory last year. → The factory __________________ last year.", answer: "was closed", alts: []},
+  {stem: "He wrote the book in 1995. → The book __________________ in 1995.", answer: "was written", alts: []},
+  {stem: "The police arrested the thief. → The thief __________________ by the police.", answer: "was arrested", alts: []},
+
+  // --- Present Perfect passive ---
+  {stem: "They have built a new hospital. → A new hospital __________________.", answer: "has been built", alts: []},
+  {stem: "Someone has stolen my wallet. → My wallet __________________.", answer: "has been stolen", alts: []},
+  {stem: "They have announced the winners. → The winners __________________.", answer: "have been announced", alts: []},
+  {stem: "The scientists have discovered a cure. → A cure __________________ by the scientists.", answer: "has been discovered", alts: []},
+  {stem: "We have already finished the work. → The work __________________ already.", answer: "has been finished", alts: []},
+  {stem: "Someone has taken my umbrella. → My umbrella __________________.", answer: "has been taken", alts: []},
+  {stem: "They have cancelled the concert. → The concert __________________.", answer: "has been cancelled", alts: []},
+
+  // --- Future passive (will) ---
+  {stem: "They will announce the results. → The results __________________ tomorrow.", answer: "will be announced", alts: []},
+  {stem: "Someone will find the truth. → The truth __________________ eventually.", answer: "will be found", alts: []},
+  {stem: "They will build a new bridge. → A new bridge __________________ next year.", answer: "will be built", alts: []},
+  {stem: "The company will launch the product in June. → The product __________________ in June.", answer: "will be launched", alts: []},
+  {stem: "They will finish the project soon. → The project __________________ soon.", answer: "will be finished", alts: []},
+  {stem: "They will send the invitations next week. → The invitations __________________ next week.", answer: "will be sent", alts: []},
+
+  // --- Modal passive ---
+  {stem: "Someone must sign this. → This document __________________.", answer: "must be signed", alts: []},
+  {stem: "Someone might steal your car. → Your car __________________ if you leave it unlocked.", answer: "might be stolen", alts: ["may be stolen"]},
+  {stem: "They should have told us. → We __________________ the truth.", answer: "should have been told", alts: []},
+  {stem: "You can find the information online. → The information __________________ online.", answer: "can be found", alts: []},
+  {stem: "You must return the books by Friday. → The books __________________ by Friday.", answer: "must be returned", alts: []},
+  {stem: "You should wash this shirt in cold water. → This shirt __________________ in cold water.", answer: "should be washed", alts: []},
+  {stem: "They can't repair the damage. → The damage __________________.", answer: "can't be repaired", alts: ["cannot be repaired"]},
+
+  // --- Present Continuous passive ---
+  {stem: "The chef is cooking the meal. → The meal __________________ by the chef.", answer: "is being cooked", alts: []},
+  {stem: "They are painting the house. → The house __________________ right now.", answer: "is being painted", alts: []},
+  {stem: "The workers are repairing the road. → The road __________________ by the workers.", answer: "is being repaired", alts: []},
+
+  // --- Past Perfect passive ---
+  {stem: "They had cleaned the room. → The room __________________ before we arrived.", answer: "had been cleaned", alts: []},
+  {stem: "They had already sold the tickets. → The tickets __________________ already.", answer: "had been sold", alts: []},
+  {stem: "They had finished the report before the deadline. → The report __________________ before the deadline.", answer: "had been finished", alts: []},
+
+  // --- going to passive ---
+  {stem: "They are going to paint the house. → The house __________________.", answer: "is going to be painted", alts: []},
+  {stem: "They are going to open a new shop. → A new shop __________________ next month.", answer: "is going to be opened", alts: []},
+  {stem: "They are going to repair the bridge. → The bridge __________________.", answer: "is going to be repaired", alts: []}
+];
+
+var ROUND_SIZE = 12;
+var TOTAL_ROUNDS = 3;
+var currentData = [];
+var roundNum = 1;
+
+// ============================================================
+// Utilidad: seleccionar N aleatorios sin repetir
+// ============================================================
+function pickRandom(arr, n) {
+  var shuffled = arr.slice();
+  for (var i = shuffled.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = shuffled[i];
+    shuffled[i] = shuffled[j];
+    shuffled[j] = tmp;
+  }
+  return shuffled.slice(0, n);
+}
+
+// ============================================================
+// Gestión de rondas
+// ============================================================
+function loadRound() {
+  try {
+    roundNum = parseInt(localStorage.getItem('passive-round')) || 1;
+  } catch(e) { roundNum = 1; }
+  if (roundNum < 1) roundNum = 1;
+  if (roundNum > TOTAL_ROUNDS) roundNum = TOTAL_ROUNDS;
+}
+
+function saveRound() {
+  try { localStorage.setItem('passive-round', roundNum); } catch(e) {}
+}
+
+function startRound() {
+  currentData = pickRandom(PASSIVE_POOL, ROUND_SIZE);
+  var container = document.getElementById('ex-passive');
+  container.innerHTML = '';
+  renderExercises(currentData, 'ex-passive', 'Ej: was stolen, will be built...');
+  document.getElementById('round-label').textContent = 'Ronda ' + roundNum + '/' + TOTAL_ROUNDS;
+  var btn = document.getElementById('btn-next-round');
+  if (roundNum >= TOTAL_ROUNDS) {
+    btn.textContent = '🔄 Empezar de nuevo';
+    btn.disabled = false;
+  } else {
+    btn.textContent = '▶️ Siguiente ronda';
+    btn.disabled = false;
+  }
+  // Reset score
+  var scoreBox = document.getElementById('ex-passive-score');
+  if (scoreBox) { scoreBox.style.display = 'none'; scoreBox.innerHTML = ''; }
+  // Reset inputs feedback
+  for (var i = 1; i <= ROUND_SIZE; i++) {
+    var fb = document.getElementById('fb-ex-passive-' + i);
+    if (fb) { fb.className = 'feedback-line'; fb.textContent = ''; }
+    var hint = document.getElementById('hint-ex-passive-' + i);
+    if (hint) { hint.className = 'hint-box'; hint.innerHTML = ''; }
+  }
+}
+
+function nextRound() {
+  if (roundNum >= TOTAL_ROUNDS) {
+    roundNum = 1;
+    saveRound();
+    startRound();
+    return;
+  }
+  roundNum++;
+  saveRound();
+  startRound();
+}
+
+// ============================================================
+// Inicialización
+// ============================================================
+loadRound();
+startRound();
+
+// ============================================================
+// Corrección
+// ============================================================
+function checkAllPassive() {
+  var correct = 0;
+  var answered = 0;
+  var total = currentData.length;
+  for (var i = 1; i <= total; i++) {
+    checkOne('ex-passive', i);
+    var inp = document.getElementById('inp-ex-passive-' + i);
+    if (inp) {
+      var _empty = inp.value.trim() === '';
+      if (!_empty || inp.classList.contains('correct')) {
+        answered++;
+        if (inp.classList.contains('correct')) correct++;
+      }
+    }
+  }
+  var denom = answered > 0 ? answered : 1;
+  var pct = Math.round((correct / denom) * 100);
+  var score = document.getElementById('ex-passive-score');
+  score.style.display = 'block';
+  var msg = '🎯 ' + correct + '/' + answered + ' correctas (' + pct + '%)';
+  if (answered === 0) msg = '✏️ Responde al menos una pregunta';
+  else if (pct === 100) msg += ' ¡Perfecto! 🏆';
+  else if (pct >= 70) msg += ' Muy bien 👍';
+  else msg += ' Sigue practicando 💪';
+  score.innerHTML = '<span class="big">' + correct + '/' + answered + '</span><br>' + msg;
+}
+
+function resetPassive() {
+  resetAll('ex-passive', currentData.length);
+}
+</script>
+</body>
+</html>

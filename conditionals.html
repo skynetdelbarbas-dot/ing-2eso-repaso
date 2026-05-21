@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Conditionals — 2º ESO</title>
+<link rel="stylesheet" href="style.css?v=3">
+</head>
+<body data-topic="conditionals">
+<div class="container">
+<nav class="sidebar">
+  <h1><a href="index.html" style="color:inherit;text-decoration:none">📚 Inglés 2º ESO</a></h1>
+  <div class="subtitle">Repaso para el examen final</div>
+  <h2>🗣️ Grammar</h2>
+  <a href="present-perfect.html">Present Perfect S/C</a>
+  <a href="reported-speech.html">Reported Speech</a>
+  <a href="conditionals.html" class="active">Conditionals</a>
+  <a href="wish-if-only.html">I wish / If only</a>
+  <a href="question-tags.html">Question Tags</a>
+  <a href="articles.html">Articles (a/an/the/∅)</a>
+  <a href="passive.html">Passive Voice</a>
+  <a href="indefinite-pronouns.html">Indefinite Pronouns</a>
+  <a href="nor-neither-so.html">Nor / Neither / So</a>
+  <h2>📖 Vocabulary</h2>
+  <a href="vocabulary.html">Units 1-3, 5-11</a>
+  <h2>🎯 Simulacro</h2>
+  <a href="simulacro.html">Examen mixto</a>
+</nav>
+
+<main class="main">
+  <div class="breadcrumb"><a href="index.html">Inicio</a> / Conditionals</div>
+  <h1 class="page-title">Conditionals</h1>
+  <p class="intro">Zero, first, second, third y mixed conditionals.</p>
+
+  <div class="section">
+    <h2>📖 Teoría rápida</h2>
+    
+    <div class="theory-box">
+      <strong>0:</strong> <code>If + Present Simple, Present Simple</code><br>
+      <strong>1st:</strong> <code>If + Present Simple, will + inf</code><br>
+      <strong>2nd:</strong> <code>If + Past Simple, would + inf</code><br>
+      <strong>3rd:</strong> <code>If + Past Perfect, would have + p.p.</code><br>
+      <strong>Mixed:</strong> combinan tiempos
+    </div>
+    <div class="example"><span class="en">If you study, you pass.</span> <span class="es">— Cero</span></div>
+    <div class="example"><span class="en">If you study, you will pass.</span> <span class="es">— Primera</span></div>
+    <div class="example"><span class="en">If you studied, you would pass.</span> <span class="es">— Segunda</span></div>
+    <div class="example"><span class="en">If you had studied, you would have passed.</span> <span class="es">— Tercera</span></div>
+
+  </div>
+
+  <div class="section">
+    <h2>✏️ Ejercicio 1 — Mixed Conditionals <span id="round-label">Ronda 1/3</span></h2>
+    <p style="color:var(--text2);margin-bottom:14px">Completa con la forma verbal correcta.</p>
+    <div id="ex-cond"></div>
+    <div class="btn-section">
+      <button class="btn btn-check-all" onclick="checkAllCond()">✅ Corregir todo</button>
+      <button class="btn btn-reset" onclick="resetCond()">🔄 Limpiar todo</button>
+      <button class="btn btn-next" onclick="nextRound()" id="btn-next-round">▶️ Siguiente ronda</button>
+    </div>
+    <div id="ex-cond-score" class="score-box" style="display:none"></div>
+  </div>
+</main>
+</div>
+
+<script src="exercises.js?v=6"></script>
+<script>
+// ============================================================
+// POOL DE PREGUNTAS (~50)
+// ============================================================
+var COND_POOL = [
+  // --- Zero conditional ---
+  {stem:"If it __________________ (be) sunny, I will go for a walk.", answer:"is", alts:[]},
+  {stem:"If you __________________ (heat) ice, it melts.", answer:"heat", alts:[]},
+  {stem:"If you __________________ (mix) red and blue, you get purple.", answer:"mix", alts:[]},
+  {stem:"If you __________________ (not water) plants, they die.", answer:"don't water", alts:["do not water"]},
+  {stem:"If I __________________ (be) late, my father takes me to school.", answer:"am", alts:[]},
+  {stem:"If she __________________ (study), she passes.", answer:"studies", alts:[]},
+  {stem:"If you __________________ (freeze) water, it becomes ice.", answer:"freeze", alts:[]},
+
+  // --- First conditional ---
+  {stem:"If we go to Australia in summer, we __________________ (need) some warm clothes.", answer:"will need", alts:[]},
+  {stem:"If I see him, I __________________ (give) him a lift.", answer:"will give", alts:[]},
+  {stem:"The chair will collapse if you __________________ (stand) on it.", answer:"stand", alts:[]},
+  {stem:"If he __________________ (eat) all that, he will be ill.", answer:"eats", alts:[]},
+  {stem:"Someone __________________ (steal) your car if you leave it unlocked.", answer:"will steal", alts:[]},
+  {stem:"What will happen if my parachute __________________ (not open)?", answer:"doesn't open", alts:["does not open"]},
+  {stem:"Unless we win, our team __________________ (be) in trouble.", answer:"will be", alts:[]},
+  {stem:"Unless you are careful, you __________________ (have) an accident.", answer:"will have", alts:[]},
+  {stem:"If you __________________ (not like) this one, I'll bring another.", answer:"don't like", alts:["do not like"]},
+  {stem:"Unless they turn that radio off, I __________________ (go) mad.", answer:"will go", alts:[]},
+  {stem:"If I ask, he __________________ (not tell) me.", answer:"won't tell", alts:["will not tell"]},
+  {stem:"If she __________________ (call), I will let you know.", answer:"calls", alts:[]},
+  {stem:"We __________________ (miss) the bus if we don't hurry.", answer:"will miss", alts:[]},
+  {stem:"If it __________________ (rain) tomorrow, we will stay at home.", answer:"rains", alts:[]},
+
+  // --- Second conditional ---
+  {stem:"If we met some famous person, we __________________ (not know) what to say.", answer:"wouldn't know", alts:["would not know"]},
+  {stem:"If I had a record player I __________________ (record) it myself.", answer:"would record", alts:[]},
+  {stem:"If I __________________ (know) her e-mail, I'd give it to you.", answer:"knew", alts:[]},
+  {stem:"He __________________ (look) better if he shaved more often.", answer:"would look", alts:[]},
+  {stem:"If I were sent to prison, __________________ (you / visit) me?", answer:"would you visit", alts:[]},
+  {stem:"If he knew it was boring he __________________ (not come).", answer:"wouldn't come", alts:["would not come"]},
+  {stem:"I __________________ (be) ruined if I bought her everything.", answer:"would be", alts:[]},
+  {stem:"I __________________ (keep) a horse if I could afford it.", answer:"would keep", alts:[]},
+  {stem:"I could get a job easily if I __________________ (have) a degree.", answer:"had", alts:[]},
+  {stem:"What __________________ (you / do) if you found money in the street?", answer:"would you do", alts:[]},
+  {stem:"If anyone attacked me, my dog __________________ (jump) at his throat.", answer:"would jump", alts:[]},
+  {stem:"If I __________________ (have) money, I would lend it to you.", answer:"had", alts:[]},
+  {stem:"If I __________________ (be) rich, I would live in a mansion.", answer:"were", alts:[]},
+  {stem:"He would have time if he __________________ (not work) so much.", answer:"didn't work", alts:["did not work"]},
+  {stem:"If I __________________ (be) you, I would apologise.", answer:"were", alts:[]},
+  {stem:"She __________________ (travel) more if she had more money.", answer:"would travel", alts:[]},
+  {stem:"If he __________________ (speak) English, he could get the job.", answer:"spoke", alts:[]},
+
+  // --- Third conditional ---
+  {stem:"My cousin would have got the job if he __________________ (not fail) his exams.", answer:"hadn't failed", alts:["had not failed"]},
+  {stem:"If I had known, I __________________ (visit) him.", answer:"would have visited", alts:[]},
+  {stem:"If you __________________ (arrive) earlier you would have got a seat.", answer:"had arrived", alts:[]},
+  {stem:"If he had asked you, __________________ (you / accept)?", answer:"would you have accepted", alts:[]},
+  {stem:"If you had left that wasp alone, it __________________ (not sting) you.", answer:"wouldn't have stung", alts:["would not have stung"]},
+  {stem:"If he had known the river was dangerous, he __________________ (not try) to swim.", answer:"wouldn't have tried", alts:["would not have tried"]},
+  {stem:"If I __________________ (try) again, I would have succeeded.", answer:"had tried", alts:[]},
+  {stem:"If he had known, he __________________ (not be) so angry.", answer:"wouldn't have been", alts:["would not have been"]},
+  {stem:"If she __________________ (study) harder, she would have passed.", answer:"had studied", alts:[]},
+  {stem:"They __________________ (win) if they had practised more.", answer:"would have won", alts:[]},
+  {stem:"If we __________________ (leave) earlier, we wouldn't have missed the plane.", answer:"had left", alts:[]},
+  {stem:"He would have called if he __________________ (have) your number.", answer:"had had", alts:[]}
+];
+
+// ============================================================
+// Round system
+// ============================================================
+var ROUND_SIZE = 15;
+var TOTAL_ROUNDS = 3;
+var currentData = [];
+var roundNum = 1;
+
+function pickRandom(arr, n) {
+  var shuffled = arr.slice();
+  for (var i = shuffled.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = shuffled[i];
+    shuffled[i] = shuffled[j];
+    shuffled[j] = tmp;
+  }
+  return shuffled.slice(0, n);
+}
+
+function loadRound() {
+  try {
+    roundNum = parseInt(localStorage.getItem('conditionals-round')) || 1;
+  } catch(e) { roundNum = 1; }
+  if (roundNum < 1) roundNum = 1;
+  if (roundNum > TOTAL_ROUNDS) roundNum = TOTAL_ROUNDS;
+}
+
+function saveRound() {
+  try { localStorage.setItem('conditionals-round', roundNum); } catch(e) {}
+}
+
+function startRound() {
+  currentData = pickRandom(COND_POOL, ROUND_SIZE);
+  var container = document.getElementById('ex-cond');
+  container.innerHTML = '';
+  renderExercises(currentData, 'ex-cond', 'Ej: is, would have visited...');
+  document.getElementById('round-label').textContent = 'Ronda ' + roundNum + '/' + TOTAL_ROUNDS;
+  var btn = document.getElementById('btn-next-round');
+  if (roundNum >= TOTAL_ROUNDS) {
+    btn.textContent = '🔄 Empezar de nuevo';
+    btn.disabled = false;
+  } else {
+    btn.textContent = '▶️ Siguiente ronda';
+    btn.disabled = false;
+  }
+  // Reset score
+  var scoreBox = document.getElementById('ex-cond-score');
+  if (scoreBox) { scoreBox.style.display = 'none'; scoreBox.innerHTML = ''; }
+  // Reset inputs feedback
+  for (var i = 1; i <= ROUND_SIZE; i++) {
+    var fb = document.getElementById('fb-ex-cond-' + i);
+    if (fb) { fb.className = 'feedback-line'; fb.textContent = ''; }
+    var hint = document.getElementById('hint-ex-cond-' + i);
+    if (hint) { hint.className = 'hint-box'; hint.innerHTML = ''; }
+  }
+}
+
+function nextRound() {
+  if (roundNum >= TOTAL_ROUNDS) {
+    roundNum = 1;
+    saveRound();
+    startRound();
+    return;
+  }
+  roundNum++;
+  saveRound();
+  startRound();
+}
+
+// ============================================================
+// Inicialización
+// ============================================================
+loadRound();
+startRound();
+
+// ============================================================
+// Corrección
+// ============================================================
+function checkAllCond() {
+  var correct = 0;
+  var answered = 0;
+  var total = currentData.length;
+  for (var i = 1; i <= total; i++) {
+    checkOne('ex-cond', i);
+    var inp = document.getElementById('inp-ex-cond-' + i);
+    if (inp) {
+      var _empty = inp.value.trim() === '';
+      if (!_empty || inp.classList.contains('correct')) {
+        answered++;
+        if (inp.classList.contains('correct')) correct++;
+      }
+    }
+  }
+  var denom = answered > 0 ? answered : 1;
+  var pct = Math.round((correct / denom) * 100);
+  var score = document.getElementById('ex-cond-score');
+  score.style.display = 'block';
+  var msg = '🎯 ' + correct + '/' + answered + ' correctas (' + pct + '%)';
+  if (answered === 0) msg = '✏️ Responde al menos una pregunta';
+  else if (pct === 100) msg += ' ¡Perfecto! 🏆';
+  else if (pct >= 70) msg += ' Muy bien 👍';
+  else msg += ' Sigue practicando 💪';
+  score.innerHTML = '<span class=\"big\">' + correct + '/' + answered + '</span><br>' + msg;
+}
+
+function resetCond() {
+  resetAll('ex-cond', currentData.length);
+}
+</script>
+</body>
+</html>
