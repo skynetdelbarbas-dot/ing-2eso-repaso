@@ -30,14 +30,14 @@
 <main class="main">
   <div class="breadcrumb"><a href="index.html">Inicio</a> / Simulacro</div>
   <h1 class="page-title">🎯 Simulacro — Examen completo</h1>
-  <p class="intro"><strong>55 preguntas</strong> · 10 bloques UOE + 1 Listening · UOE: <strong>0,20 c/u</strong> → <strong>/10</strong> | Listening: <strong>2,0 c/u</strong> → <strong>/10</strong></p>
+  <p class="intro"><strong>60 preguntas</strong> · 10 bloques UOE + 2 Listenings · UOE: <strong>0,20 c/u</strong> → <strong>/10</strong> | Listening: <strong>2,0 c/u</strong> → <strong>/10 c/u</strong></p>
 
   <div class="section">
     <h2>Instrucciones</h2>
     <div class="theory-box">
       Este examen cubre <strong>todos los temas</strong> del curso.<br>
       📝 <strong>UOE (Use of English):</strong> 10 bloques × 5 preguntas = 50 · <strong>0,20 c/u</strong> → Nota /10<br>
-      🎧 <strong>Listening:</strong> 5 preguntas · <strong>2,0 c/u</strong> → Nota /10 (independiente)<br>
+      🎧 <strong>Listening:</strong> 2 bloques × 5 preguntas = 10 · <strong>2,0 c/u</strong> → Nota /10 cada uno<br>
       Cada bloque tiene 5 preguntas. Completa todas y pulsa "Corregir todo" al final.<br>
       No hay límite de tiempo. Puedes usar "Mostrar respuesta" si te atascas.
     </div>
@@ -182,6 +182,17 @@ var EXAM_BLOCKS = [
       {stem: "For lunch they had __________________ and juice.", answer: "sandwiches", alts: []},
       {stem: "Lucy said the day was __________________.", answer: "fantastic", alts: []},
     ]
+  },
+  {
+    title: "Bloque 12 — Listening Comprehension 2",
+    subtitle: "Escucha el segundo audio de arriba y completa con la información que oyes.",
+    questions: [
+      {stem: "Tom has a pet dog called __________________.", answer: "max", alts: []},
+      {stem: "Tom walks Max in the __________________ every morning.", answer: "park", alts: ["park"]},
+      {stem: "Tom's favourite animals at the zoo were the __________________.", answer: "penguins", alts: []},
+      {stem: "The parrot could ride a __________________ in the bird show.", answer: "bicycle", alts: ["bike"]},
+      {stem: "Tom wants to be a __________________ when he grows up.", answer: "zookeeper", alts: []},
+    ]
   }
 ];
 
@@ -196,17 +207,28 @@ function renderExam() {
   var qNum = 0; // contador global de preguntas
 
   EXAM_BLOCKS.forEach(function(block, bIdx) {
-    // Audio player antes del bloque de listening (bIdx === 10)
+    // Audio player antes de cada bloque de listening
     if (bIdx === 10) {
       var as = document.createElement('div');
       as.className = 'section audio-section';
-      as.innerHTML = '<h2>🎧 Listening</h2>'
+      as.innerHTML = '<h2>🎧 Listening 1 <span style="font-size:0.8rem;color:var(--text2);font-weight:normal">(Lucy\'s beach day)</span></h2>'
         + '<audio controls style="width:100%;margin:10px 0"><source src="audio/listening-1.mp3" type="audio/mpeg"></audio>'
         + '<details style="margin-top:8px"><summary>📝 Ver transcripción</summary>'
         + '<div class="theory-box" style="margin-top:8px">'
         + '<p>Hi! My name is Lucy and I\'m from England. Last weekend, I went to the beach with my family. We left home at nine o\'clock in the morning and arrived at the beach at eleven. The weather was warm and sunny. I swam in the sea and built a big sandcastle with my brother. My mum read a book under an umbrella and my dad played football with some friends. We had sandwiches and juice for lunch. In the afternoon, we walked along the coast and took lots of photos. We went home at six o\'clock. It was a fantastic day!</p>'
         + '</div></details>';
       container.appendChild(as);
+    }
+    if (bIdx === 11) {
+      var as2 = document.createElement('div');
+      as2.className = 'section audio-section';
+      as2.innerHTML = '<h2>🎧 Listening 2 <span style="font-size:0.8rem;color:var(--text2);font-weight:normal">(Tom\'s zoo trip)</span></h2>'
+        + '<audio controls style="width:100%;margin:10px 0"><source src="audio/listening-2.mp3" type="audio/mpeg"></audio>'
+        + '<details style="margin-top:8px"><summary>📝 Ver transcripción</summary>'
+        + '<div class="theory-box" style="margin-top:8px">'
+        + '<p>Hello, my name is Tom and I am twelve years old. I live in a small town near Oxford. I have a pet dog called Max. Every morning, I take Max for a walk in the park before school. Last Saturday, my family and I went to the zoo. We saw lions, monkeys, and penguins. My favourite animals were the penguins because they were very funny. We also had ice cream and watched a bird show. The bird show was amazing! A parrot could ride a bicycle and an eagle could fly very fast. I took lots of photos with my phone. I want to be a zookeeper when I grow up.</p>'
+        + '</div></details>';
+      container.appendChild(as2);
     }
 
     // --- Bloque header ---
@@ -262,7 +284,8 @@ function checkAllSim() {
   var blockScores = [];
 
   var uoeCorr = 0, uoeTotal = 0;
-  var lisCorr = 0, lisTotal = 0;
+  var lis1Corr = 0, lis1Total = 0;
+  var lis2Corr = 0, lis2Total = 0;
 
   EXAM_BLOCKS.forEach(function(block, bIdx) {
     var blockId = 'ex-block-' + (bIdx + 1);
@@ -284,13 +307,16 @@ function checkAllSim() {
       }
     }
 
-    // Clasificar UOE (bloques 1-10) vs Listening (bloque 11)
+    // Clasificar UOE (bloques 1-10) vs Listening 1 (11) vs Listening 2 (12)
     if (bIdx <= 9) {
       uoeCorr += bCorr;
       uoeTotal += n;
+    } else if (bIdx === 10) {
+      lis1Corr += bCorr;
+      lis1Total += n;
     } else {
-      lisCorr += bCorr;
-      lisTotal += n;
+      lis2Corr += bCorr;
+      lis2Total += n;
     }
 
     // Mostrar score de este bloque
@@ -315,7 +341,8 @@ function checkAllSim() {
 
   // Calcular notas
   var uoeNota = uoeTotal > 0 ? ((uoeCorr / uoeTotal) * 10).toFixed(2) : '0.00';
-  var lisNota = lisTotal > 0 ? ((lisCorr / lisTotal) * 10).toFixed(2) : '0.00';
+  var lis1Nota = lis1Total > 0 ? ((lis1Corr / lis1Total) * 10).toFixed(2) : '0.00';
+  var lis2Nota = lis2Total > 0 ? ((lis2Corr / lis2Total) * 10).toFixed(2) : '0.00';
   var pct = answered > 0 ? Math.round((correct / answered) * 100) : 0;
 
   // Tabla resumen por bloques
@@ -340,12 +367,20 @@ function checkAllSim() {
   notasHTML += '<div style="font-size:0.85rem">' + uoeCorr + '/' + uoeTotal + ' correctas ' + uoeIcon + '</div>';
   notasHTML += '</div>';
 
-  // Listening
-  var lisIcon = parseFloat(lisNota) >= 9 ? '🏆' : parseFloat(lisNota) >= 7 ? '👏' : parseFloat(lisNota) >= 5 ? '👍' : '💪';
+  // Listening 1
+  var lis1Icon = parseFloat(lis1Nota) >= 9 ? '🏆' : parseFloat(lis1Nota) >= 7 ? '👏' : parseFloat(lis1Nota) >= 5 ? '👍' : '💪';
   notasHTML += '<div style="text-align:center;flex:1;min-width:140px">';
-  notasHTML += '<div style="font-size:0.85rem;color:var(--text2)">🎧 Listening</div>';
-  notasHTML += '<div style="font-size:2rem;font-weight:bold;color:var(--primary-dark)">' + lisNota + ' <span style="font-size:1rem">/ 10</span></div>';
-  notasHTML += '<div style="font-size:0.85rem">' + lisCorr + '/' + lisTotal + ' correctas ' + lisIcon + '</div>';
+  notasHTML += '<div style="font-size:0.85rem;color:var(--text2)">🎧 Listening 1</div>';
+  notasHTML += '<div style="font-size:2rem;font-weight:bold;color:var(--primary-dark)">' + lis1Nota + ' <span style="font-size:1rem">/ 10</span></div>';
+  notasHTML += '<div style="font-size:0.85rem">' + lis1Corr + '/' + lis1Total + ' correctas ' + lis1Icon + '</div>';
+  notasHTML += '</div>';
+
+  // Listening 2
+  var lis2Icon = parseFloat(lis2Nota) >= 9 ? '🏆' : parseFloat(lis2Nota) >= 7 ? '👏' : parseFloat(lis2Nota) >= 5 ? '👍' : '💪';
+  notasHTML += '<div style="text-align:center;flex:1;min-width:140px">';
+  notasHTML += '<div style="font-size:0.85rem;color:var(--text2)">🎧 Listening 2</div>';
+  notasHTML += '<div style="font-size:2rem;font-weight:bold;color:var(--primary-dark)">' + lis2Nota + ' <span style="font-size:1rem">/ 10</span></div>';
+  notasHTML += '<div style="font-size:0.85rem">' + lis2Corr + '/' + lis2Total + ' correctas ' + lis2Icon + '</div>';
   notasHTML += '</div>';
 
   notasHTML += '</div></div>';

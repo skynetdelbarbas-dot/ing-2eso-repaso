@@ -1,0 +1,7 @@
+name = "ingles-worker"
+main = "ingles-worker.js"
+compatibility_date = "2025-04-01"
+
+routes = [
+  { pattern = "ingles.skynetdelbarbas.com/*", zone_id = "e4bf6fc9153f9b07e570f65e02df95bf" }
+]
