@@ -30,12 +30,14 @@
 <main class="main">
   <div class="breadcrumb"><a href="index.html">Inicio</a> / Simulacro</div>
   <h1 class="page-title">🎯 Simulacro — Examen completo</h1>
-  <p class="intro"><strong>55 preguntas</strong> · 10 bloques gramática + 1 listening · Cada pregunta vale <strong>0,20 puntos</strong> → Nota máxima <strong>10</strong></p>
+  <p class="intro"><strong>55 preguntas</strong> · 10 bloques UOE + 1 Listening · UOE: <strong>0,20 c/u</strong> → <strong>/10</strong> | Listening: <strong>2,0 c/u</strong> → <strong>/10</strong></p>
 
   <div class="section">
     <h2>Instrucciones</h2>
     <div class="theory-box">
       Este examen cubre <strong>todos los temas</strong> del curso.<br>
+      📝 <strong>UOE (Use of English):</strong> 10 bloques × 5 preguntas = 50 · <strong>0,20 c/u</strong> → Nota /10<br>
+      🎧 <strong>Listening:</strong> 5 preguntas · <strong>2,0 c/u</strong> → Nota /10 (independiente)<br>
       Cada bloque tiene 5 preguntas. Completa todas y pulsa "Corregir todo" al final.<br>
       No hay límite de tiempo. Puedes usar "Mostrar respuesta" si te atascas.
     </div>
@@ -259,6 +261,9 @@ function checkAllSim() {
   var total = 0;
   var blockScores = [];
 
+  var uoeCorr = 0, uoeTotal = 0;
+  var lisCorr = 0, lisTotal = 0;
+
   EXAM_BLOCKS.forEach(function(block, bIdx) {
     var blockId = 'ex-block-' + (bIdx + 1);
     var n = block.questions.length;
@@ -279,20 +284,26 @@ function checkAllSim() {
       }
     }
 
+    // Clasificar UOE (bloques 1-10) vs Listening (bloque 11)
+    if (bIdx <= 9) {
+      uoeCorr += bCorr;
+      uoeTotal += n;
+    } else {
+      lisCorr += bCorr;
+      lisTotal += n;
+    }
+
     // Mostrar score de este bloque
     var bs = document.getElementById('bs-' + (bIdx + 1));
     if (bs) {
       var bpct = bAns > 0 ? Math.round((bCorr / bAns) * 100) : 0;
       var icon = bpct === 100 ? '🏆' : bpct >= 70 ? '👍' : bpct >= 50 ? '👌' : '💪';
       bs.style.display = 'block';
-      bs.innerHTML = '📊 <strong>' + block.title.split('—')[1] || block.title + '</strong>: ' + bCorr + '/' + n + ' (' + bpct + '%) ' + icon;
+      bs.innerHTML = '📊 <strong>' + (block.title.split('—')[1] || block.title) + '</strong>: ' + bCorr + '/' + n + ' (' + bpct + '%) ' + icon;
     }
 
     blockScores.push({ title: block.title, corr: bCorr, total: n });
   });
-
-  var nota = (correct * 0.20).toFixed(2);
-  var pct = answered > 0 ? Math.round((correct / answered) * 100) : 0;
 
   var score = document.getElementById('ex-sim-score');
   score.style.display = 'block';
@@ -302,23 +313,45 @@ function checkAllSim() {
     return;
   }
 
+  // Calcular notas
+  var uoeNota = uoeTotal > 0 ? ((uoeCorr / uoeTotal) * 10).toFixed(2) : '0.00';
+  var lisNota = lisTotal > 0 ? ((lisCorr / lisTotal) * 10).toFixed(2) : '0.00';
+  var pct = answered > 0 ? Math.round((correct / answered) * 100) : 0;
+
   // Tabla resumen por bloques
   var summaryHTML = '<div style="margin-bottom:14px;font-size:0.9em;text-align:left;display:inline-block">';
   blockScores.forEach(function(b, i) {
     var label = b.title.split('—')[1] || b.title;
-    var bar = '<span style="display:inline-block;width:' + Math.round((b.corr/b.total)*60) + 'px;height:10px;background:var(--primary);border-radius:4px;vertical-align:middle;margin-right:6px"></span>';
-    summaryHTML += '<div style="margin:3px 0">' + bar + ' <strong>' + (i+1) + ':</strong> ' + label.trim() + ' → ' + b.corr + '/' + b.total + '</div>';
+    var barW = b.total > 0 ? Math.round((b.corr / b.total) * 60) : 0;
+    var bar = '<span style="display:inline-block;width:' + barW + 'px;height:10px;background:var(--primary);border-radius:4px;vertical-align:middle;margin-right:6px"></span>';
+    summaryHTML += '<div style="margin:3px 0">' + bar + ' <strong>' + (i + 1) + ':</strong> ' + label.trim() + ' → ' + b.corr + '/' + b.total + '</div>';
   });
   summaryHTML += '</div>';
 
-  var msg = summaryHTML;
-  msg += '<br><span class="big">' + correct + '/' + total + '</span>';
-  msg += '<br>🎯 ' + correct + '/' + answered + ' respondidas (' + pct + '%)';
-  msg += '<br>📝 <strong>Nota: ' + nota + ' / 10</strong>';
-  if (nota >= 5) msg += ' ¡Aprobado! 👍';
-  if (nota >= 7) msg += ' ¡Bien! 👏';
-  if (nota >= 9) msg += ' ¡Excelente! 🏆';
-  if (nota < 5) msg += ' Sigue practicando 💪';
+  // Notas separadas
+  var notasHTML = '<div style="margin:14px 0;padding:12px;background:var(--card);border:1px solid var(--primary);border-radius:var(--radius)">';
+  notasHTML += '<div style="display:flex;justify-content:space-around;gap:12px;flex-wrap:wrap">';
+
+  // UOE
+  var uoeIcon = parseFloat(uoeNota) >= 9 ? '🏆' : parseFloat(uoeNota) >= 7 ? '👏' : parseFloat(uoeNota) >= 5 ? '👍' : '💪';
+  notasHTML += '<div style="text-align:center;flex:1;min-width:140px">';
+  notasHTML += '<div style="font-size:0.85rem;color:var(--text2)">📝 UOE (Use of English)</div>';
+  notasHTML += '<div style="font-size:2rem;font-weight:bold;color:var(--primary-dark)">' + uoeNota + ' <span style="font-size:1rem">/ 10</span></div>';
+  notasHTML += '<div style="font-size:0.85rem">' + uoeCorr + '/' + uoeTotal + ' correctas ' + uoeIcon + '</div>';
+  notasHTML += '</div>';
+
+  // Listening
+  var lisIcon = parseFloat(lisNota) >= 9 ? '🏆' : parseFloat(lisNota) >= 7 ? '👏' : parseFloat(lisNota) >= 5 ? '👍' : '💪';
+  notasHTML += '<div style="text-align:center;flex:1;min-width:140px">';
+  notasHTML += '<div style="font-size:0.85rem;color:var(--text2)">🎧 Listening</div>';
+  notasHTML += '<div style="font-size:2rem;font-weight:bold;color:var(--primary-dark)">' + lisNota + ' <span style="font-size:1rem">/ 10</span></div>';
+  notasHTML += '<div style="font-size:0.85rem">' + lisCorr + '/' + lisTotal + ' correctas ' + lisIcon + '</div>';
+  notasHTML += '</div>';
+
+  notasHTML += '</div></div>';
+
+  var msg = summaryHTML + notasHTML;
+  msg += '<br>🎯 Total: ' + correct + '/' + answered + ' respondidas (' + pct + '%)';
 
   score.innerHTML = msg;
 }
