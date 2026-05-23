@@ -24,26 +24,27 @@
   <h2>📖 Vocabulary</h2>
   <a href="vocabulary.html">Units 1-3, 5-11</a>
   <h2>🎯 Simulacro</h2>
-  <a href="simulacro.html">Examen mixto</a>
+  <a href="simulacro.html" class="active">Examen mixto</a>
 
 </nav>
 <main class="main">
   <div class="breadcrumb"><a href="index.html">Inicio</a> / Simulacro</div>
-  <h1 class="page-title">🎯 Simulacro</h1>
-  <p class="intro">Examen mixto con todos los temas.</p>
+  <h1 class="page-title">🎯 Simulacro — Examen completo</h1>
+  <p class="intro"><strong>50 preguntas</strong> · 10 bloques · Cada pregunta vale <strong>0,20 puntos</strong> → Nota máxima <strong>10</strong></p>
 
   <div class="section">
     <h2>Instrucciones</h2>
     <div class="theory-box">
-      Este simulacro mezcla <strong>todos los temas</strong> del examen.<br>
-      Intenta completar las 15 preguntas sin mirar las soluciones.<br>
-      Luego pulsa "Corregir todo" para ver tu nota.
+      Este examen cubre <strong>todos los temas</strong> del curso.<br>
+      Cada bloque tiene 5 preguntas. Completa todas y pulsa "Corregir todo" al final.<br>
+      No hay límite de tiempo. Puedes usar "Mostrar respuesta" si te atascas.
     </div>
   </div>
 
+  <!-- Los 10 bloques se renderizan aquí -->
+  <div id="ex-sim"></div>
+
   <div class="section">
-    <h2>✏️ Examen mixto</h2>
-    <div id="ex-sim"></div>
     <div class="btn-section">
       <button class="btn btn-check-all" onclick="checkAllSim()">✅ Corregir todo</button>
       <button class="btn btn-reset" onclick="resetSim()">🔄 Limpiar todo</button>
@@ -55,31 +56,229 @@
 
 <script src="exercises.js?v=6"></script>
 <script>
-const SIM_DATA = [{"stem": "I haven't seen him __________________ ages.", "answer": "for", "alts": []}, {"stem": "If I __________________ (be) you, I would study harder.", "answer": "were", "alts": []}, {"stem": "She said she __________________ (be) tired.", "answer": "was", "alts": []}, {"stem": "This book __________________ (write) by J.K. Rowling.", "answer": "was written", "alts": []}, {"stem": "You don't like coffee, __________________?", "answer": "do you", "alts": []}, {"stem": "I wish I __________________ (know) the answer.", "answer": "knew", "alts": []}, {"stem": "There isn't __________________ milk in the fridge.", "answer": "any", "alts": []}, {"stem": "If it rains, we __________________ (stay) at home.", "answer": "will stay", "alts": []}, {"stem": "Let's go to the cinema, __________________?", "answer": "shall we", "alts": []}, {"stem": "I __________________ (not finish) my homework yet.", "answer": "haven't finished", "alts": ["have not finished"]}, {"stem": "If I had known, I __________________ (tell) you.", "answer": "would have told", "alts": []}, {"stem": "He can't swim and __________________ can I.", "answer": "neither", "alts": ["nor"]}, {"stem": "______________ you ever __________________ (be) to Rome?", "answer": "have been", "alts": []}, {"stem": "Mount Everest is __________________ highest mountain.", "answer": "the", "alts": []}, {"stem": "She asked me __________________ help her.", "answer": "to", "alts": []}];
-
-renderExercises(SIM_DATA, "ex-sim", "Escribe la respuesta...");
-
-function checkAllSim() {
-  let correct = 0;
-  const total = SIM_DATA.length;
-  for (let i = 1; i <= total; i++) {
-    checkOne("ex-sim", i);
-    const inp = document.getElementById("inp-ex-sim-" + i);
-    if (inp && inp.classList.contains('correct')) correct++;
+// ============================================================
+// 10 BLOQUES × 5 PREGUNTAS = 50 PREGUNTAS (0,20 c/u → 10)
+// ============================================================
+var EXAM_BLOCKS = [
+  {
+    title: "Bloque 1 — Present Perfect",
+    subtitle: "Completa con el Present Perfect Simple o Continuous.",
+    questions: [
+      {stem: "The earth __________________ here for billions of years (be).", answer: "has been", alts: []},
+      {stem: "We ________________________ cards for the last few hours (play).", answer: "have been playing", alts: []},
+      {stem: "We ________________________ problems with our new car recently (have).", answer: "have been having", alts: ["have had"]},
+      {stem: "____________________________ on anything interesting lately? (you work)", answer: "have you been working", alts: []},
+      {stem: "Cuba ________________________ a socialist country since 1959 (be).", answer: "has been", alts: []},
+    ]
+  },
+  {
+    title: "Bloque 2 — Reported Speech",
+    subtitle: "Transforma las frases a estilo indirecto.",
+    questions: [
+      {stem: 'He said: "I will be there by noon." → He said (that) __________________.', answer: "he would be there by noon", alts: ["he said he would be there by noon"]},
+      {stem: 'The twins said: "We are five years old." → The twins said (that) __________________.', answer: "they were five years old", alts: ["the twins said they were five years old"]},
+      {stem: 'Mum said: "You will have to get up early." → Mum said (that) I __________________ get up early.', answer: "would have to", alts: []},
+      {stem: 'The teacher told her: "You speak English very well." → The teacher told her (that) __________________.', answer: "she spoke english very well", alts: ["the teacher told her she spoke english very well"]},
+      {stem: 'The doctor said: "Your mother will recover quickly." → The doctor said (that) __________________.', answer: "my mother would recover quickly", alts: ["her mother would recover quickly"]},
+    ]
+  },
+  {
+    title: "Bloque 3 — Conditionals",
+    subtitle: "Completa con la forma verbal correcta.",
+    questions: [
+      {stem: "If it __________________ (be) sunny, I will go for a walk.", answer: "is", alts: []},
+      {stem: "If you __________________ (heat) ice, it melts.", answer: "heat", alts: []},
+      {stem: "If I __________________ (be) you, I would study harder.", answer: "were", alts: []},
+      {stem: "If she had studied, she __________________ (pass) the exam.", answer: "would have passed", alts: []},
+      {stem: "If you __________________ (not water) plants, they die.", answer: "don't water", alts: ["do not water"]},
+    ]
+  },
+  {
+    title: "Bloque 4 — I wish / If only",
+    subtitle: "Expresa deseo o arrepentimiento con la forma correcta.",
+    questions: [
+      {stem: "I wish we __________________ (live) in the city now.", answer: "lived", alts: ["were living"]},
+      {stem: "Tom and Sarah wish they __________________ (have) a bigger house.", answer: "had", alts: []},
+      {stem: "If only Susan __________________ (can) call me right now.", answer: "could", alts: []},
+      {stem: "I wish I __________________ (know) the answer to this question.", answer: "knew", alts: []},
+      {stem: "If only I __________________ (be) taller!", answer: "were", alts: []},
+    ]
+  },
+  {
+    title: "Bloque 5 — Question Tags",
+    subtitle: "Añade la question tag correcta al final de cada frase.",
+    questions: [
+      {stem: "She isn't happy about the wedding, __________________?", answer: "is she", alts: []},
+      {stem: "She was in Lisbon last week, __________________?", answer: "wasn't she", alts: []},
+      {stem: "You were at the party last night, __________________?", answer: "weren't you", alts: []},
+      {stem: "It is snowing in Boston, __________________?", answer: "isn't it", alts: []},
+      {stem: "Let's go to the cinema, __________________?", answer: "shall we", alts: []},
+    ]
+  },
+  {
+    title: "Bloque 6 — Articles (a/an/the/∅)",
+    subtitle: "Elige el artículo correcto: a, an, the o — (no article).",
+    questions: [
+      {stem: "I saw __________________ elephant at the zoo.", answer: "an", alts: []},
+      {stem: "He is __________________ honest man.", answer: "an", alts: []},
+      {stem: "She's __________________ university student.", answer: "a", alts: []},
+      {stem: "______________ United Kingdom is an island.", answer: "the", alts: []},
+      {stem: "We usually have __________________ lunch at 2 p.m.", answer: "-", alts: ["—", "no article", "∅"]},
+    ]
+  },
+  {
+    title: "Bloque 7 — Passive Voice",
+    subtitle: "Transforma las frases activas en pasivas.",
+    questions: [
+      {stem: "Someone stole my bike. → My bike __________________ by someone.", answer: "was stolen", alts: []},
+      {stem: "People speak English worldwide. → English __________________ worldwide.", answer: "is spoken", alts: []},
+      {stem: "The chef cooks the meals. → The meals __________________ by the chef.", answer: "are cooked", alts: []},
+      {stem: "Shakespeare wrote Hamlet. → Hamlet __________________ by Shakespeare.", answer: "was written", alts: []},
+      {stem: "They will build a new hospital. → A new hospital __________________ by them.", answer: "will be built", alts: []},
+    ]
+  },
+  {
+    title: "Bloque 8 — Indefinite Pronouns",
+    subtitle: "Completa con someone/anyone/no one/everyone, something/anything/nothing/everything.",
+    questions: [
+      {stem: "I couldn't find __________________ interesting to read.", answer: "anything", alts: []},
+      {stem: "Would you like __________________ to drink?", answer: "something", alts: []},
+      {stem: "__________________ knows the answer. Nobody knows.", answer: "no one", alts: ["nobody"]},
+      {stem: "__________________ is ready for the trip.", answer: "everything", alts: ["everybody"]},
+      {stem: "__________________ called while you were out.", answer: "someone", alts: ["somebody"]},
+    ]
+  },
+  {
+    title: "Bloque 9 — Nor / Neither / So",
+    subtitle: "Responde expresando acuerdo (So / Neither / Nor + auxiliar).",
+    questions: [
+      {stem: "I don't like broccoli.", answer: "neither do i", alts: ["nor do i"]},
+      {stem: "She is a doctor.", answer: "so is he", alts: ["so is she", "so am i"]},
+      {stem: "They love pizza.", answer: "so do we", alts: ["so do they", "so do i"]},
+      {stem: "He can't swim.", answer: "neither can his brother", alts: ["nor can his brother", "neither can he", "nor can he"]},
+      {stem: "I haven't finished my homework.", answer: "neither have i", alts: ["nor have i"]},
+    ]
+  },
+  {
+    title: "Bloque 10 — Vocabulary",
+    subtitle: "Completa con la palabra o expresión correcta.",
+    questions: [
+      {stem: "She always shares her things. She is very __________________.", answer: "generous", alts: []},
+      {stem: "He never does his homework. He is really __________________.", answer: "lazy", alts: []},
+      {stem: "She always helps others. She is so __________________.", answer: "kind", alts: ["helpful"]},
+      {stem: "I need to __________________ early tomorrow (levantarse).", answer: "get up", alts: []},
+      {stem: "Let's __________________ for dinner tonight (salir a cenar).", answer: "eat out", alts: ["go out"]},
+    ]
   }
-  const pct = Math.round((correct / total) * 100);
-  const score = document.getElementById('ex-sim-score');
+];
+
+// ============================================================
+// Renderizado
+// ============================================================
+var TOTAL_QS = 0; // se calcula al renderizar
+
+function renderExam() {
+  var container = document.getElementById('ex-sim');
+  container.innerHTML = '';
+  var qNum = 0; // contador global de preguntas
+
+  EXAM_BLOCKS.forEach(function(block, bIdx) {
+    // --- Bloque header ---
+    var blockEl = document.createElement('div');
+    blockEl.className = 'section exam-block';
+    blockEl.id = 'block-' + (bIdx + 1);
+
+    var header = document.createElement('h2');
+    header.textContent = '📋 ' + block.title;
+    blockEl.appendChild(header);
+
+    var sub = document.createElement('p');
+    sub.className = 'block-subtitle';
+    sub.style.cssText = 'color:var(--text2);margin-bottom:14px';
+    sub.textContent = block.subtitle;
+    blockEl.appendChild(sub);
+
+    // --- Preguntas del bloque ---
+    var blockId = 'ex-block-' + (bIdx + 1);
+    var qContainer = document.createElement('div');
+    qContainer.id = blockId;
+    qContainer.className = 'block-questions';
+    blockEl.appendChild(qContainer);
+
+    container.appendChild(blockEl);
+
+    // Renderizar preguntas con renderExercises
+    // Necesitamos un containerId único por bloque
+    var placeholder = bIdx === 5 ? 'Ej: a, an, the, —' : 'Escribe la respuesta...';
+    renderExercises(block.questions, blockId, placeholder);
+
+    // Actualizar números de pregunta globales (renderExercises usa num = i+1 internamente)
+    qNum += block.questions.length;
+  });
+
+  TOTAL_QS = qNum;
+  document.getElementById('ex-sim-score').style.display = 'none';
+}
+
+// ============================================================
+// Corrección
+// ============================================================
+function checkAllSim() {
+  var correct = 0;
+  var answered = 0;
+  var total = 0;
+
+  EXAM_BLOCKS.forEach(function(block, bIdx) {
+    var blockId = 'ex-block-' + (bIdx + 1);
+    var n = block.questions.length;
+
+    for (var i = 1; i <= n; i++) {
+      total++;
+      checkOne(blockId, i);
+      var inp = document.getElementById('inp-' + blockId + '-' + i);
+      if (inp) {
+        var isEmpty = inp.value.trim() === '';
+        if (!isEmpty || inp.classList.contains('correct')) {
+          answered++;
+          if (inp.classList.contains('correct')) correct++;
+        }
+      }
+    }
+  });
+
+  var nota = (correct * 0.20).toFixed(2);
+  var pct = answered > 0 ? Math.round((correct / answered) * 100) : 0;
+
+  var score = document.getElementById('ex-sim-score');
   score.style.display = 'block';
-  let msg = `🎯 ${correct}/${total} correctas (${pct}%)`;
-  if (pct === 100) msg += ' ¡Perfecto! 🏆';
-  else if (pct >= 70) msg += ' Muy bien 👍';
-  else msg += ' Sigue practicando 💪';
-  score.innerHTML = `<span class="big">${correct}/${total}</span><br>${msg}`;
+
+  var msg = '🎯 ' + correct + '/' + answered + ' correctas (' + pct + '%)';
+  if (answered === 0) {
+    msg = '✏️ Responde al menos una pregunta';
+    score.innerHTML = msg;
+  } else {
+    msg += '<br>📝 <strong>Nota: ' + nota + ' / 10</strong>';
+    if (nota >= 5) msg += ' ¡Aprobado! 👍';
+    if (nota >= 7) msg += ' ¡Bien! 👏';
+    if (nota >= 9) msg += ' ¡Excelente! 🏆';
+    if (nota < 5) msg += ' Sigue practicando 💪';
+    score.innerHTML = '<span class="big">' + correct + '/' + total + '</span><br>' + msg;
+  }
 }
 
 function resetSim() {
-  resetAll("ex-sim", SIM_DATA.length);
+  EXAM_BLOCKS.forEach(function(block, bIdx) {
+    var blockId = 'ex-block-' + (bIdx + 1);
+    resetAll(blockId, block.questions.length);
+  });
+  var score = document.getElementById('ex-sim-score');
+  if (score) { score.style.display = 'none'; score.innerHTML = ''; }
 }
+
+// ============================================================
+// Inicialización
+// ============================================================
+renderExam();
 </script>
 </body>
 </html>
