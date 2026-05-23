@@ -29,7 +29,7 @@ function renderExercises(data, containerId, placeholder) {
       <p class="stem"><strong>${num}.</strong> ${ex.stem}</p>
       <input type="text" id="inp-${containerId}-${num}" 
              data-answer="${ex.answer}" 
-             data-alts='${JSON.stringify(ex.alts || [])}' 
+             data-alts="${JSON.stringify(ex.alts || []).replace(/"/g, '&quot;')}" 
              placeholder="${placeholder || 'Escribe la respuesta...'}">
       <div class="btn-row">
         <button class="btn-sm btn-check" onclick="checkOne('${containerId}', ${num})">✅ Corregir</button>
