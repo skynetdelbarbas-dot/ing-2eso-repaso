@@ -30,7 +30,7 @@
 <main class="main">
   <div class="breadcrumb"><a href="index.html">Inicio</a> / Simulacro</div>
   <h1 class="page-title">🎯 Simulacro — Examen completo</h1>
-  <p class="intro"><strong>50 preguntas</strong> · 10 bloques · Cada pregunta vale <strong>0,20 puntos</strong> → Nota máxima <strong>10</strong></p>
+  <p class="intro"><strong>55 preguntas</strong> · 10 bloques gramática + 1 listening · Cada pregunta vale <strong>0,20 puntos</strong> → Nota máxima <strong>10</strong></p>
 
   <div class="section">
     <h2>Instrucciones</h2>
@@ -155,7 +155,7 @@ var EXAM_BLOCKS = [
       {stem: "I don't like broccoli.", answer: "neither do i", alts: ["nor do i"]},
       {stem: "She is a doctor.", answer: "so is he", alts: ["so is she", "so am i"]},
       {stem: "They love pizza.", answer: "so do we", alts: ["so do they", "so do i"]},
-      {stem: "He can't swim.", answer: "neither can his brother", alts: ["nor can his brother", "neither can he", "nor can he"]},
+      {stem: "John can't swim. His brother can't swim either. → John can't swim, and __________________.", answer: "neither can his brother", alts: ["nor can his brother", "neither can he", "nor can he"]},
       {stem: "I haven't finished my homework.", answer: "neither have i", alts: ["nor have i"]},
     ]
   },
@@ -168,6 +168,17 @@ var EXAM_BLOCKS = [
       {stem: "She always helps others. She is so __________________.", answer: "kind", alts: ["helpful"]},
       {stem: "I need to __________________ early tomorrow (levantarse).", answer: "get up", alts: []},
       {stem: "Let's __________________ for dinner tonight (salir a cenar).", answer: "eat out", alts: ["go out"]},
+    ]
+  },
+  {
+    title: "Bloque 11 — Listening Comprehension",
+    subtitle: "Escucha el audio de arriba y completa con la información que oyes.",
+    questions: [
+      {stem: "Lucy went to the __________________ last weekend.", answer: "beach", alts: []},
+      {stem: "They left home at __________________ o'clock.", answer: "nine", alts: ["9"]},
+      {stem: "Lucy's mum read a book under an __________________.", answer: "umbrella", alts: []},
+      {stem: "For lunch they had __________________ and juice.", answer: "sandwiches", alts: []},
+      {stem: "Lucy said the day was __________________.", answer: "fantastic", alts: []},
     ]
   }
 ];
@@ -183,6 +194,19 @@ function renderExam() {
   var qNum = 0; // contador global de preguntas
 
   EXAM_BLOCKS.forEach(function(block, bIdx) {
+    // Audio player antes del bloque de listening (bIdx === 10)
+    if (bIdx === 10) {
+      var as = document.createElement('div');
+      as.className = 'section audio-section';
+      as.innerHTML = '<h2>🎧 Listening</h2>'
+        + '<audio controls style="width:100%;margin:10px 0"><source src="audio/listening-1.mp3" type="audio/mpeg"></audio>'
+        + '<details style="margin-top:8px"><summary>📝 Ver transcripción</summary>'
+        + '<div class="theory-box" style="margin-top:8px">'
+        + '<p>Hi! My name is Lucy and I\'m from England. Last weekend, I went to the beach with my family. We left home at nine o\'clock in the morning and arrived at the beach at eleven. The weather was warm and sunny. I swam in the sea and built a big sandcastle with my brother. My mum read a book under an umbrella and my dad played football with some friends. We had sandwiches and juice for lunch. In the afternoon, we walked along the coast and took lots of photos. We went home at six o\'clock. It was a fantastic day!</p>'
+        + '</div></details>';
+      container.appendChild(as);
+    }
+
     // --- Bloque header ---
     var blockEl = document.createElement('div');
     blockEl.className = 'section exam-block';
@@ -208,11 +232,17 @@ function renderExam() {
     container.appendChild(blockEl);
 
     // Renderizar preguntas con renderExercises
-    // Necesitamos un containerId único por bloque
     var placeholder = bIdx === 5 ? 'Ej: a, an, the, —' : 'Escribe la respuesta...';
     renderExercises(block.questions, blockId, placeholder);
 
-    // Actualizar números de pregunta globales (renderExercises usa num = i+1 internamente)
+    // Score por bloque (oculto hasta corregir)
+    var bs = document.createElement('div');
+    bs.className = 'block-score';
+    bs.id = 'bs-' + (bIdx + 1);
+    bs.style.display = 'none';
+    blockEl.appendChild(bs);
+
+    // Actualizar números de pregunta globales
     qNum += block.questions.length;
   });
 
@@ -227,10 +257,13 @@ function checkAllSim() {
   var correct = 0;
   var answered = 0;
   var total = 0;
+  var blockScores = [];
 
   EXAM_BLOCKS.forEach(function(block, bIdx) {
     var blockId = 'ex-block-' + (bIdx + 1);
     var n = block.questions.length;
+    var bCorr = 0;
+    var bAns = 0;
 
     for (var i = 1; i <= n; i++) {
       total++;
@@ -239,11 +272,23 @@ function checkAllSim() {
       if (inp) {
         var isEmpty = inp.value.trim() === '';
         if (!isEmpty || inp.classList.contains('correct')) {
+          bAns++;
           answered++;
-          if (inp.classList.contains('correct')) correct++;
+          if (inp.classList.contains('correct')) { bCorr++; correct++; }
         }
       }
     }
+
+    // Mostrar score de este bloque
+    var bs = document.getElementById('bs-' + (bIdx + 1));
+    if (bs) {
+      var bpct = bAns > 0 ? Math.round((bCorr / bAns) * 100) : 0;
+      var icon = bpct === 100 ? '🏆' : bpct >= 70 ? '👍' : bpct >= 50 ? '👌' : '💪';
+      bs.style.display = 'block';
+      bs.innerHTML = '📊 <strong>' + block.title.split('—')[1] || block.title + '</strong>: ' + bCorr + '/' + n + ' (' + bpct + '%) ' + icon;
+    }
+
+    blockScores.push({ title: block.title, corr: bCorr, total: n });
   });
 
   var nota = (correct * 0.20).toFixed(2);
@@ -252,18 +297,30 @@ function checkAllSim() {
   var score = document.getElementById('ex-sim-score');
   score.style.display = 'block';
 
-  var msg = '🎯 ' + correct + '/' + answered + ' correctas (' + pct + '%)';
   if (answered === 0) {
-    msg = '✏️ Responde al menos una pregunta';
-    score.innerHTML = msg;
-  } else {
-    msg += '<br>📝 <strong>Nota: ' + nota + ' / 10</strong>';
-    if (nota >= 5) msg += ' ¡Aprobado! 👍';
-    if (nota >= 7) msg += ' ¡Bien! 👏';
-    if (nota >= 9) msg += ' ¡Excelente! 🏆';
-    if (nota < 5) msg += ' Sigue practicando 💪';
-    score.innerHTML = '<span class="big">' + correct + '/' + total + '</span><br>' + msg;
+    score.innerHTML = '✏️ Responde al menos una pregunta';
+    return;
   }
+
+  // Tabla resumen por bloques
+  var summaryHTML = '<div style="margin-bottom:14px;font-size:0.9em;text-align:left;display:inline-block">';
+  blockScores.forEach(function(b, i) {
+    var label = b.title.split('—')[1] || b.title;
+    var bar = '<span style="display:inline-block;width:' + Math.round((b.corr/b.total)*60) + 'px;height:10px;background:var(--primary);border-radius:4px;vertical-align:middle;margin-right:6px"></span>';
+    summaryHTML += '<div style="margin:3px 0">' + bar + ' <strong>' + (i+1) + ':</strong> ' + label.trim() + ' → ' + b.corr + '/' + b.total + '</div>';
+  });
+  summaryHTML += '</div>';
+
+  var msg = summaryHTML;
+  msg += '<br><span class="big">' + correct + '/' + total + '</span>';
+  msg += '<br>🎯 ' + correct + '/' + answered + ' respondidas (' + pct + '%)';
+  msg += '<br>📝 <strong>Nota: ' + nota + ' / 10</strong>';
+  if (nota >= 5) msg += ' ¡Aprobado! 👍';
+  if (nota >= 7) msg += ' ¡Bien! 👏';
+  if (nota >= 9) msg += ' ¡Excelente! 🏆';
+  if (nota < 5) msg += ' Sigue practicando 💪';
+
+  score.innerHTML = msg;
 }
 
 function resetSim() {
