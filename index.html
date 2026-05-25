@@ -330,7 +330,7 @@ function injectSimulacroCheckboxes(doc) {
 
     window.generateSimExam = function() {
       _simExamGenerated = true;
-      // Hide all sections and exercises first
+      // Hide all sections first
       _simTopics.forEach(function(t) { t.section.style.display = 'none'; });
 
       // Show only selected topics
@@ -370,8 +370,10 @@ function injectSimulacroCheckboxes(doc) {
       window._simPerQuestion = perQuestionRounded;
       window._simTotal = totalEx;
 
-      // Show score boxes and buttons
+      // Show score boxes and ALL buttons (including the global "Corregir todo")
       document.querySelectorAll('.score-box').forEach(function(s) { s.style.display = ''; });
+      document.querySelectorAll('.btn-section').forEach(function(b) { b.style.display = ''; });
+      document.querySelectorAll('.btn-check-all').forEach(function(b) { b.style.display = ''; });
     };
 
     // Override checkAll to calculate weighted score
