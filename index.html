@@ -342,12 +342,13 @@ function chk(cid, n) {
   let alts = [];
   try { alts = JSON.parse(inp.dataset.alts||'[]'); } catch(e){}
   alts = alts.map(a=>a.toLowerCase());
+  const allAccepted = [main, ...alts].join(' / ');
   if (val === main || alts.includes(val)) {
     inp.classList.remove('inp-wrong'); inp.classList.add('inp-correct');
-    fb.className = 'feedback-inline show ok'; fb.textContent = '✅';
+    fb.className = 'feedback-inline show ok'; fb.textContent = '✅ ('+allAccepted+')';
   } else {
     inp.classList.remove('inp-correct'); inp.classList.add('inp-wrong');
-    fb.className = 'feedback-inline show ko'; fb.textContent = '❌ ('+inp.dataset.answer+')';
+    fb.className = 'feedback-inline show ko'; fb.textContent = '❌ → '+allAccepted;
   }
 }
 
@@ -375,13 +376,14 @@ function checkAllInline(cid) {
     try { alts = JSON.parse(inp.dataset.alts||'[]'); } catch(e){}
     alts = alts.map(a=>a.toLowerCase());
     const fb = document.getElementById(`fb-${cid}-${n}`);
+    const allOk = [main, ...alts].join(' / ');
     if (val === main || alts.includes(val)) {
       inp.classList.add('inp-correct'); inp.classList.remove('inp-wrong');
       if (fb) { fb.className = 'feedback-inline show ok'; fb.textContent = '✅'; }
       correct++;
     } else {
       inp.classList.add('inp-wrong'); inp.classList.remove('inp-correct');
-      if (fb) { fb.className = 'feedback-inline show ko'; fb.textContent = '❌ ('+inp.dataset.answer+')'; }
+      if (fb) { fb.className = 'feedback-inline show ko'; fb.textContent = '❌ → '+allOk; }
     }
   });
   const score = document.getElementById(`${cid}-score`);
