@@ -6,12 +6,7 @@
 <title>📚 Inglés — Aprende y Practica</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#f8f9fa;--card:#ffffff;--text:#212529;--text2:#6c757d;
-  --primary:#4dabf7;--primary-dark:#339af0;--success:#51cf66;
-  --success-bg:#e6fcf5;--error:#ff6b6b;--error-bg:#fff5f5;
-  --warn:#ffd43b;--border:#dee2e6;--shadow:0 2px 8px rgba(0,0,0,0.08);--radius:10px
-}
+:root{--bg:#f8f9fa;--card:#ffffff;--text:#212529;--text2:#6c757d;--primary:#4dabf7;--primary-dark:#339af0;--success:#51cf66;--success-bg:#e6fcf5;--error:#ff6b6b;--error-bg:#fff5f5;--warn:#ffd43b;--border:#dee2e6;--shadow:0 2px 8px rgba(0,0,0,0.08);--radius:10px}
 body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh}
 .container{display:flex;max-width:1200px;margin:0 auto;min-height:100vh}
 .sidebar{width:260px;background:var(--card);border-right:1px solid var(--border);padding:20px;position:sticky;top:0;height:100vh;overflow-y:auto;box-shadow:var(--shadow);z-index:10}
@@ -27,7 +22,6 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .gram-sub{max-height:0;overflow:hidden;transition:max-height .3s;margin-left:12px}
 .gram-sub.open{max-height:800px}
 .gram-sub a{font-size:0.8rem;padding:5px 12px}
-.gram-sub a.ext{color:var(--text2)}
 .main{flex:1;padding:30px 40px;max-width:900px}
 .section{background:var(--card);border-radius:var(--radius);padding:24px;margin-bottom:20px;box-shadow:var(--shadow);display:none}
 .section.active{display:block}
@@ -35,56 +29,40 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .section h3{font-size:1rem;margin:18px 0 10px;color:var(--primary-dark)}
 .theory-box{background:#e7f5ff;border-left:4px solid var(--primary);padding:14px 18px;border-radius:0 8px 8px 0;margin:12px 0}
 .theory-box code{background:rgba(0,0,0,0.06);padding:2px 6px;border-radius:4px;font-family:Consolas,monospace;font-size:.9em}
-.example{background:#f1f3f5;padding:10px 14px;border-radius:6px;margin:8px 0;font-style:italic}
-.example .en{color:#1864ab}.example .es{color:var(--text2);font-size:.9em}
+.example{background:#f1f3f5;padding:10px 14px;border-radius:6px;margin:8px 0;font-style:italic}.example .en{color:#1864ab}.example .es{color:var(--text2);font-size:.9em}
 ul,ol{margin-left:20px;line-height:1.9}li{margin-bottom:4px}
 .table-wrap{overflow-x:auto;margin:14px 0}
 table.verbs{width:100%;border-collapse:collapse;font-size:.88rem}
 table.verbs th{background:var(--primary-dark);color:#fff;padding:10px 12px;text-align:left;position:sticky;top:0}
-table.verbs td{padding:8px 12px;border-bottom:1px solid var(--border)}
-table.verbs tr:hover{background:#e7f5ff}
-table.verbs td:nth-child(4){color:var(--text2);font-style:italic}
-.search-row{margin-bottom:14px}
-.search-row input{padding:8px 14px;border-radius:6px;border:2px solid var(--border);font-size:.9rem;width:100%;max-width:400px;transition:border-color .2s}
-.search-row input:focus{outline:none;border-color:var(--primary)}
+table.verbs td{padding:8px 12px;border-bottom:1px solid var(--border)}table.verbs tr:hover{background:#e7f5ff}table.verbs td:nth-child(4){color:var(--text2);font-style:italic}
+.search-row{margin-bottom:14px}.search-row input{padding:8px 14px;border-radius:6px;border:2px solid var(--border);font-size:.9rem;width:100%;max-width:400px;transition:border-color .2s}.search-row input:focus{outline:none;border-color:var(--primary)}
 .card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin:16px 0}
-.gram-card{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:16px;cursor:pointer;transition:all .15s}
-.gram-card:hover{border-color:var(--primary);transform:translateY(-2px)}
-.gram-card h4{font-size:.95rem;color:var(--primary-dark);margin-bottom:4px}
-.gram-card p{font-size:.8rem;color:var(--text2);line-height:1.4}
-/* Exercise system (from exercises.js style) */
-.exercise-card{background:#fafafa;border:1px solid var(--border);border-radius:8px;padding:16px;margin:12px 0;position:relative}
-.exercise-card .stem{font-size:1rem;margin-bottom:10px;line-height:1.6}
-.exercise-card input[type="text"]{display:block;width:100%;max-width:450px;border:2px solid var(--border);border-radius:6px;padding:8px 12px;font-size:0.95rem;margin-bottom:8px;transition:border-color .2s}
-.exercise-card input[type="text"]:focus{outline:none;border-color:var(--primary)}
-input.correct{border-color:var(--success)!important;background:var(--success-bg)!important}
-input.wrong{border-color:var(--error)!important;background:var(--error-bg)!important}
-.btn-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.gram-card{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:16px;cursor:pointer;transition:all .15s}.gram-card:hover{border-color:var(--primary);transform:translateY(-2px)}.gram-card h4{font-size:.95rem;color:var(--primary-dark);margin-bottom:4px}.gram-card p{font-size:.8rem;color:var(--text2);line-height:1.4}
+/* Inline exercises */
+.exercise-card{background:#fafafa;border:1px solid var(--border);border-radius:8px;padding:16px;margin:12px 0}
+.exercise-card .stem{font-size:1rem;margin-bottom:10px;line-height:2.2}
+.exercise-card .stem input[type="text"]{display:inline-block;width:160px;border:2px solid var(--border);border-radius:4px;padding:4px 8px;font-size:0.95rem;margin:0 4px;vertical-align:middle;transition:border-color .2s}
+.exercise-card .stem input[type="text"]:focus{outline:none;border-color:var(--primary)}
+input.inp-correct{border-color:var(--success)!important;background:var(--success-bg)!important}
+input.inp-wrong{border-color:var(--error)!important;background:var(--error-bg)!important}
+.btn-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
 .btn-sm{display:inline-flex;align-items:center;gap:4px;border:none;padding:5px 12px;border-radius:5px;font-size:0.82rem;cursor:pointer;transition:all .15s}
 .btn-check{background:var(--primary);color:#fff}.btn-check:hover{background:var(--primary-dark)}
 .btn-answer{background:#fab005;color:#212529}.btn-answer:hover{background:#f59f00}
-.btn-check-all{background:var(--primary);color:#fff;padding:10px 20px;border:none;border-radius:6px;cursor:pointer;font-size:.9rem}
-.btn-check-all:hover{background:var(--primary-dark)}
-.btn-reset{background:#dee2e6;color:var(--text);padding:10px 20px;border:none;border-radius:6px;cursor:pointer;font-size:.9rem}
-.btn-reset:hover{background:#ced4da}
-.btn-next{background:#20c997;color:#fff;border:none;padding:10px 20px;border-radius:6px;cursor:pointer;font-size:.9rem}
-.btn-next:disabled{background:#adb5bd;cursor:default;opacity:.7}
-.feedback-line{font-size:.82rem;padding:4px 10px;border-radius:4px;margin-top:4px;display:none}
-.feedback-line.show{display:inline-block}
-.feedback-line.ok{background:var(--success-bg);color:#2b8a3e}
-.feedback-line.ko{background:var(--error-bg);color:#c92a2a}
-.hint-box{display:none;background:#fff9db;border:1px solid #ffd43b;border-radius:6px;padding:10px 14px;margin-top:6px;font-size:.88rem}
-.hint-box.show{display:block}
-.hint-box .correct-answer{color:var(--success);font-weight:bold}
-.score-box{background:var(--card);border:2px solid var(--primary);border-radius:var(--radius);padding:16px;margin:16px 0;text-align:center;font-size:1rem}
-.score-box .big{font-size:1.8rem;font-weight:bold;color:var(--primary-dark)}
-/* Writing textareas */
+.btn-check-all{background:var(--primary);color:#fff;padding:10px 20px;border:none;border-radius:6px;cursor:pointer;font-size:.9rem}.btn-check-all:hover{background:var(--primary-dark)}
+.btn-reset{background:#dee2e6;color:var(--text);padding:10px 20px;border:none;border-radius:6px;cursor:pointer;font-size:.9rem}.btn-reset:hover{background:#ced4da}
+.btn-next{background:#20c997;color:#fff;border:none;padding:10px 20px;border-radius:6px;cursor:pointer;font-size:.9rem}.btn-next:disabled{background:#adb5bd;cursor:default;opacity:.7}
+.feedback-inline{display:inline-block;font-size:0.8rem;padding:2px 8px;border-radius:4px;margin-left:4px;opacity:0;transition:opacity .2s}
+.feedback-inline.show{opacity:1}
+.feedback-inline.ok{color:#2b8a3e;background:var(--success-bg)}
+.feedback-inline.ko{color:#c92a2a;background:var(--error-bg)}
+.score-box{background:var(--card);border:2px solid var(--primary);border-radius:var(--radius);padding:16px;margin:16px 0;text-align:center;font-size:1rem}.score-box .big{font-size:1.8rem;font-weight:bold;color:var(--primary-dark)}
+/* Writing */
 .writing-tpl{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:16px;margin:12px 0}
 .writing-tpl h4{color:var(--primary-dark);margin-bottom:8px}
 .writing-tpl .tpl-body{font-family:Consolas,monospace;font-size:.85rem;white-space:pre-wrap;background:#fff;border:1px solid var(--border);border-radius:6px;padding:14px;line-height:1.7;max-height:200px;overflow-y:auto;margin-bottom:10px}
 .writing-tpl textarea{width:100%;min-height:120px;border:2px solid var(--border);border-radius:8px;padding:10px;font-size:.9rem;font-family:inherit;resize:vertical}
 .writing-tpl textarea:focus{outline:none;border-color:var(--primary)}
-.writing-check{font-size:.75rem;color:var(--text2);margin-top:4px}
 .writing-stats{display:flex;gap:14px;margin-top:6px;font-size:.8rem;color:var(--text2)}
 /* Floating translator */
 #tr-float{position:fixed;bottom:20px;right:20px;z-index:1000}
@@ -94,21 +72,17 @@ input.wrong{border-color:var(--error)!important;background:var(--error-bg)!impor
 #tr-float-panel textarea{width:100%;min-height:70px;border:2px solid var(--border);border-radius:8px;padding:10px;font-size:.9rem;font-family:inherit;resize:vertical}
 #tr-float-panel textarea:focus{outline:none;border-color:var(--primary)}
 #tr-float-panel select,#tr-float-panel button{padding:6px 10px;border-radius:4px;border:1px solid var(--border);font-size:.8rem;cursor:pointer}
-#tr-float-panel .btn-prim{background:var(--primary);color:#fff;border:none}
-#tr-float-panel .btn-prim:hover{background:var(--primary-dark)}
+#tr-float-panel .btn-prim{background:var(--primary);color:#fff;border:none}#tr-float-panel .btn-prim:hover{background:var(--primary-dark)}
 #tr-float-panel .tr-res{background:var(--bg);border-radius:6px;padding:10px;margin-top:8px;min-height:30px;font-size:.9rem}
 #tr-float-panel .close-float{float:right;background:none;border:none;font-size:1.2rem;cursor:pointer;color:var(--text2)}
-/* Simulacro checkboxes */
-.topic-cb{display:flex;align-items:center;gap:6px;margin:4px 0;font-size:.85rem}
-.topic-cb input{margin:0}
-/* Responsive */
+/* Simulacro */
+.topic-cb{display:flex;align-items:center;gap:6px;margin:4px 0;font-size:.85rem}.topic-cb input{margin:0}
 @media(max-width:900px){.sidebar{width:200px;padding:14px}.main{padding:20px}}
 @media(max-width:700px){.container{flex-direction:column}.sidebar{width:100%;height:auto;position:relative;border-right:none;border-bottom:1px solid var(--border)}.main{padding:16px}#tr-float-panel{width:92vw;right:4vw}}
 </style>
 </head>
 <body>
 <div class="container">
-<!-- SIDEBAR -->
 <nav class="sidebar">
   <h1>📚 Inglés</h1>
   <div class="subtitle">Aprende, traduce y practica</div>
@@ -117,38 +91,30 @@ input.wrong{border-color:var(--error)!important;background:var(--error-bg)!impor
   <a onclick="show('fundamentals')" id="nf">📖 Fundamentos</a>
   <a onclick="show('verbs')" id="nv">📋 Irregular Verbs</a>
   <h2>🗣️ GRAMMAR</h2>
-  <div class="gram-toggle" id="gt" onclick="toggleGrammar()">
-    <span class="arr">▶</span> <span id="gt-text">Abrir Temas</span>
-  </div>
+  <div class="gram-toggle" id="gt" onclick="toggleGrammar()"><span class="arr">▶</span> <span id="gt-text">Abrir Temas</span></div>
   <div class="gram-sub" id="gs">
     <a onclick="show('g-modal')" id="ngm">Modal Verbs</a>
     <a onclick="show('g-future')" id="ngf">Future Tenses</a>
     <a onclick="show('g-comparatives')" id="ngc">Comparatives &amp; Superlatives</a>
     <a onclick="show('g-just')" id="ngj">Just / Already / Yet / Still</a>
-    <a onclick="show('g-present-perfect')" id="ngpp" class="ext">Present Perfect S/C</a>
-    <a onclick="show('g-conditionals')" id="ngcd" class="ext">Conditionals</a>
-    <a onclick="show('g-reported-speech')" id="ngrs" class="ext">Reported Speech</a>
-    <a onclick="show('g-passive')" id="ngpv" class="ext">Passive Voice</a>
-    <a onclick="show('g-wish-if-only')" id="ngwi" class="ext">I wish / If only</a>
-    <a onclick="show('g-question-tags')" id="ngqt" class="ext">Question Tags</a>
-    <a onclick="show('g-articles')" id="ngar" class="ext">Articles (a/an/the)</a>
-    <a onclick="show('g-indefinite-pronouns')" id="ngip" class="ext">Indefinite Pronouns</a>
-    <a onclick="show('g-nor-neither')" id="ngnn" class="ext">Nor / Neither / So</a>
+    <a onclick="show('g-present-perfect')" id="ngpp">Present Perfect S/C</a>
+    <a onclick="show('g-conditionals')" id="ngcd">Conditionals</a>
+    <a onclick="show('g-reported-speech')" id="ngrs">Reported Speech</a>
+    <a onclick="show('g-passive')" id="ngpv">Passive Voice</a>
+    <a onclick="show('g-wish-if-only')" id="ngwi">I wish / If only</a>
+    <a onclick="show('g-question-tags')" id="ngqt">Question Tags</a>
+    <a onclick="show('g-articles')" id="ngar">Articles (a/an/the)</a>
+    <a onclick="show('g-indefinite-pronouns')" id="ngip">Indefinite Pronouns</a>
+    <a onclick="show('g-nor-neither')" id="ngnn">Nor / Neither / So</a>
   </div>
   <h2>✍️ WRITING</h2>
   <a onclick="show('writing')" id="nw">✍️ Plantillas</a>
   <h2>📝 PRÁCTICA</h2>
   <a onclick="show('vocabulary')" id="nvoc">📖 Vocabulary</a>
   <a onclick="show('simulacro')" id="nsim">🎯 Simulacro examen</a>
-  <div style="margin-top:20px;font-size:0.7rem;color:var(--text2)">
-    <p>🗣️ UK 🇬🇧 / US 🇺🇸</p>
-    <p>📡 Usa el botón flotante para traducir</p>
-  </div>
+  <div style="margin-top:20px;font-size:0.7rem;color:var(--text2)"><p>🗣️ UK 🇬🇧 / US 🇺🇸</p><p>🔤 Botón flotante = traductor</p></div>
 </nav>
-
-<!-- MAIN CONTENT -->
-<main class="main" id="main-content">
-</main>
+<main class="main" id="main-content"></main>
 </div>
 
 <!-- FLOATING TRANSLATOR -->
@@ -158,11 +124,7 @@ input.wrong{border-color:var(--error)!important;background:var(--error-bg)!impor
     <button class="close-float" onclick="toggleFloatTr()">✕</button>
     <textarea id="trf-in" placeholder="Escribe español o inglés..."></textarea>
     <div style="display:flex;gap:6px;align-items:center;margin-top:8px;flex-wrap:wrap">
-      <select id="trf-dir">
-        <option value="es|en">🇪🇸→🇬🇧 UK</option>
-        <option value="es|en-us">🇪🇸→🇺🇸 US</option>
-        <option value="en|es">🇬🇧→🇪🇸</option>
-      </select>
+      <select id="trf-dir"><option value="es|en">🇪🇸→🇬🇧 UK</option><option value="es|en-us">🇪🇸→🇺🇸 US</option><option value="en|es">🇬🇧→🇪🇸</option></select>
       <button class="btn-prim" onclick="translateFloat()">🔁</button>
       <button onclick="speakFloat()" style="font-size:1.2rem">🔊</button>
     </div>
@@ -170,60 +132,86 @@ input.wrong{border-color:var(--error)!important;background:var(--error-bg)!impor
   </div>
 </div>
 
-<!-- ==================== SCRIPTS ==================== -->
 <script>
-// ===================== SPA Navigation =====================
+// ==================== SPA NAVIGATION ====================
 const SECTIONS = {};
 let currentSection = 'home';
 
-function show(name) {
-  document.querySelectorAll('.sidebar a').forEach(a => a.classList.remove('active'));
-  const nav = document.getElementById('n'+name[0]+name.slice(1).replace(/-./g,x=>x[1].toUpperCase()));
-  if (!nav) { const idMap={home:'nh',fundamentals:'nf',verbs:'nv',writing:'nw',simulacro:'nsim',vocabulary:'nvoc','g-modal':'ngm','g-future':'ngf','g-comparatives':'ngc','g-just':'ngj','g-present-perfect':'ngpp','g-conditionals':'ngcd','g-reported-speech':'ngrs','g-passive':'ngpv','g-wish-if-only':'ngwi','g-question-tags':'ngqt','g-articles':'ngar','g-indefinite-pronouns':'ngip','g-nor-neither':'ngnn'}; 
-    const nid = idMap[name];
-    if (nid) document.getElementById(nid).classList.add('active');
-  } else nav.classList.add('active');
+const NAV_MAP = {home:'nh',fundamentals:'nf',verbs:'nv',writing:'nw',simulacro:'nsim',vocabulary:'nvoc',
+  'g-modal':'ngm','g-future':'ngf','g-comparatives':'ngc','g-just':'ngj',
+  'g-present-perfect':'ngpp','g-conditionals':'ngcd','g-reported-speech':'ngrs',
+  'g-passive':'ngpv','g-wish-if-only':'ngwi','g-question-tags':'ngqt',
+  'g-articles':'ngar','g-indefinite-pronouns':'ngip','g-nor-neither':'ngnn'};
 
+const PAGE_MAP = {
+  'g-present-perfect':'present-perfect.html','g-conditionals':'conditionals.html',
+  'g-reported-speech':'reported-speech.html','g-passive':'passive.html',
+  'g-wish-if-only':'wish-if-only.html','g-question-tags':'question-tags.html',
+  'g-articles':'articles.html','g-indefinite-pronouns':'indefinite-pronouns.html',
+  'g-nor-neither':'nor-neither-so.html','vocabulary':'vocabulary.html','simulacro':'simulacro.html'
+};
+
+function show(name) {
+  document.querySelectorAll('.sidebar a').forEach(a=>a.classList.remove('active'));
+  const nid = NAV_MAP[name];
+  if (nid) document.getElementById(nid).classList.add('active');
   currentSection = name;
   const main = document.getElementById('main-content');
+
   if (SECTIONS[name]) {
     main.innerHTML = SECTIONS[name];
-    if (name.startsWith('g-')) initExercises(name);
-    if (name === 'verbs') renderVerbs('');
-    if (name === 'simulacro') initSimulacro();
+    if (name.startsWith('g-') && name.indexOf('-',2) > 0) initExercises(name);
+    if (name === 'verbs') setTimeout(()=>renderVerbs(''), 100);
+    if (name === 'simulacro') setTimeout(initSimulacro, 300);
+  } else if (PAGE_MAP[name]) {
+    loadLegacyPage(name, PAGE_MAP[name]);
   } else {
-    // Load from existing HTML files for old grammar pages
-    const pageMap = {
-      'g-present-perfect':'present-perfect.html','g-conditionals':'conditionals.html',
-      'g-reported-speech':'reported-speech.html','g-passive':'passive.html',
-      'g-wish-if-only':'wish-if-only.html','g-question-tags':'question-tags.html',
-      'g-articles':'articles.html','g-indefinite-pronouns':'indefinite-pronouns.html',
-      'g-nor-neither':'nor-neither-so.html','vocabulary':'vocabulary.html','simulacro':'simulacro.html'
-    };
-    if (pageMap[name]) {
-      main.innerHTML = '<p style="padding:40px;text-align:center">⏳ Cargando...</p>';
-      fetch(pageMap[name]).then(r=>r.text()).then(html=>{
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(html,'text/html');
-        const content = doc.querySelector('main.main') || doc.querySelector('.section') || doc.body;
-        let h = content ? content.innerHTML : html;
-        // Remove old sidebar references
-        h = h.replace(/<nav[\s\S]*?<\/nav>/g,'');
-        main.innerHTML = '<div class="section active" style="display:block">'+h+'</div>';
-        // Re-run any inline scripts
-        const scripts = main.querySelectorAll('script');
-        scripts.forEach(s=>{try{eval(s.textContent)}catch(e){}});
-      }).catch(()=>{
-        main.innerHTML = '<div class="section active"><h2>📭 Página no disponible</h2><p>Vuelve a intentarlo más tarde.</p></div>';
-      });
-    } else {
-      main.innerHTML = SECTIONS['home'] || '<p>Sección no encontrada</p>';
-    }
+    main.innerHTML = SECTIONS['home'] || '<p>Sección no encontrada</p>';
   }
   window.scrollTo(0,0);
 }
 
-// ===================== Grammar Toggle =====================
+// ==================== LOAD LEGACY PAGES ====================
+async function loadLegacyPage(name, url) {
+  const main = document.getElementById('main-content');
+  main.innerHTML = '<div class="section active"><p style="text-align:center;padding:40px">⏳ Cargando...</p></div>';
+  try {
+    const resp = await fetch(url);
+    const html = await resp.text();
+
+    // Extract main content: from <main class="main"> to </main>
+    const mStart = html.indexOf('<main class="main">');
+    const mEnd = html.lastIndexOf('</main>');
+    let content;
+    if (mStart >= 0 && mEnd > mStart) {
+      content = html.substring(mStart, mEnd + 7);
+    } else {
+      // Fallback: extract body content
+      const bStart = html.indexOf('<body');
+      const bEnd = html.indexOf('</body>');
+      content = bStart >= 0 ? html.substring(html.indexOf('>', bStart) + 1, bEnd) : html;
+    }
+
+    // Remove the old sidebar from extracted content
+    content = content.replace(/<nav[\s\S]*?<\/nav>/g, '');
+
+    main.innerHTML = '<div class="section active" style="display:block">' + content + '</div>';
+
+    // Execute inline scripts from the ORIGINAL html (not the parsed version)
+    const scriptRegex = /<script>([\s\S]*?)<\/script>/gi;
+    let match;
+    while ((match = scriptRegex.exec(html)) !== null) {
+      try { eval(match[1]); } catch(e) { console.error('Script error in '+url, e); }
+    }
+
+    // Trigger any onload initialization if needed
+    if (name === 'simulacro') setTimeout(initSimulacro, 200);
+  } catch(e) {
+    main.innerHTML = '<div class="section active"><h2>📭 Página no disponible</h2><p>Error al cargar. Asegúrate de haber visitado esta página al menos una vez para que el service worker la cachee.</p></div>';
+  }
+}
+
+// ==================== GRAMMAR TOGGLE ====================
 function toggleGrammar() {
   const t = document.getElementById('gt');
   const s = document.getElementById('gs');
@@ -233,7 +221,7 @@ function toggleGrammar() {
   txt.textContent = t.classList.contains('open') ? 'Cerrar Temas' : 'Abrir Temas';
 }
 
-// ===================== Floating Translator =====================
+// ==================== FLOATING TRANSLATOR ====================
 function toggleFloatTr() {
   const p = document.getElementById('tr-float-panel');
   p.style.display = p.style.display === 'block' ? 'none' : 'block';
@@ -252,7 +240,7 @@ async function translateFloat() {
       res.innerHTML = `<strong>${d.responseData.translatedText}</strong>`;
       window._lastTr = d.responseData.translatedText;
       window._lastLang = dir.includes('en') ? 'en' : 'es';
-    } else { res.textContent = '❌ No se pudo traducir.'; }
+    } else res.textContent = '❌ No se pudo traducir.';
   } catch(e) { res.textContent = '❌ Sin conexión.'; }
 }
 function speakFloat() {
@@ -275,68 +263,32 @@ document.getElementById('trf-in').addEventListener('keydown',function(e){
   if (e.key==='Enter' && !e.shiftKey){ e.preventDefault(); translateFloat(); }
 });
 speechSynthesis.getVoices();
-speechSynthesis.onvoiceschanged = () => speechSynthesis.getVoices();
+speechSynthesis.onvoiceschanged = ()=>speechSynthesis.getVoices();
 
-// ===================== Irregular Verbs =====================
+// ==================== IRREGULAR VERBS ====================
 const IRREGULAR_VERBS = [
-  ["be","was/were","been","ser, estar"],["become","became","become","llegar a ser"],["begin","began","begun","empezar"],
-  ["bite","bit","bitten","morder"],["blow","blew","blown","soplar"],["break","broke","broken","romper"],
-  ["bring","brought","brought","traer"],["build","built","built","construir"],["burn","burnt/burned","burnt/burned","quemar"],
-  ["buy","bought","bought","comprar"],["catch","caught","caught","atrapar"],["choose","chose","chosen","elegir"],
-  ["come","came","come","venir"],["cost","cost","cost","costar"],["cut","cut","cut","cortar"],
-  ["do","did","done","hacer"],["draw","drew","drawn","dibujar"],["dream","dreamt/dreamed","dreamt/dreamed","soñar"],
-  ["drink","drank","drunk","beber"],["drive","drove","driven","conducir"],["eat","ate","eaten","comer"],
-  ["fall","fell","fallen","caer"],["feed","fed","fed","alimentar"],["feel","felt","felt","sentir"],
-  ["fight","fought","fought","luchar"],["find","found","found","encontrar"],["fly","flew","flown","volar"],
-  ["forget","forgot","forgotten","olvidar"],["forgive","forgave","forgiven","perdonar"],["freeze","froze","frozen","congelar"],
-  ["get","got","got/gotten","conseguir"],["give","gave","given","dar"],["go","went","gone","ir"],
-  ["grow","grew","grown","crecer"],["hang","hung","hung","colgar"],["have","had","had","tener"],
-  ["hear","heard","heard","oír"],["hide","hid","hidden","esconder"],["hit","hit","hit","golpear"],
-  ["hold","held","held","sostener"],["hurt","hurt","hurt","herir, doler"],["keep","kept","kept","guardar"],
-  ["know","knew","known","saber, conocer"],["lay","laid","laid","poner, extender"],["lead","led","led","liderar"],
-  ["learn","learnt/learned","learnt/learned","aprender"],["leave","left","left","dejar, irse"],["lend","lent","lent","prestar"],
-  ["let","let","let","permitir"],["lie","lay","lain","tumbarse"],["lose","lost","lost","perder"],
-  ["make","made","made","hacer, fabricar"],["mean","meant","meant","significar"],["meet","met","met","conocer, quedar"],
-  ["pay","paid","paid","pagar"],["put","put","put","poner"],["read","read","read","leer"],
-  ["ride","rode","ridden","montar"],["ring","rang","rung","sonar, llamar"],["rise","rose","risen","levantarse, subir"],
-  ["run","ran","run","correr"],["say","said","said","decir"],["see","saw","seen","ver"],
-  ["seek","sought","sought","buscar"],["sell","sold","sold","vender"],["send","sent","sent","enviar"],
-  ["set","set","set","colocar, poner"],["shake","shook","shaken","agitar"],["shine","shone","shone","brillar"],
-  ["shoot","shot","shot","disparar"],["show","showed","shown/showed","mostrar"],["shut","shut","shut","cerrar"],
-  ["sing","sang","sung","cantar"],["sink","sank","sunk","hundir"],["sit","sat","sat","sentarse"],
-  ["sleep","slept","slept","dormir"],["smell","smelt/smelled","smelt/smelled","oler"],["speak","spoke","spoken","hablar"],
-  ["spell","spelt/spelled","spelt/spelled","deletrear"],["spend","spent","spent","gastar, pasar tiempo"],
-  ["spill","spilt/spilled","spilt/spilled","derramar"],["stand","stood","stood","estar de pie"],["steal","stole","stolen","robar"],
-  ["stick","stuck","stuck","pegar, atascarse"],["strike","struck","struck","golpear"],["swear","swore","sworn","jurar"],
-  ["sweep","swept","swept","barrer"],["swim","swam","swum","nadar"],["take","took","taken","coger, tomar"],
-  ["teach","taught","taught","enseñar"],["tear","tore","torn","rasgar"],["tell","told","told","decir, contar"],
-  ["think","thought","thought","pensar"],["throw","threw","thrown","lanzar"],["understand","understood","understood","entender"],
-  ["wake","woke","woken","despertar"],["wear","wore","worn","llevar puesto"],["win","won","won","ganar"],
-  ["write","wrote","written","escribir"]
+  ["be","was/were","been","ser, estar"],["become","became","become","llegar a ser"],["begin","began","begun","empezar"],["bite","bit","bitten","morder"],["blow","blew","blown","soplar"],["break","broke","broken","romper"],["bring","brought","brought","traer"],["build","built","built","construir"],["burn","burnt/burned","burnt/burned","quemar"],["buy","bought","bought","comprar"],["catch","caught","caught","atrapar"],["choose","chose","chosen","elegir"],["come","came","come","venir"],["cost","cost","cost","costar"],["cut","cut","cut","cortar"],["do","did","done","hacer"],["draw","drew","drawn","dibujar"],["dream","dreamt/dreamed","dreamt/dreamed","soñar"],["drink","drank","drunk","beber"],["drive","drove","driven","conducir"],["eat","ate","eaten","comer"],["fall","fell","fallen","caer"],["feed","fed","fed","alimentar"],["feel","felt","felt","sentir"],["fight","fought","fought","luchar"],["find","found","found","encontrar"],["fly","flew","flown","volar"],["forget","forgot","forgotten","olvidar"],["forgive","forgave","forgiven","perdonar"],["freeze","froze","frozen","congelar"],["get","got","got/gotten","conseguir"],["give","gave","given","dar"],["go","went","gone","ir"],["grow","grew","grown","crecer"],["hang","hung","hung","colgar"],["have","had","had","tener"],["hear","heard","heard","oír"],["hide","hid","hidden","esconder"],["hit","hit","hit","golpear"],["hold","held","held","sostener"],["hurt","hurt","hurt","herir, doler"],["keep","kept","kept","guardar"],["know","knew","known","saber, conocer"],["lay","laid","laid","poner, extender"],["lead","led","led","liderar"],["learn","learnt/learned","learnt/learned","aprender"],["leave","left","left","dejar, irse"],["lend","lent","lent","prestar"],["let","let","let","permitir"],["lie","lay","lain","tumbarse"],["lose","lost","lost","perder"],["make","made","made","hacer, fabricar"],["mean","meant","meant","significar"],["meet","met","met","conocer, quedar"],["pay","paid","paid","pagar"],["put","put","put","poner"],["read","read","read","leer"],["ride","rode","ridden","montar"],["ring","rang","rung","sonar, llamar"],["rise","rose","risen","levantarse, subir"],["run","ran","run","correr"],["say","said","said","decir"],["see","saw","seen","ver"],["seek","sought","sought","buscar"],["sell","sold","sold","vender"],["send","sent","sent","enviar"],["set","set","set","colocar, poner"],["shake","shook","shaken","agitar"],["shine","shone","shone","brillar"],["shoot","shot","shot","disparar"],["show","showed","shown/showed","mostrar"],["shut","shut","shut","cerrar"],["sing","sang","sung","cantar"],["sink","sank","sunk","hundir"],["sit","sat","sat","sentarse"],["sleep","slept","slept","dormir"],["smell","smelt/smelled","smelt/smelled","oler"],["speak","spoke","spoken","hablar"],["spell","spelt/spelled","spelt/spelled","deletrear"],["spend","spent","spent","gastar, pasar tiempo"],["spill","spilt/spilled","spilt/spilled","derramar"],["stand","stood","stood","estar de pie"],["steal","stole","stolen","robar"],["stick","stuck","stuck","pegar, atascarse"],["strike","struck","struck","golpear"],["swear","swore","sworn","jurar"],["sweep","swept","swept","barrer"],["swim","swam","swum","nadar"],["take","took","taken","coger, tomar"],["teach","taught","taught","enseñar"],["tear","tore","torn","rasgar"],["tell","told","told","decir, contar"],["think","thought","thought","pensar"],["throw","threw","thrown","lanzar"],["understand","understood","understood","entender"],["wake","woke","woken","despertar"],["wear","wore","worn","llevar puesto"],["win","won","won","ganar"],["write","wrote","written","escribir"]
 ];
 
 function renderVerbs(filter) {
   const q = (filter||'').toLowerCase();
-  const rows = q ? IRREGULAR_VERBS.filter(v => v[0].includes(q)||v[1].includes(q)||v[2].includes(q)||v[3].includes(q)) : IRREGULAR_VERBS;
+  const rows = q ? IRREGULAR_VERBS.filter(v=>v[0].includes(q)||v[1].includes(q)||v[2].includes(q)||v[3].includes(q)) : IRREGULAR_VERBS;
   const tbody = document.getElementById('verbs-tbody');
   if (!tbody) return;
-  tbody.innerHTML = rows.map(v =>
+  tbody.innerHTML = rows.map(v=>
     `<tr style="cursor:pointer" onclick="speakAll3('${v[0]}','${v[1]}','${v[2]}')" title="Click: ${v[0]} → ${v[1]} → ${v[2]}">
-      <td><b>${hl(v[0],q)}</b></td><td>${hl(v[1],q)}</td><td>${hl(v[2],q)}</td><td>${hl(v[3],q)}</td>
-    </tr>`
+      <td><b>${hl(v[0],q)}</b></td><td>${hl(v[1],q)}</td><td>${hl(v[2],q)}</td><td>${hl(v[3],q)}</td></tr>`
   ).join('');
 }
-
 function hl(text, query) {
   if (!query) return text;
   const re = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\\\]/g,'\\\\$&')})`,'gi');
   return text.replace(re,'<mark style="background:#ffd43b;padding:0 2px">$1</mark>');
 }
-
 async function speakAll3(inf, past, pp) {
   speechSynthesis.cancel();
   const voices = speechSynthesis.getVoices();
-  const v = voices.find(x=>x.lang.startsWith('en-GB')) || voices.find(x=>x.lang.startsWith('en'));
+  const v = voices.find(x=>x.lang.startsWith('en-GB'))||voices.find(x=>x.lang.startsWith('en'));
   const speak = (text) => new Promise(resolve => {
     const u = new SpeechSynthesisUtterance(text);
     if (v) u.voice = v;
@@ -344,17 +296,18 @@ async function speakAll3(inf, past, pp) {
     u.onend = resolve;
     speechSynthesis.speak(u);
   });
-  await speak(inf);
-  await new Promise(r=>setTimeout(r,300));
-  await speak(past);
-  await new Promise(r=>setTimeout(r,300));
+  await speak(inf); await new Promise(r=>setTimeout(r,300));
+  await speak(past); await new Promise(r=>setTimeout(r,300));
   await speak(pp);
 }
-
 function filterV() { renderVerbs(document.getElementById('verb-search')?.value||''); }
 
-// ==================== Exercise Engine ====================
-function renderEx(data, cid, ph) {
+// ==================== INLINE EXERCISE ENGINE ====================
+// Exercise data: {stem:"You ___ study.", answer:"should", hint:"modal verb"}
+// The ___ gets replaced with an inline <input>
+let _rounds = {};
+
+function renderInline(data, cid) {
   const c = document.getElementById(cid); if (!c) return;
   c.innerHTML = '';
   data.forEach((ex,i)=>{
@@ -362,14 +315,12 @@ function renderEx(data, cid, ph) {
     const card = document.createElement('div');
     card.className = 'exercise-card';
     card.id = `exc-${cid}-${n}`;
-    card.innerHTML = `<p class="stem"><strong>${n}.</strong> ${ex.stem}</p>
-      <input type="text" id="inp-${cid}-${n}" data-answer="${ex.answer}" data-alts="${JSON.stringify(ex.alts||[]).replace(/"/g,'&quot;')}" placeholder="${ph||'Escribe la respuesta...'}">
+    const stemHtml = ex.stem.replace('___', `<input type="text" id="inp-${cid}-${n}" data-answer="${ex.answer}" data-alts="${JSON.stringify(ex.alts||[]).replace(/"/g,'&quot;')}" style="width:${Math.max(120,(ex.answer.length+4)*10)}px">`);
+    card.innerHTML = `<p class="stem"><strong>${n}.</strong> ${stemHtml} <span id="fb-${cid}-${n}" class="feedback-inline"></span></p>
       <div class="btn-row">
         <button class="btn-sm btn-check" onclick="checkOne('${cid}',${n})">✅ Corregir</button>
         <button class="btn-sm btn-answer" onclick="showAns('${cid}',${n})">💡 Mostrar</button>
-      </div>
-      <div id="fb-${cid}-${n}" class="feedback-line"></div>
-      <div id="hint-${cid}-${n}" class="hint-box"></div>`;
+      </div>`;
     c.appendChild(card);
   });
 }
@@ -377,7 +328,6 @@ function renderEx(data, cid, ph) {
 function checkOne(cid, n) {
   const inp = document.getElementById(`inp-${cid}-${n}`);
   const fb = document.getElementById(`fb-${cid}-${n}`);
-  const hint = document.getElementById(`hint-${cid}-${n}`);
   if (!inp) return;
   const val = inp.value.trim().toLowerCase();
   const main = inp.dataset.answer.toLowerCase();
@@ -385,28 +335,24 @@ function checkOne(cid, n) {
   try { alts = JSON.parse(inp.dataset.alts||'[]'); } catch(e){}
   alts = alts.map(a=>a.toLowerCase());
   if (val === main || alts.includes(val)) {
-    inp.classList.remove('wrong'); inp.classList.add('correct');
-    fb.className = 'feedback-line show ok'; fb.textContent = '✅ ¡Correcto!';
-    if (hint) hint.classList.remove('show');
+    inp.classList.remove('inp-wrong'); inp.classList.add('inp-correct');
+    fb.className = 'feedback-inline show ok'; fb.textContent = '✅';
   } else {
-    inp.classList.remove('correct'); inp.classList.add('wrong');
-    fb.className = 'feedback-line show ko'; fb.textContent = '❌ Incorrecto';
-    if (hint) { hint.className = 'hint-box show'; hint.innerHTML = `<strong>Respuesta:</strong> <span class="correct-answer">${main}</span>`; }
+    inp.classList.remove('inp-correct'); inp.classList.add('inp-wrong');
+    fb.className = 'feedback-inline show ko'; fb.textContent = '❌ ('+inp.dataset.answer+')';
   }
 }
 
 function showAns(cid, n) {
   const inp = document.getElementById(`inp-${cid}-${n}`);
-  const hint = document.getElementById(`hint-${cid}-${n}`);
   const fb = document.getElementById(`fb-${cid}-${n}`);
-  if (!inp || !hint) return;
-  hint.className = 'hint-box show';
-  hint.innerHTML = `<strong>Respuesta:</strong> <span class="correct-answer">${inp.dataset.answer}</span>`;
-  fb.className = 'feedback-line'; fb.textContent = '';
-  inp.classList.remove('correct','wrong');
+  if (!inp) return;
+  fb.className = 'feedback-inline show';
+  fb.innerHTML = `<span style="color:#2b8a3e;font-weight:bold">${inp.dataset.answer}</span>`;
+  inp.classList.remove('inp-correct','inp-wrong');
 }
 
-function checkAll(cid) {
+function checkAllInline(cid) {
   const container = document.getElementById(cid);
   if (!container) return;
   const cards = container.querySelectorAll('.exercise-card');
@@ -421,28 +367,24 @@ function checkAll(cid) {
     try { alts = JSON.parse(inp.dataset.alts||'[]'); } catch(e){}
     alts = alts.map(a=>a.toLowerCase());
     const fb = document.getElementById(`fb-${cid}-${n}`);
-    const hint = document.getElementById(`hint-${cid}-${n}`);
     if (val === main || alts.includes(val)) {
-      inp.classList.add('correct'); inp.classList.remove('wrong');
-      if (fb){fb.className='feedback-line show ok';fb.textContent='✅';}
-      if (hint) hint.classList.remove('show');
+      inp.classList.add('inp-correct'); inp.classList.remove('inp-wrong');
+      if (fb) { fb.className = 'feedback-inline show ok'; fb.textContent = '✅'; }
       correct++;
     } else {
-      inp.classList.add('wrong'); inp.classList.remove('correct');
-      if (fb){fb.className='feedback-line show ko';fb.textContent='❌';}
-      if (hint){hint.className='hint-box show';hint.innerHTML=`<span class="correct-answer">${main}</span>`;}
+      inp.classList.add('inp-wrong'); inp.classList.remove('inp-correct');
+      if (fb) { fb.className = 'feedback-inline show ko'; fb.textContent = '❌ ('+inp.dataset.answer+')'; }
     }
   });
   const score = document.getElementById(`${cid}-score`);
   if (score) { score.style.display='block'; score.innerHTML=`<div class="big">${correct}/${cards.length}</div><p>correctas</p>`; }
 }
 
-function resetAll(cid) {
+function resetInline(cid) {
   const container = document.getElementById(cid);
   if (!container) return;
-  container.querySelectorAll('input').forEach(i=>{i.value='';i.classList.remove('correct','wrong');});
-  container.querySelectorAll('.feedback-line').forEach(f=>{f.className='feedback-line';f.textContent='';});
-  container.querySelectorAll('.hint-box').forEach(h=>{h.className='hint-box';h.innerHTML='';});
+  container.querySelectorAll('input').forEach(i=>{i.value='';i.classList.remove('inp-correct','inp-wrong');});
+  container.querySelectorAll('.feedback-inline').forEach(f=>{f.className='feedback-inline';f.textContent='';});
   const score = document.getElementById(`${cid}-score`);
   if (score) { score.style.display='none'; score.innerHTML=''; }
 }
@@ -452,180 +394,173 @@ function pickRandom(arr, n) {
   return shuffled.slice(0, Math.min(n, arr.length));
 }
 
-// ==================== Exercise Data for NEW sections ====================
-const MODAL_EXERCISES = [
-  {stem:"You <input> (should/can) study for the exam.", answer:"should", alts:[]},
-  {stem:"She <input> (can/could) swim when she was 5.", answer:"could", alts:[]},
-  {stem:"We <input> (mustn't/don't have to) smoke here — it's forbidden.", answer:"mustn't", alts:[]},
-  {stem:"<input> (May/Must) I open the window?", answer:"May", alts:[]},
-  {stem:"You <input> (don't have to/mustn't) wear a tie — it's casual Friday.", answer:"don't have to", alts:[]},
-  {stem:"It <input> (might/can) rain later — take an umbrella.", answer:"might", alts:[]},
-  {stem:"I <input> (should/ought to) apologize for being late.", answer:"should", alts:["ought to"]},
-  {stem:"You <input> (had better/could) hurry or we'll miss the train.", answer:"had better", alts:[]},
-  {stem:"<input> (Would/Should) you like some tea?", answer:"Would", alts:[]},
-  {stem:"Students <input> (have to/must) wear uniforms at that school.", answer:"have to", alts:["must"]},
-];
-
-const FUTURE_EXERCISES = [
-  {stem:"I <input> (will/going to) help you with that.", answer:"will", alts:[]},
-  {stem:"Look! It <input> (is going to/will) rain.", answer:"is going to", alts:[]},
-  {stem:"I <input> (am meeting/will meet) Sarah at 6pm tomorrow.", answer:"am meeting", alts:[]},
-  {stem:"The train <input> (leaves/will leave) at 8am every day.", answer:"leaves", alts:[]},
-  {stem:"I promise I <input> (won't/am not going to) be late.", answer:"won't", alts:[]},
-  {stem:"What <input> are you going to (do/did) this weekend?", answer:"do", alts:[]},
-  {stem:"I think she <input> (will pass/is passing) the exam.", answer:"will pass", alts:[]},
-  {stem:"We <input> (are flying/will fly) to London next Monday.", answer:"are flying", alts:["will fly"]},
-  {stem:"Don't worry, I <input> (will call/am calling) you tomorrow.", answer:"will call", alts:[]},
-  {stem:"The concert <input> (starts/will start) at 9pm.", answer:"starts", alts:[]},
-];
-
-const COMPARATIVE_EXERCISES = [
-  {stem:"She is <input> (taller/more tall) than her sister.", answer:"taller", alts:[]},
-  {stem:"This is <input> (the most beautiful/the beautifulest) place I've ever seen.", answer:"the most beautiful", alts:[]},
-  {stem:"This book is <input> (better/more good) than the movie.", answer:"better", alts:[]},
-  {stem:"He is <input> (as tall as/as taller as) his brother.", answer:"as tall as", alts:[]},
-  {stem:"That was <input> (the worst/the baddest) day of my life.", answer:"the worst", alts:[]},
-  {stem:"This exercise is <input> (easier/more easy) than the last one.", answer:"easier", alts:[]},
-  {stem:"London is <input> (farther/farer) than Paris from here.", answer:"farther", alts:["further"]},
-  {stem:"She is the <input> (most intelligent/intelligentest) student in class.", answer:"most intelligent", alts:[]},
-  {stem:"My car is <input> (bigger/more big) than yours.", answer:"bigger", alts:[]},
-  {stem:"It's not <input> (as easy as/as easy than) I thought.", answer:"as easy as", alts:[]},
-];
-
-const JUST_ALREADY_EXERCISES = [
-  {stem:"I've <input> (just/yet) finished my homework.", answer:"just", alts:[]},
-  {stem:"She hasn't arrived <input> (yet/still).", answer:"yet", alts:[]},
-  {stem:"Have you <input> (already/yet) eaten?", answer:"already", alts:["yet"]},
-  {stem:"I'm <input> (still/yet) waiting for the bus.", answer:"still", alts:[]},
-  {stem:"We've lived here <input> (for/since) 5 years.", answer:"for", alts:[]},
-  {stem:"I've known her <input> (since/for) 2020.", answer:"since", alts:[]},
-  {stem:"He <input> (still/yet) hasn't called me.", answer:"still", alts:[]},
-  {stem:"They've <input> (already/just) left — they went 2 hours ago.", answer:"already", alts:[]},
-  {stem:"I haven't seen that movie <input> (yet/just).", answer:"yet", alts:[]},
-  {stem:"She's been studying <input> (for/since) three hours.", answer:"for", alts:[]},
-];
-
-function makeRound(exData, cid, rounds, ph) {
-  const pool = exData;
+function initExercises(name) {
+  const cfg = EXERCISES[name];
+  if (!cfg) return;
   let rnd = 1;
   function start() {
-    const data = pickRandom(pool, 8);
-    renderEx(data, cid, ph);
-    document.getElementById(`${cid}-rnd`).textContent = 'Ronda '+rnd+'/'+rounds;
+    const data = pickRandom(cfg.data, 8);
+    renderInline(data, cfg.cid);
+    const label = document.getElementById(`${cfg.cid}-rnd`);
+    if (label) label.textContent = 'Ronda '+rnd+'/'+cfg.rounds;
   }
   function next() {
-    if (rnd >= rounds) { rnd = 1; start(); return; }
+    if (rnd >= cfg.rounds) { rnd = 1; start(); return; }
     rnd++; start();
   }
-  return { start, next };
+  _rounds[name] = { start, next };
+  start();
 }
 
-function initExercises(name) {
-  const map = {
-    'g-modal': {data:MODAL_EXERCISES, cid:'ex-modal', rounds:3, ph:'Ej: should, must, can...'},
-    'g-future': {data:FUTURE_EXERCISES, cid:'ex-future', rounds:3, ph:'Ej: will, going to, leaves...'},
-    'g-comparatives': {data:COMPARATIVE_EXERCISES, cid:'ex-comp', rounds:3, ph:'Ej: taller, better, more...'},
-    'g-just': {data:JUST_ALREADY_EXERCISES, cid:'ex-just', rounds:3, ph:'Ej: just, yet, since, for...'},
-  };
-  const cfg = map[name];
-  if (!cfg) return;
-  const round = makeRound(cfg.data, cfg.cid, cfg.rounds, cfg.ph);
-  round.start();
-  window._roundHandlers = window._roundHandlers || {};
-  window._roundHandlers[name] = round;
-}
+// Exercise data
+const MODAL_EXERCISES = [
+  {stem:"You ___ study for the exam.", answer:"should", alts:[]},
+  {stem:"She ___ swim when she was 5.", answer:"could", alts:[]},
+  {stem:"We ___ smoke here — it's forbidden.", answer:"mustn't", alts:[]},
+  {stem:"___ I open the window?", answer:"May", alts:[]},
+  {stem:"You ___ wear a tie — it's casual Friday.", answer:"don't have to", alts:[]},
+  {stem:"It ___ rain later — take an umbrella.", answer:"might", alts:[]},
+  {stem:"I ___ apologize for being late.", answer:"should", alts:["ought to"]},
+  {stem:"You ___ hurry or we'll miss the train.", answer:"'d better", alts:["had better"]},
+  {stem:"___ you like some tea?", answer:"Would", alts:[]},
+  {stem:"Students ___ wear uniforms at that school.", answer:"have to", alts:["must"]},
+];
+const FUTURE_EXERCISES = [
+  {stem:"I ___ help you with that.", answer:"will", alts:[]},
+  {stem:"Look! It ___ rain.", answer:"is going to", alts:[]},
+  {stem:"I ___ Sarah at 6pm tomorrow.", answer:"am meeting", alts:[]},
+  {stem:"The train ___ at 8am every day.", answer:"leaves", alts:[]},
+  {stem:"I promise I ___ be late.", answer:"won't", alts:[]},
+  {stem:"What are you ___ this weekend?", answer:"doing", alts:[]},
+  {stem:"I think she ___ the exam.", answer:"will pass", alts:[]},
+  {stem:"We ___ to London next Monday.", answer:"are flying", alts:["will fly"]},
+  {stem:"Don't worry, I ___ you tomorrow.", answer:"will call", alts:[]},
+  {stem:"The concert ___ at 9pm.", answer:"starts", alts:[]},
+];
+const COMPARATIVE_EXERCISES = [
+  {stem:"She is ___ than her sister.", answer:"taller", alts:[]},
+  {stem:"This is ___ place I've ever seen.", answer:"the most beautiful", alts:[]},
+  {stem:"This book is ___ than the movie.", answer:"better", alts:[]},
+  {stem:"He is ___ his brother.", answer:"as tall as", alts:[]},
+  {stem:"That was ___ day of my life.", answer:"the worst", alts:[]},
+  {stem:"This exercise is ___ than the last one.", answer:"easier", alts:[]},
+  {stem:"London is ___ than Paris from here.", answer:"farther", alts:["further"]},
+  {stem:"She is the ___ student in class.", answer:"most intelligent", alts:[]},
+  {stem:"My car is ___ than yours.", answer:"bigger", alts:[]},
+  {stem:"It's not ___ I thought.", answer:"as easy as", alts:[]},
+];
+const JUST_EXERCISES = [
+  {stem:"I've ___ finished my homework.", answer:"just", alts:[]},
+  {stem:"She hasn't arrived ___.", answer:"yet", alts:[]},
+  {stem:"Have you ___ eaten?", answer:"already", alts:["yet"]},
+  {stem:"I'm ___ waiting for the bus.", answer:"still", alts:[]},
+  {stem:"We've lived here ___ 5 years.", answer:"for", alts:[]},
+  {stem:"I've known her ___ 2020.", answer:"since", alts:[]},
+  {stem:"He ___ hasn't called me.", answer:"still", alts:[]},
+  {stem:"They've ___ left — they went 2 hours ago.", answer:"already", alts:[]},
+  {stem:"I haven't seen that movie ___.", answer:"yet", alts:[]},
+  {stem:"She's been studying ___ three hours.", answer:"for", alts:[]},
+];
 
-// ==================== Simulacro ====================
+const EXERCISES = {
+  'g-modal': {data:MODAL_EXERCISES, cid:'ex-modal', rounds:3},
+  'g-future': {data:FUTURE_EXERCISES, cid:'ex-future', rounds:3},
+  'g-comparatives': {data:COMPARATIVE_EXERCISES, cid:'ex-comp', rounds:3},
+  'g-just': {data:JUST_EXERCISES, cid:'ex-just', rounds:3},
+};
+
+// ==================== SIMULACRO CHECKBOXES ====================
 function initSimulacro() {
   const main = document.getElementById('main-content');
-  if (!main.querySelector('#sim-checkboxes')) {
-    // Add checkboxes before the exam content
-    const topics = [
-      {id:'cb-modal',label:'Modal Verbs'},{id:'cb-future',label:'Future Tenses'},
-      {id:'cb-comp',label:'Comparatives & Superlatives'},{id:'cb-just',label:'Just/Already/Yet/Still'},
-      {id:'cb-pp',label:'Present Perfect'},{id:'cb-cond',label:'Conditionals'},
-      {id:'cb-passive',label:'Passive Voice'},{id:'cb-reported',label:'Reported Speech'}
-    ];
-    const cbHTML = '<div id="sim-checkboxes" class="theory-box"><h3>📋 Selecciona los temas a evaluar</h3>'+
-      topics.map(t=>`<label class="topic-cb"><input type="checkbox" id="${t.id}" checked> ${t.label}</label>`).join('')+
-      '</div>';
-    main.insertAdjacentHTML('afterbegin', cbHTML);
+  if (main.querySelector('#sim-checkboxes')) return; // already added
+  
+  const topics = [
+    {id:'cb-modal',label:'Modal Verbs'},{id:'cb-future',label:'Future Tenses'},
+    {id:'cb-comp',label:'Comparatives & Superlatives'},{id:'cb-just',label:'Just/Already/Yet/Still'},
+    {id:'cb-pp',label:'Present Perfect'},{id:'cb-cond',label:'Conditionals'},
+    {id:'cb-passive',label:'Passive Voice'},{id:'cb-reported',label:'Reported Speech'},
+    {id:'cb-articles',label:'Articles'},{id:'cb-indef',label:'Indefinite Pronouns'},
+    {id:'cb-wish',label:'I wish / If only'},{id:'cb-qt',label:'Question Tags'}
+  ];
+  const cbHTML = '<div id="sim-checkboxes" class="theory-box"><h3>📋 Selecciona los temas</h3>'+
+    topics.map(t=>`<label class="topic-cb"><input type="checkbox" id="${t.id}" checked> ${t.label}</label>`).join('')+
+    '<p style="font-size:0.75rem;color:var(--text2);margin-top:8px">Los ejercicios se filtrarán según los temas marcados.</p></div>';
+  
+  // Insert after the section title
+  const h2 = main.querySelector('h2');
+  if (h2) {
+    h2.insertAdjacentHTML('afterend', cbHTML);
+  } else {
+    main.querySelector('.section').insertAdjacentHTML('afterbegin', cbHTML);
   }
 }
 
-// ==================== Writing helpers ====================
+// ==================== WRITING STATS ====================
 function updateStats(id) {
   const ta = document.getElementById(id);
   if (!ta) return;
   const text = ta.value;
-  const words = text.trim() ? text.trim().split(/\\s+/).length : 0;
+  const words = text.trim() ? text.trim().split(/\s+/).length : 0;
   const chars = text.length;
-  const paras = text.trim() ? text.split(/\\n\\n+/).filter(p=>p.trim()).length : 0;
+  const paras = text.trim() ? text.split(/\n\n+/).filter(p=>p.trim()).length : 0;
   const st = document.getElementById(id+'-stats');
   if (st) st.innerHTML = `📝 ${words} palabras · ${chars} caracteres · ${paras} párrafos`;
 }
 
-// ==================== Build all section HTML ====================
+// ==================== SECTION HTML ====================
 SECTIONS['home'] = `<div class="section active" style="display:block">
 <h2>🏠 Bienvenid@</h2>
 <p style="margin:12px 0;color:var(--text2)">Plataforma completa para aprender inglés. Usa el menú lateral o el <b>traductor flotante</b> 🔤 abajo a la derecha.</p>
 <div class="card-grid">
 <div class="gram-card" onclick="show('fundamentals')"><h4>📖 Fundamentos</h4><p>To Be, To Have, To Get y reglas esenciales</p></div>
 <div class="gram-card" onclick="show('verbs')"><h4>📋 Irregular Verbs</h4><p>Tabla completa con pronunciación de los 3 tiempos</p></div>
-<div class="gram-card" onclick="toggleGrammar();setTimeout(()=>show('g-modal'),400)"><h4>🗣️ Grammar</h4><p>Modal verbs, future tenses, comparatives y los 9 temas existentes</p></div>
+<div class="gram-card" onclick="toggleGrammar();setTimeout(()=>show('g-modal'),400)"><h4>🗣️ Grammar</h4><p>Modal, future, comparatives + 9 temas clásicos</p></div>
 <div class="gram-card" onclick="show('writing')"><h4>✍️ Writing</h4><p>Plantillas con cajas de texto para practicar</p></div>
-<div class="gram-card" onclick="show('simulacro')"><h4>🎯 Simulacro</h4><p>Examen con temas seleccionables por checkbox</p></div>
+<div class="gram-card" onclick="show('simulacro')"><h4>🎯 Simulacro</h4><p>Examen con temas seleccionables</p></div>
 </div></div>`;
 
 SECTIONS['fundamentals'] = `<div class="section active" style="display:block">
-<h2>📖 Fundamentos — lo que hay que saberse de memoria</h2>
+<h2>📖 Fundamentos</h2>
 <h3>Verb TO BE <span style="font-size:0.8rem;color:var(--text2)">— ser / estar</span></h3>
 <div class="theory-box">
 <p><strong>Presente:</strong> I <code>am</code> · You/We/They <code>are</code> · He/She/It <code>is</code></p>
 <p><strong>Pasado:</strong> I/He/She/It <code>was</code> · You/We/They <code>were</code></p>
 <p><strong>Participio:</strong> <code>been</code> (sido / estado)</p>
 <p><strong>Contracciones:</strong> I'm, you're, he's, she's, it's, we're, they're</p>
-<p><strong>Infinitivo:</strong> to be · <strong>Gerundio:</strong> being</p>
 </div>
 <div class="example"><span class="en">I <b>am</b> a student.</span> — <span class="es">Soy estudiante.</span><br>
-<span class="en">They <b>are</b> happy.</span> — <span class="es">Están/ Son felices.</span></div>
+<span class="en">They <b>are</b> happy.</span> — <span class="es">Están / Son felices.</span></div>
 <h3>Verb TO HAVE <span style="font-size:0.8rem;color:var(--text2)">— tener / haber / tomar</span></h3>
 <div class="theory-box">
 <p><strong>Presente:</strong> I/You/We/They <code>have</code> · He/She/It <code>has</code></p>
-<p><strong>Pasado + Participio:</strong> <code>had</code> (para todos)</p>
-<p><strong>Have got</strong> = tener (más común en UK): I've got, he's got</p>
-<p><strong>Have + participio</strong> = haber (auxiliar del Present Perfect): I <b>have</b> seen</p>
-<p><strong>Have + sustantivo</strong> = tomar: <code>have breakfast, have a shower</code></p>
+<p><strong>Pasado + Participio:</strong> <code>had</code></p>
+<p><strong>Have got</strong> = tener (UK): I've got, he's got</p>
+<p><strong>Have + participio</strong> = haber (Present Perfect): I <b>have</b> seen</p>
+<p><strong>Have + sust</strong> = tomar: <code>have breakfast, have a shower</code></p>
 </div>
-<div class="example"><span class="en">She <b>has</b> a car. / She <b>has got</b> a car.</span> — <span class="es">Ella tiene un coche.</span><br>
+<div class="example"><span class="en">She <b>has</b> a car.</span> — <span class="es">Tiene un coche.</span><br>
 <span class="en">I <b>have</b> lunch at 2pm.</span> — <span class="es">Como a las 2.</span></div>
 <h3>Verb TO GET <span style="font-size:0.8rem;color:var(--text2)">— conseguir / recibir / llegar / volverse / comprar</span></h3>
 <div class="theory-box">
-<p><strong>Presente:</strong> I/You/We/They <code>get</code> · He/She/It <code>gets</code></p>
-<p><strong>Pasado:</strong> <code>got</code> · <strong>Participio:</strong> <code>got</code> (UK) / <code>gotten</code> (US)</p>
-<p><strong>Usos principales:</strong></p>
-<ul><li><b>Conseguir/obtener:</b> <code>get a job, get a ticket</code></li>
-<li><b>Recibir:</b> <code>get an email, get a present</code></li>
+<p><strong>Presente:</strong> get / gets · <strong>Pasado:</strong> got · <strong>Participio:</strong> got (UK) / gotten (US)</p>
+<ul><li><b>Conseguir:</b> <code>get a job, get a ticket</code></li>
+<li><b>Recibir:</b> <code>get an email</code></li>
 <li><b>Llegar:</b> <code>get home, get to school</code></li>
-<li><b>Volverse/ponerse + adj:</b> <code>get tired, get angry, get dark</code></li>
-<li><b>Comprar/traer:</b> <code>get some milk, get me a coffee</code></li>
-<li><b>Entender (informal):</b> <code>I get it / I don't get it</code></li></ul>
+<li><b>Volverse + adj:</b> <code>get tired, get angry</code></li>
+<li><b>Comprar:</b> <code>get some milk</code></li>
+<li><b>Entender:</b> <code>I get it / I don't get it</code></li></ul>
 </div>
 <h3>3ª persona del singular -s</h3>
 <div class="theory-box">
-<p>En <strong>present simple</strong>, he/she/it añade <code>-s</code> o <code>-es</code>:</p>
-<p>• Normal: work→work<b>s</b>, play→play<b>s</b></p>
-<p>• -s,-ss,-sh,-ch,-x,-o → +<b>es</b>: watch→watch<b>es</b>, go→go<b>es</b></p>
-<p>• Consonante+y → <b>ies</b>: study→stud<b>ies</b>, cry→cr<b>ies</b></p>
-<p>• <b>Have</b> → <b>has</b> (única irregular)</p>
+<p>• Normal: work→work<b>s</b> · -s,-sh,-ch,-x,-o→+<b>es</b>: watch→watch<b>es</b>, go→go<b>es</b></p>
+<p>• Consonante+y→<b>ies</b>: study→stud<b>ies</b> · <b>Have→has</b> (única irregular)</p>
 </div>
 <h3>Reglas esenciales</h3>
 <div class="theory-box">
-<p>• <b>DO/DOES</b> para negativas e interrogativas en presente</p>
-<p>• <b>DID</b> para negativas e interrogativas en pasado</p>
+<p>• <b>DO/DOES</b> = negativas e interrogativas en presente</p>
+<p>• <b>DID</b> = negativas e interrogativas en pasado</p>
 <p>• Jamás doble negación: <s>I don't have nothing</s> → I don't have <b>anything</b></p>
-<p>• Adjetivos <b>antes</b> del sustantivo: <code>a red car</code> (no "a car red")</p>
-<p>• Plurales: mayoría +s; -s,-ss,-sh,-ch,-x,-o +es; -y→-ies</p>
+<p>• Adjetivos <b>antes</b> del sustantivo: <code>a red car</code></p>
 </div></div>`;
 
 SECTIONS['verbs'] = `<div class="section active" style="display:block">
@@ -636,176 +571,156 @@ SECTIONS['verbs'] = `<div class="section active" style="display:block">
 
 SECTIONS['g-modal'] = `<div class="section active" style="display:block">
 <h2>🗣️ Modal Verbs</h2>
-<div class="theory-box"><p>Los modales <b>no llevan -s</b> en 3ª persona, <b>no necesitan do/does</b>, y van seguidos de <b>infinitivo sin to</b>.</p></div>
-<h3>CAN / COULD <span style="font-size:0.8rem;color:var(--text2)">— poder, saber</span></h3>
-<div class="theory-box"><p><code>can</code>=poder (habilidad, permiso) · <code>could</code>=podía/podría (pasado, condicional) · <code>can't/couldn't</code>=no poder</p></div>
-<div class="example"><span class="en">I <b>can</b> swim. / <b>Could</b> you help me?</span></div>
-<h3>MAY / MIGHT <span style="font-size:0.8rem;color:var(--text2)">— puede que, quizás</span></h3>
-<div class="theory-box"><p><code>may</code>=puede que (más probable) · <code>might</code>=podría ser que (menos probable)</p></div>
-<div class="example"><span class="en">It <b>may</b> rain. / It <b>might</b> snow.</span></div>
-<h3>MUST / HAVE TO <span style="font-size:0.8rem;color:var(--text2)">— deber, tener que</span></h3>
-<div class="theory-box"><p><code>must</code>=deber (obligación personal) · <code>have to</code>=tener que (obligación externa) · <code>mustn't</code>=prohibición · <code>don't have to</code>=no es necesario</p></div>
+<div class="theory-box"><p>Los modales <b>no llevan -s</b>, <b>no necesitan do/does</b>, van con <b>infinitivo sin to</b>.</p></div>
+<h3>CAN / COULD — poder, saber</h3>
+<div class="theory-box"><p><code>can</code>=poder (habilidad, permiso) · <code>could</code>=podía/podría (pasado, condicional)</p></div>
+<div class="example"><span class="en">I <b>can</b> swim. / <b>Could</b> you help me?</span><br><span class="es">Sé nadar. / ¿Podrías ayudarme?</span></div>
+<h3>MAY / MIGHT — puede que</h3>
+<div class="theory-box"><p><code>may</code>=más probable · <code>might</code>=menos probable</p></div>
+<div class="example"><span class="en">It <b>may</b> rain. / It <b>might</b> snow.</span><br><span class="es">Puede que llueva. / Podría nevar.</span></div>
+<h3>MUST / HAVE TO — deber, tener que</h3>
+<div class="theory-box"><p><code>must</code>=obligación personal · <code>have to</code>=obligación externa · <code>mustn't</code>=prohibición · <code>don't have to</code>=no hace falta</p></div>
 <div class="example"><span class="en">You <b>must</b> study. / You <b>have to</b> wear a uniform. / You <b>don't have to</b> pay.</span></div>
-<h3>SHOULD / OUGHT TO <span style="font-size:0.8rem;color:var(--text2)">— debería</span></h3>
-<div class="theory-box"><p><code>should</code>=debería (consejo) · <code>ought to</code>=debería (más formal)</p></div>
-<h3>HAD BETTER <span style="font-size:0.8rem;color:var(--text2)">— más vale que</span></h3>
-<div class="theory-box"><p><code>had better ('d better)</code>=más vale que (consecuencia negativa si no se hace)</p></div>
-<div class="example"><span class="en">You<b>'d better</b> hurry!</span></div>
-<h3>WILL / WOULD</h3>
-<div class="theory-box"><p><code>will</code>=futuro, promesas · <code>would</code>=condicional, cortesía</p></div>
+<h3>SHOULD / OUGHT TO / HAD BETTER</h3>
+<div class="theory-box"><p><code>should</code>=debería (consejo) · <code>ought to</code>=debería (formal) · <code>'d better</code>=más vale que</p></div>
+<div class="example"><span class="en">You <b>should</b> rest. / You<b>'d better</b> hurry!</span></div>
 <h3>📝 Ejercicios <span id="ex-modal-rnd" style="font-size:0.75rem;color:var(--text2)"></span></h3>
 <div id="ex-modal"></div>
 <div class="btn-row" style="margin-top:12px">
-<button class="btn-check-all" onclick="checkAll('ex-modal')">✅ Corregir todo</button>
-<button class="btn-reset" onclick="resetAll('ex-modal')">🔄 Reset</button>
-<button class="btn-next" id="btn-next-modal" onclick="window._roundHandlers&&window._roundHandlers['g-modal']&&window._roundHandlers['g-modal'].next()">▶️ Siguiente ronda</button>
+<button class="btn-check-all" onclick="checkAllInline('ex-modal')">✅ Corregir todo</button>
+<button class="btn-reset" onclick="resetInline('ex-modal')">🔄 Reset</button>
+<button class="btn-next" onclick="_rounds['g-modal']&&_rounds['g-modal'].next()">▶️ Siguiente ronda</button>
 </div>
 <div id="ex-modal-score" class="score-box" style="display:none"></div></div>`;
 
 SECTIONS['g-future'] = `<div class="section active" style="display:block">
 <h2>🗣️ Future Tenses</h2>
-<h3>WILL</h3>
-<div class="theory-box"><p><b>will + infinitivo</b> → decisiones espontáneas, predicciones, promesas. Contracción: <b>'ll</b> / Negativa: <b>won't</b></p></div>
-<div class="example"><span class="en">I <b>will help</b> you. / It <b>will</b> rain.</span></div>
-<h3>GOING TO</h3>
-<div class="theory-box"><p><b>am/is/are + going to + infinitivo</b> → planes, intenciones, evidencia presente</p></div>
-<div class="example"><span class="en">I<b>'m going to</b> study. / Look! It<b>'s going to</b> rain.</span></div>
-<h3>PRESENT CONTINUOUS</h3>
-<div class="theory-box"><p><b>am/is/are + -ing</b> → futuro con planes ya organizados (hora/lugar fijado)</p></div>
+<h3>WILL — decisiones, predicciones, promesas</h3>
+<div class="theory-box"><p><b>will + infinitivo</b> · Negativa: <b>won't</b> · Contracción: <b>'ll</b></p></div>
+<div class="example"><span class="en">I <b>will help</b> you. / I think she<b>'ll pass</b>.</span><br><span class="es">Te ayudaré. / Creo que aprobará.</span></div>
+<h3>GOING TO — planes, intenciones</h3>
+<div class="theory-box"><p><b>am/is/are + going to + infinitivo</b></p></div>
+<div class="example"><span class="en">I<b>'m going to</b> study tonight. / Look! It<b>'s going to</b> rain.</span></div>
+<h3>PRESENT CONTINUOUS — futuro con planes fijados</h3>
+<div class="theory-box"><p><b>am/is/are + -ing</b> con hora/lugar acordado</p></div>
 <div class="example"><span class="en">I<b>'m meeting</b> Sarah at 6pm tomorrow.</span></div>
-<h3>PRESENT SIMPLE</h3>
-<div class="theory-box"><p>→ futuro con horarios fijos (trenes, vuelos, clases)</p></div>
+<h3>PRESENT SIMPLE — horarios</h3>
+<div class="theory-box"><p>Trenes, vuelos, clases, horarios fijos</p></div>
 <div class="example"><span class="en">The train <b>leaves</b> at 8am.</span></div>
 <h3>📝 Ejercicios <span id="ex-future-rnd" style="font-size:0.75rem;color:var(--text2)"></span></h3>
 <div id="ex-future"></div>
 <div class="btn-row" style="margin-top:12px">
-<button class="btn-check-all" onclick="checkAll('ex-future')">✅ Corregir todo</button>
-<button class="btn-reset" onclick="resetAll('ex-future')">🔄 Reset</button>
-<button class="btn-next" onclick="window._roundHandlers&&window._roundHandlers['g-future']&&window._roundHandlers['g-future'].next()">▶️ Siguiente ronda</button>
+<button class="btn-check-all" onclick="checkAllInline('ex-future')">✅ Corregir todo</button>
+<button class="btn-reset" onclick="resetInline('ex-future')">🔄 Reset</button>
+<button class="btn-next" onclick="_rounds['g-future']&&_rounds['g-future'].next()">▶️ Siguiente ronda</button>
 </div>
 <div id="ex-future-score" class="score-box" style="display:none"></div></div>`;
 
 SECTIONS['g-comparatives'] = `<div class="section active" style="display:block">
 <h2>🗣️ Comparatives &amp; Superlatives</h2>
 <h3>Adjetivos cortos (1 sílaba)</h3>
-<div class="theory-box"><p>Comparativo: <b>adj + -er + than</b> · Superlativo: <b>the + adj + -est</b></p><p>big→big<b>ger</b>, hot→hot<b>ter</b>, easy→eas<b>ier</b></p></div>
+<div class="theory-box"><p><b>adj + -er + than</b> · Superlativo: <b>the + adj + -est</b></p><p>big→big<b>ger</b>, hot→hot<b>ter</b>, easy→eas<b>ier</b></p></div>
+<div class="example"><span class="en">My car is <b>bigger than</b> yours. / She is <b>the tallest</b> in class.</span></div>
 <h3>Adjetivos largos (2+ sílabas)</h3>
-<div class="theory-box"><p>Comparativo: <b>more + adj + than</b> · Superlativo: <b>the most + adj</b></p></div>
+<div class="theory-box"><p><b>more + adj + than</b> · <b>the most + adj</b></p></div>
+<div class="example"><span class="en">This is <b>more interesting than</b> that. / She is <b>the most intelligent</b> student.</span></div>
 <h3>Irregulares</h3>
-<div class="theory-box"><p>good→<b>better</b>→<b>the best</b> · bad→<b>worse</b>→<b>the worst</b> · far→<b>farther/further</b></p></div>
+<div class="theory-box"><p>good → <b>better</b> → <b>the best</b> · bad → <b>worse</b> → <b>the worst</b> · far → <b>farther/further</b></p></div>
+<div class="example"><span class="en">This book is <b>better than</b> the movie. / That was <b>the worst</b> day ever.</span></div>
 <h3>Igualdad</h3>
 <div class="theory-box"><p><b>as + adj + as</b> = tan...como · <b>not as + adj + as</b> = no tan...como</p></div>
+<div class="example"><span class="en">She is <b>as tall as</b> her brother. / It's <b>not as easy as</b> it looks.</span></div>
 <h3>📝 Ejercicios <span id="ex-comp-rnd" style="font-size:0.75rem;color:var(--text2)"></span></h3>
 <div id="ex-comp"></div>
 <div class="btn-row" style="margin-top:12px">
-<button class="btn-check-all" onclick="checkAll('ex-comp')">✅ Corregir todo</button>
-<button class="btn-reset" onclick="resetAll('ex-comp')">🔄 Reset</button>
-<button class="btn-next" onclick="window._roundHandlers&&window._roundHandlers['g-comparatives']&&window._roundHandlers['g-comparatives'].next()">▶️ Siguiente ronda</button>
+<button class="btn-check-all" onclick="checkAllInline('ex-comp')">✅ Corregir todo</button>
+<button class="btn-reset" onclick="resetInline('ex-comp')">🔄 Reset</button>
+<button class="btn-next" onclick="_rounds['g-comparatives']&&_rounds['g-comparatives'].next()">▶️ Siguiente ronda</button>
 </div>
 <div id="ex-comp-score" class="score-box" style="display:none"></div></div>`;
 
 SECTIONS['g-just'] = `<div class="section active" style="display:block">
 <h2>🗣️ Just / Already / Yet / Still / For / Since</h2>
 <h3>JUST — acabar de</h3>
-<div class="theory-box"><p>Con <b>Present Perfect</b>: acción muy reciente. <b>have/has + just + participio</b></p></div>
+<div class="theory-box"><p><b>have/has + just + participio</b></p></div>
 <div class="example"><span class="en">I've <b>just</b> finished.</span> — <span class="es">Acabo de terminar.</span></div>
 <h3>ALREADY — ya (afirmativas)</h3>
-<div class="theory-box"><p>Con <b>Present Perfect</b>: algo ha ocurrido antes de lo esperado. <b>Ya en medio de la frase.</b></p></div>
+<div class="theory-box"><p>Algo ocurrió antes de lo esperado. <b>Ya en medio</b> de la frase.</p></div>
 <div class="example"><span class="en">She's <b>already</b> left.</span> — <span class="es">Ya se ha ido.</span></div>
-<h3>YET — aún/todavía (neg), ya (int)</h3>
-<div class="theory-box"><p>Con <b>Present Perfect</b>, al <b>final</b>. Negativa: aún no · Interrogativa: ¿ya?</p></div>
+<h3>YET — aún (neg) / ya (int)</h3>
+<div class="theory-box"><p>Al <b>final</b> de la frase. Negativa: aún no. Interrogativa: ¿ya?</p></div>
 <div class="example"><span class="en">I haven't finished <b>yet</b>. / Have you eaten <b>yet</b>?</span></div>
-<h3>STILL — todavía/aún</h3>
-<div class="theory-box"><p>Algo que continúa. Va <b>antes del verbo principal</b> o después de <b>be</b>.</p></div>
+<h3>STILL — todavía</h3>
+<div class="theory-box"><p>Algo continúa. Antes del verbo principal o después de <b>be</b>.</p></div>
 <div class="example"><span class="en">I'm <b>still</b> waiting. / She <b>still</b> hasn't called.</span></div>
-<h3>FOR — durante / SINCE — desde</h3>
-<div class="theory-box"><p><code>for</code> + período (two hours, a week) · <code>since</code> + punto de inicio (Monday, 2020, I was a child)</p></div>
+<h3>FOR (período) / SINCE (punto de inicio)</h3>
+<div class="theory-box"><p><code>for</code> + duración: two hours, a week · <code>since</code> + momento: Monday, 2020</p></div>
 <div class="example"><span class="en">I've lived here <b>for</b> 5 years <b>since</b> 2021.</span></div>
 <h3>📝 Ejercicios <span id="ex-just-rnd" style="font-size:0.75rem;color:var(--text2)"></span></h3>
 <div id="ex-just"></div>
 <div class="btn-row" style="margin-top:12px">
-<button class="btn-check-all" onclick="checkAll('ex-just')">✅ Corregir todo</button>
-<button class="btn-reset" onclick="resetAll('ex-just')">🔄 Reset</button>
-<button class="btn-next" onclick="window._roundHandlers&&window._roundHandlers['g-just']&&window._roundHandlers['g-just'].next()">▶️ Siguiente ronda</button>
+<button class="btn-check-all" onclick="checkAllInline('ex-just')">✅ Corregir todo</button>
+<button class="btn-reset" onclick="resetInline('ex-just')">🔄 Reset</button>
+<button class="btn-next" onclick="_rounds['g-just']&&_rounds['g-just'].next()">▶️ Siguiente ronda</button>
 </div>
 <div id="ex-just-score" class="score-box" style="display:none"></div></div>`;
 
 SECTIONS['writing'] = `<div class="section active" style="display:block">
 <h2>✍️ Writing — Plantillas con práctica</h2>
 <h3>📧 Formal Email</h3>
-<div class="writing-tpl"><h4>Estructura</h4>
-<div class="tpl-body">Subject: [Asunto claro y breve]
+<div class="writing-tpl"><h4>Estructura</h4><div class="tpl-body">Subject: [Asunto claro]
 
 Dear Mr/Ms [Surname],
 
 I am writing to [motivo].
 
-[Párrafo 1: introducción y contexto]
-[Párrafo 2: detalles, información adicional]
+[Párrafo 1: introducción]
+[Párrafo 2: detalles]
 
 I look forward to hearing from you.
 
 Yours sincerely,
-[Tu nombre completo]</div>
-<textarea id="w-formal" oninput="updateStats('w-formal')" placeholder="Escribe aquí tu email formal siguiendo la plantilla..."></textarea>
+[Tu nombre]</div>
+<textarea id="w-formal" oninput="updateStats('w-formal')" placeholder="Escribe tu email formal..."></textarea>
 <div class="writing-stats" id="w-formal-stats">📝 0 palabras · 0 caracteres · 0 párrafos</div></div>
-
 <h3>📧 Informal Email</h3>
-<div class="writing-tpl"><h4>Estructura</h4>
-<div class="tpl-body">Subject: [Asunto informal]
+<div class="writing-tpl"><h4>Estructura</h4><div class="tpl-body">Hi [Name],
 
-Hi [Name],
+How are you? I hope you're well.
 
-How are you? I hope you're doing well.
-
-I'm writing to [motivo].
-
-[Párrafo: noticias, planes, preguntas...]
+[Noticias, planes, preguntas...]
 
 Write back soon!
-Love / Best wishes,
+Love,
 [Tu nombre]</div>
-<textarea id="w-informal" oninput="updateStats('w-informal')" placeholder="Escribe aquí tu email informal..."></textarea>
+<textarea id="w-informal" oninput="updateStats('w-informal')" placeholder="Escribe tu email informal..."></textarea>
 <div class="writing-stats" id="w-informal-stats">📝 0 palabras · 0 caracteres · 0 párrafos</div></div>
+<h3>📰 Article / Blog</h3>
+<div class="writing-tpl"><h4>Estructura</h4><div class="tpl-body">TITLE: [Atractivo]
 
-<h3>📰 Article / Blog Post</h3>
-<div class="writing-tpl"><h4>Estructura</h4>
-<div class="tpl-body">TITLE: [Atractivo, con pregunta o dato curioso]
+Intro: Hook + what it's about.
+Body 1: First point + examples.
+Body 2: Second point.
 
-Introduction: Hook the reader. Say what the article is about.
-
-Body 1: First point with examples.
-Body 2: Second point or contrasting view.
-
-Conclusion: Summarize. End with a question.</div>
+Conclusion: Summary + question.</div>
 <textarea id="w-article" oninput="updateStats('w-article')" placeholder="Escribe tu artículo..."></textarea>
 <div class="writing-stats" id="w-article-stats">📝 0 palabras · 0 caracteres · 0 párrafos</div></div>
-
 <h3>📖 Story</h3>
-<div class="writing-tpl"><h4>Estructura</h4>
-<div class="tpl-body">Opening: Set the scene — who, where, when.
-
-Build-up: Introduce the problem. Describe feelings.
-
-Climax: Most exciting moment. Short sentences.
-
-Resolution: How it ended. Tie up loose ends.</div>
+<div class="writing-tpl"><h4>Estructura</h4><div class="tpl-body">Opening: Who, where, when.
+Build-up: Problem + feelings.
+Climax: Excitement! Short sentences.
+Resolution: How it ended.</div>
 <textarea id="w-story" oninput="updateStats('w-story')" placeholder="Escribe tu historia..."></textarea>
 <div class="writing-stats" id="w-story-stats">📝 0 palabras · 0 caracteres · 0 párrafos</div></div>
-
 <h3>⭐ Review</h3>
-<div class="writing-tpl"><h4>Estructura</h4>
-<div class="tpl-body">Introduction: What are you reviewing? Basic facts.
-
-Positive aspects: What you liked. Give examples.
-
-Negative aspects: Be diplomatic. What could improve.
-
-Conclusion: Overall opinion. Recommendation.</div>
+<div class="writing-tpl"><h4>Estructura</h4><div class="tpl-body">Intro: What + basic facts.
+Positive aspects + examples.
+Negative aspects (diplomatic).
+Conclusion: Opinion + recommendation.</div>
 <textarea id="w-review" oninput="updateStats('w-review')" placeholder="Escribe tu reseña..."></textarea>
 <div class="writing-stats" id="w-review-stats">📝 0 palabras · 0 caracteres · 0 párrafos</div></div></div>`;
 
-// ==================== Start ====================
+// ==================== INIT ====================
 document.getElementById('main-content').innerHTML = SECTIONS['home'];
 setTimeout(()=>renderVerbs(''), 200);
 </script>
