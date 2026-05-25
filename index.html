@@ -169,6 +169,9 @@ function show(name) {
   } else {
     main.innerHTML = SECTIONS['home'] || '<p>Sección no encontrada</p>';
   }
+  // Hide translator during exams
+  var trFloat = document.getElementById('tr-float');
+  if (trFloat) trFloat.style.display = (name === 'simulacro') ? 'none' : '';
   window.scrollTo(0,0);
 }
 
