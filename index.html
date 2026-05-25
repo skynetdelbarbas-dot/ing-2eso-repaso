@@ -191,15 +191,53 @@ function fixLegacyIframe() {
     var mainEl = doc.querySelector('main.main');
     if (mainEl) { mainEl.style.maxWidth = '100%'; mainEl.style.padding = '24px'; }
 
-    // Make exercise inputs appear inline (like the new sections)
-    var style = doc.createElement('style');
-    style.textContent = `
-      .exercise-card { display:flex; flex-wrap:wrap; align-items:baseline; gap:8px; }
-      .exercise-card .stem { flex:0 1 auto; margin-bottom:0; }
-      .exercise-card input[type="text"] { display:inline-block; width:180px; margin-bottom:0; flex:0 0 auto; }
-      .exercise-card .btn-row { width:100%; margin-top:4px; }
+    // Make exercise inputs truly inline (inside the sentence, not at the end)
+    var fixScript = doc.createElement('script');
+    fixScript.textContent = `
+      (function() {
+        document.querySelectorAll('.exercise-card').forEach(function(card) {
+          var stem = card.querySelector('.stem');
+          var inp = card.querySelector('input[type="text"]');
+          if (!stem || !inp) return;
+          // Find blank placeholder in the stem and replace it with the input element
+          var html = stem.innerHTML;
+          var placeholder = null;
+          var patterns = ['______', '___', '____', '_____', '…', '...'];
+          for (var i = 0; i < patterns.length; i++) {
+            if (html.indexOf(patterns[i]) >= 0) {
+              placeholder = patterns[i];
+              break;
+            }
+          }
+          if (placeholder) {
+            // Split the stem HTML at the placeholder, insert the input between
+            var parts = html.split(placeholder);
+            stem.innerHTML = parts[0];
+            stem.appendChild(document.createTextNode(' '));
+            stem.appendChild(inp);
+            stem.appendChild(document.createTextNode(' '));
+            if (parts[1]) {
+              var rest = document.createElement('span');
+              rest.innerHTML = parts[1];
+              stem.appendChild(rest);
+            }
+            inp.style.display = 'inline-block';
+            inp.style.width = '160px';
+            inp.style.margin = '0 4px';
+            inp.style.verticalAlign = 'middle';
+          } else {
+            // No placeholder found, move input inside stem at the end
+            stem.appendChild(document.createTextNode(' '));
+            stem.appendChild(inp);
+            inp.style.display = 'inline-block';
+            inp.style.width = '160px';
+            inp.style.margin = '0 4px';
+            inp.style.verticalAlign = 'middle';
+          }
+        });
+      })();
     `;
-    doc.head.appendChild(style);
+    doc.body.appendChild(fixScript);
 
     // Handle simulacro checkboxes
     if (doc.querySelector('.page-title') && doc.querySelector('.page-title').textContent.includes('Simulacro')) {
@@ -214,13 +252,19 @@ function fixLegacyIframe() {
 }
 
 function injectSimulacroCheckboxes(doc) {
-  // Find all topic headers (h2 elements in sections)
+  // Hide all exercises initially
+  doc.querySelectorAll('.exercise-card').forEach(function(c) { c.style.display = 'none'; });
+  doc.querySelectorAll('.btn-section').forEach(function(b) { b.style.display = 'none'; });
+  doc.querySelectorAll('.score-box').forEach(function(s) { s.style.display = 'none'; });
+
+  // Find all topic headers
   var topics = [];
-  doc.querySelectorAll('.section h2').forEach(function(h2) {
+  doc.querySelectorAll('.section').forEach(function(section, si) {
+    var h2 = section.querySelector('h2');
+    if (!h2) return;
     var text = h2.textContent.trim();
-    // Skip non-topic headers
-    if (text.includes('Ejercicio') || text.includes('Correcci') || text.includes('Resultado')) return;
-    topics.push({ el: h2, text: text });
+    if (text.includes('Ejercicio') || text.includes('Correcci') || text.includes('Resultado') || text.includes('Selecciona')) return;
+    topics.push({ section: section, title: text, index: si });
   });
 
   if (topics.length === 0) return;
@@ -229,78 +273,129 @@ function injectSimulacroCheckboxes(doc) {
   var panel = doc.createElement('div');
   panel.className = 'theory-box';
   panel.style.cssText = 'margin-bottom:16px';
-  panel.innerHTML = '<h3>📋 Selecciona los temas</h3>';
-  topics.forEach(function(t, i) {
-    var label = doc.createElement('label');
-    label.className = 'topic-cb';
-    label.style.cssText = 'display:flex;align-items:center;gap:6px;margin:4px 0;font-size:0.85rem;cursor:pointer';
-    var cb = doc.createElement('input');
-    cb.type = 'checkbox';
-    cb.checked = true;
-    cb.setAttribute('data-topic', i);
-    cb.onchange = function() { filterSimulacroTopics(doc); };
-    label.appendChild(cb);
-    label.appendChild(doc.createTextNode(' ' + t.text));
-    panel.appendChild(label);
-  });
+  panel.id = 'sim-panel';
 
-  // Insert after the page title
+  var inner = '<h3>📋 Selecciona los temas para el examen</h3>';
+  topics.forEach(function(t, i) {
+    inner += '<label class="topic-cb" style="display:flex;align-items:center;gap:6px;margin:4px 0;font-size:0.85rem;cursor:pointer">'+
+      '<input type="checkbox" data-topic="'+i+'" checked onchange="updateSimCount()"> '+t.title+'</label>';
+  });
+  inner += '<div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap">'+
+    '<button onclick="selectAllSim(true)" style="padding:4px 10px;border:1px solid #ccc;border-radius:4px;cursor:pointer;font-size:0.8rem">✅ Todos</button>'+
+    '<button onclick="selectAllSim(false)" style="padding:4px 10px;border:1px solid #ccc;border-radius:4px;cursor:pointer;font-size:0.8rem">⬜ Ninguno</button>'+
+    '<button onclick="generateSimExam()" style="padding:6px 16px;background:#339af0;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:0.9rem;font-weight:600">🎯 Generar Examen</button>'+
+    '</div>'+
+    '<p id="sim-legend" style="font-size:0.75rem;color:#6c757d;margin-top:8px"></p>';
+  panel.innerHTML = inner;
+
+  // Insert after page title
   var title = doc.querySelector('.page-title');
   if (title) {
     title.parentNode.insertBefore(panel, title.nextSibling);
+  } else {
+    doc.querySelector('main.main').insertBefore(panel, doc.querySelector('main.main').firstChild);
   }
 
-  // Store original display state
-  topics.forEach(function(t) {
-    t.section = t.el.closest('.section');
-    t.exercises = [];
-    // Find all exercise cards in this section
-    var s = t.section;
-    if (s) {
-      var cards = s.querySelectorAll('.exercise-card');
-      cards.forEach(function(c) { t.exercises.push(c); });
-    }
-  });
-  // Store globally in the iframe
+  // Store topics data
   doc._simTopics = topics;
 
-  // Add filter function to iframe
-  var script = doc.createElement('script');
-  script.textContent = `
-    window.filterSimulacroTopics = function(doc) {
-      var topics = doc._simTopics || [];
-      var cbs = doc.querySelectorAll('input[type="checkbox"][data-topic]');
+  // Inject helper functions and override scoring
+  var simScript = doc.createElement('script');
+  simScript.textContent = `
+    var _simTopics = document._simTopics || [];
+    var _simExamGenerated = false;
+
+    window.updateSimCount = function() {
+      var cbs = document.querySelectorAll('#sim-panel input[type="checkbox"][data-topic]');
+      var count = 0;
+      cbs.forEach(function(cb) { if (cb.checked) count++; });
+      var legend = document.getElementById('sim-legend');
+      if (legend) legend.textContent = count + ' tema(s) seleccionado(s)';
+    };
+
+    window.selectAllSim = function(checked) {
+      document.querySelectorAll('#sim-panel input[type="checkbox"][data-topic]').forEach(function(cb) {
+        cb.checked = checked;
+      });
+      updateSimCount();
+      if (_simExamGenerated) generateSimExam();
+    };
+
+    window.generateSimExam = function() {
+      _simExamGenerated = true;
+      // Hide all sections and exercises first
+      _simTopics.forEach(function(t) { t.section.style.display = 'none'; });
+
+      // Show only selected topics
+      var cbs = document.querySelectorAll('#sim-panel input[type="checkbox"][data-topic]');
+      var selectedSections = [];
       cbs.forEach(function(cb, i) {
-        var t = topics[i];
-        if (!t) return;
-        var visible = cb.checked;
-        if (t.section) t.section.style.display = visible ? '' : 'none';
-        t.exercises.forEach(function(ex) {
-          ex.style.display = visible ? '' : 'none';
+        if (cb.checked && _simTopics[i]) {
+          var section = _simTopics[i].section;
+          section.style.display = '';
+          selectedSections.push(section);
+          // Show exercise cards in this section
+          section.querySelectorAll('.exercise-card').forEach(function(c) { c.style.display = ''; });
+          // Show buttons
+          section.querySelectorAll('.btn-section').forEach(function(b) { b.style.display = ''; });
+        }
+      });
+
+      // Count total visible exercises
+      var totalEx = document.querySelectorAll('.exercise-card:not([style*="display: none"])').length;
+      // Actually count more carefully
+      totalEx = 0;
+      selectedSections.forEach(function(s) {
+        s.querySelectorAll('.exercise-card').forEach(function(c) {
+          if (c.style.display !== 'none') totalEx++;
         });
       });
+
+      // Update scoring: each question = 10 / total
+      var perQuestion = totalEx > 0 ? (10 / totalEx).toFixed(2) : 0;
+      var perQuestionRounded = Math.round(perQuestion * 100) / 100;
+
+      var legend = document.getElementById('sim-legend');
+      if (legend) legend.innerHTML = totalEx + ' preguntas · ' + perQuestionRounded + ' pts/pregunta = 10 pts total';
+
+      // Override checkAll to use dynamic scoring
+      var _origCheckAll = window.checkAll;
+      window._simPerQuestion = perQuestionRounded;
+      window._simTotal = totalEx;
+
+      // Show score boxes and buttons
+      document.querySelectorAll('.score-box').forEach(function(s) { s.style.display = ''; });
     };
-    // Override checkAll to only count visible exercises
-    var _origCheckAll = window.checkAll;
+
+    // Override checkAll to calculate weighted score
+    var _realCheckAll = window.checkAll;
     window.checkAll = function(cid) {
-      // Only count visible exercises
-      var container = document.getElementById(cid);
-      if (!container) return _origCheckAll(cid);
-      var cards = container.querySelectorAll('.exercise-card');
-      var visible = [];
-      cards.forEach(function(c) {
-        if (c.offsetParent !== null) visible.push(c);
-      });
-      // Temporarily hide non-visible, run check, restore
-      var hidden = [];
-      cards.forEach(function(c) {
-        if (c.offsetParent === null) { c.style.display = 'block'; hidden.push(c); }
-      });
-      _origCheckAll(cid);
-      hidden.forEach(function(c) { c.style.display = 'none'; });
+      _realCheckAll(cid);
+      // Update the score display with weighted value
+      var scoreBox = document.getElementById(cid + '-score') || document.querySelector('.score-box');
+      if (scoreBox && window._simPerQuestion) {
+        var big = scoreBox.querySelector('.big');
+        if (big) {
+          var parts = big.textContent.split('/');
+          if (parts.length === 2) {
+            var correct = parseInt(parts[0]);
+            var total = window._simTotal || parts[1];
+            var weighted = (correct * window._simPerQuestion).toFixed(1);
+            big.textContent = weighted + ' / 10';
+          }
+        }
+      }
     };
+
+    updateSimCount();
   `;
-  doc.body.appendChild(script);
+  doc.body.appendChild(simScript);
+  
+  // Also update the sub-label if present
+  var subLabel = doc.querySelector('.sub') || doc.querySelector('.intro');
+  if (subLabel) {
+    subLabel.textContent = 'Selecciona los temas arriba y pulsa "Generar Examen" para crear un examen personalizado.';
+  }
 }
 
 // ==================== GRAMMAR TOGGLE ====================
