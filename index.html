@@ -158,9 +158,9 @@ function show(name) {
   currentSection = name;
   const main = document.getElementById('main-content');
 
-  if (SECTIONS[name]) {
+    if (SECTIONS[name]) {
     main.innerHTML = SECTIONS[name];
-    if (name.startsWith('g-') && name.indexOf('-',2) > 0) initExercises(name);
+    if (EXERCISES[name]) initExercises(name);
     if (name === 'verbs') setTimeout(()=>renderVerbs(''), 100);
     if (name === 'simulacro') setTimeout(initSimulacro, 300);
   } else if (PAGE_MAP[name]) {
@@ -177,6 +177,7 @@ async function loadLegacyPage(name, url) {
   main.innerHTML = '<div class="section active"><p style="text-align:center;padding:40px">⏳ Cargando...</p></div>';
   try {
     const resp = await fetch(url);
+    if (!resp.ok) throw new Error('HTTP '+resp.status);
     const html = await resp.text();
 
     // Extract main content: from <main class="main"> to </main>
@@ -186,28 +187,34 @@ async function loadLegacyPage(name, url) {
     if (mStart >= 0 && mEnd > mStart) {
       content = html.substring(mStart, mEnd + 7);
     } else {
-      // Fallback: extract body content
       const bStart = html.indexOf('<body');
       const bEnd = html.indexOf('</body>');
-      content = bStart >= 0 ? html.substring(html.indexOf('>', bStart) + 1, bEnd) : html;
+      content = bStart >= 0 ? html.substring(html.indexOf('>',bStart)+1, bEnd) : html;
     }
 
-    // Remove the old sidebar from extracted content
+    // Remove the sidebar
     content = content.replace(/<nav[\s\S]*?<\/nav>/g, '');
 
     main.innerHTML = '<div class="section active" style="display:block">' + content + '</div>';
 
-    // Execute inline scripts from the ORIGINAL html (not the parsed version)
+    // Execute inline scripts by creating real <script> elements
     const scriptRegex = /<script>([\s\S]*?)<\/script>/gi;
     let match;
     while ((match = scriptRegex.exec(html)) !== null) {
-      try { eval(match[1]); } catch(e) { console.error('Script error in '+url, e); }
+      const scriptEl = document.createElement('script');
+      scriptEl.textContent = match[1];
+      document.body.appendChild(scriptEl);
     }
 
-    // Trigger any onload initialization if needed
-    if (name === 'simulacro') setTimeout(initSimulacro, 200);
+    // Also execute scripts from external files that are already loaded
+    // (exercises.js is loaded via the old page's <script src>, which the browser
+    //  already cached — its functions are available globally)
+
+    if (name === 'simulacro') setTimeout(initSimulacro, 300);
+
   } catch(e) {
-    main.innerHTML = '<div class="section active"><h2>📭 Página no disponible</h2><p>Error al cargar. Asegúrate de haber visitado esta página al menos una vez para que el service worker la cachee.</p></div>';
+    console.error('Legacy page error:', name, e);
+    main.innerHTML = '<div class="section active"><h2>📭 Error al cargar</h2><p>'+e.message+'</p><p style="font-size:0.8rem;color:var(--text2)">Visita la página directamente: <a href="'+url+'">'+url+'</a></p></div>';
   }
 }
 
