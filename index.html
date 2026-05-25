@@ -325,14 +325,14 @@ function renderInline(data, cid) {
     const stemHtml = ex.stem.replace('___', `<input type="text" id="inp-${cid}-${n}" data-answer="${ex.answer}" data-alts="${JSON.stringify(ex.alts||[]).replace(/"/g,'&quot;')}" style="width:${Math.max(120,(ex.answer.length+4)*10)}px">`);
     card.innerHTML = `<p class="stem"><strong>${n}.</strong> ${stemHtml} <span id="fb-${cid}-${n}" class="feedback-inline"></span></p>
       <div class="btn-row">
-        <button class="btn-sm btn-check" onclick="checkOne('${cid}',${n})">✅ Corregir</button>
+        <button class="btn-sm btn-check" onclick="chk('${cid}',${n})">✅ Corregir</button>
         <button class="btn-sm btn-answer" onclick="showAns('${cid}',${n})">💡 Mostrar</button>
       </div>`;
     c.appendChild(card);
   });
 }
 
-function checkOne(cid, n) {
+function chk(cid, n) {
   const inp = document.getElementById(`inp-${cid}-${n}`);
   const fb = document.getElementById(`fb-${cid}-${n}`);
   if (!inp) return;
@@ -396,7 +396,7 @@ function resetInline(cid) {
   if (score) { score.style.display='none'; score.innerHTML=''; }
 }
 
-function pickRandom(arr, n) {
+function _pickRandom(arr, n) {
   const shuffled = [...arr].sort(()=>Math.random()-0.5);
   return shuffled.slice(0, Math.min(n, arr.length));
 }
@@ -406,7 +406,7 @@ function initExercises(name) {
   if (!cfg) return;
   let rnd = 1;
   function start() {
-    const data = pickRandom(cfg.data, 8);
+    const data = _pickRandom(cfg.data, 8);
     renderInline(data, cfg.cid);
     const label = document.getElementById(`${cfg.cid}-rnd`);
     if (label) label.textContent = 'Ronda '+rnd+'/'+cfg.rounds;
