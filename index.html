@@ -380,20 +380,49 @@ function injectSimulacroCheckboxes(doc) {
     var _realCheckAll = window.checkAll;
     window.checkAll = function(cid) {
       _realCheckAll(cid);
-      // Update the score display with weighted value
-      var scoreBox = document.getElementById(cid + '-score') || document.querySelector('.score-box');
-      if (scoreBox && window._simPerQuestion) {
-        var big = scoreBox.querySelector('.big');
-        if (big) {
-          var parts = big.textContent.split('/');
-          if (parts.length === 2) {
-            var correct = parseInt(parts[0]);
-            var total = window._simTotal || parts[1];
-            var weighted = (correct * window._simPerQuestion).toFixed(1);
-            big.textContent = weighted + ' / 10';
-          }
+      // After correction, update all block scores to show raw counts
+      // and recalculate weighted global total
+      setTimeout(updateWeightedScore, 50);
+    };
+
+    window.updateWeightedScore = function() {
+      // Sum up all visible block scores
+      var totalCorrect = 0;
+      var totalQuestions = 0;
+      var blocks = document.querySelectorAll('.block-score');
+      blocks.forEach(function(block) {
+        // Only count visible blocks
+        if (block.offsetParent === null) return;
+        var text = block.textContent;
+        var match = text.match(/(\d+)\/(\d+)/);
+        if (match) {
+          totalCorrect += parseInt(match[1]);
+          totalQuestions += parseInt(match[2]);
         }
+      });
+
+      if (totalQuestions === 0) return;
+
+      // Calculate weighted score
+      var perQ = totalQuestions > 0 ? 10 / totalQuestions : 0;
+      var weighted = totalCorrect * perQ;
+      var displayScore = Math.round(weighted * 10) / 10;
+
+      // Update the global total display
+      var h1 = document.querySelector('h1') || document.querySelector('.page-title');
+      // Find or create a weighted score display
+      var wbox = document.getElementById('weighted-score');
+      if (!wbox) {
+        wbox = document.createElement('div');
+        wbox.id = 'weighted-score';
+        wbox.style.cssText = 'background:#e7f5ff;border:2px solid #339af0;border-radius:10px;padding:16px;margin:16px 0;text-align:center;font-size:1.1rem';
+        var lastSection = document.querySelector('.section:last-of-type');
+        if (lastSection) lastSection.parentNode.insertBefore(wbox, lastSection.nextSibling);
+        else document.querySelector('main').appendChild(wbox);
       }
+      wbox.innerHTML = '<div style="font-size:2rem;font-weight:bold;color:#339af0">'+displayScore+' / 10</div>'+
+        '<div style="color:#6c757d;font-size:0.85rem">'+totalCorrect+'/'+totalQuestions+' aciertos · '+perQ.toFixed(2)+' pts/pregunta</div>'+
+        '<div style="margin-top:8px;font-size:0.8rem;color:#6c757d">🔹 Nota ponderada: cada pregunta vale lo mismo sobre 10</div>';
     };
 
     updateSimPreview();
