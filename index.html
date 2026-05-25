@@ -190,11 +190,117 @@ function fixLegacyIframe() {
     if (container) { container.style.display = 'block'; container.style.maxWidth = '100%'; }
     var mainEl = doc.querySelector('main.main');
     if (mainEl) { mainEl.style.maxWidth = '100%'; mainEl.style.padding = '24px'; }
+
+    // Make exercise inputs appear inline (like the new sections)
+    var style = doc.createElement('style');
+    style.textContent = `
+      .exercise-card { display:flex; flex-wrap:wrap; align-items:baseline; gap:8px; }
+      .exercise-card .stem { flex:0 1 auto; margin-bottom:0; }
+      .exercise-card input[type="text"] { display:inline-block; width:180px; margin-bottom:0; flex:0 0 auto; }
+      .exercise-card .btn-row { width:100%; margin-top:4px; }
+    `;
+    doc.head.appendChild(style);
+
+    // Handle simulacro checkboxes
+    if (doc.querySelector('.page-title') && doc.querySelector('.page-title').textContent.includes('Simulacro')) {
+      injectSimulacroCheckboxes(doc);
+    }
+
     var h = Math.max(doc.body.scrollHeight, doc.body.offsetHeight, doc.documentElement.scrollHeight);
     iframe.style.height = (h + 40) + 'px';
   } catch(e) {
     iframe.style.height = '3000px';
   }
+}
+
+function injectSimulacroCheckboxes(doc) {
+  // Find all topic headers (h2 elements in sections)
+  var topics = [];
+  doc.querySelectorAll('.section h2').forEach(function(h2) {
+    var text = h2.textContent.trim();
+    // Skip non-topic headers
+    if (text.includes('Ejercicio') || text.includes('Correcci') || text.includes('Resultado')) return;
+    topics.push({ el: h2, text: text });
+  });
+
+  if (topics.length === 0) return;
+
+  // Create checkbox panel
+  var panel = doc.createElement('div');
+  panel.className = 'theory-box';
+  panel.style.cssText = 'margin-bottom:16px';
+  panel.innerHTML = '<h3>📋 Selecciona los temas</h3>';
+  topics.forEach(function(t, i) {
+    var label = doc.createElement('label');
+    label.className = 'topic-cb';
+    label.style.cssText = 'display:flex;align-items:center;gap:6px;margin:4px 0;font-size:0.85rem;cursor:pointer';
+    var cb = doc.createElement('input');
+    cb.type = 'checkbox';
+    cb.checked = true;
+    cb.setAttribute('data-topic', i);
+    cb.onchange = function() { filterSimulacroTopics(doc); };
+    label.appendChild(cb);
+    label.appendChild(doc.createTextNode(' ' + t.text));
+    panel.appendChild(label);
+  });
+
+  // Insert after the page title
+  var title = doc.querySelector('.page-title');
+  if (title) {
+    title.parentNode.insertBefore(panel, title.nextSibling);
+  }
+
+  // Store original display state
+  topics.forEach(function(t) {
+    t.section = t.el.closest('.section');
+    t.exercises = [];
+    // Find all exercise cards in this section
+    var s = t.section;
+    if (s) {
+      var cards = s.querySelectorAll('.exercise-card');
+      cards.forEach(function(c) { t.exercises.push(c); });
+    }
+  });
+  // Store globally in the iframe
+  doc._simTopics = topics;
+
+  // Add filter function to iframe
+  var script = doc.createElement('script');
+  script.textContent = `
+    window.filterSimulacroTopics = function(doc) {
+      var topics = doc._simTopics || [];
+      var cbs = doc.querySelectorAll('input[type="checkbox"][data-topic]');
+      cbs.forEach(function(cb, i) {
+        var t = topics[i];
+        if (!t) return;
+        var visible = cb.checked;
+        if (t.section) t.section.style.display = visible ? '' : 'none';
+        t.exercises.forEach(function(ex) {
+          ex.style.display = visible ? '' : 'none';
+        });
+      });
+    };
+    // Override checkAll to only count visible exercises
+    var _origCheckAll = window.checkAll;
+    window.checkAll = function(cid) {
+      // Only count visible exercises
+      var container = document.getElementById(cid);
+      if (!container) return _origCheckAll(cid);
+      var cards = container.querySelectorAll('.exercise-card');
+      var visible = [];
+      cards.forEach(function(c) {
+        if (c.offsetParent !== null) visible.push(c);
+      });
+      // Temporarily hide non-visible, run check, restore
+      var hidden = [];
+      cards.forEach(function(c) {
+        if (c.offsetParent === null) { c.style.display = 'block'; hidden.push(c); }
+      });
+      _origCheckAll(cid);
+      hidden.forEach(function(c) { c.style.display = 'none'; });
+    };
+  `;
+  doc.body.appendChild(script);
 }
 
 // ==================== GRAMMAR TOGGLE ====================
