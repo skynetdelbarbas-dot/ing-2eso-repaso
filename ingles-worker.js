@@ -19,7 +19,7 @@ export default {
       // Si el túnel devuelve contenido válido (nuestras páginas tienen "2º ESO")
       if (response.ok) {
         const text = await response.clone().text();
-        if (text.includes('2º ESO') || text.includes('Repaso Inglés')) {
+        if (text.includes('2º ESO') || text.includes('Repaso Inglés') || text.includes('Aprende y Practica') || text.includes('📚 Inglés')) {
           return response;
         }
       }

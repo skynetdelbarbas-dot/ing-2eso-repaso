@@ -3,83 +3,712 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>📚 Repaso Inglés 2º ESO</title>
-<link rel="stylesheet" href="style.css?v=4">
+<title>📚 Inglés — Aprende y Practica</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f8f9fa;--card:#ffffff;--text:#212529;--text2:#6c757d;
+  --primary:#4dabf7;--primary-dark:#339af0;--success:#51cf66;
+  --success-bg:#e6fcf5;--error:#ff6b6b;--error-bg:#fff5f5;
+  --warn:#ffd43b;--border:#dee2e6;--shadow:0 2px 8px rgba(0,0,0,0.08);
+  --radius:10px;--nav-width:260px
+}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh}
+.container{display:flex;max-width:1200px;margin:0 auto;min-height:100vh}
+.sidebar{width:260px;background:var(--card);border-right:1px solid var(--border);padding:20px;position:sticky;top:0;height:100vh;overflow-y:auto;box-shadow:var(--shadow);z-index:10}
+.sidebar h1{font-size:1.1rem;margin-bottom:4px;color:var(--primary-dark)}
+.sidebar .subtitle{font-size:0.7rem;color:var(--text2);margin-bottom:14px}
+.sidebar h2{font-size:0.8rem;text-transform:uppercase;letter-spacing:.5px;color:var(--text2);margin:16px 0 6px}
+.sidebar a{display:block;padding:7px 12px;border-radius:6px;color:var(--text);text-decoration:none;font-size:0.88rem;margin-bottom:2px;transition:all .15s;cursor:pointer}
+.sidebar a:hover,.sidebar a.active{background:var(--primary);color:#fff}
+.grammar-toggle{cursor:pointer;user-select:none;display:flex;align-items:center;gap:4px;padding:7px 12px;border-radius:6px;font-size:0.88rem;margin-bottom:2px;color:var(--text);transition:all .15s}
+.grammar-toggle:hover{background:var(--primary);color:#fff}
+.grammar-toggle .arrow{font-size:0.7rem;transition:transform .2s}
+.grammar-toggle.open .arrow{transform:rotate(90deg)}
+.grammar-sub{max-height:0;overflow:hidden;transition:max-height .3s;margin-left:12px}
+.grammar-sub.open{max-height:600px}
+.grammar-sub a{font-size:0.8rem;padding:5px 12px}
+.main{flex:1;padding:30px 40px;max-width:850px}
+.section{background:var(--card);border-radius:var(--radius);padding:24px;margin-bottom:20px;box-shadow:var(--shadow);display:none}
+.section.active{display:block}
+.section h2{font-size:1.15rem;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid var(--primary);display:inline-block}
+.section h3{font-size:1rem;margin:18px 0 10px;color:var(--primary-dark)}
+.theory-box{background:#e7f5ff;border-left:4px solid var(--primary);padding:14px 18px;border-radius:0 8px 8px 0;margin:12px 0}
+.theory-box code{background:rgba(0,0,0,0.06);padding:2px 6px;border-radius:4px;font-family:Consolas,monospace;font-size:.9em}
+.example{background:#f1f3f5;padding:10px 14px;border-radius:6px;margin:8px 0;font-style:italic}
+.example .en{color:#1864ab}.example .es{color:var(--text2);font-size:.9em}
+ul,ol{margin-left:20px;line-height:1.9}
+li{margin-bottom:4px}
+
+/* Translator */
+.translator-box{background:var(--card);border:2px solid var(--primary);border-radius:var(--radius);padding:20px;margin-bottom:20px}
+.translator-box textarea{width:100%;min-height:80px;border:2px solid var(--border);border-radius:8px;padding:10px;font-size:.95rem;font-family:inherit;resize:vertical;transition:border-color .2s}
+.translator-box textarea:focus{outline:none;border-color:var(--primary)}
+.translator-box .tr-row{display:flex;gap:8px;align-items:center;margin-top:10px;flex-wrap:wrap}
+.translator-box select,.translator-box button{padding:8px 14px;border-radius:6px;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:.85rem;cursor:pointer}
+.translator-box button.btn-primary{background:var(--primary);color:#fff;border:none}
+.translator-box button.btn-primary:hover{background:var(--primary-dark)}
+.translator-box .tr-result{background:var(--bg);border-radius:8px;padding:14px;margin-top:10px;min-height:40px;font-size:1rem}
+.speak-btn{background:none;border:1px solid var(--border);border-radius:50%;width:36px;height:36px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;font-size:1rem}
+
+/* Table */
+.table-wrap{overflow-x:auto;margin:14px 0}
+table.verbs{width:100%;border-collapse:collapse;font-size:.88rem}
+table.verbs th{background:var(--primary-dark);color:#fff;padding:10px 12px;text-align:left;position:sticky;top:0}
+table.verbs td{padding:8px 12px;border-bottom:1px solid var(--border)}
+table.verbs tr:hover{background:#e7f5ff}
+table.verbs td:nth-child(4){color:var(--text2);font-style:italic}
+.search-row{margin-bottom:14px}
+.search-row input{padding:8px 14px;border-radius:6px;border:2px solid var(--border);font-size:.9rem;width:100%;max-width:400px;transition:border-color .2s}
+.search-row input:focus{outline:none;border-color:var(--primary)}
+
+/* Cards grid */
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin:16px 0}
+.gram-card{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:16px;cursor:pointer;transition:all .15s}
+.gram-card:hover{border-color:var(--primary);transform:translateY(-2px)}
+.gram-card h4{font-size:.95rem;color:var(--primary-dark);margin-bottom:4px}
+.gram-card p{font-size:.8rem;color:var(--text2);line-height:1.4}
+
+/* Writing templates */
+.writing-tpl{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:16px;margin:12px 0}
+.writing-tpl h4{color:var(--primary-dark);margin-bottom:8px}
+.writing-tpl .tpl-body{font-family:Consolas,monospace;font-size:.85rem;white-space:pre-wrap;background:#fff;border:1px solid var(--border);border-radius:6px;padding:14px;line-height:1.7;max-height:300px;overflow-y:auto}
+
+/* Responsive */
+@media(max-width:900px){.sidebar{width:200px;padding:14px}.main{padding:20px}}
+@media(max-width:700px){.container{flex-direction:column}.sidebar{width:100%;height:auto;position:relative;border-right:none;border-bottom:1px solid var(--border)}.main{padding:16px}}
+/* Pills */
+.pill{display:inline-block;padding:3px 10px;border-radius:12px;font-size:.75rem;font-weight:600;margin:2px}
+.pill-uk{background:#e7f5ff;color:#1864ab}
+.pill-us{background:#fff3cd;color:#856404}
+</style>
 </head>
 <body>
 <div class="container">
+
+<!-- SIDEBAR -->
 <nav class="sidebar">
-  <h1><a href="index.html" style="color:inherit;text-decoration:none">📚 Inglés 2º ESO</a></h1>
-  <div class="subtitle">Repaso para el examen final</div>
+  <h1>📚 Inglés</h1>
+  <div class="subtitle">Aprende, traduce y practica</div>
 
-  <h2>🗣️ Grammar</h2>
-  <a href="present-perfect.html">Present Perfect S/C</a>
-  <a href="reported-speech.html">Reported Speech</a>
-  <a href="conditionals.html">Conditionals</a>
-  <a href="wish-if-only.html">I wish / If only</a>
-  <a href="question-tags.html">Question Tags</a>
-  <a href="articles.html">Articles (a/an/the/∅)</a>
-  <a href="passive.html">Passive Voice</a>
-  <a href="indefinite-pronouns.html">Indefinite Pronouns</a>
-  <a href="nor-neither-so.html">Nor / Neither / So</a>
+  <h2>📖 APRENDE</h2>
+  <a onclick="showSection('home')" class="active" id="nav-home">🏠 Inicio</a>
+  <a onclick="showSection('translator')" id="nav-translator">🔤 Traductor</a>
+  <a onclick="showSection('fundamentals')" id="nav-fundamentals">📖 Fundamentos</a>
+  <a onclick="showSection('verbs')" id="nav-verbs">📋 Irregular Verbs</a>
 
-  <h2>📖 Vocabulary</h2>
-  <a href="vocabulary.html">Units 1-3, 5-11</a>
+  <h2>🗣️ GRAMMAR</h2>
+  <div class="grammar-toggle" id="grammar-toggle" onclick="toggleGrammar()">
+    <span class="arrow">▶</span> Desplegar temas
+  </div>
+  <div class="grammar-sub" id="grammar-sub">
+    <a onclick="showSection('g-modal')" id="nav-g-modal">Modal Verbs</a>
+    <a onclick="showSection('g-future')" id="nav-g-future">Future Tenses</a>
+    <a onclick="showSection('g-comparatives')" id="nav-g-comparatives">Comparatives &amp; Superlatives</a>
+    <a onclick="showSection('g-just')" id="nav-g-just">Just / Already / Yet / Still</a>
+    <a href="present-perfect.html" style="color:var(--text2);font-size:0.78rem">Present Perfect S/C →</a>
+    <a href="conditionals.html" style="color:var(--text2);font-size:0.78rem">Conditionals →</a>
+    <a href="reported-speech.html" style="color:var(--text2);font-size:0.78rem">Reported Speech →</a>
+    <a href="passive.html" style="color:var(--text2);font-size:0.78rem">Passive Voice →</a>
+    <a href="wish-if-only.html" style="color:var(--text2);font-size:0.78rem">I wish / If only →</a>
+    <a href="question-tags.html" style="color:var(--text2);font-size:0.78rem">Question Tags →</a>
+    <a href="articles.html" style="color:var(--text2);font-size:0.78rem">Articles →</a>
+    <a href="indefinite-pronouns.html" style="color:var(--text2);font-size:0.78rem">Indefinite Pronouns →</a>
+    <a href="nor-neither-so.html" style="color:var(--text2);font-size:0.78rem">Nor / Neither / So →</a>
+  </div>
 
-  <h2>🎯 Simulacro</h2>
-  <a href="simulacro.html">Examen mixto</a>
+  <h2>✍️ WRITING</h2>
+  <a onclick="showSection('writing')" id="nav-writing">✍️ Plantillas</a>
+
+  <h2>📝 PRÁCTICA</h2>
+  <a href="vocabulary.html">📖 Vocabulary</a>
+  <a href="simulacro.html">🎯 Simulacro examen</a>
+
+  <div style="margin-top:20px;font-size:0.7rem;color:var(--text2)">
+    <p>🗣️ UK 🇬🇧 / US 🇺🇸</p>
+    <p>📡 Offline con Service Worker</p>
+  </div>
 </nav>
 
+<!-- MAIN -->
 <main class="main">
-  <div class="breadcrumb">Inicio</div>
-  <h1 class="page-title">👋 Bienvenid@ al repaso de Inglés</h1>
-  <p class="intro">
-    Este es tu kit de repaso para el examen final de <strong>2º ESO</strong>.
-    Elige un tema del menú lateral, repasa la teoría, haz los ejercicios
-    y pulsa <strong>"Corregir"</strong> para ver cómo lo llevas.
-  </p>
 
-  <div class="section">
-    <h2>📋 Temario del examen</h2>
-    <p style="margin-bottom:12px"><strong>GRAMMAR:</strong></p>
-    <ul style="margin-left:20px; margin-bottom:16px; line-height:1.9">
-      <li>Passive Voice</li>
-      <li>Reported Speech</li>
-      <li>Conditionals (0, 1st, 2nd, 3rd)</li>
-      <li>I wish / If only</li>
-      <li>Indefinite pronouns</li>
-      <li>Present Perfect Simple &amp; Continuous (for, since, ever, still, already, yet)</li>
-      <li>A/an, the, No article</li>
-      <li>Question Tags</li>
-      <li>Nor, neither, so</li>
-    </ul>
-    <p style="margin-bottom:12px"><strong>VOCABULARY:</strong></p>
-    <ul style="margin-left:20px; line-height:1.9">
-      <li>Unit 1: Personality adjectives &amp; Collocations (make/do/get/lose/take/form)</li>
-      <li>Unit 3: Types of films &amp; TV programmes &amp; Expressions with GET</li>
-      <li>Unit 5: Musical instruments, Making music &amp; Expressions with OUT</li>
-      <li>Unit 6: The environment &amp; Verbs to talk about energy</li>
-      <li>Unit 7: Future time, Arranging a party &amp; Phrases with about</li>
-      <li>Unit 8: Direction and movement &amp; Science</li>
-      <li>Unit 9: Jobs — Time with IN, Work as/in/for &amp; Work vs. Job</li>
-      <li>Unit 10: Time linkers &amp; Illness collocations</li>
-      <li>Unit 11: Fun — Verbs with object + infinitive &amp; Expressions with make</li>
-    </ul>
+<!-- HOME -->
+<section class="section active" id="sec-home">
+  <h2>🏠 Bienvenid@</h2>
+  <p style="margin:12px 0;color:var(--text2)">Plataforma completa para aprender inglés paso a paso. Usa el menú lateral para navegar por las secciones.</p>
+  <div class="card-grid">
+    <div class="gram-card" onclick="showSection('translator')">
+      <h4>🔤 Traductor</h4>
+      <p>Traduce ES↔EN (UK/US) y escucha la pronunciación</p>
+    </div>
+    <div class="gram-card" onclick="showSection('fundamentals')">
+      <h4>📖 Fundamentos</h4>
+      <p>To Be, To Have, To Get y reglas esenciales</p>
+    </div>
+    <div class="gram-card" onclick="showSection('verbs')">
+      <h4>📋 Irregular Verbs</h4>
+      <p>Tabla completa con buscador y pronunciación</p>
+    </div>
+    <div class="gram-card" onclick="document.getElementById('grammar-toggle').click();setTimeout(()=>showSection('g-modal'),400)">
+      <h4>🗣️ Grammar</h4>
+      <p>Modal verbs, future tenses, comparatives y más</p>
+    </div>
+    <div class="gram-card" onclick="showSection('writing')">
+      <h4>✍️ Writing</h4>
+      <p>Plantillas para email, article, story y review</p>
+    </div>
+  </div>
+</section>
+
+<!-- TRANSLATOR -->
+<section class="section" id="sec-translator">
+  <h2>🔤 Traductor ES ↔ EN</h2>
+  <div class="translator-box">
+    <textarea id="tr-input" placeholder="Escribe en español o inglés..."></textarea>
+    <div class="tr-row">
+      <select id="tr-dir">
+        <option value="es|en">🇪🇸 Español → 🇬🇧 English UK</option>
+        <option value="es|en-us">🇪🇸 Español → 🇺🇸 English US</option>
+        <option value="en|es">🇬🇧 English → 🇪🇸 Español</option>
+      </select>
+      <button class="btn-primary" onclick="translateText()">🔁 Traducir</button>
+      <button onclick="speakResult()" style="font-size:1.2rem;padding:6px 10px" title="Escuchar pronunciación">🔊</button>
+    </div>
+    <div class="tr-result" id="tr-result">Aquí aparecerá la traducción...</div>
+    <p style="font-size:0.7rem;color:var(--text2);margin-top:6px">⚡ Web Speech API para pronunciación (gratis) • MyMemory API para traducción (online)</p>
+  </div>
+</section>
+
+<!-- FUNDAMENTALS -->
+<section class="section" id="sec-fundamentals">
+  <h2>📖 Fundamentos — lo que hay que saberse de memoria</h2>
+
+  <h3>Verb TO BE</h3>
+  <div class="theory-box">
+    <p><strong>Presente:</strong> I <code>am</code> · You/We/They <code>are</code> · He/She/It <code>is</code></p>
+    <p><strong>Pasado:</strong> I/He/She/It <code>was</code> · You/We/They <code>were</code></p>
+    <p><strong>Participio:</strong> <code>been</code> (been → sido/estado)</p>
+    <p><strong>Contracciones:</strong> I'm, you're, he's, she's, it's, we're, they're</p>
+  </div>
+  <div class="example">
+    <span class="en">I <b>am</b> a student.</span><br>
+    <span class="es">Soy estudiante.</span>
   </div>
 
-  <div class="section">
-    <h2>📝 Cómo usar esta web</h2>
-    <ol style="margin-left:20px; line-height:2">
-      <li>Selecciona un tema del menú lateral.</li>
-      <li>Lee la teoría y los ejemplos.</li>
-      <li>Rellena los huecos en los ejercicios.</li>
-      <li>Pulsa <strong>"Corregir esta sección"</strong> para ver resultado inmediato.</li>
-      <li>O pulsa <strong>"Corregir todo"</strong> al final para puntuación global.</li>
-      <li>Tu progreso se guarda automáticamente en este Chromebook.</li>
-    </ol>
+  <h3>Verb TO HAVE</h3>
+  <div class="theory-box">
+    <p><strong>Presente:</strong> I/You/We/They <code>have</code> · He/She/It <code>has</code></p>
+    <p><strong>Pasado:</strong> <code>had</code> (para todos)</p>
+    <p><strong>Participio:</strong> <code>had</code></p>
+    <p><strong>Have got</strong> = tener (más común en UK): I've got, he's got</p>
   </div>
+  <div class="example">
+    <span class="en">She <b>has</b> a car. / She <b>has got</b> a car.</span><br>
+    <span class="es">Ella tiene un coche.</span>
+  </div>
+
+  <h3>Verb TO GET</h3>
+  <div class="theory-box">
+    <p><strong>Presente:</strong> I/You/We/They <code>get</code> · He/She/It <code>gets</code></p>
+    <p><strong>Pasado:</strong> <code>got</code></p>
+    <p><strong>Participio:</strong> <code>got</code> (UK) / <code>gotten</code> (US)</p>
+    <p><strong>Usos:</strong> conseguir, recibir, llegar, volverse (get tired), comprar (get milk)</p>
+  </div>
+
+  <h3>3ª persona del singular -s</h3>
+  <div class="theory-box">
+    <p>En <strong>present simple</strong>, he/she/it añade <code>-s</code> o <code>-es</code>:</p>
+    <p>• Normal: work → work<b>s</b>, play → play<b>s</b></p>
+    <p>• -s, -ss, -sh, -ch, -x, -o → +<b>es</b>: watch → watch<b>es</b>, go → go<b>es</b></p>
+    <p>• Consonante + y → <b>ies</b>: study → stud<b>ies</b>, cry → cr<b>ies</b></p>
+    <p>• <b>Have</b> → <b>has</b> (única irregular)</p>
+  </div>
+
+  <h3>Reglas esenciales</h3>
+  <div class="theory-box">
+    <p>• <b>DO/DOES</b> para negativas e interrogativas en presente</p>
+    <p>• <b>DID</b> para negativas e interrogativas en pasado</p>
+    <p>• Jamás doble negación: <s>I don't have nothing</s> → I don't have <b>anything</b></p>
+    <p>• Adjetivos <b>antes</b> del sustantivo: <code>a red car</code> (no "a car red")</p>
+    <p>• Plurales: la mayoría +s; -s,-ss,-sh,-ch,-x,-o +es; -y → -ies</p>
+  </div>
+</section>
+
+<!-- IRREGULAR VERBS -->
+<section class="section" id="sec-verbs">
+  <h2>📋 Irregular Verbs</h2>
+  <p style="color:var(--text2);margin-bottom:12px">Tabla completa con pronunciación. <b>Haz clic en cualquier verbo para escucharlo.</b></p>
+  <div class="search-row">
+    <input type="text" id="verb-search" placeholder="🔍 Buscar verbo... (ej: go, write, been)" oninput="filterVerbs()">
+  </div>
+  <div class="table-wrap">
+    <table class="verbs" id="verbs-table">
+      <thead><tr><th>Infinitive</th><th>Past Simple</th><th>Past Participle</th><th>Traducción</th></tr></thead>
+      <tbody id="verbs-tbody"></tbody>
+    </table>
+  </div>
+</section>
+
+<!-- GRAMMAR: Modal Verbs -->
+<section class="section" id="sec-g-modal">
+  <h2>🗣️ Modal Verbs</h2>
+  <div class="theory-box">
+    <p>Los modales <b>no llevan -s</b> en 3ª persona, <b>no necesitan do/does</b>, y van seguidos de <b>infinitivo sin to</b>.</p>
+  </div>
+  <h3>CAN / COULD</h3>
+  <div class="theory-box">
+    <p><code>can</code> = poder (habilidad, permiso) · <code>could</code> = podía/podría (pasado, condicional)</p>
+    <p><code>can't</code> = no poder · <code>couldn't</code> = no podía</p>
+  </div>
+  <div class="example"><span class="en">I <b>can</b> swim. / <b>Could</b> you help me?</span></div>
+
+  <h3>MAY / MIGHT</h3>
+  <div class="theory-box">
+    <p><code>may</code> = puede que (más probable) · <code>might</code> = podría ser que (menos probable)</p>
+  </div>
+  <div class="example"><span class="en">It <b>may</b> rain. / It <b>might</b> snow.</span></div>
+
+  <h3>MUST / HAVE TO</h3>
+  <div class="theory-box">
+    <p><code>must</code> = deber (obligación personal, opinión del hablante)</p>
+    <p><code>have to</code> = tener que (obligación externa, reglas)</p>
+    <p><code>mustn't</code> = prohibición · <code>don't have to</code> = no es necesario</p>
+  </div>
+  <div class="example"><span class="en">You <b>must</b> study. / You <b>have to</b> wear a uniform.</span></div>
+
+  <h3>SHOULD / OUGHT TO</h3>
+  <div class="theory-box">
+    <p><code>should</code> = debería (consejo) · <code>ought to</code> = debería (más formal)</p>
+  </div>
+  <div class="example"><span class="en">You <b>should</b> rest. / You <b>ought to</b> apologize.</span></div>
+
+  <h3>HAD BETTER</h3>
+  <div class="theory-box">
+    <p><code>had better ('d better)</code> = más vale que (consecuencia negativa si no se hace)</p>
+  </div>
+  <div class="example"><span class="en">You<b>'d better</b> hurry or we'll miss the train.</span></div>
+
+  <h3>WILL / WOULD</h3>
+  <div class="theory-box">
+    <p><code>will</code> = futuro, promesas, decisiones · <code>would</code> = condicional, cortesía</p>
+  </div>
+  <div class="example"><span class="en">I <b>will</b> call you. / <b>Would</b> you like tea?</span></div>
+</section>
+
+<!-- GRAMMAR: Future Tenses -->
+<section class="section" id="sec-g-future">
+  <h2>🗣️ Future Tenses</h2>
+
+  <h3>WILL</h3>
+  <div class="theory-box">
+    <p><b>will + infinitivo</b> → decisiones espontáneas, predicciones, promesas</p>
+  </div>
+  <div class="example"><span class="en">I <b>will help</b> you. / It <b>will</b> rain tomorrow.</span></div>
+
+  <h3>GOING TO</h3>
+  <div class="theory-box">
+    <p><b>am/is/are + going to + infinitivo</b> → planes, intenciones, evidencia presente</p>
+  </div>
+  <div class="example"><span class="en">I<b>'m going to</b> study tonight. / Look! It<b>'s going to</b> rain.</span></div>
+
+  <h3>PRESENT CONTINUOUS</h3>
+  <div class="theory-box">
+    <p><b>am/is/are + -ing</b> → futuro con planes ya organizados (hora/lugar fijado)</p>
+  </div>
+  <div class="example"><span class="en">I<b>'m meeting</b> Sarah at 6pm.</span></div>
+
+  <h3>PRESENT SIMPLE</h3>
+  <div class="theory-box">
+    <p>→ futuro con horarios fijos (trenes, vuelos, clases)</p>
+  </div>
+  <div class="example"><span class="en">The train <b>leaves</b> at 8am.</span></div>
+</section>
+
+<!-- GRAMMAR: Comparatives & Superlatives -->
+<section class="section" id="sec-g-comparatives">
+  <h2>🗣️ Comparatives &amp; Superlatives</h2>
+
+  <h3>Adjetivos cortos (1 sílaba)</h3>
+  <div class="theory-box">
+    <p>Comparativo: <b>adj + -er + than</b> · Superlativo: <b>the + adj + -est</b></p>
+    <p>big → big<b>ger</b> → the big<b>gest</b> · hot → hot<b>ter</b> → the hot<b>test</b> · easy → eas<b>ier</b> → the eas<b>iest</b></p>
+  </div>
+
+  <h3>Adjetivos largos (2+ sílabas)</h3>
+  <div class="theory-box">
+    <p>Comparativo: <b>more + adj + than</b> · Superlativo: <b>the most + adj</b></p>
+    <p>beautiful → <b>more</b> beautiful → <b>the most</b> beautiful</p>
+  </div>
+
+  <h3>Irregulares</h3>
+  <div class="theory-box">
+    <p>good → <b>better</b> → <b>the best</b></p>
+    <p>bad → <b>worse</b> → <b>the worst</b></p>
+    <p>far → <b>farther/further</b> → <b>the farthest/furthest</b></p>
+  </div>
+
+  <h3>Igualdad</h3>
+  <div class="theory-box">
+    <p><b>as + adj + as</b> = tan ... como</p>
+    <p><b>not as + adj + as</b> = no tan ... como</p>
+  </div>
+  <div class="example"><span class="en">She is <b>as tall as</b> her brother. / This isn't <b>as easy as</b> I thought.</span></div>
+</section>
+
+<!-- GRAMMAR: Just / Already / Yet / Still -->
+<section class="section" id="sec-g-just">
+  <h2>🗣️ Just / Already / Yet / Still / For / Since</h2>
+
+  <h3>JUST — acabar de</h3>
+  <div class="theory-box">
+    <p>Con <b>Present Perfect</b>: acción muy reciente. <b>have/has + just + participio</b></p>
+  </div>
+  <div class="example"><span class="en">I've <b>just</b> finished my homework.</span><br><span class="es">Acabo de terminar los deberes.</span></div>
+
+  <h3>ALREADY — ya (afirmativas)</h3>
+  <div class="theory-box">
+    <p>Con <b>Present Perfect</b>: algo ha ocurrido antes de lo esperado</p>
+  </div>
+  <div class="example"><span class="en">She's <b>already</b> left.</span><br><span class="es">Ya se ha ido.</span></div>
+
+  <h3>YET — aún/todavía (negativas), ya (interrogativas)</h3>
+  <div class="theory-box">
+    <p>Con <b>Present Perfect</b>, al <b>final</b> de la frase</p>
+  </div>
+  <div class="example"><span class="en">I haven't finished <b>yet</b>. / Have you eaten <b>yet</b>?</span></div>
+
+  <h3>STILL — todavía/aún</h3>
+  <div class="theory-box">
+    <p>Algo que continúa. Va <b>antes del verbo principal</b> o después de <b>be</b></p>
+  </div>
+  <div class="example"><span class="en">I'm <b>still</b> waiting. / She <b>still</b> hasn't called.</span></div>
+
+  <h3>FOR — durante (período)</h3>
+  <div class="theory-box">
+    <p>Responde a <b>¿cuánto tiempo?</b> → for two hours, for a week, for ages</p>
+  </div>
+
+  <h3>SINCE — desde (punto de inicio)</h3>
+  <div class="theory-box">
+    <p>Responde a <b>¿desde cuándo?</b> → since Monday, since 2020, since I was a child</p>
+  </div>
+  <div class="example"><span class="en">I've lived here <b>for</b> 5 years <b>since</b> 2021.</span></div>
+</section>
+
+<!-- WRITING -->
+<section class="section" id="sec-writing">
+  <h2>✍️ Writing — Plantillas</h2>
+
+  <h3>📧 Formal Email</h3>
+  <div class="writing-tpl">
+    <h4>Estructura</h4>
+    <div class="tpl-body">Subject: [Asunto claro y breve]
+
+Dear Mr/Ms [Surname],
+
+I am writing to [motivo].
+
+[Párrafo 1: introducción y contexto]
+[Párrafo 2: detalles, información adicional]
+
+I look forward to hearing from you.
+
+Yours sincerely,
+[Tu nombre completo]</div>
+  </div>
+
+  <h3>📧 Informal Email</h3>
+  <div class="writing-tpl">
+    <h4>Estructura</h4>
+    <div class="tpl-body">Subject: [Asunto informal]
+
+Hi [Name],
+
+How are you? I hope you're doing well.
+
+I'm writing to [motivo].
+
+[Párrafo 1: noticias, lo que has hecho]
+[Párrafo 2: planes, preguntas, lo que quieres contar]
+
+Write back soon!
+Love / Best wishes / Take care,
+[Tu nombre]</div>
+  </div>
+
+  <h3>📰 Article / Blog Post</h3>
+  <div class="writing-tpl">
+    <h4>Estructura</h4>
+    <div class="tpl-body">TITLE: [Atractivo, con pregunta o dato curioso]
+
+Introduction: Hook the reader with a question or interesting fact. Say what the article is about.
+
+Body paragraph 1: First point or argument with examples.
+
+Body paragraph 2: Second point or contrasting view. Include personal experiences if relevant.
+
+Conclusion: Summarize and give your final opinion. End with a question for the reader to think about.</div>
+  </div>
+
+  <h3>📖 Story / Narrative</h3>
+  <div class="writing-tpl">
+    <h4>Estructura</h4>
+    <div class="tpl-body">Opening: Set the scene — who, where, when. Create atmosphere. "It was a dark and stormy night..."
+
+Build-up: Introduce the problem or conflict. Describe feelings and reactions.
+
+Climax: The most exciting/dramatic moment. Use short sentences for tension.
+
+Resolution: How it ended. What happened next. Tie up loose ends.
+
+Time expressions: Suddenly, then, later, after a while, in the end, eventually, meanwhile...</div>
+  </div>
+
+  <h3>⭐ Review</h3>
+  <div class="writing-tpl">
+    <h4>Estructura</h4>
+    <div class="tpl-body">Introduction: What are you reviewing? (film, book, restaurant, product). Give basic facts (name, author, price, etc.)
+
+Paragraph 1: Positive aspects. What you liked and why. Give specific examples.
+
+Paragraph 2: Negative aspects (be diplomatic). What could be improved.
+
+Conclusion: Overall opinion. Star rating or recommendation. Would you recommend it? To whom?</div>
+  </div>
+</section>
+
 </main>
 </div>
-<script src="exercises.js?v=7"></script>
+
+<!-- SCRIPTS -->
+<script>
+// ==================== SPA Navigation ====================
+function showSection(name) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.sidebar a').forEach(a => a.classList.remove('active'));
+  const sec = document.getElementById('sec-' + name);
+  if (sec) sec.classList.add('active');
+  const nav = document.getElementById('nav-' + name);
+  if (nav) nav.classList.add('active');
+  // Scroll to top
+  window.scrollTo(0, 0);
+}
+
+// ==================== Grammar Toggle ====================
+function toggleGrammar() {
+  const toggle = document.getElementById('grammar-toggle');
+  const sub = document.getElementById('grammar-sub');
+  toggle.classList.toggle('open');
+  sub.classList.toggle('open');
+}
+
+// ==================== Translator ====================
+async function translateText() {
+  const input = document.getElementById('tr-input').value.trim();
+  const result = document.getElementById('tr-result');
+  if (!input) { result.innerHTML = '✏️ Escribe algo para traducir.'; return; }
+
+  const dir = document.getElementById('tr-dir').value;
+  result.innerHTML = '⏳ Traduciendo...';
+
+  try {
+    // MyMemory free API
+    const resp = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(input)}&langpair=${dir}`);
+    const data = await resp.json();
+    if (data.responseData && data.responseData.translatedText) {
+      const match = data.responseData.match;
+      const quality = match > 0.8 ? '🟢' : match > 0.5 ? '🟡' : '🔴';
+      result.innerHTML = `<strong>${data.responseData.translatedText}</strong>
+        <div style="font-size:0.7rem;color:var(--text2);margin-top:4px">${quality} Fiabilidad: ${Math.round(match * 100)}%</div>`;
+      window._lastTranslation = data.responseData.translatedText;
+      window._lastLang = dir.includes('en') ? 'en' : 'es';
+    } else {
+      result.innerHTML = '❌ No se pudo traducir. Prueba con otra frase.';
+    }
+  } catch(e) {
+    result.innerHTML = '❌ Sin conexión. Prueba frases cortas o palabras sueltas.';
+  }
+}
+
+function speakResult() {
+  const text = window._lastTranslation || document.getElementById('tr-input').value;
+  if (!text) return;
+  const utterance = new SpeechSynthesisUtterance(text);
+  // Select voice based on direction
+  const voices = speechSynthesis.getVoices();
+  const dir = document.getElementById('tr-dir').value;
+  const wantUK = dir.includes('en') && !dir.includes('en-us');
+  const wantUS = dir.includes('en-us');
+  
+  // Try to find UK or US English voice
+  let voice = null;
+  if (wantUS) {
+    voice = voices.find(v => v.lang.startsWith('en-US')) || voices.find(v => v.lang.startsWith('en'));
+  } else if (wantUK) {
+    voice = voices.find(v => v.lang.startsWith('en-GB')) || voices.find(v => v.lang.startsWith('en-IE'));
+  }
+  if (!voice) voice = voices.find(v => v.lang.startsWith('en'));
+  if (voice) utterance.voice = voice;
+  
+  utterance.rate = 0.9;
+  utterance.pitch = 1;
+  speechSynthesis.cancel();
+  speechSynthesis.speak(utterance);
+}
+
+// Preload voices
+speechSynthesis.getVoices();
+speechSynthesis.onvoiceschanged = () => speechSynthesis.getVoices();
+
+// ==================== Irregular Verbs ====================
+const IRREGULAR_VERBS = [
+  ["be","was/were","been","ser, estar"],
+  ["become","became","become","llegar a ser"],
+  ["begin","began","begun","empezar"],
+  ["bite","bit","bitten","morder"],
+  ["blow","blew","blown","soplar"],
+  ["break","broke","broken","romper"],
+  ["bring","brought","brought","traer"],
+  ["build","built","built","construir"],
+  ["burn","burnt/burned","burnt/burned","quemar"],
+  ["buy","bought","bought","comprar"],
+  ["catch","caught","caught","atrapar"],
+  ["choose","chose","chosen","elegir"],
+  ["come","came","come","venir"],
+  ["cost","cost","cost","costar"],
+  ["cut","cut","cut","cortar"],
+  ["do","did","done","hacer"],
+  ["draw","drew","drawn","dibujar"],
+  ["dream","dreamt/dreamed","dreamt/dreamed","soñar"],
+  ["drink","drank","drunk","beber"],
+  ["drive","drove","driven","conducir"],
+  ["eat","ate","eaten","comer"],
+  ["fall","fell","fallen","caer"],
+  ["feed","fed","fed","alimentar"],
+  ["feel","felt","felt","sentir"],
+  ["fight","fought","fought","luchar"],
+  ["find","found","found","encontrar"],
+  ["fly","flew","flown","volar"],
+  ["forget","forgot","forgotten","olvidar"],
+  ["forgive","forgave","forgiven","perdonar"],
+  ["freeze","froze","frozen","congelar"],
+  ["get","got","got/gotten","conseguir"],
+  ["give","gave","given","dar"],
+  ["go","went","gone","ir"],
+  ["grow","grew","grown","crecer"],
+  ["hang","hung","hung","colgar"],
+  ["have","had","had","tener"],
+  ["hear","heard","heard","oír"],
+  ["hide","hid","hidden","esconder"],
+  ["hit","hit","hit","golpear"],
+  ["hold","held","held","sostener"],
+  ["hurt","hurt","hurt","herir, doler"],
+  ["keep","kept","kept","guardar"],
+  ["know","knew","known","saber, conocer"],
+  ["lay","laid","laid","poner, extender"],
+  ["lead","led","led","liderar"],
+  ["learn","learnt/learned","learnt/learned","aprender"],
+  ["leave","left","left","dejar, irse"],
+  ["lend","lent","lent","prestar"],
+  ["let","let","let","permitir"],
+  ["lie","lay","lain","tumbarse"],
+  ["lose","lost","lost","perder"],
+  ["make","made","made","hacer, fabricar"],
+  ["mean","meant","meant","significar"],
+  ["meet","met","met","conocer, quedar"],
+  ["pay","paid","paid","pagar"],
+  ["put","put","put","poner"],
+  ["read","read","read","leer"],
+  ["ride","rode","ridden","montar"],
+  ["ring","rang","rung","sonar, llamar"],
+  ["rise","rose","risen","levantarse, subir"],
+  ["run","ran","run","correr"],
+  ["say","said","said","decir"],
+  ["see","saw","seen","ver"],
+  ["seek","sought","sought","buscar"],
+  ["sell","sold","sold","vender"],
+  ["send","sent","sent","enviar"],
+  ["set","set","set","colocar, poner"],
+  ["shake","shook","shaken","agitar"],
+  ["shine","shone","shone","brillar"],
+  ["shoot","shot","shot","disparar"],
+  ["show","showed","shown/showed","mostrar"],
+  ["shut","shut","shut","cerrar"],
+  ["sing","sang","sung","cantar"],
+  ["sink","sank","sunk","hundir"],
+  ["sit","sat","sat","sentarse"],
+  ["sleep","slept","slept","dormir"],
+  ["smell","smelt/smelled","smelt/smelled","oler"],
+  ["speak","spoke","spoken","hablar"],
+  ["spell","spelt/spelled","spelt/spelled","deletrear"],
+  ["spend","spent","spent","gastar, pasar tiempo"],
+  ["spill","spilt/spilled","spilt/spilled","derramar"],
+  ["stand","stood","stood","estar de pie"],
+  ["steal","stole","stolen","robar"],
+  ["stick","stuck","stuck","pegar, atascarse"],
+  ["strike","struck","struck","golpear"],
+  ["swear","swore","sworn","jurar"],
+  ["sweep","swept","swept","barrer"],
+  ["swim","swam","swum","nadar"],
+  ["take","took","taken","coger, tomar"],
+  ["teach","taught","taught","enseñar"],
+  ["tear","tore","torn","rasgar"],
+  ["tell","told","told","decir, contar"],
+  ["think","thought","thought","pensar"],
+  ["throw","threw","thrown","lanzar"],
+  ["understand","understood","understood","entender"],
+  ["wake","woke","woken","despertar"],
+  ["wear","wore","worn","llevar puesto"],
+  ["win","won","won","ganar"],
+  ["write","wrote","written","escribir"]
+];
+
+function renderVerbs(filter) {
+  const tbody = document.getElementById('verbs-tbody');
+  const q = (filter || '').toLowerCase();
+  const filtered = q ? IRREGULAR_VERBS.filter(v => 
+    v[0].includes(q) || v[1].includes(q) || v[2].includes(q) || v[3].includes(q)) : IRREGULAR_VERBS;
+  
+  tbody.innerHTML = filtered.map((v,i) => 
+    `<tr style="cursor:pointer" onclick="speakVerb('${v[0]}')" title="Click para escuchar: ${v[0]}">
+      <td><b>${highlight(v[0],q)}</b></td>
+      <td>${highlight(v[1],q)}</td>
+      <td>${highlight(v[2],q)}</td>
+      <td>${highlight(v[3],q)}</td>
+    </tr>`
+  ).join('');
+}
+
+function highlight(text, query) {
+  if (!query) return text;
+  const re = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+  return text.replace(re, '<mark style="background:#ffd43b;padding:0 2px">$1</mark>');
+}
+
+function filterVerbs() {
+  const q = document.getElementById('verb-search').value;
+  renderVerbs(q);
+}
+
+function speakVerb(word) {
+  const utterance = new SpeechSynthesisUtterance(word);
+  utterance.lang = 'en-GB';
+  utterance.rate = 0.85;
+  speechSynthesis.cancel();
+  speechSynthesis.speak(utterance);
+}
+
+// Initial render
+renderVerbs();
+
+// ==================== Enter key triggers translation ====================
+document.getElementById('tr-input').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    translateText();
+  }
+});
+</script>
 </body>
 </html>
