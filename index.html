@@ -199,40 +199,27 @@ function fixLegacyIframe() {
           var stem = card.querySelector('.stem');
           var inp = card.querySelector('input[type="text"]');
           if (!stem || !inp) return;
-          // Find blank placeholder in the stem and replace it with the input element
           var html = stem.innerHTML;
           var placeholder = null;
           var patterns = ['______', '___', '____', '_____', '…', '...'];
           for (var i = 0; i < patterns.length; i++) {
-            if (html.indexOf(patterns[i]) >= 0) {
-              placeholder = patterns[i];
-              break;
-            }
+            if (html.indexOf(patterns[i]) >= 0) { placeholder = patterns[i]; break; }
           }
           if (placeholder) {
-            // Split the stem HTML at the placeholder, insert the input between
-            var parts = html.split(placeholder);
-            stem.innerHTML = parts[0];
-            stem.appendChild(document.createTextNode(' '));
-            stem.appendChild(inp);
-            stem.appendChild(document.createTextNode(' '));
-            if (parts[1]) {
-              var rest = document.createElement('span');
-              rest.innerHTML = parts[1];
-              stem.appendChild(rest);
-            }
+            // Replace placeholder with a marker, then swap marker with the real input
+            var markerId = 'im-'+Math.random().toString(36).substr(2,9);
+            stem.innerHTML = html.split(placeholder).join('<span id="'+markerId+'"></span>');
+            var marker = document.getElementById(markerId);
+            if (marker) marker.parentNode.replaceChild(inp, marker);
             inp.style.display = 'inline-block';
             inp.style.width = '160px';
             inp.style.margin = '0 4px';
             inp.style.verticalAlign = 'middle';
           } else {
-            // No placeholder found, move input inside stem at the end
             stem.appendChild(document.createTextNode(' '));
             stem.appendChild(inp);
             inp.style.display = 'inline-block';
             inp.style.width = '160px';
-            inp.style.margin = '0 4px';
-            inp.style.verticalAlign = 'middle';
           }
         });
       })();
@@ -278,14 +265,15 @@ function injectSimulacroCheckboxes(doc) {
   var inner = '<h3>📋 Selecciona los temas para el examen</h3>';
   topics.forEach(function(t, i) {
     inner += '<label class="topic-cb" style="display:flex;align-items:center;gap:6px;margin:4px 0;font-size:0.85rem;cursor:pointer">'+
-      '<input type="checkbox" data-topic="'+i+'" checked onchange="updateSimCount()"> '+t.title+'</label>';
+      '<input type="checkbox" data-topic="'+i+'" onchange="updateSimPreview()"> '+t.title+'</label>';
   });
   inner += '<div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap">'+
     '<button onclick="selectAllSim(true)" style="padding:4px 10px;border:1px solid #ccc;border-radius:4px;cursor:pointer;font-size:0.8rem">✅ Todos</button>'+
     '<button onclick="selectAllSim(false)" style="padding:4px 10px;border:1px solid #ccc;border-radius:4px;cursor:pointer;font-size:0.8rem">⬜ Ninguno</button>'+
     '<button onclick="generateSimExam()" style="padding:6px 16px;background:#339af0;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:0.9rem;font-weight:600">🎯 Generar Examen</button>'+
     '</div>'+
-    '<p id="sim-legend" style="font-size:0.75rem;color:#6c757d;margin-top:8px"></p>';
+    '<p id="sim-legend" style="font-size:0.75rem;color:#6c757d;margin-top:8px"></p>'+
+    '<p id="sim-preview" style="font-size:0.8rem;color:#1864ab;margin-top:4px;font-style:italic"></p>';
   panel.innerHTML = inner;
 
   // Insert after page title
@@ -304,20 +292,39 @@ function injectSimulacroCheckboxes(doc) {
   simScript.textContent = `
     var _simTopics = document._simTopics || [];
     var _simExamGenerated = false;
+    // Store number of exercises per topic
+    _simTopics.forEach(function(t) {
+      t.exCount = t.section.querySelectorAll('.exercise-card').length || 5;
+    });
 
-    window.updateSimCount = function() {
+    window.updateSimPreview = function() {
       var cbs = document.querySelectorAll('#sim-panel input[type="checkbox"][data-topic]');
-      var count = 0;
-      cbs.forEach(function(cb) { if (cb.checked) count++; });
+      var selBlocks = 0;
+      var totalQ = 0;
+      cbs.forEach(function(cb, i) {
+        if (cb.checked && _simTopics[i]) {
+          selBlocks++;
+          totalQ += _simTopics[i].exCount;
+        }
+      });
       var legend = document.getElementById('sim-legend');
-      if (legend) legend.textContent = count + ' tema(s) seleccionado(s)';
+      var preview = document.getElementById('sim-preview');
+      if (legend) legend.textContent = selBlocks + ' bloque(s) · ' + totalQ + ' preguntas';
+      if (preview) {
+        if (totalQ > 0) {
+          var perQ = (10 / totalQ).toFixed(2);
+          preview.textContent = '📊 Cada pregunta valdrá ' + perQ + ' pts → nota sobre 10';
+        } else {
+          preview.textContent = '📊 Marca al menos un tema para ver la valoración';
+        }
+      }
     };
 
     window.selectAllSim = function(checked) {
       document.querySelectorAll('#sim-panel input[type="checkbox"][data-topic]').forEach(function(cb) {
         cb.checked = checked;
       });
-      updateSimCount();
+      updateSimPreview();
       if (_simExamGenerated) generateSimExam();
     };
 
@@ -387,14 +394,14 @@ function injectSimulacroCheckboxes(doc) {
       }
     };
 
-    updateSimCount();
+    updateSimPreview();
   `;
   doc.body.appendChild(simScript);
   
-  // Also update the sub-label if present
+  // Also update the sub-label
   var subLabel = doc.querySelector('.sub') || doc.querySelector('.intro');
   if (subLabel) {
-    subLabel.textContent = 'Selecciona los temas arriba y pulsa "Generar Examen" para crear un examen personalizado.';
+    subLabel.innerHTML = '🔹 <b>Paso 1:</b> Marca los temas que quieres incluir.<br>🔹 <b>Paso 2:</b> Pulsa "🎯 Generar Examen" para crear tu prueba personalizada.<br>🔹 <b>Paso 3:</b> La nota se calcula sobre 10 automáticamente según el número de preguntas.';
   }
 }
 
