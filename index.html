@@ -173,49 +173,27 @@ function show(name) {
 }
 
 // ==================== LOAD LEGACY PAGES ====================
-async function loadLegacyPage(name, url) {
+function loadLegacyPage(name, url) {
   const main = document.getElementById('main-content');
-  main.innerHTML = '<div class="section active"><p style="text-align:center;padding:40px">⏳ Cargando...</p></div>';
+  main.innerHTML = '<div class="section active" style="display:block;padding:0"><iframe src="'+url+'" style="width:100%;min-height:90vh;border:none" id="legacy-iframe" onload="fixLegacyIframe()"></iframe></div>';
+}
+
+function fixLegacyIframe() {
+  var iframe = document.getElementById('legacy-iframe');
+  if (!iframe) return;
   try {
-    const resp = await fetch(url);
-    if (!resp.ok) throw new Error('HTTP '+resp.status);
-    const html = await resp.text();
-
-    // Extract main content: from <main class="main"> to </main>
-    const mStart = html.indexOf('<main class="main">');
-    const mEnd = html.lastIndexOf('</main>');
-    let content;
-    if (mStart >= 0 && mEnd > mStart) {
-      content = html.substring(mStart, mEnd + 7);
-    } else {
-      const bStart = html.indexOf('<body');
-      const bEnd = html.indexOf('</body>');
-      content = bStart >= 0 ? html.substring(html.indexOf('>',bStart)+1, bEnd) : html;
-    }
-
-    // Remove the sidebar
-    content = content.replace(/<nav[\s\S]*?<\/nav>/g, '');
-
-    main.innerHTML = '<div class="section active" style="display:block">' + content + '</div>';
-
-    // Execute inline scripts by creating real <script> elements
-    const scriptRegex = /<script>([\s\S]*?)<\/script>/gi;
-    let match;
-    while ((match = scriptRegex.exec(html)) !== null) {
-      const scriptEl = document.createElement('script');
-      scriptEl.textContent = match[1];
-      document.body.appendChild(scriptEl);
-    }
-
-    // Also execute scripts from external files that are already loaded
-    // (exercises.js is loaded via the old page's <script src>, which the browser
-    //  already cached — its functions are available globally)
-
-    if (name === 'simulacro') setTimeout(initSimulacro, 300);
-
+    var doc = iframe.contentDocument;
+    if (!doc) { iframe.style.height = '3000px'; return; }
+    var nav = doc.querySelector('nav.sidebar');
+    if (nav) nav.style.display = 'none';
+    var container = doc.querySelector('.container');
+    if (container) { container.style.display = 'block'; container.style.maxWidth = '100%'; }
+    var mainEl = doc.querySelector('main.main');
+    if (mainEl) { mainEl.style.maxWidth = '100%'; mainEl.style.padding = '24px'; }
+    var h = Math.max(doc.body.scrollHeight, doc.body.offsetHeight, doc.documentElement.scrollHeight);
+    iframe.style.height = (h + 40) + 'px';
   } catch(e) {
-    console.error('Legacy page error:', name, e);
-    main.innerHTML = '<div class="section active"><h2>📭 Error al cargar</h2><p>'+e.message+'</p><p style="font-size:0.8rem;color:var(--text2)">Visita la página directamente: <a href="'+url+'">'+url+'</a></p></div>';
+    iframe.style.height = '3000px';
   }
 }
 
