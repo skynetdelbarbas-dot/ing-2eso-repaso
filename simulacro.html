@@ -474,13 +474,16 @@ renderExam();
 
   panel.innerHTML = html;
 
-  // Insert after the intro paragraph
+  // Insert after the instructions section (after the intro paragraph)
   var intro = document.querySelector('.intro');
-  var title = document.querySelector('.page-title');
-  if (title && title.nextSibling) {
-    title.parentNode.insertBefore(panel, title.nextSibling);
+  var instruccionesSection = intro ? intro.nextElementSibling : null;
+  while (instruccionesSection && !instruccionesSection.querySelector('h2')) {
+    instruccionesSection = instruccionesSection.nextElementSibling;
+  }
+  if (instruccionesSection) {
+    instruccionesSection.insertAdjacentElement('afterend', panel);
   } else {
-    document.querySelector('main.main').insertBefore(panel, document.querySelector('main.main').firstChild);
+    document.querySelector('main.main').prepend(panel);
   }
 
   // Store topics
