@@ -273,7 +273,8 @@ function loadLegacyPage(name, url) {
               var marker = document.getElementById(mid);
               if (marker) marker.parentNode.replaceChild(inp, marker);
               inp.style.display = 'inline-block';
-              inp.style.width = '160px';
+              var ansLen = (inp.dataset.answer || '').length;
+              inp.style.width = Math.min(500, Math.max(140, ansLen * 10)) + 'px';
               inp.style.margin = '0 4px';
               inp.style.verticalAlign = 'middle';
               found = true;
@@ -284,7 +285,8 @@ function loadLegacyPage(name, url) {
             stem.appendChild(document.createTextNode(' '));
             stem.appendChild(inp);
             inp.style.display = 'inline-block';
-            inp.style.width = '160px';
+            var ansLen = (inp.dataset.answer || '').length;
+            inp.style.width = Math.min(500, Math.max(160, ansLen * 10)) + 'px';
           }
         });
       }, 500);
