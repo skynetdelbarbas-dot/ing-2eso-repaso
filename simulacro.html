@@ -35,7 +35,7 @@
 <main class="main">
   <div class="breadcrumb"><a href="index.html">Inicio</a> / Simulacro</div>
   <h1 class="page-title">🎯 Simulacro — Examen completo</h1>
-  <p class="intro"><strong>60 preguntas</strong> · 10 bloques UOE + 2 Listenings · UOE: <strong>0,20 c/u</strong> → <strong>/10</strong> | Listening: <strong>2,0 c/u</strong> → <strong>/10 c/u</strong></p>
+  <p class="intro"><strong>Selecciona los bloques</strong> que quieres incluir usando los checkboxes. La nota se calcula automáticamente sobre 10 según el número de preguntas.</p>
 
   <div class="section">
     <h2>Instrucciones</h2>
@@ -441,6 +441,17 @@ renderExam();
     });
   });
 
+  // Add pool-based blocks
+  if (typeof READING_POOL !== 'undefined') {
+    topics.push({ section: null, title: '📖 Reading (del pool)', count: 4, poolType: 'reading' });
+  }
+  if (typeof LISTENING_POOL !== 'undefined') {
+    topics.push({ section: null, title: '🎧 Listening (del pool)', count: 3, poolType: 'listening' });
+  }
+  if (typeof WRITING_POOL !== 'undefined') {
+    topics.push({ section: null, title: '🖊️ Writing (del pool)', count: 1, poolType: 'writing' });
+  }
+
   if (topics.length === 0) return;
 
   // Create checkbox panel
@@ -503,20 +514,41 @@ renderExam();
   };
 
   window.generateSimExam2 = function() {
-    // Hide all topics first
-    topics.forEach(function(t) { t.section.style.display = 'none'; });
+    // Remove any previously generated pool sections
+    document.querySelectorAll('.pool-exam-block').forEach(function(el) { el.remove(); });
+
+    // Hide all regular exam blocks (skip pool topics with null section)
+    topics.forEach(function(t) { if (t.section) t.section.style.display = 'none'; });
 
     var cbs = document.querySelectorAll('#sim-panel input[type="checkbox"][data-topic]');
     var selectedSections = [];
     var totalEx = 0;
+    var poolBlocks = []; // pool blocks to render
 
     cbs.forEach(function(cb, i) {
       if (cb.checked && topics[i]) {
-        var section = topics[i].section;
-        section.style.display = '';
-        selectedSections.push(section);
-        section.querySelectorAll('.exercise-card').forEach(function(c) { c.style.display = ''; });
-        totalEx += topics[i].count;
+        var t = topics[i];
+        if (t.poolType) {
+          poolBlocks.push(t);
+        } else {
+          var section = t.section;
+          section.style.display = '';
+          selectedSections.push(section);
+          section.querySelectorAll('.exercise-card').forEach(function(c) { c.style.display = ''; });
+        }
+        totalEx += t.count;
+      }
+    });
+
+    // Render pool-based blocks
+    var container = document.getElementById('ex-sim');
+    poolBlocks.forEach(function(t) {
+      if (t.poolType === 'reading') {
+        renderPoolReadingBlock(container);
+      } else if (t.poolType === 'listening') {
+        renderPoolListeningBlock(container);
+      } else if (t.poolType === 'writing') {
+        renderPoolWritingBlock(container);
       }
     });
 

@@ -111,12 +111,11 @@ input.inp-wrong{border-color:var(--error)!important;background:var(--error-bg)!i
   </div>
   <h2>✍️ WRITING</h2>
   <a onclick="show('writing')" id="nw">📝 Plantillas</a>
+  <a onclick="show('writing-practice')" id="nwp">🖊️ Writing Practice</a>
   <h2>📖 READING</h2>
   <a onclick="show('reading')" id="nrd">📖 Reading Practice</a>
   <h2>🎧 LISTENING</h2>
   <a onclick="show('listening')" id="nlst">🎧 Listening Practice</a>
-  <h2>✍️ WRITING PRACTICE</h2>
-  <a onclick="show('writing-practice')" id="nwp">✍️ Writing Practice</a>
   <h2>📝 PRÁCTICA</h2>
   <a onclick="show('vocabulary')" id="nvoc">📖 Vocabulary</a>
   <a onclick="show('grammar-review')" id="ngr">🔄 Grammar Review 1º ESO</a>
@@ -175,10 +174,10 @@ function show(name) {
     if (EXERCISES[name]) initExercises(name);
     if (name === 'verbs') setTimeout(()=>renderVerbs(''), 100);
     if (name === 'simulacro') setTimeout(initSimulacro, 300);
-    // Pool sections
-    if (name === 'reading') setTimeout(renderPoolReading, 50);
-    if (name === 'listening') setTimeout(renderPoolListening, 50);
-    if (name === 'writing-practice') setTimeout(renderPoolWriting, 50);
+    // Pool sections (síncrono — innerHTML ya actualizó el DOM)
+    if (name === 'reading') renderPoolReading();
+    if (name === 'listening') renderPoolListening();
+    if (name === 'writing-practice') renderPoolWriting();
   } else if (PAGE_MAP[name]) {
     loadLegacyPage(name, PAGE_MAP[name]);
   } else {

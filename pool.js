@@ -402,8 +402,15 @@ function registerPoolSections(SECTIONS) {
 
   // ---- WRITING PRACTICE ----
   SECTIONS['writing-practice'] = '<div class="section active" style="display:block">' +
-    '<h2>✍️ Writing Practice</h2>' +
+    '<h2>🖊️ Writing Practice</h2>' +
     '<p class="intro">10 ejercicios de escritura con corrección por palabras clave. Escribe 60–80 palabras. Detecta españolismos.</p>' +
+    '<div class="theory-box" style="font-size:0.9rem;margin-bottom:16px">' +
+    '<strong>📋 Cómo funciona la corrección:</strong><br>' +
+    '• Marca en <span style="color:#2b8a3e">verde</span>/<span style="color:#c92a2a">rojo</span> las palabras clave requeridas<br>' +
+    '• Da puntos bonus por vocabulario extra<br>' +
+    '• Detecta españolismos (hacer, cosa, etc.)<br>' +
+    '• Muestra una respuesta modelo para cada ejercicio' +
+    '</div>' +
     '<div id="wp-container"><p style="color:var(--text2)">⏳ Cargando...</p></div></div>';
 }
 
@@ -716,3 +723,234 @@ window._showModel = function(i) {
   el.style.display = el.style.display === 'none' ? 'block' : 'none';
   el.innerHTML = '<strong>📝 Respuesta modelo:</strong><br>' + (WRITING_POOL[i].model || '');
 };
+
+// ============================================================
+// RENDERIZADO DE POOL EN EL EXAMEN (simulacro.html)
+// ============================================================
+
+function renderPoolReadingBlock(container) {
+  if (!READING_POOL || READING_POOL.length === 0) return;
+  var seen = getPoolSeen();
+  var sorted = READING_POOL.slice().sort(function(a, b) { return (seen[b.id] || 0) - (seen[a.id] || 0); });
+  var ex = sorted[0]; // el más visto
+  markPoolSeen(ex.id);
+
+  var block = document.createElement('div');
+  block.className = 'section exam-block pool-exam-block';
+  block.innerHTML = '<h2>📖 Reading — ' + ex.title + '</h2>' +
+    '<div class="theory-box" style="font-size:0.95rem;line-height:1.7;margin-bottom:12px">' + ex.text + '</div>' +
+    '<div id="pool-rd-qs"></div>' +
+    '<div class="btn-section"><button class="btn btn-check-all" onclick="checkPoolReading()">✅ Corregir</button></div>' +
+    '<div id="pool-rd-sc" class="score-box" style="display:none"></div>';
+
+  container.appendChild(block);
+
+  var qh = '';
+  ex.questions.forEach(function(q, j) {
+    if (q.type === 'mc') {
+      qh += '<div class="exercise-card" style="margin:8px 0;padding:12px 16px">';
+      qh += '<p class="stem" style="margin-bottom:8px"><strong>'+(j+1)+'.</strong> ' + q.stem + '</p><div class="mc-options">';
+      q.options.forEach(function(o, k) {
+        qh += '<label style="display:flex;align-items:center;gap:4px;cursor:pointer;padding:4px 10px;border:1px solid var(--border);border-radius:4px;font-size:0.85rem">';
+        qh += '<input type="radio" name="prdr'+j+'" value="'+k+'" style="margin:0"> ' + o + '</label>';
+      });
+      qh += '</div></div>';
+    } else {
+      qh += '<div class="exercise-card" style="margin:8px 0;padding:12px 16px">';
+      qh += '<p class="stem" style="margin-bottom:8px"><strong>'+(j+1)+'.</strong> ' + q.stem + '</p>';
+      qh += '<input type="text" id="prdg-'+j+'" placeholder="Escribe..." style="display:block;width:100%;max-width:300px;border:2px solid var(--border);border-radius:4px;padding:6px 10px;font-size:0.9rem"></div>';
+    }
+  });
+  document.getElementById('pool-rd-qs').innerHTML = qh;
+
+  window.checkPoolReading = function() {
+    if (!ex) return;
+    var correct = 0, total = ex.questions.length;
+    ex.questions.forEach(function(q, j) {
+      if (q.type === 'mc') {
+        var radios = document.getElementsByName('prdr'+j);
+        var sel = null;
+        if (radios) radios.forEach(function(r) { if (r.checked) sel = parseInt(r.value); });
+        var labels = radios && radios[0] ? radios[0].closest('.mc-options').querySelectorAll('label') : [];
+        labels.forEach(function(l, k) {
+          l.style.background = k === q.answer ? 'var(--success-bg)' : '';
+          l.style.borderColor = k === q.answer ? 'var(--success)' : '';
+        });
+        if (sel === q.answer) correct++;
+      } else {
+        var inp = document.getElementById('prdg-'+j);
+        if (inp) {
+          inp.className = inp.value.trim().toLowerCase() === q.answer.toLowerCase() ? 'correct' : 'wrong';
+          if (inp.className === 'correct') correct++;
+        }
+      }
+    });
+    document.getElementById('pool-rd-sc').style.display = 'block';
+    document.getElementById('pool-rd-sc').innerHTML = '<span class="big">'+correct+'/'+total+'</span> ('+Math.round(correct/total*100)+'%)';
+  };
+}
+
+function renderPoolListeningBlock(container) {
+  if (!LISTENING_POOL || LISTENING_POOL.length === 0) return;
+  var seen = getPoolSeen();
+  var sorted = LISTENING_POOL.slice().sort(function(a, b) { return (seen[b.id] || 0) - (seen[a.id] || 0); });
+  var ex = sorted[0];
+  markPoolSeen(ex.id);
+
+  var block = document.createElement('div');
+  block.className = 'section exam-block pool-exam-block';
+  block.innerHTML = '<h2>🎧 Listening — ' + ex.title + '</h2>' +
+    '<div class="btn-section" style="margin-bottom:10px">' +
+    '<button class="btn btn-check-all" onclick="playPoolAudio()" style="background:#20c997">▶️ Escuchar</button>' +
+    '<button class="btn btn-answer" onclick="showPoolTrans()" style="background:#fab005;color:#212529">📝 Transcripción</button></div>' +
+    '<div id="pool-trans" class="theory-box" style="display:none;font-size:0.9rem;line-height:1.6"></div>' +
+    '<div id="pool-lst-qs"></div>' +
+    '<div class="btn-section"><button class="btn btn-check-all" onclick="checkPoolListening()">✅ Corregir</button></div>' +
+    '<div id="pool-lst-sc" class="score-box" style="display:none"></div>';
+
+  container.appendChild(block);
+
+  document.getElementById('pool-trans').textContent = ex.transcript;
+
+  var qh = '';
+  ex.questions.forEach(function(q, j) {
+    if (q.type === 'mc') {
+      qh += '<div class="exercise-card" style="margin:8px 0;padding:12px 16px">';
+      qh += '<p class="stem" style="margin-bottom:8px"><strong>'+(j+1)+'.</strong> ' + q.stem + '</p><div class="mc-options">';
+      q.options.forEach(function(o, k) {
+        qh += '<label style="display:flex;align-items:center;gap:4px;cursor:pointer;padding:4px 10px;border:1px solid var(--border);border-radius:4px;font-size:0.85rem">';
+        qh += '<input type="radio" name="plstr'+j+'" value="'+k+'" style="margin:0"> ' + o + '</label>';
+      });
+      qh += '</div></div>';
+    } else {
+      qh += '<div class="exercise-card" style="margin:8px 0;padding:12px 16px">';
+      qh += '<p class="stem" style="margin-bottom:8px"><strong>'+(j+1)+'.</strong> ' + q.stem + '</p>';
+      qh += '<input type="text" id="plstg-'+j+'" placeholder="Escribe..." style="display:block;width:100%;max-width:300px;border:2px solid var(--border);border-radius:4px;padding:6px 10px;font-size:0.9rem"></div>';
+    }
+  });
+  document.getElementById('pool-lst-qs').innerHTML = qh;
+
+  window.playPoolAudio = function() {
+    if (window.speechSynthesis.speaking) window.speechSynthesis.cancel();
+    var u = new SpeechSynthesisUtterance(ex.transcript);
+    u.lang = 'en-GB'; u.rate = 0.85;
+    var v = speechSynthesis.getVoices().find(function(x) { return x.lang.startsWith('en-GB'); });
+    if (v) u.voice = v;
+    speechSynthesis.speak(u);
+  };
+
+  window.showPoolTrans = function() {
+    var el = document.getElementById('pool-trans');
+    if (el) el.style.display = el.style.display === 'none' ? 'block' : 'none';
+  };
+
+  window.checkPoolListening = function() {
+    if (!ex) return;
+    var correct = 0, total = ex.questions.length;
+    ex.questions.forEach(function(q, j) {
+      if (q.type === 'mc') {
+        var radios = document.getElementsByName('plstr'+j);
+        var sel = null;
+        if (radios) radios.forEach(function(r) { if (r.checked) sel = parseInt(r.value); });
+        var labels = radios && radios[0] ? radios[0].closest('.mc-options').querySelectorAll('label') : [];
+        labels.forEach(function(l, k) {
+          l.style.background = k === q.answer ? 'var(--success-bg)' : '';
+          l.style.borderColor = k === q.answer ? 'var(--success)' : '';
+        });
+        if (sel === q.answer) correct++;
+      } else {
+        var inp = document.getElementById('plstg-'+j);
+        if (inp) {
+          inp.className = inp.value.trim().toLowerCase() === q.answer.toLowerCase() ? 'correct' : 'wrong';
+          if (inp.className === 'correct') correct++;
+        }
+      }
+    });
+    document.getElementById('pool-lst-sc').style.display = 'block';
+    document.getElementById('pool-lst-sc').innerHTML = '<span class="big">'+correct+'/'+total+'</span> ('+Math.round(correct/total*100)+'%)';
+  };
+}
+
+function renderPoolWritingBlock(container) {
+  if (!WRITING_POOL || WRITING_POOL.length === 0) return;
+  var seen = getPoolSeen();
+  var sorted = WRITING_POOL.slice().sort(function(a, b) { return (seen[b.id] || 0) - (seen[a.id] || 0); });
+  var ex = sorted[0];
+  markPoolSeen(ex.id);
+
+  var block = document.createElement('div');
+  block.className = 'section exam-block pool-exam-block';
+  block.innerHTML = '<h2>🖊️ Writing — ' + ex.title + '</h2>' +
+    '<div class="theory-box" style="font-size:0.95rem"><strong>📝 Prompt:</strong> ' + ex.prompt + '</div>' +
+    '<textarea id="pool-wp-txt" placeholder="Escribe tu respuesta aquí (60-80 palabras)..." style="width:100%;min-height:120px;border:2px solid var(--border);border-radius:8px;padding:10px;font-size:0.9rem;font-family:inherit;resize:vertical;margin-top:10px"></textarea>' +
+    '<div id="pool-wp-stats" class="writing-stats" style="font-size:0.8rem;color:var(--text2);margin-top:4px">📝 0 palabras · mínimo 60 · máximo 80</div>' +
+    '<div class="btn-section"><button class="btn btn-check-all" onclick="checkPoolWriting()">✅ Corregir</button>' +
+    '<button class="btn btn-answer" onclick="showPoolModel()" style="background:#fab005;color:#212529">💡 Ver modelo</button></div>' +
+    '<div id="pool-wp-fb" class="score-box" style="display:none"></div>' +
+    '<div id="pool-wp-model" class="theory-box" style="display:none;margin-top:8px;font-size:0.9rem"></div>';
+
+  container.appendChild(block);
+
+  window._poolWpEx = ex;
+
+  document.getElementById('pool-wp-txt').addEventListener('input', function() {
+    var wc = this.value.trim() ? this.value.trim().split(/\s+/).length : 0;
+    document.getElementById('pool-wp-stats').textContent = '📝 ' + wc + ' palabras · mínimo 60 · máximo 80';
+  });
+
+  window.checkPoolWriting = function() {
+    var ex = window._poolWpEx;
+    if (!ex) return;
+    var txt = document.getElementById('pool-wp-txt').value.trim();
+    var fb = document.getElementById('pool-wp-fb');
+    var words = txt ? txt.split(/\s+/).length : 0;
+
+    if (words < ex.wordMin) {
+      fb.style.display = 'block';
+      fb.innerHTML = '❌ Demasiado corto: ' + words + ' palabras. Necesitas al menos ' + ex.wordMin + '.';
+      return;
+    }
+
+    var lower = txt.toLowerCase();
+    var foundKw = 0, kwHtml = '';
+    ex.keywords.forEach(function(kw) {
+      var found = kw.split(' ').every(function(p) { return lower.indexOf(p) >= 0; });
+      kwHtml += '<span style="display:inline-block;padding:2px 8px;margin:2px;border-radius:4px;font-size:0.8rem;' + (found ? 'background:var(--success-bg);color:#2b8a3e' : 'background:var(--error-bg);color:#c92a2a') + '">' + kw + ' ' + (found ? '✓' : '✗') + '</span>';
+      if (found) foundKw++;
+    });
+
+    var foundBonus = 0, bonusHtml = '';
+    ex.bonus.forEach(function(bw) {
+      var found = lower.indexOf(bw) >= 0;
+      bonusHtml += '<span style="display:inline-block;padding:2px 8px;margin:2px;border-radius:4px;font-size:0.8rem;' + (found ? 'background:var(--success-bg);color:#2b8a3e' : 'background:var(--bg);color:var(--text2)') + '">' + bw + (found ? ' ✓' : '') + '</span>';
+      if (found) foundBonus++;
+    });
+
+    var foundTraps = [];
+    ex.trapWords.forEach(function(tw) { if (lower.indexOf(tw) >= 0) foundTraps.push(tw); });
+
+    var kwScore = (foundKw / ex.keywords.length) * 60;
+    var bonusScore = Math.min((foundBonus / ex.bonus.length) * 30, 30);
+    var wordScore = words >= ex.wordMin && words <= ex.wordMax ? 10 : words < ex.wordMin ? 0 : 5;
+    var totalScore = Math.round(kwScore + bonusScore + wordScore);
+
+    var html = '<div style="font-size:1.2rem;font-weight:bold;margin-bottom:8px">📊 Puntuación: ' + totalScore + '/100</div>';
+    html += '<div style="text-align:left;font-size:0.9rem">';
+    html += '<p><strong>🔑 Palabras clave (' + foundKw + '/' + ex.keywords.length + '):</strong><br>' + kwHtml + '</p>';
+    html += '<p style="margin-top:6px"><strong>✨ Vocabulario extra (' + foundBonus + '/' + ex.bonus.length + '):</strong><br>' + bonusHtml + '</p>';
+    html += '<p style="margin-top:6px"><strong>📏 Longitud:</strong> ' + words + ' palabras (objetivo: ' + ex.wordMin + '-' + ex.wordMax + ')' + (words >= ex.wordMin && words <= ex.wordMax ? ' ✅' : ' ⚠️') + '</p>';
+    if (foundTraps.length > 0) {
+      html += '<p style="margin-top:6px;color:#c92a2a"><strong>⚠️ Españolismos:</strong> ' + foundTraps.join(', ') + '</p>';
+    }
+    html += '</div>';
+    fb.style.display = 'block';
+    fb.innerHTML = html;
+  };
+
+  window.showPoolModel = function() {
+    var el = document.getElementById('pool-wp-model');
+    if (!el) return;
+    el.style.display = el.style.display === 'none' ? 'block' : 'none';
+    el.innerHTML = '<strong>📝 Respuesta modelo:</strong><br>' + (window._poolWpEx.model || '');
+  };
+}
