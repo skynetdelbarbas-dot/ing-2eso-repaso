@@ -414,6 +414,137 @@ function resetSim() {
 // Inicialización
 // ============================================================
 renderExam();
+
+// ============================================================
+// Panel de checkboxes para seleccionar temas (integración permanente)
+// ============================================================
+(function() {
+  // Find all exam blocks
+  var blocks = document.querySelectorAll('.exam-block');
+  if (blocks.length === 0) return;
+
+  // Hide all blocks initially
+  blocks.forEach(function(b) { b.style.display = 'none'; });
+  document.querySelectorAll('.btn-section, .score-box').forEach(function(el) {
+    if (el.id !== 'sim-panel') el.style.display = 'none';
+  });
+
+  // Build topic data
+  var topics = [];
+  blocks.forEach(function(block) {
+    var h2 = block.querySelector('h2');
+    if (!h2) return;
+    topics.push({
+      section: block,
+      title: h2.textContent.replace('📋', '').trim(),
+      count: block.querySelectorAll('.exercise-card').length || 5
+    });
+  });
+
+  if (topics.length === 0) return;
+
+  // Create checkbox panel
+  var panel = document.createElement('div');
+  panel.className = 'theory-box';
+  panel.id = 'sim-panel';
+  panel.style.cssText = 'margin-bottom:16px';
+
+  var html = '<h3>📋 Selecciona los temas para el examen</h3>';
+  topics.forEach(function(t, i) {
+    html += '<label class="topic-cb">' +
+      '<input type="checkbox" data-topic="' + i + '" onchange="window.updateSimPreview2()"> ' + t.title +
+      ' <span style="color:var(--text2);font-size:0.78rem">(' + t.count + ' preg)</span></label>';
+  });
+  html += '<div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap">' +
+    '<button onclick="window.selectAllSim2(true)" style="padding:4px 10px;border:1px solid #ccc;border-radius:4px;cursor:pointer;font-size:0.8rem">✅ Todos</button>' +
+    '<button onclick="window.selectAllSim2(false)" style="padding:4px 10px;border:1px solid #ccc;border-radius:4px;cursor:pointer;font-size:0.8rem">⬜ Ninguno</button>' +
+    '<button onclick="window.generateSimExam2()" style="padding:6px 16px;background:#339af0;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:0.9rem;font-weight:600">🎯 Generar Examen</button>' +
+    '</div>' +
+    '<p id="sim-legend2" style="font-size:0.75rem;color:var(--text2);margin-top:8px"></p>' +
+    '<p id="sim-preview2" style="font-size:0.8rem;color:#1864ab;margin-top:4px;font-style:italic"></p>';
+
+  panel.innerHTML = html;
+
+  // Insert after the intro paragraph
+  var intro = document.querySelector('.intro');
+  var title = document.querySelector('.page-title');
+  if (title && title.nextSibling) {
+    title.parentNode.insertBefore(panel, title.nextSibling);
+  } else {
+    document.querySelector('main.main').insertBefore(panel, document.querySelector('main.main').firstChild);
+  }
+
+  // Store topics
+  window._simTopics2 = topics;
+
+  window.updateSimPreview2 = function() {
+    var cbs = document.querySelectorAll('#sim-panel input[type="checkbox"][data-topic]');
+    var sel = 0, totalQ = 0;
+    cbs.forEach(function(cb, i) {
+      if (cb.checked && topics[i]) { sel++; totalQ += topics[i].count; }
+    });
+    var legend = document.getElementById('sim-legend2');
+    var preview = document.getElementById('sim-preview2');
+    if (legend) legend.textContent = sel + ' bloque(s) · ' + totalQ + ' preguntas';
+    if (preview) {
+      if (totalQ > 0) {
+        preview.textContent = '📊 Cada pregunta valdrá ' + (10 / totalQ).toFixed(2) + ' pts → nota sobre 10';
+      } else {
+        preview.textContent = '📊 Marca al menos un tema para ver la valoración';
+      }
+    }
+  };
+
+  window.selectAllSim2 = function(checked) {
+    document.querySelectorAll('#sim-panel input[type="checkbox"][data-topic]').forEach(function(cb) {
+      cb.checked = checked;
+    });
+    updateSimPreview2();
+  };
+
+  window.generateSimExam2 = function() {
+    // Hide all topics first
+    topics.forEach(function(t) { t.section.style.display = 'none'; });
+
+    var cbs = document.querySelectorAll('#sim-panel input[type="checkbox"][data-topic]');
+    var selectedSections = [];
+    var totalEx = 0;
+
+    cbs.forEach(function(cb, i) {
+      if (cb.checked && topics[i]) {
+        var section = topics[i].section;
+        section.style.display = '';
+        selectedSections.push(section);
+        section.querySelectorAll('.exercise-card').forEach(function(c) { c.style.display = ''; });
+        totalEx += topics[i].count;
+      }
+    });
+
+    // Show global buttons
+    document.querySelectorAll('.btn-section').forEach(function(b) { b.style.display = ''; });
+    var scoreBox = document.getElementById('ex-sim-score');
+    if (scoreBox) { scoreBox.style.display = ''; scoreBox.innerHTML = ''; }
+
+    // Show block score elements (hidden by default)
+    selectedSections.forEach(function(s) {
+      var bs = s.querySelector('.block-score');
+      if (bs) bs.style.display = 'none';
+    });
+
+    var perQ = totalEx > 0 ? (10 / totalEx).toFixed(2) : 0;
+    var legend = document.getElementById('sim-legend2');
+    if (legend) legend.innerHTML = totalEx + ' preguntas · ' + perQ + ' pts/pregunta = 10 pts';
+
+    // Override checkAllSim to use weighted scoring
+    window._simPerQ2 = parseFloat(perQ);
+    window._simTotalEx2 = totalEx;
+
+    // Re-run updateSimPreview2 to sync
+    updateSimPreview2();
+  };
+
+  updateSimPreview2();
+})();
 </script>
 </body>
 </html>
