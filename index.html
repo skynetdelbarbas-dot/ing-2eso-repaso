@@ -216,19 +216,28 @@ function loadLegacyPage(name, url) {
       var title = content.querySelector('.page-title');
       if (title) { title.style.marginTop = '0'; }
 
-      // Inject the content
+      // Inject the content — but first extract scripts (innerHTML strips them)
+      var scriptsList = content.querySelectorAll('script');
+      var scriptsHTML = '';
+      scriptsList.forEach(function(s) { scriptsHTML += s.outerHTML; });
+      
       main.innerHTML = '<div class="section active" style="display:block;padding:0">' + content.innerHTML + '</div>';
 
-      // Re-execute any script tags
-      var scripts = main.querySelectorAll('script');
-      scripts.forEach(function(oldScript) {
-        var newScript = document.createElement('script');
-        Array.from(oldScript.attributes).forEach(function(attr) {
-          newScript.setAttribute(attr.name, attr.value);
+      // Re-insert and execute script tags via DOM (innerHTML strips them)
+      if (scriptsHTML) {
+        var scriptWrapper = document.createElement('div');
+        scriptWrapper.style.display = 'none';
+        scriptWrapper.innerHTML = scriptsHTML;
+        // Replace each script to force execution
+        Array.from(scriptWrapper.querySelectorAll('script')).forEach(function(oldScript) {
+          var newScript = document.createElement('script');
+          Array.from(oldScript.attributes).forEach(function(attr) {
+            newScript.setAttribute(attr.name, attr.value);
+          });
+          newScript.textContent = oldScript.textContent;
+          document.body.appendChild(newScript);
         });
-        newScript.textContent = oldScript.textContent;
-        oldScript.parentNode.replaceChild(newScript, oldScript);
-      });
+      }
 
       // Wait for scripts to execute then inline inputs
       setTimeout(function() {
