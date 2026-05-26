@@ -112,8 +112,8 @@ input.inp-wrong{border-color:var(--error)!important;background:var(--error-bg)!i
   <a onclick="show('writing')" id="nw">✍️ Plantillas</a>
   <h2>📝 PRÁCTICA</h2>
   <a onclick="show('vocabulary')" id="nvoc">📖 Vocabulary</a>
-  <a href="grammar-review.html">🔄 Grammar Review 1º ESO</a>
-  <a href="cambridge-a2.html">🎓 Cambridge A2 Key</a>
+  <a onclick="show('grammar-review')" id="ngr">🔄 Grammar Review 1º ESO</a>
+  <a onclick="show('cambridge-a2')" id="nca">🎓 Cambridge A2 Key</a>
   <a onclick="show('simulacro')" id="nsim">🎯 Simulacro examen</a>
   <div style="margin-top:20px;font-size:0.7rem;color:var(--text2)"><p>🗣️ UK 🇬🇧 / US 🇺🇸</p><p>🔤 Botón flotante = traductor</p></div>
 </nav>
@@ -144,15 +144,16 @@ const NAV_MAP = {home:'nh',fundamentals:'nf',verbs:'nv',writing:'nw',simulacro:'
   'g-modal':'ngm','g-future':'ngf','g-comparatives':'ngc','g-just':'ngj',
   'g-present-perfect':'ngpp','g-conditionals':'ngcd','g-reported-speech':'ngrs',
   'g-passive':'ngpv','g-wish-if-only':'ngwi','g-question-tags':'ngqt',
-  'g-articles':'ngar','g-indefinite-pronouns':'ngip','g-nor-neither':'ngnn'};
+  'g-articles':'ngar','g-indefinite-pronouns':'ngip','g-nor-neither':'ngnn',
+  'grammar-review':'ngr','cambridge-a2':'nca'};
 
 const PAGE_MAP = {
   'g-present-perfect':'present-perfect.html','g-conditionals':'conditionals.html',
   'g-reported-speech':'reported-speech.html','g-passive':'passive.html',
   'g-wish-if-only':'wish-if-only.html','g-question-tags':'question-tags.html',
   'g-articles':'articles.html','g-indefinite-pronouns':'indefinite-pronouns.html',
-  'g-nor-neither':'nor-neither-so.html','vocabulary':'vocabulary.html','simulacro':'simulacro.html'
-};
+  'g-nor-neither':'nor-neither-so.html','vocabulary':'vocabulary.html','simulacro':'simulacro.html',
+  'grammar-review':'grammar-review.html','cambridge-a2':'cambridge-a2.html'};
 
 function show(name) {
   document.querySelectorAll('.sidebar a').forEach(a=>a.classList.remove('active'));
