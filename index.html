@@ -81,6 +81,7 @@ input.inp-wrong{border-color:var(--error)!important;background:var(--error-bg)!i
 @media(max-width:700px){.container{flex-direction:column}.sidebar{width:100%;height:auto;position:relative;border-right:none;border-bottom:1px solid var(--border)}.main{padding:16px}#tr-float-panel{width:92vw;right:4vw}}
 </style>
 <script src="exercises.js?v=8"></script>
+<script src="pool.js?v=1"></script>
 </head>
 <body>
 <div class="container">
@@ -109,7 +110,13 @@ input.inp-wrong{border-color:var(--error)!important;background:var(--error-bg)!i
     <a onclick="show('g-nor-neither')" id="ngnn">Nor / Neither / So</a>
   </div>
   <h2>✍️ WRITING</h2>
-  <a onclick="show('writing')" id="nw">✍️ Plantillas</a>
+  <a onclick="show('writing')" id="nw">📝 Plantillas</a>
+  <h2>📖 READING</h2>
+  <a onclick="show('reading')" id="nrd">📖 Reading Practice</a>
+  <h2>🎧 LISTENING</h2>
+  <a onclick="show('listening')" id="nlst">🎧 Listening Practice</a>
+  <h2>✍️ WRITING PRACTICE</h2>
+  <a onclick="show('writing-practice')" id="nwp">✍️ Writing Practice</a>
   <h2>📝 PRÁCTICA</h2>
   <a onclick="show('vocabulary')" id="nvoc">📖 Vocabulary</a>
   <a onclick="show('grammar-review')" id="ngr">🔄 Grammar Review 1º ESO</a>
@@ -145,7 +152,8 @@ const NAV_MAP = {home:'nh',fundamentals:'nf',verbs:'nv',writing:'nw',simulacro:'
   'g-present-perfect':'ngpp','g-conditionals':'ngcd','g-reported-speech':'ngrs',
   'g-passive':'ngpv','g-wish-if-only':'ngwi','g-question-tags':'ngqt',
   'g-articles':'ngar','g-indefinite-pronouns':'ngip','g-nor-neither':'ngnn',
-  'grammar-review':'ngr','cambridge-a2':'nca'};
+  'grammar-review':'ngr','cambridge-a2':'nca',
+  'reading':'nrd','listening':'nlst','writing-practice':'nwp'};
 
 const PAGE_MAP = {
   'g-present-perfect':'present-perfect.html','g-conditionals':'conditionals.html',
@@ -167,6 +175,10 @@ function show(name) {
     if (EXERCISES[name]) initExercises(name);
     if (name === 'verbs') setTimeout(()=>renderVerbs(''), 100);
     if (name === 'simulacro') setTimeout(initSimulacro, 300);
+    // Pool sections
+    if (name === 'reading') setTimeout(renderPoolReading, 50);
+    if (name === 'listening') setTimeout(renderPoolListening, 50);
+    if (name === 'writing-practice') setTimeout(renderPoolWriting, 50);
   } else if (PAGE_MAP[name]) {
     loadLegacyPage(name, PAGE_MAP[name]);
   } else {
@@ -785,6 +797,9 @@ Negative aspects (diplomatic).
 Conclusion: Opinion + recommendation.</div>
 <textarea id="w-review" oninput="updateStats('w-review')" placeholder="Escribe tu reseña..."></textarea>
 <div class="writing-stats" id="w-review-stats">📝 0 palabras · 0 caracteres · 0 párrafos</div></div></div>`;
+
+// ==================== REGISTER POOL SECTIONS ====================
+if (typeof registerPoolSections === 'function') registerPoolSections(SECTIONS);
 
 // ==================== INIT ====================
 document.getElementById('main-content').innerHTML = SECTIONS['home'];

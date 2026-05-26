@@ -372,6 +372,12 @@ input.wrong, textarea.wrong {
 }
 .topic-cb input { margin: 0; }
 
+/* Multiple choice options (Reading & Listening) */
+.mc-options { display:flex; gap:8px; flex-wrap:wrap; margin:6px 0 4px; }
+.mc-options label { display:flex; align-items:center; gap:4px; cursor:pointer; font-size:0.85rem; padding:4px 10px; border:1px solid var(--border); border-radius:4px; transition:all 0.1s; }
+.mc-options label:hover { border-color:var(--primary); }
+.mc-options input[type="radio"] { margin:0; }
+
 /* Example block */
 .example {
   background: #f1f3f5;
