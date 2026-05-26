@@ -255,42 +255,38 @@ function loadLegacyPage(name, url) {
         document.body.appendChild(newScript);
       });
 
-      // Wait for scripts to execute, then fix ___ patterns in LEGACY grammar pages only
+      // Wait for scripts to execute, then move inputs into stems (all pages)
       setTimeout(function() {
-        var hasSim = document.getElementById('sim-panel');
-        if (!hasSim) {
-          // Legacy pages only (no modern exercise cards that already have inputs)
-          document.querySelectorAll('.exercise-card').forEach(function(card) {
-            var stem = card.querySelector('.stem');
-            var inp = card.querySelector('input[type="text"]');
-            if (!stem || !inp) return;
-            // Skip if html already contains an input inside stem (modern rendering)
-            if (stem.querySelector('input')) return;
-            var html = stem.innerHTML;
-            var found = false;
-            var patterns = ['______', '___', '____', '_____', '…', '...'];
-            for (var pi = 0; pi < patterns.length; pi++) {
-              if (html.indexOf(patterns[pi]) >= 0) {
-                var mid = 'im-' + Math.random().toString(36).substr(2,9);
-                stem.innerHTML = html.split(patterns[pi]).join('<span id="'+mid+'"></span>');
-                var marker = document.getElementById(mid);
-                if (marker) marker.parentNode.replaceChild(inp, marker);
-                inp.style.display = 'inline-block';
-                inp.style.width = '160px';
-                inp.style.margin = '0 4px';
-                inp.style.verticalAlign = 'middle';
-                found = true;
-                break;
-              }
-            }
-            if (!found) {
-              stem.appendChild(document.createTextNode(' '));
-              stem.appendChild(inp);
+        document.querySelectorAll('.exercise-card').forEach(function(card) {
+          var stem = card.querySelector('.stem');
+          var inp = card.querySelector('input[type="text"]');
+          if (!stem || !inp) return;
+          // Skip if stem already has an input (already inlined)
+          if (stem.querySelector('input')) return;
+          var html = stem.innerHTML;
+          var found = false;
+          var patterns = ['______', '___', '____', '_____', '…', '...'];
+          for (var pi = 0; pi < patterns.length; pi++) {
+            if (html.indexOf(patterns[pi]) >= 0) {
+              var mid = 'im-' + Math.random().toString(36).substr(2,9);
+              stem.innerHTML = html.split(patterns[pi]).join('<span id="'+mid+'"></span>');
+              var marker = document.getElementById(mid);
+              if (marker) marker.parentNode.replaceChild(inp, marker);
               inp.style.display = 'inline-block';
               inp.style.width = '160px';
+              inp.style.margin = '0 4px';
+              inp.style.verticalAlign = 'middle';
+              found = true;
+              break;
             }
-          });
-        }
+          }
+          if (!found) {
+            stem.appendChild(document.createTextNode(' '));
+            stem.appendChild(inp);
+            inp.style.display = 'inline-block';
+            inp.style.width = '160px';
+          }
+        });
       }, 500);
     })
     .catch(function() {

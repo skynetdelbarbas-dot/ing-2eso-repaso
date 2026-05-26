@@ -452,12 +452,12 @@ function renderPoolReading() {
   pool.forEach(function(ex, i) {
     var seen = getPoolSeen();
     var times = seen[ex.id] || 0;
-    html += '<div class="section" style="cursor:pointer;padding:14px 20px" onclick="_toggleRd('+i+')">';
-    html += '<div style="display:flex;justify-content:space-between;align-items:center">';
+    html += '<div class="section" style="padding:14px 20px">';
+    html += '<div style="cursor:pointer;display:flex;justify-content:space-between;align-items:center" onclick="_toggleRd('+i+')">';
     html += '<h3 style="margin:0;font-size:1rem;border:none;padding:0">📖 ' + ex.title + '</h3>';
     html += '<span style="font-size:0.8rem;color:var(--text2)">' + ex.questions.length + ' preg · ' + (times > 0 ? '✅ vista '+times+' vez' : '🆕 nueva') + '</span>';
     html += '</div>';
-    html += '<div id="_rd-'+i+'" style="display:none;margin-top:14px">';
+    html += '<div id="_rd-'+i+'" style="display:none;margin-top:14px" onclick="event.stopPropagation()">';
     html += '<div class="theory-box" style="font-size:0.95rem;line-height:1.7">' + ex.text + '</div>';
     html += '<div id="_rdq-'+i+'" style="margin-top:12px"></div>';
     html += '<div class="btn-section"><button class="btn btn-check-all" onclick="_checkRd('+i+')">✅ Corregir</button><button class="btn btn-reset" onclick="_resetRd('+i+')">🔄 Limpiar</button></div>';
@@ -548,14 +548,15 @@ function renderPoolListening() {
   pool.forEach(function(ex, i) {
     var seen = getPoolSeen();
     var times = seen[ex.id] || 0;
-    html += '<div class="section" style="cursor:pointer;padding:14px 20px" onclick="_toggleLst('+i+')">';
-    html += '<div style="display:flex;justify-content:space-between;align-items:center">';
+    html += '<div class="section" style="padding:14px 20px">';
+    html += '<div style="cursor:pointer;display:flex;justify-content:space-between;align-items:center" onclick="_toggleLst('+i+')">';
     html += '<h3 style="margin:0;font-size:1rem;border:none;padding:0">🎧 ' + ex.title + '</h3>';
     html += '<span style="font-size:0.8rem;color:var(--text2)">' + ex.questions.length + ' preg · ' + (times > 0 ? '✅ vista '+times+' vez' : '🆕 nueva') + '</span>';
     html += '</div>';
-    html += '<div id="_lst-'+i+'" style="display:none;margin-top:14px">';
+    html += '<div id="_lst-'+i+'" style="display:none;margin-top:14px" onclick="event.stopPropagation()">';
     html += '<div class="btn-section" style="margin-bottom:10px">';
     html += '<button class="btn btn-check-all" onclick="_playLst('+i+')" style="background:#20c997">▶️ Escuchar</button>';
+    html += '<button class="btn btn-reset" onclick="_stopLst()" style="background:#ff6b6b;color:white">⏹ Parar</button>';
     html += '<button class="btn btn-answer" onclick="_showTrans('+i+')" style="background:#fab005;color:#212529">📝 Transcripción</button></div>';
     html += '<div id="_tran-'+i+'" class="theory-box" style="display:none;font-size:0.9rem;line-height:1.6"></div>';
     html += '<div id="_lstq-'+i+'" style="margin-top:12px"></div>';
@@ -606,6 +607,10 @@ window._playLst = function(i) {
   var v = speechSynthesis.getVoices().find(function(x) { return x.lang.startsWith('en-GB'); });
   if (v) u.voice = v;
   speechSynthesis.speak(u);
+};
+
+window._stopLst = function() {
+  if (window.speechSynthesis.speaking) window.speechSynthesis.cancel();
 };
 
 window._showTrans = function(i) {
@@ -664,12 +669,12 @@ function renderPoolWriting() {
   pool.forEach(function(ex, i) {
     var seen = getPoolSeen();
     var times = seen[ex.id] || 0;
-    html += '<div class="section" style="cursor:pointer;padding:14px 20px" onclick="_toggleWp('+i+')">';
-    html += '<div style="display:flex;justify-content:space-between;align-items:center">';
+    html += '<div class="section" style="padding:14px 20px">';
+    html += '<div style="cursor:pointer;display:flex;justify-content:space-between;align-items:center" onclick="_toggleWp('+i+')">';
     html += '<h3 style="margin:0;font-size:1rem;border:none;padding:0">✍️ ' + ex.title + '</h3>';
     html += '<span style="font-size:0.8rem;color:var(--text2)">60-80 words · ' + (times > 0 ? '✅ vista '+times+' vez' : '🆕 nueva') + '</span>';
     html += '</div>';
-    html += '<div id="_wp-'+i+'" style="display:none;margin-top:14px">';
+    html += '<div id="_wp-'+i+'" style="display:none;margin-top:14px" onclick="event.stopPropagation()">';
     html += '<div class="theory-box" style="font-size:0.95rem"><strong>📝 Prompt:</strong> ' + ex.prompt + '</div>';
     html += '<textarea id="_wpt-'+i+'" oninput="_wpStats('+i+')" placeholder="Escribe aquí (60-80 palabras)..." style="width:100%;min-height:120px;border:2px solid var(--border);border-radius:8px;padding:10px;font-size:0.9rem;font-family:inherit;resize:vertical;margin-top:10px"></textarea>';
     html += '<div id="_wps-'+i+'" class="writing-stats" style="font-size:0.8rem;color:var(--text2);margin-top:4px">📝 0 palabras · mínimo 60 · máximo 80</div>';
