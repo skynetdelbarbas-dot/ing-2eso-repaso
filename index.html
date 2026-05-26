@@ -174,10 +174,10 @@ function show(name) {
     if (EXERCISES[name]) initExercises(name);
     if (name === 'verbs') setTimeout(()=>renderVerbs(''), 100);
     if (name === 'simulacro') setTimeout(initSimulacro, 300);
-    // Pool sections (síncrono — innerHTML ya actualizó el DOM)
-    if (name === 'reading') renderPoolReading();
-    if (name === 'listening') renderPoolListening();
-    if (name === 'writing-practice') renderPoolWriting();
+    // Pool sections (auto-render con fallback)
+    if (name === 'reading' || name === 'listening' || name === 'writing-practice') {
+      renderPoolSection(name);
+    }
   } else if (PAGE_MAP[name]) {
     loadLegacyPage(name, PAGE_MAP[name]);
   } else {

@@ -8,7 +8,7 @@
 // trapWords: españolismos a detectar
 // model: respuesta modelo de referencia
 
-const WRITING_POOL = [
+var WRITING_POOL = [
   {
     id: 'w1',
     title: 'Describe your bedroom',
@@ -115,7 +115,7 @@ const WRITING_POOL = [
 // texts: Cambridge A2 Key style, 80-150 words
 // questions: mc (multiple choice) o gap (fill the gap)
 
-const READING_POOL = [
+var READING_POOL = [
   {
     id: 'r1',
     title: 'A Day at the Beach',
@@ -232,7 +232,7 @@ const READING_POOL = [
 // transcript: texto que se lee en voz alta con SpeechSynthesis
 // questions: igual que Reading
 
-const LISTENING_POOL = [
+var LISTENING_POOL = [
   {
     id: 'l1',
     title: 'My Family',
@@ -380,6 +380,35 @@ function shuffleArray(arr) {
   }
   return arr;
 }
+
+// ============================================================
+// AUTO-RENDER: espera a que el contenedor esté en el DOM
+// ============================================================
+window.renderPoolSection = function(name) {
+  var map = {
+    'reading': { id: 'rd-container', fn: renderPoolReading },
+    'listening': { id: 'lst-container', fn: renderPoolListening },
+    'writing-practice': { id: 'wp-container', fn: renderPoolWriting }
+  };
+  var cfg = map[name];
+  if (!cfg) return;
+  
+  function tryRender() {
+    var el = document.getElementById(cfg.id);
+    if (el) { cfg.fn(); return true; }
+    return false;
+  }
+  
+  // Try immediately (DOM should be ready after innerHTML)
+  if (tryRender()) return;
+  
+  // Retry with interval (up to 2 seconds)
+  var attempts = 0;
+  var interval = setInterval(function() {
+    attempts++;
+    if (tryRender() || attempts >= 40) clearInterval(interval);
+  }, 50);
+};
 
 // ============================================================
 // REGISTRO DE SECCIONES EN EL SPA

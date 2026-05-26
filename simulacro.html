@@ -72,7 +72,11 @@
         <option value="90">90 min</option>
         <option value="120">120 min</option>
       </select>
-      <span id="sim-timer-display" style="font-size:1.1rem;font-weight:bold;color:var(--primary-dark);display:none"></span>
+      <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:0.9rem">
+        <input type="checkbox" id="sim-hint-enable" checked> 💡 Mostrar respuestas
+      </label>
+      <div id="sim-timer-warn" style="font-size:0.8rem;color:#c92a2a;display:none"></div>
+      <span id="sim-timer-display" style="display:none"></span>
     </div>
   </div>
 
@@ -245,30 +249,6 @@ function renderExam() {
   var qNum = 0; // contador global de preguntas
 
   EXAM_BLOCKS.forEach(function(block, bIdx) {
-    // Audio player antes de cada bloque de listening
-    if (bIdx === 10) {
-      var as = document.createElement('div');
-      as.className = 'section audio-section';
-      as.innerHTML = '<h2>🎧 Listening 1 <span style="font-size:0.8rem;color:var(--text2);font-weight:normal">(Lucy\'s beach day)</span></h2>'
-        + '<audio controls style="width:100%;margin:10px 0"><source src="audio/listening-1.mp3" type="audio/mpeg"></audio>'
-        + '<details style="margin-top:8px"><summary>📝 Ver transcripción</summary>'
-        + '<div class="theory-box" style="margin-top:8px">'
-        + '<p>Hi! My name is Lucy and I\'m from England. Last weekend, I went to the beach with my family. We left home at nine o\'clock in the morning and arrived at the beach at eleven. The weather was warm and sunny. I swam in the sea and built a big sandcastle with my brother. My mum read a book under an umbrella and my dad played football with some friends. We had sandwiches and juice for lunch. In the afternoon, we walked along the coast and took lots of photos. We went home at six o\'clock. It was a fantastic day!</p>'
-        + '</div></details>';
-      container.appendChild(as);
-    }
-    if (bIdx === 11) {
-      var as2 = document.createElement('div');
-      as2.className = 'section audio-section';
-      as2.innerHTML = '<h2>🎧 Listening 2 <span style="font-size:0.8rem;color:var(--text2);font-weight:normal">(Tom\'s zoo trip)</span></h2>'
-        + '<audio controls style="width:100%;margin:10px 0"><source src="audio/listening-2.mp3" type="audio/mpeg"></audio>'
-        + '<details style="margin-top:8px"><summary>📝 Ver transcripción</summary>'
-        + '<div class="theory-box" style="margin-top:8px">'
-        + '<p>Hello, my name is Tom and I am twelve years old. I live in a small town near Oxford. I have a pet dog called Max. Every morning, I take Max for a walk in the park before school. Last Saturday, my family and I went to the zoo. We saw lions, monkeys, and penguins. My favourite animals were the penguins because they were very funny. We also had ice cream and watched a bird show. The bird show was amazing! A parrot could ride a bicycle and an eagle could fly very fast. I took lots of photos with my phone. I want to be a zookeeper when I grow up.</p>'
-        + '</div></details>';
-      container.appendChild(as2);
-    }
-
     // --- Bloque header ---
     var blockEl = document.createElement('div');
     blockEl.className = 'section exam-block';
@@ -283,6 +263,28 @@ function renderExam() {
     sub.style.cssText = 'color:var(--text2);margin-bottom:14px';
     sub.textContent = block.subtitle;
     blockEl.appendChild(sub);
+
+    // Audio player for listening blocks
+    if (bIdx === 10) {
+      var ap1 = document.createElement('div');
+      ap1.style.cssText = 'margin-bottom:12px';
+      ap1.innerHTML = '<audio controls style="width:100%"><source src="audio/listening-1.mp3" type="audio/mpeg"></audio>'
+        + '<details style="margin-top:6px;font-size:0.85rem"><summary>📝 Transcripción</summary>'
+        + '<div class="theory-box" style="margin-top:6px;font-size:0.9rem">'
+        + '<p>Hi! My name is Lucy and I\'m from England. Last weekend, I went to the beach with my family. We left home at nine o\'clock in the morning and arrived at the beach at eleven. The weather was warm and sunny. I swam in the sea and built a big sandcastle with my brother. My mum read a book under an umbrella and my dad played football with some friends. We had sandwiches and juice for lunch. In the afternoon, we walked along the coast and took lots of photos. We went home at six o\'clock. It was a fantastic day!</p>'
+        + '</div></details>';
+      blockEl.appendChild(ap1);
+    }
+    if (bIdx === 11) {
+      var ap2 = document.createElement('div');
+      ap2.style.cssText = 'margin-bottom:12px';
+      ap2.innerHTML = '<audio controls style="width:100%"><source src="audio/listening-2.mp3" type="audio/mpeg"></audio>'
+        + '<details style="margin-top:6px;font-size:0.85rem"><summary>📝 Transcripción</summary>'
+        + '<div class="theory-box" style="margin-top:6px;font-size:0.9rem">'
+        + '<p>Hello, my name is Tom and I am twelve years old. I live in a small town near Oxford. I have a pet dog called Max. Every morning, I take Max for a walk in the park before school. Last Saturday, my family and I went to the zoo. We saw lions, monkeys, and penguins. My favourite animals were the penguins because they were very funny. We also had ice cream and watched a bird show. The bird show was amazing! A parrot could ride a bicycle and an eagle could fly very fast. I took lots of photos with my phone. I want to be a zookeeper when I grow up.</p>'
+        + '</div></details>';
+      blockEl.appendChild(ap2);
+    }
 
     // --- Preguntas del bloque ---
     var blockId = 'ex-block-' + (bIdx + 1);
@@ -321,12 +323,13 @@ function checkAllSim() {
   var total = 0;
   var blockScores = [];
 
-  var uoeCorr = 0, uoeTotal = 0;
-  var lis1Corr = 0, lis1Total = 0;
-  var lis2Corr = 0, lis2Total = 0;
-
   EXAM_BLOCKS.forEach(function(block, bIdx) {
     var blockId = 'ex-block-' + (bIdx + 1);
+    var blockEl = document.getElementById('block-' + (bIdx + 1));
+    
+    // Skip hidden blocks
+    if (blockEl && blockEl.style.display === 'none') return;
+
     var n = block.questions.length;
     var bCorr = 0;
     var bAns = 0;
@@ -336,28 +339,20 @@ function checkAllSim() {
       checkOne(blockId, i);
       var inp = document.getElementById('inp-' + blockId + '-' + i);
       if (inp) {
-        var isEmpty = inp.value.trim() === '';
-        if (!isEmpty || inp.classList.contains('correct')) {
+        var val = inp.value.trim();
+        var isEmpty = val === '';
+        if (!isEmpty) {
           bAns++;
           answered++;
           if (inp.classList.contains('correct')) { bCorr++; correct++; }
+        } else {
+          // Empty answer = wrong
+          inp.className = 'wrong';
         }
       }
     }
 
-    // Clasificar UOE (bloques 1-10) vs Listening 1 (11) vs Listening 2 (12)
-    if (bIdx <= 9) {
-      uoeCorr += bCorr;
-      uoeTotal += n;
-    } else if (bIdx === 10) {
-      lis1Corr += bCorr;
-      lis1Total += n;
-    } else {
-      lis2Corr += bCorr;
-      lis2Total += n;
-    }
-
-    // Mostrar score de este bloque
+    // Mostrar score de este bloque (solo si visible)
     var bs = document.getElementById('bs-' + (bIdx + 1));
     if (bs) {
       var bpct = bAns > 0 ? Math.round((bCorr / bAns) * 100) : 0;
@@ -377,13 +372,9 @@ function checkAllSim() {
     return;
   }
 
-  // Calcular notas
-  var uoeNota = uoeTotal > 0 ? ((uoeCorr / uoeTotal) * 10).toFixed(2) : '0.00';
-  var lis1Nota = lis1Total > 0 ? ((lis1Corr / lis1Total) * 10).toFixed(2) : '0.00';
-  var lis2Nota = lis2Total > 0 ? ((lis2Corr / lis2Total) * 10).toFixed(2) : '0.00';
   var pct = answered > 0 ? Math.round((correct / answered) * 100) : 0;
 
-  // Tabla resumen por bloques
+  // Tabla resumen por bloques (solo visibles)
   var summaryHTML = '<div style="margin-bottom:14px;font-size:0.9em;text-align:left;display:inline-block">';
   blockScores.forEach(function(b, i) {
     var label = b.title.split('—')[1] || b.title;
@@ -393,35 +384,14 @@ function checkAllSim() {
   });
   summaryHTML += '</div>';
 
-  // Notas separadas
-  var notasHTML = '<div style="margin:14px 0;padding:12px;background:var(--card);border:1px solid var(--primary);border-radius:var(--radius)">';
-  notasHTML += '<div style="display:flex;justify-content:space-around;gap:12px;flex-wrap:wrap">';
+  // Nota global sobre 10 (ponderada por preguntas visibles)
+  var perQ = total > 0 ? 10 / total : 0;
+  var globalScore = (correct * perQ).toFixed(2);
 
-  // UOE
-  var uoeIcon = parseFloat(uoeNota) >= 9 ? '🏆' : parseFloat(uoeNota) >= 7 ? '👏' : parseFloat(uoeNota) >= 5 ? '👍' : '💪';
-  notasHTML += '<div style="text-align:center;flex:1;min-width:140px">';
-  notasHTML += '<div style="font-size:0.85rem;color:var(--text2)">📝 UOE (Use of English)</div>';
-  notasHTML += '<div style="font-size:2rem;font-weight:bold;color:var(--primary-dark)">' + uoeNota + ' <span style="font-size:1rem">/ 10</span></div>';
-  notasHTML += '<div style="font-size:0.85rem">' + uoeCorr + '/' + uoeTotal + ' correctas ' + uoeIcon + '</div>';
+  var notasHTML = '<div style="margin:14px 0;padding:12px;background:var(--card);border:1px solid var(--primary);border-radius:var(--radius))">';
+  notasHTML += '<div style="font-size:2rem;font-weight:bold;color:var(--primary-dark);text-align:center">' + globalScore + ' <span style="font-size:1rem">/ 10</span></div>';
+  notasHTML += '<div style="text-align:center;font-size:0.85rem;color:var(--text2)">' + correct + '/' + total + ' aciertos · ' + perQ.toFixed(2) + ' pts/pregunta</div>';
   notasHTML += '</div>';
-
-  // Listening 1
-  var lis1Icon = parseFloat(lis1Nota) >= 9 ? '🏆' : parseFloat(lis1Nota) >= 7 ? '👏' : parseFloat(lis1Nota) >= 5 ? '👍' : '💪';
-  notasHTML += '<div style="text-align:center;flex:1;min-width:140px">';
-  notasHTML += '<div style="font-size:0.85rem;color:var(--text2)">🎧 Listening 1</div>';
-  notasHTML += '<div style="font-size:2rem;font-weight:bold;color:var(--primary-dark)">' + lis1Nota + ' <span style="font-size:1rem">/ 10</span></div>';
-  notasHTML += '<div style="font-size:0.85rem">' + lis1Corr + '/' + lis1Total + ' correctas ' + lis1Icon + '</div>';
-  notasHTML += '</div>';
-
-  // Listening 2
-  var lis2Icon = parseFloat(lis2Nota) >= 9 ? '🏆' : parseFloat(lis2Nota) >= 7 ? '👏' : parseFloat(lis2Nota) >= 5 ? '👍' : '💪';
-  notasHTML += '<div style="text-align:center;flex:1;min-width:140px">';
-  notasHTML += '<div style="font-size:0.85rem;color:var(--text2)">🎧 Listening 2</div>';
-  notasHTML += '<div style="font-size:2rem;font-weight:bold;color:var(--primary-dark)">' + lis2Nota + ' <span style="font-size:1rem">/ 10</span></div>';
-  notasHTML += '<div style="font-size:0.85rem">' + lis2Corr + '/' + lis2Total + ' correctas ' + lis2Icon + '</div>';
-  notasHTML += '</div>';
-
-  notasHTML += '</div></div>';
 
   var msg = summaryHTML + notasHTML;
   msg += '<br>🎯 Total: ' + correct + '/' + answered + ' respondidas (' + pct + '%)';
@@ -614,39 +584,89 @@ renderExam();
     document.getElementById('sim-timer-duration').disabled = !enabled;
     if (!enabled) {
       document.getElementById('sim-timer-display').style.display = 'none';
+      document.getElementById('sim-timer-warn').style.display = 'none';
       if (window._simTimerInterval) { clearInterval(window._simTimerInterval); window._simTimerInterval = null; }
+      if (window._simCountdownInterval) { clearInterval(window._simCountdownInterval); window._simCountdownInterval = null; }
     }
   };
 
   function startSimTimer() {
-    // Clear any previous timer
+    // Clear any previous timers
     if (window._simTimerInterval) { clearInterval(window._simTimerInterval); window._simTimerInterval = null; }
+    if (window._simCountdownInterval) { clearInterval(window._simCountdownInterval); window._simCountdownInterval = null; }
     document.getElementById('sim-timer-display').style.display = 'none';
+    document.getElementById('sim-timer-warn').style.display = 'none';
 
     var enabled = document.getElementById('sim-timer-enable').checked;
     if (!enabled) return;
 
     var totalSec = parseInt(document.getElementById('sim-timer-duration').value) * 60;
     var display = document.getElementById('sim-timer-display');
-    display.style.display = 'inline';
+    var warn = document.getElementById('sim-timer-warn');
+    var hasShownWarning = false;
 
-    window._simTimerInterval = setInterval(function() {
-      totalSec--;
-      if (totalSec <= 0) {
-        clearInterval(window._simTimerInterval);
-        window._simTimerInterval = null;
-        display.textContent = '⏰ ¡Tiempo!';
-        display.style.color = '#c92a2a';
-        // Auto-correct
-        checkAllSim();
-        return;
+    // 20-second countdown before starting
+    var countdown = 20;
+    display.style.display = 'block';
+    display.style.cssText = 'position:fixed;bottom:20px;right:20px;z-index:9999;background:var(--card);border:2px solid var(--primary);border-radius:10px;padding:12px 20px;font-size:1.3rem;font-weight:bold;color:var(--primary-dark);box-shadow:0 4px 16px rgba(0,0,0,0.15)';
+    display.textContent = '⏳ ' + countdown + 's';
+
+    warn.style.display = 'block';
+    warn.innerHTML = '⏱ El crono empezará en 20 segundos después de pulsar "🎯 Generar Examen"';
+
+    window._simCountdownInterval = setInterval(function() {
+      countdown--;
+      display.textContent = '⏳ ' + countdown + 's';
+      if (countdown <= 0) {
+        clearInterval(window._simCountdownInterval);
+        window._simCountdownInterval = null;
+        warn.style.display = 'none';
+        // Start real timer
+        display.textContent = '⏱ ' + Math.floor(totalSec / 60) + ':' + (totalSec % 60 < 10 ? '0' : '') + (totalSec % 60);
+
+        window._simTimerInterval = setInterval(function() {
+          totalSec--;
+          if (totalSec <= 0) {
+            clearInterval(window._simTimerInterval);
+            window._simTimerInterval = null;
+            display.textContent = '⏰ ¡Tiempo!';
+            display.style.color = '#c92a2a';
+            // Disable all inputs
+            document.querySelectorAll('#ex-sim input, #ex-sim textarea, #ex-sim select').forEach(function(el) {
+              el.disabled = true;
+            });
+            // Auto-correct
+            checkAllSim();
+            return;
+          }
+          var min = Math.floor(totalSec / 60);
+          var sec = totalSec % 60;
+          display.textContent = '⏱ ' + min + ':' + (sec < 10 ? '0' : '') + sec;
+          display.style.color = totalSec < 60 ? '#c92a2a' : 'var(--primary-dark)';
+        }, 1000);
       }
-      var min = Math.floor(totalSec / 60);
-      var sec = totalSec % 60;
-      display.textContent = '⏱ ' + min + ':' + (sec < 10 ? '0' : '') + sec;
-      display.style.color = totalSec < 60 ? '#c92a2a' : 'var(--primary-dark)';
     }, 1000);
   }
+
+  // Hide/show "Mostrar respuesta" buttons
+  function applyHintToggle() {
+    var showHints = document.getElementById('sim-hint-enable').checked;
+    document.querySelectorAll('.btn-answer').forEach(function(btn) {
+      btn.style.display = showHints ? '' : 'none';
+    });
+  }
+
+  // Apply hint toggle after exam generation
+  var _origGen = window.generateSimExam2;
+  if (_origGen) {
+    var _wrappedGen = function() {
+      _origGen();
+      setTimeout(applyHintToggle, 100);
+    };
+    window.generateSimExam2 = _wrappedGen;
+  }
+
+  document.getElementById('sim-hint-enable').addEventListener('change', applyHintToggle);
 
   updateSimPreview2();
 })();
