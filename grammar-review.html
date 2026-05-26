@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grammar Review 1º ESO — 2º ESO</title>
+<link rel="stylesheet" href="style.css?v=5">
+</head>
+<body data-topic="grammar-review">
+<div class="container">
+<nav class="sidebar">
+  <h1><a href="index.html" style="color:inherit;text-decoration:none">📚 Inglés 2º ESO</a></h1>
+  <div class="subtitle">Repaso para el examen final</div>
+  <h2>🗣️ Grammar</h2>
+  <a href="present-perfect.html">Present Perfect S/C</a>
+  <a href="reported-speech.html">Reported Speech</a>
+  <a href="conditionals.html">Conditionals</a>
+  <a href="wish-if-only.html">I wish / If only</a>
+  <a href="question-tags.html">Question Tags</a>
+  <a href="articles.html">Articles (a/an/the/∅)</a>
+  <a href="passive.html">Passive Voice</a>
+  <a href="indefinite-pronouns.html">Indefinite Pronouns</a>
+  <a href="nor-neither-so.html">Nor / Neither / So</a>
+  <h2>📖 Vocabulary</h2>
+  <a href="vocabulary.html">Units 1-3, 5-11</a>
+  <h2>🔄 Review</h2>
+  <a href="grammar-review.html" class="active">Grammar Review 1º ESO</a>
+  <h2>🎯 Simulacro</h2>
+  <a href="simulacro.html">Examen mixto</a>
+
+</nav>
+
+<main class="main">
+  <div class="breadcrumb"><a href="index.html">Inicio</a> / Grammar Review 1º ESO</div>
+  <h1 class="page-title">Grammar Review — 1º ESO</h1>
+  <p class="intro">Repaso rápido de la gramática básica. Ideal para calentar antes de los temas de 2º.</p>
+
+  <div class="section">
+    <h2>📖 Teoría rápida</h2>
+
+    <div class="theory-box">
+      <strong>⏰ Present Simple</strong><br>
+      <code>Subject + verb(+s) + complements</code><br>
+      Neg: <code>don't / doesn't + verb (base form)</code><br>
+      Int: <code>Do / Does + subject + verb (base form)?</code><br>
+      <em>Uso:</em> rutinas, verdades universales, horarios<br>
+      <em>Adverbios:</em> always, usually, sometimes, rarely, never
+    </div>
+
+    <div class="theory-box">
+      <strong>🔄 Present Continuous</strong><br>
+      <code>Subject + am/is/are + verb(-ing)</code><br>
+      Neg: <code>am/is/are + not + verb(-ing)</code><br>
+      <em>Uso:</em> acciones en progreso ahora, planes futuros<br>
+      <em>Adverbios:</em> now, right now, at the moment, today<br>
+      <em>Stative verbs:</em> like, love, hate, know, believe, want (NO se usan en continuous)
+    </div>
+
+    <div class="theory-box">
+      <strong>📅 Past Simple</strong><br>
+      <code>Subject + verb (past form)</code><br>
+      Neg: <code>didn't + verb (base form)</code><br>
+      Int: <code>Did + subject + verb (base form)?</code><br>
+      <em>Uso:</em> acciones terminadas en el pasado<br>
+      <em>Adverbios:</em> yesterday, last week, two days ago, in 2010
+    </div>
+
+    <div class="theory-box">
+      <strong>⏳ Past Continuous</strong><br>
+      <code>Subject + was/were + verb(-ing)</code><br>
+      <em>Uso:</em> acción en progreso en un momento del pasado<br>
+      <em>Adverbios:</em> while, when, at that moment
+    </div>
+
+    <div class="theory-box">
+      <strong>🔮 Future: will vs going to</strong><br>
+      <strong>Will:</strong> decisiones espontáneas, predicciones, promesas<br>
+      <code>Subject + will + verb</code> · Neg: <code>won't + verb</code><br>
+      <strong>Going to:</strong> planes ya decididos, predicciones con evidencia<br>
+      <code>Subject + am/is/are + going to + verb</code>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>✏️ Ejercicios — <span id="round-label">Ronda 1/3</span></h2>
+    <p style="color:var(--text2);margin-bottom:14px">Preguntas mezcladas de toda la gramática de 1º ESO. Completa con la forma correcta.</p>
+    <div id="ex-review"></div>
+    <div class="btn-section">
+      <button class="btn btn-check-all" onclick="checkAllReview()">✅ Corregir todo</button>
+      <button class="btn btn-reset" onclick="resetReview()">🔄 Limpiar todo</button>
+      <button class="btn btn-next" onclick="nextRound()" id="btn-next-round">▶️ Siguiente ronda</button>
+    </div>
+    <div id="ex-review-score" class="score-box" style="display:none"></div>
+  </div>
+</main>
+</div>
+
+<script src="exercises.js?v=8"></script>
+<script>
+// ============================================================
+// POOL DE PREGUNTAS (~45) — Mixed 1º ESO grammar
+// ============================================================
+var REVIEW_POOL = [
+  // Present Simple
+  {stem:"She __________________ (play) tennis every Sunday.", answer:"plays", alts:[]},
+  {stem:"They __________________ (not like) vegetables.", answer:"don't like", alts:["do not like"]},
+  {stem:"__________________ (you / speak) English?", answer:"do you speak", alts:[]},
+  {stem:"He __________________ (go) to school by bus.", answer:"goes", alts:[]},
+  {stem:"We __________________ (not watch) TV in the morning.", answer:"don't watch", alts:["do not watch"]},
+  {stem:"__________________ (she / work) in an office?", answer:"does she work", alts:[]},
+  {stem:"I __________________ (brush) my teeth every day.", answer:"brush", alts:[]},
+  {stem:"My father __________________ (not drink) coffee.", answer:"doesn't drink", alts:["does not drink"]},
+
+  // Present Continuous
+  {stem:"Look! It __________________ (rain) outside.", answer:"is raining", alts:[]},
+  {stem:"She __________________ (study) English right now.", answer:"is studying", alts:[]},
+  {stem:"They __________________ (not sleep) at the moment.", answer:"aren't sleeping", alts:["are not sleeping"]},
+  {stem:"__________________ (you / listen) to me?", answer:"are you listening", alts:[]},
+  {stem:"I __________________ (read) a very good book these days.", answer:"am reading", alts:[]},
+
+  // Present Simple vs Continuous
+  {stem:"She usually __________________ (walk) to school, but today she __________________ (take) the bus.", answer:"walks is taking", alts:[]},
+  {stem:"I __________________ (not understand) this exercise.", answer:"don't understand", alts:["do not understand"]},
+  {stem:"We __________________ (have) dinner at the moment.", answer:"are having", alts:[]},
+
+  // Past Simple
+  {stem:"She __________________ (visit) her grandparents last weekend.", answer:"visited", alts:[]},
+  {stem:"They __________________ (not play) football yesterday.", answer:"didn't play", alts:["did not play"]},
+  {stem:"__________________ (you / watch) the movie last night?", answer:"did you watch", alts:[]},
+  {stem:"I __________________ (go) to the beach last summer.", answer:"went", alts:[]},
+  {stem:"He __________________ (not see) the accident.", answer:"didn't see", alts:["did not see"]},
+  {stem:"She __________________ (make) a cake for my birthday.", answer:"made", alts:[]},
+  {stem:"They __________________ (come) to the party together.", answer:"came", alts:[]},
+
+  // Irregular verbs
+  {stem:"I __________________ (buy) a new phone yesterday.", answer:"bought", alts:[]},
+  {stem:"She __________________ (eat) all the cookies.", answer:"ate", alts:[]},
+  {stem:"He __________________ (write) a letter to his friend.", answer:"wrote", alts:[]},
+  {stem:"We __________________ (drink) all the water.", answer:"drank", alts:[]},
+  {stem:"They __________________ (find) the keys under the sofa.", answer:"found", alts:[]},
+
+  // Past Continuous
+  {stem:"She __________________ (study) when I called her.", answer:"was studying", alts:[]},
+  {stem:"They __________________ (not sleep) at 11pm last night.", answer:"weren't sleeping", alts:["were not sleeping"]},
+  {stem:"__________________ (you / watch) TV when I arrived?", answer:"were you watching", alts:[]},
+  {stem:"While I __________________ (walk) home, it started to rain.", answer:"was walking", alts:[]},
+
+  // Future: will
+  {stem:"I think it __________________ (rain) tomorrow.", answer:"will rain", alts:[]},
+  {stem:"She __________________ (not come) to the party. She's busy.", answer:"won't come", alts:["will not come"]},
+  {stem:"__________________ (you / help) me with this?", answer:"will you help", alts:[]},
+  {stem:"Don't worry, I __________________ (be) there on time.", answer:"will be", alts:[]},
+
+  // Future: going to
+  {stem:"Look at those clouds! It __________________ (rain).", answer:"is going to rain", alts:[]},
+  {stem:"I __________________ (buy) a new car next month.", answer:"am going to buy", alts:[]},
+  {stem:"They __________________ (not travel) this summer.", answer:"aren't going to travel", alts:["are not going to travel"]},
+  {stem:"__________________ (she / study) medicine next year?", answer:"is she going to study", alts:[]},
+
+  // Will vs going to
+  {stem:"— I'm thirsty. — I __________________ (get) you some water. (decisión espontánea)", answer:"will get", alts:[]},
+  {stem:"I __________________ (visit) my grandmother this weekend. (plan ya decidido)", answer:"am going to visit", alts:[]},
+  {stem:"He __________________ (probably / pass) the exam. He studied a lot.", answer:"will probably pass", alts:[]},
+];
+
+var ROUND_SIZE = 15;
+var TOTAL_ROUNDS = 3;
+var currentData = [];
+var roundNum = 1;
+
+function pickRandom(arr, n) {
+  var shuffled = arr.slice();
+  for (var i = shuffled.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = shuffled[i];
+    shuffled[i] = shuffled[j];
+    shuffled[j] = tmp;
+  }
+  return shuffled.slice(0, n);
+}
+
+function loadRound() {
+  try {
+    roundNum = parseInt(localStorage.getItem('grammar-review-round')) || 1;
+  } catch(e) { roundNum = 1; }
+  if (roundNum < 1) roundNum = 1;
+  if (roundNum > TOTAL_ROUNDS) roundNum = TOTAL_ROUNDS;
+}
+
+function saveRound() {
+  try { localStorage.setItem('grammar-review-round', roundNum); } catch(e) {}
+}
+
+function startRound() {
+  currentData = pickRandom(REVIEW_POOL, ROUND_SIZE);
+  var container = document.getElementById('ex-review');
+  container.innerHTML = '';
+  renderExercises(currentData, 'ex-review', 'Ej: plays, went, will rain...');
+  document.getElementById('round-label').textContent = 'Ronda ' + roundNum + '/' + TOTAL_ROUNDS;
+  var btn = document.getElementById('btn-next-round');
+  if (roundNum >= TOTAL_ROUNDS) {
+    btn.textContent = '🔄 Empezar de nuevo';
+    btn.disabled = false;
+  } else {
+    btn.textContent = '▶️ Siguiente ronda';
+    btn.disabled = false;
+  }
+  var scoreBox = document.getElementById('ex-review-score');
+  if (scoreBox) { scoreBox.style.display = 'none'; scoreBox.innerHTML = ''; }
+  for (var i = 1; i <= ROUND_SIZE; i++) {
+    var fb = document.getElementById('fb-ex-review-' + i);
+    if (fb) { fb.className = 'feedback-line'; fb.textContent = ''; }
+    var hint = document.getElementById('hint-ex-review-' + i);
+    if (hint) { hint.className = 'hint-box'; hint.innerHTML = ''; }
+  }
+}
+
+function nextRound() {
+  if (roundNum >= TOTAL_ROUNDS) {
+    roundNum = 1;
+    saveRound();
+    startRound();
+    return;
+  }
+  roundNum++;
+  saveRound();
+  startRound();
+}
+
+loadRound();
+startRound();
+
+function checkAllReview() {
+  var correct = 0, answered = 0;
+  var total = currentData.length;
+  for (var i = 1; i <= total; i++) {
+    checkOne('ex-review', i);
+    var inp = document.getElementById('inp-ex-review-' + i);
+    if (inp) {
+      var _empty = inp.value.trim() === '';
+      if (!_empty || inp.classList.contains('correct')) {
+        answered++;
+        if (inp.classList.contains('correct')) correct++;
+      }
+    }
+  }
+  var denom = answered > 0 ? answered : 1;
+  var pct = Math.round((correct / denom) * 100);
+  var score = document.getElementById('ex-review-score');
+  score.style.display = 'block';
+  var msg = '🎯 ' + correct + '/' + answered + ' correctas (' + pct + '%)';
+  if (answered === 0) msg = '✏️ Responde al menos una pregunta';
+  else if (pct === 100) msg += ' ¡Perfecto! 🏆';
+  else if (pct >= 70) msg += ' Muy bien 👍';
+  else msg += ' Sigue practicando 💪';
+  score.innerHTML = '<span class="big">' + correct + '/' + answered + '</span><br>' + msg;
+}
+
+function resetReview() {
+  resetAll('ex-review', currentData.length);
+}
+</script>
+</body>
+</html>

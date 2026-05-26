@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Present Perfect S/C — 2º ESO</title>
-<link rel="stylesheet" href="style.css?v=4">
+<link rel="stylesheet" href="style.css?v=5">
 </head>
 <body data-topic="present-perfect">
 <div class="container">
@@ -23,6 +23,11 @@
   <a href="nor-neither-so.html" class="">Nor / Neither / So</a>
   <h2>📖 Vocabulary</h2>
   <a href="vocabulary.html">Units 1-3, 5-11</a>
+  <h2>🔄 Review</h2>
+  <a href="grammar-review.html">Grammar Review 1º ESO</a>
+  <h2>🎯 Exams</h2>
+  <a href="cambridge-a2.html">Cambridge A2 Key</a>
+
   <h2>🎯 Simulacro</h2>
   <a href="simulacro.html">Examen mixto</a>
 
@@ -41,7 +46,8 @@
       <strong>Estructura:</strong> <code>have/has + Past Participle</code><br>
       <strong>Usos:</strong> Acciones terminadas que tienen un efecto en el presente o acciones completadas.<br>
       <strong>Enfoque:</strong> <code>El resultado</code><br>
-      <strong>Palabras clave:</strong> <code>already, yet, just, ever, never</code>
+      **Palabras clave:** `already, yet, just, ever, never, for, since`<br>
+      <strong>for</strong> = duración (for two years) · <strong>since</strong> = punto exacto (since 2020)
     </div>
     <h3>Present Perfect Continuous</h3>
     <h4>Se utiliza cuando queremos resaltar la duración de la acción, el esfuerzo o el hecho de que la actividad ha estado ocurriendo hasta hace muy poco</h4>
@@ -103,13 +109,13 @@ Cuando veas una frase de examen, hazte estas dos preguntas en orden:<br><br>
 </main>
 </div>
 
-<script src="exercises.js?v=7"></script>
+<script src="exercises.js?v=8"></script>
 <script>
 // ============================================================
-// POOL DE PREGUNTAS (~65)
+// POOL DE PREGUNTAS (~96)
 // Temas: Present Perfect Simple vs Continuous,
 //        Past Simple vs Present Perfect,
-//        just / already / yet
+//        just / already / yet / for / since
 // ============================================================
 var PRESENT_PERFECT_POOL = [
   // ============ PP SIMPLE vs CONTINUOUS (30 + 5 nuevas) ============
@@ -166,7 +172,41 @@ var PRESENT_PERFECT_POOL = [
   {stem:"I __________________ finished my homework. Can I go out now?", answer:"have already", alts:[]},
   {stem:"She __________________ called me __________________.", answer:"hasn't yet", alts:["has not yet"]},
   {stem:"Don't worry, the train __________________ arrived.", answer:"has just", alts:[]},
-  {stem:"Have you done your homework __________________?", answer:"yet", alts:[]}
+  {stem:"Have you done your homework __________________?", answer:"yet", alts:[]},
+
+  // ============ FOR / SINCE (31 ejercicios) ============
+  {stem:"Nobody has come to see us __________________ we bought this small house.", answer:"since", alts:[]},
+  {stem:"She has been a doctor __________________ 1998.", answer:"since", alts:[]},
+  {stem:"Nobody has seen her __________________ then.", answer:"since", alts:[]},
+  {stem:"They have all been ill __________________ last week.", answer:"since", alts:[]},
+  {stem:"Peter went to the library. He has studied there __________________ a long time.", answer:"for", alts:[]},
+  {stem:"It has been very foggy __________________ early morning.", answer:"since", alts:[]},
+  {stem:"I've worked with you __________________ nine years.", answer:"for", alts:[]},
+  {stem:"He has been in prison __________________ two years.", answer:"for", alts:[]},
+  {stem:"She has worked in that office __________________ a month.", answer:"for", alts:[]},
+  {stem:"He hasn't eaten anything __________________ twenty-four hours.", answer:"for", alts:[]},
+  {stem:"He hasn't eaten anything __________________ yesterday.", answer:"since", alts:[]},
+  {stem:"They haven't spoken to us __________________ we were at school.", answer:"since", alts:[]},
+  {stem:"I haven't talked to her __________________ my birthday.", answer:"since", alts:[]},
+  {stem:"She's been ill __________________ years.", answer:"for", alts:[]},
+  {stem:"I've been very patient with you __________________ several years.", answer:"for", alts:[]},
+  {stem:"I've had this job __________________ three months.", answer:"for", alts:[]},
+  {stem:"I've known her __________________ we both studied in London.", answer:"since", alts:[]},
+  {stem:"We've lived in Germany __________________ 1997.", answer:"since", alts:[]},
+  {stem:"They've had this car __________________ April.", answer:"since", alts:[]},
+  {stem:"Things have changed __________________ I was in your house.", answer:"since", alts:[]},
+  {stem:"I've known her __________________ the Gulf War.", answer:"since", alts:[]},
+  {stem:"We have been there __________________ October.", answer:"since", alts:[]},
+  {stem:"I have been a vegetarian __________________ 1998.", answer:"since", alts:[]},
+  {stem:"I have lived in this flat __________________ five years.", answer:"for", alts:[]},
+  {stem:"I've known her __________________ ages.", answer:"for", alts:[]},
+  // for/since — choose (Ex2)
+  {stem:"I've been waiting __________________ six weeks.", answer:"for", alts:[]},
+  {stem:"She's been here __________________ Sunday.", answer:"since", alts:[]},
+  {stem:"I've been up __________________ this morning.", answer:"since", alts:[]},
+  {stem:"He hasn't called __________________ a long time.", answer:"for", alts:[]},
+  {stem:"We haven't eaten __________________ breakfast time.", answer:"since", alts:[]},
+  {stem:"They've lived here __________________ 1967.", answer:"since", alts:[]}
 ];
 
 var ROUND_SIZE = 15;
@@ -207,7 +247,7 @@ function startRound() {
   currentData = pickRandom(PRESENT_PERFECT_POOL, ROUND_SIZE);
   var container = document.getElementById('ex-pp');
   container.innerHTML = '';
-  renderExercises(currentData, 'ex-pp', 'Ej: has been, have seen...');
+  renderExercises(currentData, 'ex-pp', 'Ej: has been, for, since...');
   document.getElementById('round-label').textContent = 'Ronda ' + roundNum + '/' + TOTAL_ROUNDS;
   var btn = document.getElementById('btn-next-round');
   if (roundNum >= TOTAL_ROUNDS) {

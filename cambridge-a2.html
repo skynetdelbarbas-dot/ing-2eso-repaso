@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cambridge A2 Key Practice — 2º ESO</title>
+<link rel="stylesheet" href="style.css?v=5">
+<style>
+  .mc-options { display:flex; gap:16px; flex-wrap:wrap; margin:6px 0 4px; }
+  .mc-options label { display:flex; align-items:center; gap:6px; cursor:pointer; font-size:0.9rem; color:var(--text1); padding:4px 10px; border:1px solid var(--border); border-radius:4px; transition:all 0.15s; }
+  .mc-options label:hover { border-color:var(--primary); }
+  .mc-options label.selected { background:rgba(88,166,255,0.1); border-color:var(--primary); }
+  .mc-options input[type="radio"] { margin:0; }
+  .gap-select { padding:6px 8px; border-radius:4px; border:1px solid var(--border); background:var(--bg); color:var(--text1); font-size:0.9rem; }
+</style>
+</head>
+<body data-topic="cambridge-a2">
+<div class="container">
+<nav class="sidebar">
+  <h1><a href="index.html" style="color:inherit;text-decoration:none">📚 Inglés 2º ESO</a></h1>
+  <div class="subtitle">Repaso para el examen final</div>
+  <h2>🗣️ Grammar</h2>
+  <a href="present-perfect.html">Present Perfect S/C</a>
+  <a href="reported-speech.html">Reported Speech</a>
+  <a href="conditionals.html">Conditionals</a>
+  <a href="wish-if-only.html">I wish / If only</a>
+  <a href="question-tags.html">Question Tags</a>
+  <a href="articles.html">Articles (a/an/the/∅)</a>
+  <a href="passive.html">Passive Voice</a>
+  <a href="indefinite-pronouns.html">Indefinite Pronouns</a>
+  <a href="nor-neither-so.html">Nor / Neither / So</a>
+  <h2>📖 Vocabulary</h2>
+  <a href="vocabulary.html">Units 1-3, 5-11</a>
+  <h2>🔄 Review</h2>
+  <a href="grammar-review.html">Grammar Review 1º ESO</a>
+  <h2>🎯 Exams</h2>
+  <a href="cambridge-a2.html" class="active">Cambridge A2 Key</a>
+  <h2>🎯 Simulacro</h2>
+  <a href="simulacro.html">Examen mixto</a>
+
+</nav>
+
+<main class="main">
+  <div class="breadcrumb"><a href="index.html">Inicio</a> / Cambridge A2 Key Practice</div>
+  <h1 class="page-title">Cambridge A2 Key — Reading & Writing</h1>
+  <p class="intro">Práctica estilo examen Cambridge A2 Key (KET). Partes 1, 4 y 5 del Reading.</p>
+
+  <!-- PART 1: Multiple choice -->
+  <div class="section">
+    <h2>📋 Part 1 — Multiple Choice (Q1–6)</h2>
+    <p style="color:var(--text2);margin-bottom:14px">Lee cada texto y elige la respuesta correcta (A, B o C).</p>
+    <div id="ex-part1"></div>
+    <div class="btn-section">
+      <button class="btn btn-check-all" onclick="checkPart1()">✅ Corregir Part 1</button>
+      <button class="btn btn-reset" onclick="resetPart1()">🔄 Limpiar</button>
+    </div>
+    <div id="ex-part1-score" class="score-box" style="display:none"></div>
+  </div>
+
+  <!-- PART 4: Gap-fill with options -->
+  <div class="section">
+    <h2>📝 Part 4 — Gap-fill with Options (Q1–6)</h2>
+    <p style="color:var(--text2);margin-bottom:14px">Elige la palabra correcta (A, B o C) para cada espacio.</p>
+    <div id="ex-part4"></div>
+    <div class="btn-section">
+      <button class="btn btn-check-all" onclick="checkPart4()">✅ Corregir Part 4</button>
+      <button class="btn btn-reset" onclick="resetPart4()">🔄 Limpiar</button>
+    </div>
+    <div id="ex-part4-score" class="score-box" style="display:none"></div>
+  </div>
+
+  <!-- PART 5: Open gap-fill -->
+  <div class="section">
+    <h2>✏️ Part 5 — Open Gap-fill (Q1–6)</h2>
+    <p style="color:var(--text2);margin-bottom:14px">Escribe UNA palabra en cada espacio.</p>
+    <div id="ex-part5"></div>
+    <div class="btn-section">
+      <button class="btn btn-check-all" onclick="checkPart5()">✅ Corregir Part 5</button>
+      <button class="btn btn-reset" onclick="resetPart5()">🔄 Limpiar</button>
+    </div>
+    <div id="ex-part5-score" class="score-box" style="display:none"></div>
+  </div>
+</main>
+</div>
+
+<script src="exercises.js?v=8"></script>
+<script>
+// ============================================================
+// PART 1 — Multiple Choice (6 questions)
+// ============================================================
+var PART1_DATA = [
+  {id:1, text:"<strong>For sale: child's bicycle</strong><br>Needs some repairs. Call Debbie 07988 456723.", options:["The bicycle was built for a child.", "Some parts of the bicycle must be changed.", "Debbie is selling the bike because she's too big for it."], answer:1},
+  {id:2, text:"<strong>Hi Ben,</strong><br>I've booked the concert tickets for Saturday. Can you let me know if you can come? Tim", options:["Tim thinks Ben should look on the concert website.", "Tim hopes Ben will be able to come with him.", "Tim wants to know if Ben can pay him back today."], answer:1},
+  {id:3, text:"<strong>Park entrance →</strong><br>Adults £5 · Children £3<br>Family ticket (2+2) £12", options:["You get into the park by going this way.", "It is more expensive to go here alone.", "You will have fun if you come with friends."], answer:0},
+  {id:4, text:"<strong>Hi Lynne,</strong><br>I'll be a bit late for the party. Don't wait for me — I'll see you there! Emma", options:["Emma knows Lynne can't be at the party when it starts.", "Emma wants to go to the party a bit later than Lynne.", "Emma wants to go out with Lynne but not to the party."], answer:0},
+  {id:5, text:"<strong>Ice cream shop</strong><br>Buy one, get one free!<br>2–4 pm only", options:["The ice cream shop is open for only 2 hours.", "Two ice creams will cost the same as one.", "You can get free ice creams all afternoon."], answer:1},
+  {id:6, text:"<strong>Anna,</strong><br>I wasn't at school today. Can you tell me what the homework was? Text me. Sophie", options:["to check if Anna has completed her homework", "to let Anna know what they did in class today", "to ask Anna to contact her about the homework"], answer:2},
+];
+
+function renderPart1() {
+  var container = document.getElementById('ex-part1');
+  container.innerHTML = '';
+  PART1_DATA.forEach(function(ex) {
+    var card = document.createElement('div');
+    card.className = 'exercise-card';
+    card.id = 'ex-p1-' + ex.id;
+    var optsHTML = ex.options.map(function(opt, idx) {
+      var letter = String.fromCharCode(65 + idx);
+      return '<label onclick="selectMC(\'p1-' + ex.id + '\', ' + idx + ', this)"><input type="radio" name="mc-p1-' + ex.id + '" value="' + idx + '"> ' + letter + '. ' + opt + '</label>';
+    }).join('');
+    card.innerHTML =
+      '<div class="theory-box" style="margin-bottom:8px">' + ex.text + '</div>' +
+      '<p style="font-size:0.85rem;color:var(--text2);margin-bottom:6px">Choose the correct answer:</p>' +
+      '<div class="mc-options">' + optsHTML + '</div>' +
+      '<div id="fb-p1-' + ex.id + '" class="feedback-line"></div>';
+    container.appendChild(card);
+  });
+}
+
+function selectMC(name, value, labelEl) {
+  // Clear all selected in this group
+  var allLabels = labelEl.parentElement.querySelectorAll('label');
+  allLabels.forEach(function(l) { l.classList.remove('selected'); });
+  labelEl.classList.add('selected');
+  var radio = labelEl.querySelector('input[type="radio"]');
+  if (radio) radio.checked = true;
+}
+
+function checkPart1() {
+  var correct = 0;
+  for (var i = 1; i <= PART1_DATA.length; i++) {
+    var radio = document.querySelector('input[name="mc-p1-' + i + '"]:checked');
+    var fb = document.getElementById('fb-p1-' + i);
+    var ex = PART1_DATA[i-1];
+    if (radio) {
+      var val = parseInt(radio.value);
+      if (val === ex.answer) {
+        correct++;
+        fb.className = 'feedback-line show ok';
+        fb.innerHTML = '✅ Correct! <span style="color:var(--text2)">(' + String.fromCharCode(65 + ex.answer) + ')</span>';
+      } else {
+        fb.className = 'feedback-line show ko';
+        fb.innerHTML = '❌ Answer: <span class="correct-answer">' + String.fromCharCode(65 + ex.answer) + '</span>';
+      }
+    } else {
+      fb.className = 'feedback-line show ko';
+      fb.innerHTML = '❌ Answer: <span class="correct-answer">' + String.fromCharCode(65 + ex.answer) + '</span>';
+    }
+  }
+  var pct = Math.round((correct / PART1_DATA.length) * 100);
+  var score = document.getElementById('ex-part1-score');
+  score.style.display = 'block';
+  score.innerHTML = '<span class="big">' + correct + '/' + PART1_DATA.length + '</span><br>🎯 ' + pct + '%';
+}
+
+function resetPart1() {
+  var radios = document.querySelectorAll('input[name^="mc-p1-"]');
+  radios.forEach(function(r) { r.checked = false; });
+  var labels = document.querySelectorAll('#ex-part1 label');
+  labels.forEach(function(l) { l.classList.remove('selected'); });
+  for (var i = 1; i <= PART1_DATA.length; i++) {
+    var fb = document.getElementById('fb-p1-' + i);
+    if (fb) { fb.className = 'feedback-line'; fb.innerHTML = ''; }
+  }
+  var scoreBox = document.getElementById('ex-part1-score');
+  if (scoreBox) { scoreBox.style.display = 'none'; scoreBox.innerHTML = ''; }
+}
+
+renderPart1();
+
+// ============================================================
+// PART 4 — Gap-fill with options (6 questions)
+// ============================================================
+var PART4_TEXT = "Last summer, my family and I went on a trip to the mountains. We (1)______ early in the morning and drove for three hours. When we arrived, the sun (2)______ shining and the air was fresh. We decided to go for a walk (3)______ the forest. My little brother was very excited because it was his (4)______ time in the mountains. After the walk, we had a picnic near a small lake. My mum (5)______ delicious sandwiches for everyone. We stayed (6)______ the evening and then drove back home. It was a perfect day.";
+var PART4_GAPS = [
+  {pos:1, options:["left", "leave", "leaving"], answer:0},
+  {pos:2, options:["is", "was", "were"], answer:1},
+  {pos:3, options:["across", "through", "along"], answer:1},
+  {pos:4, options:["one", "first", "once"], answer:1},
+  {pos:5, options:["did", "made", "cooked"], answer:1},
+  {pos:6, options:["since", "until", "during"], answer:1},
+];
+
+function renderPart4() {
+  var container = document.getElementById('ex-part4');
+  container.innerHTML = '';
+  
+  // Show the text with dropdowns for gaps
+  var textParts = PART4_TEXT.split(/\(\d+\)______/);
+  var html = '<div class="theory-box" style="line-height:2.2;font-size:0.95rem">';
+  PART4_GAPS.forEach(function(gap, idx) {
+    html += textParts[idx].replace(/^\s+/, '');
+    var selectHTML = ' <select id="sel-p4-' + gap.pos + '" class="gap-select">';
+    selectHTML += '<option value="">-- choose --</option>';
+    gap.options.forEach(function(opt, oi) {
+      selectHTML += '<option value="' + oi + '">' + String.fromCharCode(65+oi) + '. ' + opt + '</option>';
+    });
+    selectHTML += '</select> ';
+    html += selectHTML;
+  });
+  html += textParts[PART4_GAPS.length]; // remaining text after last gap
+  html += '</div>';
+  
+  container.innerHTML = html +
+    '<div id="fb-p4" class="feedback-line" style="margin-top:12px"></div>';
+}
+
+function checkPart4() {
+  var correct = 0;
+  var fbHTML = '';
+  PART4_GAPS.forEach(function(gap) {
+    var sel = document.getElementById('sel-p4-' + gap.pos);
+    if (sel && sel.value !== '') {
+      if (parseInt(sel.value) === gap.answer) {
+        correct++;
+        sel.style.borderColor = '#3fb950';
+      } else {
+        sel.style.borderColor = '#f85149';
+        fbHTML += ' (' + gap.pos + ') → <span class="correct-answer">' + String.fromCharCode(65+gap.answer) + '. ' + gap.options[gap.answer] + '</span>  ';
+      }
+    } else {
+      sel.style.borderColor = '#f85149';
+      fbHTML += ' (' + gap.pos + ') → <span class="correct-answer">' + String.fromCharCode(65+gap.answer) + '. ' + gap.options[gap.answer] + '</span>  ';
+    }
+  });
+  var fb = document.getElementById('fb-p4');
+  if (fb) {
+    fb.className = 'feedback-line show';
+    if (fbHTML) fb.innerHTML = '❌ Correct answers:' + fbHTML;
+    else fb.innerHTML = '✅ All correct!';
+  }
+  var pct = Math.round((correct / PART4_GAPS.length) * 100);
+  var score = document.getElementById('ex-part4-score');
+  score.style.display = 'block';
+  score.innerHTML = '<span class="big">' + correct + '/' + PART4_GAPS.length + '</span><br>🎯 ' + pct + '%';
+}
+
+function resetPart4() {
+  PART4_GAPS.forEach(function(gap) {
+    var sel = document.getElementById('sel-p4-' + gap.pos);
+    if (sel) { sel.value = ''; sel.style.borderColor = ''; }
+  });
+  var fb = document.getElementById('fb-p4');
+  if (fb) { fb.className = 'feedback-line'; fb.innerHTML = ''; }
+  var scoreBox = document.getElementById('ex-part4-score');
+  if (scoreBox) { scoreBox.style.display = 'none'; scoreBox.innerHTML = ''; }
+}
+
+renderPart4();
+
+// ============================================================
+// PART 5 — Open gap-fill (6 questions)
+// ============================================================
+var PART5_DATA = [
+  {stem:"I'm going shopping. Would you like to come ______ me?", answer:"with", alts:[]},
+  {stem:"She's very good ______ playing the piano.", answer:"at", alts:[]},
+  {stem:"We arrived ______ the station just in time.", answer:"at", alts:[]},
+  {stem:"He's interested ______ learning Japanese.", answer:"in", alts:[]},
+  {stem:"I'm looking ______ my keys. Have you seen them?", answer:"for", alts:[]},
+  {stem:"She's afraid ______ spiders.", answer:"of", alts:[]},
+];
+
+function renderPart5() {
+  var container = document.getElementById('ex-part5');
+  container.innerHTML = '';
+  PART5_DATA.forEach(function(ex, i) {
+    var num = i + 1;
+    var card = document.createElement('div');
+    card.className = 'exercise-card';
+    card.id = 'ex-p5-' + num;
+    card.innerHTML =
+      '<p class="stem"><strong>' + num + '.</strong> ' + ex.stem + '</p>' +
+      '<input type="text" id="inp-p5-' + num + '" data-answer="' + ex.answer + '" data-alts="[]" placeholder="Ej: with, at, for...">' +
+      '<div class="btn-row">' +
+        '<button class="btn-sm btn-check" onclick="checkOne(\'p5\', ' + num + ')">✅ Corregir</button>' +
+        '<button class="btn-sm btn-answer" onclick="showAnswer(\'p5\', ' + num + ')">💡 Mostrar respuesta</button>' +
+      '</div>' +
+      '<div id="fb-p5-' + num + '" class="feedback-line"></div>' +
+      '<div id="hint-p5-' + num + '" class="hint-box"></div>';
+    container.appendChild(card);
+  });
+}
+
+function checkPart5() {
+  var correct = 0, answered = 0;
+  for (var i = 1; i <= PART5_DATA.length; i++) {
+    checkOne('p5', i);
+    var inp = document.getElementById('inp-p5-' + i);
+    if (inp) {
+      var _empty = inp.value.trim() === '';
+      if (!_empty || inp.classList.contains('correct')) {
+        answered++;
+        if (inp.classList.contains('correct')) correct++;
+      }
+    }
+  }
+  var denom = answered > 0 ? answered : 1;
+  var pct = Math.round((correct / denom) * 100);
+  var score = document.getElementById('ex-part5-score');
+  score.style.display = 'block';
+  score.innerHTML = '<span class="big">' + correct + '/' + answered + '</span><br>🎯 ' + pct + '%';
+}
+
+function resetPart5() {
+  for (var i = 1; i <= PART5_DATA.length; i++) {
+    var inp = document.getElementById('inp-p5-' + i);
+    if (inp) { inp.value = ''; inp.classList.remove('correct', 'wrong'); }
+    var fb = document.getElementById('fb-p5-' + i);
+    if (fb) { fb.className = 'feedback-line'; fb.textContent = ''; }
+    var hint = document.getElementById('hint-p5-' + i);
+    if (hint) { hint.className = 'hint-box'; hint.innerHTML = ''; }
+  }
+  var scoreBox = document.getElementById('ex-part5-score');
+  if (scoreBox) { scoreBox.style.display = 'none'; scoreBox.innerHTML = ''; }
+}
+
+// Override checkOne/shallow for part 5
+function checkOne(prefix, num) {
+  var input = document.getElementById('inp-' + prefix + '-' + num);
+  if (!input) return;
+  var fb = document.getElementById('fb-' + prefix + '-' + num);
+  var hint = document.getElementById('hint-' + prefix + '-' + num);
+  var val = input.value.trim().toLowerCase();
+  var mainAns = input.dataset.answer;
+  var alts = JSON.parse(input.dataset.alts || '[]');
+  var allValid = [mainAns].concat(alts);
+  
+  if (allValid.indexOf(val) !== -1) {
+    input.classList.remove('wrong'); input.classList.add('correct');
+    if (fb) { fb.className = 'feedback-line show ok'; fb.textContent = '✅ ¡Correcto!'; }
+    if (hint) hint.classList.remove('show');
+  } else {
+    input.classList.remove('correct'); input.classList.add('wrong');
+    if (fb) { fb.className = 'feedback-line show ko'; fb.textContent = '❌ Incorrecto'; }
+    if (hint) {
+      hint.className = 'hint-box show';
+      hint.innerHTML = '<strong>Respuesta:</strong> <span class="correct-answer">' + allValid.join(' / ') + '</span>';
+    }
+  }
+}
+
+function showAnswer(prefix, num) {
+  var input = document.getElementById('inp-' + prefix + '-' + num);
+  var hint = document.getElementById('hint-' + prefix + '-' + num);
+  if (!input || !hint) return;
+  var mainAns = input.dataset.answer;
+  var alts = JSON.parse(input.dataset.alts || '[]');
+  var allValid = [mainAns].concat(alts);
+  hint.className = 'hint-box show';
+  hint.innerHTML = '<strong>Respuesta:</strong> <span class="correct-answer">' + allValid.join(' / ') + '</span>';
+}
+
+renderPart5();
+</script>
+</body>
+</html>

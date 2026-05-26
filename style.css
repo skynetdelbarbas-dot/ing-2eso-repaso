@@ -33,8 +33,6 @@ body {
   margin: 0 auto;
   min-height: 100vh;
 }
-
-/* Sidebar */
 .sidebar {
   width: 260px;
   background: var(--card);
@@ -42,9 +40,10 @@ body {
   padding: 20px;
   position: sticky;
   top: 0;
-  height: 100vh;
+  max-height: 100vh;
   overflow-y: auto;
   box-shadow: var(--shadow);
+  flex-shrink: 0;
 }
 
 .sidebar h1 {
