@@ -180,7 +180,7 @@ function show(name) {
 // ==================== LOAD LEGACY PAGES ====================
 function loadLegacyPage(name, url) {
   const main = document.getElementById('main-content');
-  main.innerHTML = '<div class="section active" style="display:block;padding:0"><iframe src="'+url+'" style="width:100%;min-height:90vh;border:none" id="legacy-iframe" onload="fixLegacyIframe()"></iframe></div>';
+  main.innerHTML = '<div class="section active" style="display:block;padding:0"><iframe src="'+url+'" style="width:100%;border:none" id="legacy-iframe" onload="fixLegacyIframe()"></iframe></div>';
 }
 
 function fixLegacyIframe() {
@@ -189,14 +189,43 @@ function fixLegacyIframe() {
   try {
     var doc = iframe.contentDocument;
     if (!doc) { iframe.style.height = '3000px'; return; }
+
+    // --- Kill scroll inside iframe: everything must flow naturally ---
+    doc.documentElement.style.height = 'auto';
+    doc.documentElement.style.overflow = 'visible';
+    doc.body.style.height = 'auto';
+    doc.body.style.overflow = 'visible';
+    doc.body.style.minHeight = '0';
+
+    // --- Hide the legacy sidebar (SPA provides its own) ---
     var nav = doc.querySelector('nav.sidebar');
     if (nav) nav.style.display = 'none';
-    var container = doc.querySelector('.container');
-    if (container) { container.style.display = 'block'; container.style.maxWidth = '100%'; }
-    var mainEl = doc.querySelector('main.main');
-    if (mainEl) { mainEl.style.maxWidth = '100%'; mainEl.style.padding = '24px'; }
 
-    // Make exercise inputs truly inline (inside the sentence, not at the end)
+    // --- Flatten container: no flex, no fixed height, no overflow ---
+    var container = doc.querySelector('.container');
+    if (container) {
+      container.style.display = 'block';
+      container.style.maxWidth = '100%';
+      container.style.height = 'auto';
+      container.style.minHeight = '0';
+    }
+
+    // --- Main content: full width, no overflow, no fixed height ---
+    var mainEl = doc.querySelector('main.main');
+    if (mainEl) {
+      mainEl.style.maxWidth = '100%';
+      mainEl.style.padding = '24px';
+      mainEl.style.height = 'auto';
+      mainEl.style.overflowY = 'visible';
+      mainEl.style.minHeight = '0';
+    }
+
+    // Hide any global score/result boxes that hide on first load
+    doc.querySelectorAll('.btn-section, .score-box').forEach(function(el) {
+      if (el.style.display === 'none') return; // leave as-is
+    });
+
+    // --- Make exercise inputs truly inline (inside the sentence) ---
     var fixScript = doc.createElement('script');
     fixScript.textContent = `
       (function() {
@@ -211,7 +240,6 @@ function fixLegacyIframe() {
             if (html.indexOf(patterns[i]) >= 0) { placeholder = patterns[i]; break; }
           }
           if (placeholder) {
-            // Replace placeholder with a marker, then swap marker with the real input
             var markerId = 'im-'+Math.random().toString(36).substr(2,9);
             stem.innerHTML = html.split(placeholder).join('<span id="'+markerId+'"></span>');
             var marker = document.getElementById(markerId);
@@ -231,13 +259,15 @@ function fixLegacyIframe() {
     `;
     doc.body.appendChild(fixScript);
 
-    // Handle simulacro checkboxes — now built into simulacro.html itself
-    if (doc.querySelector('.page-title') && doc.querySelector('.page-title').textContent.includes('Simulacro')) {
-      // Checkboxes are now native in simulacro.html, no injection needed
-    }
-
-    var h = Math.max(doc.body.scrollHeight, doc.body.offsetHeight, doc.documentElement.scrollHeight);
-    iframe.style.height = (h + 40) + 'px';
+    // --- Resize iframe to fit content (no scroll inside) ---
+    var h = Math.max(
+      doc.body.scrollHeight,
+      doc.body.offsetHeight,
+      doc.documentElement.scrollHeight,
+      doc.documentElement.offsetHeight
+    );
+    iframe.style.height = (h + 60) + 'px';
+    iframe.style.overflow = 'hidden';
   } catch(e) {
     iframe.style.height = '3000px';
   }
