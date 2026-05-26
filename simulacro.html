@@ -497,7 +497,7 @@ renderExam();
     if (legend) legend.textContent = sel + ' bloque(s) · ' + totalQ + ' preguntas';
     if (preview) {
       if (totalQ > 0) {
-        preview.textContent = '📊 Cada pregunta valdrá ' + (10 / totalQ).toFixed(2) + ' pts → nota sobre 10';
+        preview.textContent = '📊 Cada pregunta valdrá ' + (10 / totalQ).toFixed(3) + ' pts → nota sobre 10';
       } else {
         preview.textContent = '📊 Marca al menos un tema para ver la valoración';
       }
@@ -571,6 +571,14 @@ renderExam();
 
     // Re-run updateSimPreview2 to sync
     updateSimPreview2();
+
+    // Lock hint toggle after generating exam
+    var hintCb = document.getElementById('sim-hint-enable');
+    if (hintCb) {
+      hintCb.disabled = true;
+      hintCb.parentNode.style.opacity = '0.5';
+      hintCb.parentNode.title = 'Esta opción se bloquea al generar el examen';
+    }
 
     // Start timer if enabled
     startSimTimer();

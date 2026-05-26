@@ -52,6 +52,11 @@ input.inp-wrong{border-color:var(--error)!important;background:var(--error-bg)!i
 .btn-check-all{background:var(--primary);color:#fff;padding:10px 20px;border:none;border-radius:6px;cursor:pointer;font-size:.9rem}.btn-check-all:hover{background:var(--primary-dark)}
 .btn-reset{background:#dee2e6;color:var(--text);padding:10px 20px;border:none;border-radius:6px;cursor:pointer;font-size:.9rem}.btn-reset:hover{background:#ced4da}
 .btn-next{background:#20c997;color:#fff;border:none;padding:10px 20px;border-radius:6px;cursor:pointer;font-size:.9rem}.btn-next:disabled{background:#adb5bd;cursor:default;opacity:.7}
+.feedback-line{font-size:.82rem;padding:4px 10px;border-radius:4px;margin-top:4px;display:none}.feedback-line.show{display:inline-block}.feedback-line.ok{background:var(--success-bg);color:#2b8a3e}.feedback-line.ko{background:var(--error-bg);color:#c92a2a}
+.hint-box{display:none;background:#fff9db;border:1px solid #ffd43b;border-radius:6px;padding:10px 14px;margin-top:6px;font-size:.88rem}.hint-box.show{display:block}.hint-box .correct-answer{color:var(--success);font-weight:bold}
+input.correct,textarea.correct{border-color:var(--success)!important;background:var(--success-bg)!important}input.wrong,textarea.wrong{border-color:var(--error)!important;background:var(--error-bg)!important}
+.block-score{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:8px 14px;margin:10px 0 4px;font-size:.9rem;color:var(--text2)}.btn-section{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.writing-stats{display:flex;gap:14px;margin-top:6px;font-size:.8rem;color:var(--text2)}.writing-tpl{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:16px;margin:12px 0}.writing-tpl h4{color:var(--primary-dark);margin-bottom:8px}
 .feedback-inline{display:inline-block;font-size:0.8rem;padding:2px 8px;border-radius:4px;margin-left:4px;opacity:0;transition:opacity .2s}
 .feedback-inline.show{opacity:1}
 .feedback-inline.ok{color:#2b8a3e;background:var(--success-bg)}
@@ -218,6 +223,9 @@ function loadLegacyPage(name, url) {
         return;
       }
 
+      // Remove link tags to prevent legacy CSS leakage (double scroll)
+      content.querySelectorAll('link[rel="stylesheet"]').forEach(function(l) { l.remove(); });
+
       // Hide legacy elements
       var nav = content.querySelector('nav.sidebar');
       if (nav) nav.style.display = 'none';
@@ -248,43 +256,41 @@ function loadLegacyPage(name, url) {
         document.body.appendChild(newScript);
       });
 
-      // Wait for scripts to execute then inline inputs
+      // Wait for scripts to execute, then fix ___ patterns in LEGACY grammar pages only
       setTimeout(function() {
-        // Inline inputs for exercise cards
-        document.querySelectorAll('.exercise-card').forEach(function(card) {
-          var stem = card.querySelector('.stem');
-          var inp = card.querySelector('input[type="text"]');
-          if (!stem || !inp) return;
-          var html = stem.innerHTML;
-          var found = false;
-          var patterns = ['______', '___', '____', '_____', '…', '...'];
-          for (var pi = 0; pi < patterns.length; pi++) {
-            if (html.indexOf(patterns[pi]) >= 0) {
-              var mid = 'im-' + Math.random().toString(36).substr(2,9);
-              stem.innerHTML = html.split(patterns[pi]).join('<span id="'+mid+'"></span>');
-              var marker = document.getElementById(mid);
-              if (marker) marker.parentNode.replaceChild(inp, marker);
+        var hasSim = document.getElementById('sim-panel');
+        if (!hasSim) {
+          // Legacy pages only (no modern exercise cards that already have inputs)
+          document.querySelectorAll('.exercise-card').forEach(function(card) {
+            var stem = card.querySelector('.stem');
+            var inp = card.querySelector('input[type="text"]');
+            if (!stem || !inp) return;
+            // Skip if html already contains an input inside stem (modern rendering)
+            if (stem.querySelector('input')) return;
+            var html = stem.innerHTML;
+            var found = false;
+            var patterns = ['______', '___', '____', '_____', '…', '...'];
+            for (var pi = 0; pi < patterns.length; pi++) {
+              if (html.indexOf(patterns[pi]) >= 0) {
+                var mid = 'im-' + Math.random().toString(36).substr(2,9);
+                stem.innerHTML = html.split(patterns[pi]).join('<span id="'+mid+'"></span>');
+                var marker = document.getElementById(mid);
+                if (marker) marker.parentNode.replaceChild(inp, marker);
+                inp.style.display = 'inline-block';
+                inp.style.width = '160px';
+                inp.style.margin = '0 4px';
+                inp.style.verticalAlign = 'middle';
+                found = true;
+                break;
+              }
+            }
+            if (!found) {
+              stem.appendChild(document.createTextNode(' '));
+              stem.appendChild(inp);
               inp.style.display = 'inline-block';
               inp.style.width = '160px';
-              inp.style.margin = '0 4px';
-              inp.style.verticalAlign = 'middle';
-              found = true;
-              break;
             }
-          }
-          if (!found) {
-            stem.appendChild(document.createTextNode(' '));
-            stem.appendChild(inp);
-            inp.style.display = 'inline-block';
-            inp.style.width = '160px';
-          }
-        });
-        // Hide timer toggle after exam generation (simulacro)
-        var hintCb = document.getElementById('sim-hint-enable');
-        if (hintCb) {
-          hintCb.disabled = true;
-          hintCb.parentNode.style.opacity = '0.5';
-          hintCb.parentNode.title = 'Esta opción se bloquea al generar el examen';
+          });
         }
       }, 500);
     })
