@@ -194,50 +194,59 @@ function loadLegacyPage(name, url) {
   var main = document.getElementById('main-content');
   main.innerHTML = '<div class="section active" style="display:block;padding:0"><p style="text-align:center;padding:40px;color:var(--text2)">⏳ Cargando...</p></div>';
 
-  // Fetch the page and extract the main content
   fetch(url)
     .then(function(r) { return r.text(); })
     .then(function(html) {
-      // Create a temp parser
+      // Extract ALL scripts from raw HTML before DOM parsing
+      var scriptBlocks = [];
+      var cleanedHtml = html.replace(/<script([\s\S]*?)<\/script>/gi, function(match, attrsAndContent) {
+        // Only extract INLINE scripts (no src attribute) — external already loaded
+        if (/src\s*=/.test(attrsAndContent)) return match;
+        var gtIdx = attrsAndContent.indexOf('>');
+        var attrs = gtIdx >= 0 ? attrsAndContent.substring(0, gtIdx) : '';
+        var content = gtIdx >= 0 ? attrsAndContent.substring(gtIdx + 1) : attrsAndContent;
+        scriptBlocks.push({ attrs: attrs, content: content });
+        return '';
+      });
+
+      // Parse the cleaned HTML (no scripts)
       var parser = new DOMParser();
-      var doc = parser.parseFromString(html, 'text/html');
+      var doc = parser.parseFromString(cleanedHtml, 'text/html');
       var content = doc.querySelector('main.main');
       if (!content) {
         main.innerHTML = '<div class="section active" style="display:block;padding:0"><p>Error al cargar el contenido.</p></div>';
         return;
       }
-      // Hide legacy sidebar inside fetched doc (not needed in SPA)
+
+      // Hide legacy elements
       var nav = content.querySelector('nav.sidebar');
       if (nav) nav.style.display = 'none';
-      // Remove breadcrumb
       var bread = content.querySelector('.breadcrumb');
       if (bread) bread.style.display = 'none';
-      // Simplify title
       var title = content.querySelector('.page-title');
       if (title) { title.style.marginTop = '0'; }
 
-      // Inject the content — but first extract scripts (innerHTML strips them)
-      var scriptsList = content.querySelectorAll('script');
-      var scriptsHTML = '';
-      scriptsList.forEach(function(s) { scriptsHTML += s.outerHTML; });
-      
+      // Inject content
       main.innerHTML = '<div class="section active" style="display:block;padding:0">' + content.innerHTML + '</div>';
 
-      // Re-insert and execute script tags via DOM (innerHTML strips them)
-      if (scriptsHTML) {
-        var scriptWrapper = document.createElement('div');
-        scriptWrapper.style.display = 'none';
-        scriptWrapper.innerHTML = scriptsHTML;
-        // Replace each script to force execution
-        Array.from(scriptWrapper.querySelectorAll('script')).forEach(function(oldScript) {
-          var newScript = document.createElement('script');
-          Array.from(oldScript.attributes).forEach(function(attr) {
-            newScript.setAttribute(attr.name, attr.value);
-          });
-          newScript.textContent = oldScript.textContent;
-          document.body.appendChild(newScript);
-        });
-      }
+      // Re-insert and execute scripts via DOM
+      scriptBlocks.forEach(function(sb) {
+        var newScript = document.createElement('script');
+        // Parse attrs string into attributes
+        if (sb.attrs.trim()) {
+          var attrRegex = /(\w+)(?:\s*=\s*"([^"]*)")?/g;
+          var match;
+          while ((match = attrRegex.exec(sb.attrs)) !== null) {
+            if (match[2] !== undefined) {
+              newScript.setAttribute(match[1], match[2]);
+            } else {
+              newScript.setAttribute(match[1], '');
+            }
+          }
+        }
+        if (sb.content) newScript.textContent = sb.content;
+        document.body.appendChild(newScript);
+      });
 
       // Wait for scripts to execute then inline inputs
       setTimeout(function() {
