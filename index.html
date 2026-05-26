@@ -189,100 +189,90 @@ function show(name) {
   window.scrollTo(0,0);
 }
 
-// ==================== LOAD LEGACY PAGES ====================
+// ==================== LOAD LEGACY PAGES (sin iframe) ====================
 function loadLegacyPage(name, url) {
-  const main = document.getElementById('main-content');
-  main.innerHTML = '<div class="section active" style="display:block;padding:0"><iframe src="'+url+'" style="width:100%;border:none" id="legacy-iframe" onload="fixLegacyIframe()"></iframe></div>';
-}
+  var main = document.getElementById('main-content');
+  main.innerHTML = '<div class="section active" style="display:block;padding:0"><p style="text-align:center;padding:40px;color:var(--text2)">⏳ Cargando...</p></div>';
 
-function fixLegacyIframe() {
-  var iframe = document.getElementById('legacy-iframe');
-  if (!iframe) return;
-  try {
-    var doc = iframe.contentDocument;
-    if (!doc) { iframe.style.height = '3000px'; return; }
+  // Fetch the page and extract the main content
+  fetch(url)
+    .then(function(r) { return r.text(); })
+    .then(function(html) {
+      // Create a temp parser
+      var parser = new DOMParser();
+      var doc = parser.parseFromString(html, 'text/html');
+      var content = doc.querySelector('main.main');
+      if (!content) {
+        main.innerHTML = '<div class="section active" style="display:block;padding:0"><p>Error al cargar el contenido.</p></div>';
+        return;
+      }
+      // Hide legacy sidebar inside fetched doc (not needed in SPA)
+      var nav = content.querySelector('nav.sidebar');
+      if (nav) nav.style.display = 'none';
+      // Remove breadcrumb
+      var bread = content.querySelector('.breadcrumb');
+      if (bread) bread.style.display = 'none';
+      // Simplify title
+      var title = content.querySelector('.page-title');
+      if (title) { title.style.marginTop = '0'; }
 
-    // --- Kill scroll inside iframe: everything must flow naturally ---
-    doc.documentElement.style.height = 'auto';
-    doc.documentElement.style.overflow = 'visible';
-    doc.body.style.height = 'auto';
-    doc.body.style.overflow = 'visible';
-    doc.body.style.minHeight = '0';
+      // Inject the content
+      main.innerHTML = '<div class="section active" style="display:block;padding:0">' + content.innerHTML + '</div>';
 
-    // --- Hide the legacy sidebar (SPA provides its own) ---
-    var nav = doc.querySelector('nav.sidebar');
-    if (nav) nav.style.display = 'none';
+      // Re-execute any script tags
+      var scripts = main.querySelectorAll('script');
+      scripts.forEach(function(oldScript) {
+        var newScript = document.createElement('script');
+        Array.from(oldScript.attributes).forEach(function(attr) {
+          newScript.setAttribute(attr.name, attr.value);
+        });
+        newScript.textContent = oldScript.textContent;
+        oldScript.parentNode.replaceChild(newScript, oldScript);
+      });
 
-    // --- Flatten container: no flex, no fixed height, no overflow ---
-    var container = doc.querySelector('.container');
-    if (container) {
-      container.style.display = 'block';
-      container.style.maxWidth = '100%';
-      container.style.height = 'auto';
-      container.style.minHeight = '0';
-    }
-
-    // --- Main content: full width, no overflow, no fixed height ---
-    var mainEl = doc.querySelector('main.main');
-    if (mainEl) {
-      mainEl.style.maxWidth = '100%';
-      mainEl.style.padding = '24px';
-      mainEl.style.height = 'auto';
-      mainEl.style.overflowY = 'visible';
-      mainEl.style.minHeight = '0';
-    }
-
-    // Hide any global score/result boxes that hide on first load
-    doc.querySelectorAll('.btn-section, .score-box').forEach(function(el) {
-      if (el.style.display === 'none') return; // leave as-is
-    });
-
-    // --- Make exercise inputs truly inline (inside the sentence) ---
-    var fixScript = doc.createElement('script');
-    fixScript.textContent = `
-      (function() {
+      // Wait for scripts to execute then inline inputs
+      setTimeout(function() {
+        // Inline inputs for exercise cards
         document.querySelectorAll('.exercise-card').forEach(function(card) {
           var stem = card.querySelector('.stem');
           var inp = card.querySelector('input[type="text"]');
           if (!stem || !inp) return;
           var html = stem.innerHTML;
-          var placeholder = null;
+          var found = false;
           var patterns = ['______', '___', '____', '_____', '…', '...'];
-          for (var i = 0; i < patterns.length; i++) {
-            if (html.indexOf(patterns[i]) >= 0) { placeholder = patterns[i]; break; }
+          for (var pi = 0; pi < patterns.length; pi++) {
+            if (html.indexOf(patterns[pi]) >= 0) {
+              var mid = 'im-' + Math.random().toString(36).substr(2,9);
+              stem.innerHTML = html.split(patterns[pi]).join('<span id="'+mid+'"></span>');
+              var marker = document.getElementById(mid);
+              if (marker) marker.parentNode.replaceChild(inp, marker);
+              inp.style.display = 'inline-block';
+              inp.style.width = '160px';
+              inp.style.margin = '0 4px';
+              inp.style.verticalAlign = 'middle';
+              found = true;
+              break;
+            }
           }
-          if (placeholder) {
-            var markerId = 'im-'+Math.random().toString(36).substr(2,9);
-            stem.innerHTML = html.split(placeholder).join('<span id="'+markerId+'"></span>');
-            var marker = document.getElementById(markerId);
-            if (marker) marker.parentNode.replaceChild(inp, marker);
-            inp.style.display = 'inline-block';
-            inp.style.width = '160px';
-            inp.style.margin = '0 4px';
-            inp.style.verticalAlign = 'middle';
-          } else {
+          if (!found) {
             stem.appendChild(document.createTextNode(' '));
             stem.appendChild(inp);
             inp.style.display = 'inline-block';
             inp.style.width = '160px';
           }
         });
-      })();
-    `;
-    doc.body.appendChild(fixScript);
-
-    // --- Resize iframe to fit content (no scroll inside) ---
-    var h = Math.max(
-      doc.body.scrollHeight,
-      doc.body.offsetHeight,
-      doc.documentElement.scrollHeight,
-      doc.documentElement.offsetHeight
-    );
-    iframe.style.height = (h + 60) + 'px';
-    iframe.style.overflow = 'hidden';
-  } catch(e) {
-    iframe.style.height = '3000px';
-  }
+        // Hide timer toggle after exam generation (simulacro)
+        var hintCb = document.getElementById('sim-hint-enable');
+        if (hintCb) {
+          hintCb.disabled = true;
+          hintCb.parentNode.style.opacity = '0.5';
+          hintCb.parentNode.title = 'Esta opción se bloquea al generar el examen';
+        }
+      }, 500);
+    })
+    .catch(function() {
+      main.innerHTML = '<div class="section active" style="display:block;padding:0"><p>Error de conexión al cargar la página.</p></div>';
+    });
 }
 
 
