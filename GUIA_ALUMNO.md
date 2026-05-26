@@ -1,7 +1,7 @@
-# 🎯 Guía de Uso — Plataforma de Inglés 2º ESO
+# 🎯 Guía de Uso — Plataforma de Inglés
 
 > **Accede desde:** [ingles.skynetdelbarbas.com](https://ingles.skynetdelbarbas.com)
-> **Creada para:** ayudarte a practicar y preparar tus exámenes de Inglés de 2º de ESO
+> **Creada para:** ayudarte a practicar y preparar tus exámenes de Inglés
 
 ---
 
