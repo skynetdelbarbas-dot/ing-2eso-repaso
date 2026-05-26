@@ -200,11 +200,11 @@ function loadLegacyPage(name, url) {
       // Extract ALL scripts from raw HTML before DOM parsing
       var scriptBlocks = [];
       var cleanedHtml = html.replace(/<script([\s\S]*?)<\/script>/gi, function(match, attrsAndContent) {
-        // Only extract INLINE scripts (no src attribute) — external already loaded
-        if (/src\s*=/.test(attrsAndContent)) return match;
+        // Only extract INLINE scripts: check ATTRS only, not content
         var gtIdx = attrsAndContent.indexOf('>');
-        var attrs = gtIdx >= 0 ? attrsAndContent.substring(0, gtIdx) : '';
-        var content = gtIdx >= 0 ? attrsAndContent.substring(gtIdx + 1) : attrsAndContent;
+        var attrs = gtIdx >= 0 ? attrsAndContent.substring(0, gtIdx) : attrsAndContent;
+        var content = gtIdx >= 0 ? attrsAndContent.substring(gtIdx + 1) : '';
+        if (/src\s*=/.test(attrs)) return match; // has src attribute → skip
         scriptBlocks.push({ attrs: attrs, content: content });
         return '';
       });
