@@ -125,7 +125,7 @@ input.correct,textarea.correct{border-color:var(--success)!important;background:
   <a onclick="show('grammar-review')" id="ngr">🔄 Grammar Review 1º ESO</a>
   <a onclick="show('cambridge-a2')" id="nca">🎓 Cambridge A2 Key</a>
   <a onclick="show('simulacro')" id="nsim">🎯 Simulacro examen</a>
-  <div style="margin-top:20px;font-size:0.7rem;color:var(--text2)"><p>🗣️ UK 🇬🇧 / US 🇺🇸</p><p>🔤 Botón flotante = traductor</p></div>
+  <div style="margin-top:20px;font-size:0.7rem;color:var(--text2)"><p>🗣️ UK 🇬🇧 / US 🇺🇸</p><p>🔤 Botón flotante = traductor</p><p>📦 v4.4.1</p></div>
 </nav>
 <main class="main" id="main-content"></main>
 </div>
@@ -165,6 +165,8 @@ const PAGE_MAP = {
   'g-articles':'articles.html','g-indefinite-pronouns':'indefinite-pronouns.html',
   'g-nor-neither':'nor-neither-so.html','vocabulary':'vocabulary.html','simulacro':'simulacro.html?v=3',
   'grammar-review':'grammar-review.html','cambridge-a2':'cambridge-a2.html'};
+
+var APP_VERSION = '4.4.1';
 
 function show(name) {
   document.querySelectorAll('.sidebar a').forEach(a=>a.classList.remove('active'));
