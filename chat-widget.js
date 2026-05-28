@@ -9,7 +9,7 @@
   'use strict';
 
   function init() {
-    const API_URL = window.TUTOR_API_URL || window.location.origin + '/api/chat';
+    const API_URL = window.TUTOR_API_URL || 'https://tutor.skynetdelbarbas.com/api/chat';
 
     // ─── Inject CSS ───
     var css = document.createElement('style');
