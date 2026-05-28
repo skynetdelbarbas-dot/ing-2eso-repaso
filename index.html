@@ -68,11 +68,11 @@ input.correct,textarea.correct{border-color:var(--success)!important;background:
 .writing-tpl textarea{width:100%;min-height:120px;border:2px solid var(--border);border-radius:8px;padding:10px;font-size:.9rem;font-family:inherit;resize:vertical}
 .writing-tpl textarea:focus{outline:none;border-color:var(--primary)}
 .writing-stats{display:flex;gap:14px;margin-top:6px;font-size:.8rem;color:var(--text2)}
-/* Floating translator */
-#tr-float{position:fixed;bottom:20px;right:20px;z-index:1000}
+/* Floating translator — moved to top-right (chat now at bottom-right) */
+#tr-float{position:fixed;top:20px;right:20px;z-index:1000}
 #tr-float-btn{width:50px;height:50px;border-radius:50%;background:var(--primary);color:#fff;border:none;font-size:1.4rem;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.2);transition:transform .2s}
 #tr-float-btn:hover{transform:scale(1.1);background:var(--primary-dark)}
-#tr-float-panel{display:none;position:fixed;bottom:80px;right:20px;width:360px;max-width:90vw;background:var(--card);border:2px solid var(--primary);border-radius:var(--radius);padding:16px;box-shadow:0 8px 24px rgba(0,0,0,0.15);z-index:1000}
+#tr-float-panel{display:none;position:fixed;top:80px;right:20px;width:360px;max-width:90vw;background:var(--card);border:2px solid var(--primary);border-radius:var(--radius);padding:16px;box-shadow:0 8px 24px rgba(0,0,0,0.15);z-index:1000}
 #tr-float-panel textarea{width:100%;min-height:70px;border:2px solid var(--border);border-radius:8px;padding:10px;font-size:.9rem;font-family:inherit;resize:vertical}
 #tr-float-panel textarea:focus{outline:none;border-color:var(--primary)}
 #tr-float-panel select,#tr-float-panel button{padding:6px 10px;border-radius:4px;border:1px solid var(--border);font-size:.8rem;cursor:pointer}
@@ -84,8 +84,9 @@ input.correct,textarea.correct{border-color:var(--success)!important;background:
 @media(max-width:900px){.sidebar{width:200px;padding:14px}.main{padding:20px}}
 @media(max-width:700px){.container{flex-direction:column}.sidebar{width:100%;height:auto;position:relative;border-right:none;border-bottom:1px solid var(--border)}.main{padding:16px}#tr-float-panel{width:92vw;right:4vw}}
 </style>
-<script src="exercises.js?v=9"></script>
+<script src="exercises.js?v=8"></script>
 <script src="pool.js?v=3"></script>
+<script src="chat-widget.js?v=2"></script>
 </head>
 <body>
 <div class="container">
@@ -600,7 +601,7 @@ function updateStats(id) {
 // ==================== SECTION HTML ====================
 SECTIONS['home'] = `<div class="section active" style="display:block">
 <h2>🏠 Bienvenid@</h2>
-<p style="margin:12px 0;color:var(--text2)">Plataforma completa para aprender inglés. Usa el menú lateral o el <b>traductor flotante</b> 🔤 abajo a la derecha.</p>
+<p style="margin:12px 0;color:var(--text2)">Plataforma completa para aprender inglés. Usa el menú lateral o el <b>traductor flotante</b> 🔤 arriba a la derecha.</p>
 <div class="card-grid">
 <div class="gram-card" onclick="show('fundamentals')"><h4>📖 Fundamentos</h4><p>To Be, To Have, To Get y reglas esenciales</p></div>
 <div class="gram-card" onclick="show('verbs')"><h4>📋 Irregular Verbs</h4><p>Tabla completa con pronunciación de los 3 tiempos</p></div>
