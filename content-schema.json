@@ -1,0 +1,111 @@
+{
+  "//": "Taxonomía de etiquetado para contenido de la plataforma de inglés",
+  "version": "1.0.0",
+  "description": "Cada pieza de contenido se etiqueta con level, skill, difficulty, type y stage para permitir filtrado, rutas de aprendizaje y recomendaciones.",
+
+  "dimensions": {
+    "level": {
+      "description": "Nivel CEFR (Marco Europeo de Referencia)",
+      "values": ["A1", "A2", "B1", "B2", "C1", "C2"],
+      "notes": "El contenido puede pertenecer a múltiples niveles (ej. Present Simple cubre A1 y A2)"
+    },
+    "stage": {
+      "description": "Etapa educativa o contexto",
+      "values": ["ESO-1", "ESO-2", "ESO-3", "ESO-4", "bachiller", "adultos", "general"],
+      "notes": "Mapeo aproximado: ESO-2 ≈ A2, ESO-4 ≈ B1. No todos los contenidos tienen stage."
+    },
+    "skill": {
+      "description": "Habilidad lingüística principal",
+      "values": ["grammar", "listening", "speaking", "reading", "writing", "vocabulary", "pronunciation"],
+      "notes": "Un contenido puede tener skill principal + secondarySkills opcional"
+    },
+    "difficulty": {
+      "description": "Dificultad relativa dentro de su nivel",
+      "values": ["basic", "intermediate", "advanced"],
+      "notes": "No confundir con level. 'basic' en B1 ≠ 'basic' en A1"
+    },
+    "type": {
+      "description": "Naturaleza del contenido",
+      "values": [
+        "theory",
+        "practice",
+        "quiz",
+        "exam",
+        "revision",
+        "game",
+        "reference",
+        "template"
+      ]
+    }
+  },
+
+  "content_schema": {
+    "type": "object",
+    "required": ["id", "title", "level", "skill", "difficulty", "type"],
+    "properties": {
+      "id": { "type": "string", "description": "Identificador único kebab-case" },
+      "title": { "type": "string", "description": "Título mostrable" },
+      "title_short": { "type": "string", "description": "Título corto para sidebar/nav" },
+      "level": { "type": "array", "items": { "type": "string" }, "description": "Nivel(es) CEFR" },
+      "stage": { "type": "array", "items": { "type": "string" }, "description": "Etapa(s) educativa(s)" },
+      "skill": { "type": "string", "description": "Habilidad principal" },
+      "secondarySkills": { "type": "array", "items": { "type": "string" }, "description": "Habilidades secundarias" },
+      "difficulty": { "type": "string", "description": "Dificultad relativa" },
+      "type": { "type": "string", "description": "Tipo de contenido" },
+      "icon": { "type": "string", "description": "Emoji/icono para navegación" },
+      "depends_on": { "type": "array", "items": { "type": "string" }, "description": "IDs de contenido que deben completarse primero" },
+      "unlocks": { "type": "array", "items": { "type": "string" }, "description": "IDs de contenido que este contenido desbloquea" },
+      "tags": { "type": "array", "items": { "type": "string" }, "description": "Etiquetas libres para búsqueda/filtrado" },
+      "source": { "type": "string", "description": "Origen del contenido (ej. 'Bloque 2 - PCM 2º ESO')" },
+      "estimated_minutes": { "type": "integer", "description": "Tiempo estimado de estudio en minutos" }
+    }
+  },
+
+  "paths": {
+    "description": "Rutas de aprendizaje predefinidas",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "level_range": { "type": "string", "description": "Ej. A1-A2, B1-B2" },
+        "nodes": { "type": "array", "items": { "type": "string" }, "description": "IDs de contenido ordenados" }
+      }
+    }
+  },
+
+  "examples": {
+    "present_simple": {
+      "id": "present-simple",
+      "title": "Present Simple",
+      "title_short": "Present Simple",
+      "level": ["A1", "A2"],
+      "stage": ["ESO-1", "ESO-2"],
+      "skill": "grammar",
+      "difficulty": "basic",
+      "type": "theory",
+      "icon": "📖",
+      "depends_on": ["verb-to-be", "subject-pronouns"],
+      "unlocks": ["present-continuous", "frequency-adverbs"],
+      "tags": ["routines", "daily-life", "affirmative", "negative", "questions"],
+      "source": "Bloque 2 - PCM 2º ESO",
+      "estimated_minutes": 30
+    },
+    "irregular_verbs_quiz": {
+      "id": "irregular-verbs-quiz",
+      "title": "Irregular Verbs — Typing Challenge",
+      "title_short": "Irregular Verbs",
+      "level": ["A1", "A2", "B1"],
+      "stage": ["ESO-1", "ESO-2", "ESO-3"],
+      "skill": "grammar",
+      "secondarySkills": ["vocabulary"],
+      "difficulty": "intermediate",
+      "type": "quiz",
+      "icon": "📋",
+      "depends_on": ["past-simple"],
+      "tags": ["typing", "verbs", "past-participle"],
+      "estimated_minutes": 15
+    }
+  }
+}

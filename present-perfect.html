@@ -109,7 +109,7 @@ Cuando veas una frase de examen, hazte estas dos preguntas en orden:<br><br>
 </main>
 </div>
 
-<script src="exercises.js?v=8"></script>
+<script src="exercises.js?v=10"></script>
 <script>
 // ============================================================
 // POOL DE PREGUNTAS (~96)
@@ -316,11 +316,12 @@ function checkAllPP() {
   else msg += ' Sigue practicando \uD83D\uDCAA';
   score.innerHTML = '<span class=\"big\">' + correct + '/' + answered + '</span><br>' + msg;
 }
+  if (typeof trackCheckAll === "function" && total > 0) trackCheckAll("present-perfect.html", correct, total);
 
 function resetPP() {
   resetAll('ex-pp', currentData.length);
 }
 </script>
-<script src="chat-widget.js?v=2"></script>
+<script src="chat-widget.js?v=3"></script>
 </body>
 </html>

@@ -197,7 +197,7 @@
 ## 5. FUNCIONALIDADES TRANSVERSALES
 
 ### 5.1 🔤 Traductor Flotante
-- Botón flotante 🔤 en la esquina inferior derecha
+- Botón flotante 🔤 en la esquina superior derecha
 - Panel desplegable: texto → español
 - Botón 🔁 para traducir (simulado / integrado)
 - Botón 🔊 para leer en voz alta

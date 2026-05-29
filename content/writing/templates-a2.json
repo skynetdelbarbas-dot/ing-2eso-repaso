@@ -1,0 +1,49 @@
+{
+  "//": "Writing Templates — A2 Key",
+  "id": "writing-templates-a2",
+  "title": "Writing Templates — A2 Key",
+  "templates": [
+    {
+      "type": "informal-email",
+      "title": "📧 Informal Email",
+      "structure": [
+        "Greeting: Hi [Name], / Hello [Name],",
+        "Opening: How are you? / How's it going?",
+        "Paragraph 1: Answer their question or give news",
+        "Paragraph 2: Ask them a question or suggest something",
+        "Closing: Write back soon! / Hope to hear from you!",
+        "Sign-off: Love, / Best wishes, / See you soon,"
+      ],
+      "example": "Hi Alex,\n\nHow are you? I'm writing to tell you about my holiday. I went to the beach with my family. We swam every day and ate ice cream. The weather was amazing!\n\nWhat about you? Did you do anything fun last week?\n\nWrite back soon!\n\nLove,\n[Your name]"
+    },
+    {
+      "type": "story",
+      "title": "📖 Short Story",
+      "structure": [
+        "Title (optional)",
+        "Paragraph 1: Set the scene — when, where, who",
+        "Paragraph 2: What happened (main event)",
+        "Paragraph 3: How it ended and how you felt"
+      ],
+      "example": "My Surprising Day\n\nLast Saturday, I was at home when my friend called me. He invited me to go to the new adventure park. I was very excited!\n\nWe went on the roller coaster and the water slides. It was amazing! My favourite was the big drop.\n\nAt the end of the day, I was tired but very happy. It was the best day of my summer!"
+    },
+    {
+      "type": "description",
+      "title": "🏠 Description of a place/person",
+      "structure": [
+        "Paragraph 1: General introduction — what is it / who is it",
+        "Paragraph 2: Details — appearance, location, characteristics",
+        "Paragraph 3: Why it's special / your opinion"
+      ],
+      "example": "My Favourite Room\n\nMy favourite room is my bedroom. It's small but very cosy. There's a bed next to the window and a desk near the door.\n\nOn the walls, there are posters of my favourite bands. I also have a shelf with my books. My lamp is blue and it gives a warm light.\n\nI love my bedroom because it's quiet and I can relax there after school."
+    }
+  ],
+  "common_mistakes": [
+    { "wrong": "I have 15 years.", "correct": "I am 15 years old.", "note": "Para la edad usamos 'to be', no 'to have'." },
+    { "wrong": "People is nice.", "correct": "People are nice.", "note": "'People' es plural en inglés." },
+    { "wrong": "More easy", "correct": "Easier", "note": "Adjetivos cortos (1 sílaba) usan -er: easy → easier." },
+    { "wrong": "The more big", "correct": "The biggest", "note": "No se combina 'more' con adjetivos cortos." },
+    { "wrong": "Depends of", "correct": "Depends on", "note": "La preposición correcta es 'on', no 'of'." },
+    { "wrong": "I like very much the pizza.", "correct": "I like pizza very much.", "note": "'Very much' va al final, no tras el verbo." }
+  ]
+}

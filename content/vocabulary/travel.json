@@ -1,0 +1,66 @@
+{
+  "//": "Travel Vocabulary — palabras y frases por categorías",
+  "id": "vocab-travel",
+  "title": "Vocabulary — Travel",
+  "categories": [
+    {
+      "name": "✈️ At the airport",
+      "items": [
+        { "word": "check-in", "translation": "facturación", "example": "We need to check-in two hours before the flight." },
+        { "word": "boarding pass", "translation": "tarjeta de embarque", "example": "Show your boarding pass at the gate." },
+        { "word": "departure lounge", "translation": "sala de embarque", "example": "We waited in the departure lounge." },
+        { "word": "gate", "translation": "puerta de embarque", "example": "Flight BA456 departs from gate 12." },
+        { "word": "luggage / baggage", "translation": "equipaje", "example": "My luggage was lost." },
+        { "word": "hand luggage", "translation": "equipaje de mano", "example": "You can take one piece of hand luggage." },
+        { "word": "passport", "translation": "pasaporte", "example": "Don't forget your passport!" },
+        { "word": "customs", "translation": "aduana", "example": "We went through customs control." },
+        { "word": "delay", "translation": "retraso", "example": "The flight was delayed by two hours." },
+        { "word": "take off", "translation": "despegar", "example": "The plane took off at 8 AM." }
+      ]
+    },
+    {
+      "name": "🏨 Hotel",
+      "items": [
+        { "word": "book a room", "translation": "reservar una habitación", "example": "I booked a room for three nights." },
+        { "word": "single / double room", "translation": "habitación individual/doble", "example": "A double room with a sea view, please." },
+        { "word": "check-in / check-out", "translation": "registrarse/salir del hotel", "example": "Check-in is at 2 PM." },
+        { "word": "reception", "translation": "recepción", "example": "Go to reception for the keys." },
+        { "word": "key card", "translation": "tarjeta de la habitación", "example": "Insert the key card to open the door." },
+        { "word": "room service", "translation": "servicio de habitaciones", "example": "We ordered breakfast via room service." }
+      ]
+    },
+    {
+      "name": "🚆 Transport",
+      "items": [
+        { "word": "single ticket", "translation": "billete solo ida", "example": "A single ticket to London, please." },
+        { "word": "return ticket", "translation": "billete ida y vuelta", "example": "I bought a return ticket." },
+        { "word": "platform", "translation": "andén", "example": "The train leaves from platform 3." },
+        { "word": "timetable", "translation": "horario", "example": "Check the timetable for departure times." },
+        { "word": "hire a car", "translation": "alquilar un coche", "example": "We hired a car for the weekend." }
+      ]
+    },
+    {
+      "name": "🗺️ Directions",
+      "items": [
+        { "word": "go straight on", "translation": "seguir recto", "example": "Go straight on for 200 metres." },
+        { "word": "turn left / right", "translation": "girar a la izquierda/derecha", "example": "Turn left at the traffic lights." },
+        { "word": "roundabout", "translation": "rotonda", "example": "Take the first exit at the roundabout." },
+        { "word": "cross the road", "translation": "cruzar la calle", "example": "Cross the road and you'll see the museum." },
+        { "word": "near / next to / opposite", "translation": "cerca / al lado / enfrente", "example": "The hotel is opposite the station." }
+      ]
+    },
+    {
+      "name": "🌍 Useful phrases",
+      "items": [
+        { "word": "Could you help me?", "translation": "¿Podría ayudarme?" },
+        { "word": "How much does it cost?", "translation": "¿Cuánto cuesta?" },
+        { "word": "I'm looking for...", "translation": "Estoy buscando..." },
+        { "word": "I'd like...", "translation": "Me gustaría..." },
+        { "word": "Can I pay by card?", "translation": "¿Puedo pagar con tarjeta?" },
+        { "word": "Do you speak English?", "translation": "¿Habla inglés?" },
+        { "word": "I don't understand", "translation": "No entiendo" },
+        { "word": "Could you repeat that?", "translation": "¿Podría repetir?" }
+      ]
+    }
+  ]
+}

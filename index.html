@@ -81,21 +81,82 @@ input.correct,textarea.correct{border-color:var(--success)!important;background:
 #tr-float-panel .close-float{float:right;background:none;border:none;font-size:1.2rem;cursor:pointer;color:var(--text2)}
 /* Simulacro */
 .topic-cb{display:flex;align-items:center;gap:6px;margin:4px 0;font-size:.85rem}.topic-cb input{margin:0}
+
+/* ── Dashboard ── */
+.dash-cards{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1fr;gap:10px;margin-bottom:16px}
+.dash-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px;text-align:center}
+.dash-level{background:linear-gradient(135deg,var(--primary-dark),#1a3a5c)}
+.dash-level-badge{font-size:1.6rem;font-weight:800;color:#fff}
+.dash-level-label{font-size:.65rem;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.6)}
+.dash-xp-bar-wrap{background:rgba(255,255,255,.15);border-radius:10px;height:8px;margin:8px 0;overflow:hidden}
+.dash-xp-bar{background:linear-gradient(90deg,#4caf50,#8bc34a);height:100%;border-radius:10px;transition:width .5s}
+.dash-xp-text{font-size:.75rem;color:rgba(255,255,255,.7)}
+.dash-stat-num{font-size:1.5rem;font-weight:700;color:var(--primary-dark)}
+.dash-stat-label{font-size:.7rem;color:var(--text2);margin-top:2px}
+.dash-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.dash-panel{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px}
+.dash-panel h3{font-size:.9rem;margin:0 0 10px;color:var(--primary-dark)}
+.dash-badge-list{display:flex;flex-wrap:wrap;gap:6px}
+.dash-badge-item{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:6px 10px;font-size:.8rem;display:inline-flex;align-items:center;gap:4px}
+.dash-badge-item.earned{border-color:var(--primary);background:rgba(74,144,226,.08)}
+.dash-badge-item.locked{opacity:.4}
+.dash-muted{color:var(--text2);font-size:.8rem}
+.dash-paths{display:flex;flex-wrap:wrap;gap:8px}
+.dash-path-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:10px 14px;text-decoration:none;color:var(--text);cursor:pointer;flex:1;min-width:160px;transition:.15s}
+.dash-path-card:hover{border-color:var(--primary)}
+.dash-path-card .path-title{font-size:.85rem;font-weight:600}
+.dash-path-card .path-pct{font-size:.7rem;color:var(--text2);margin-top:2px}
+.dash-path-card .path-bar{background:rgba(0,0,0,.1);border-radius:8px;height:5px;margin-top:6px;overflow:hidden}
+.dash-path-card .path-fill{height:100%;background:var(--primary);border-radius:8px;transition:width .5s}
+
+@media(max-width:700px){
+  .dash-cards{grid-template-columns:1fr 1fr}
+  .dash-level{grid-column:span 2}
+  .dash-row{grid-template-columns:1fr}
+}
+@media(max-width:900px){
+  .dash-cards{grid-template-columns:1fr 1fr 1fr}
+  .dash-level{grid-column:span 3}
+}
+
+/* ── Fin Dashboard ── */
+
 @media(max-width:900px){.sidebar{width:200px;padding:14px}.main{padding:20px}}
 @media(max-width:700px){.container{flex-direction:column}.sidebar{width:100%;height:auto;position:relative;border-right:none;border-bottom:1px solid var(--border)}.main{padding:16px}#tr-float-panel{width:92vw;right:4vw}}
 </style>
-<script src="exercises.js?v=8"></script>
+<script src="exercises.js?v=10"></script>
 <script src="pool.js?v=3"></script>
-<script src="chat-widget.js?v=2"></script>
+<script src="chat-widget.js?v=3"></script>
+
+<!-- Módulos Fase 0: progreso, registro de contenido y taxonomía -->
+<!-- Carga silenciosa — no afecta a la funcionalidad existente -->
+<script type="module" src="data-engine.js?v=3"></script>
+<script type="module" src="content-registry.js?v=3"></script>
 </head>
 <body>
 <div class="container">
 <nav class="sidebar">
   <h1>📚 Inglés</h1>
   <div class="subtitle">Aprende, traduce y practica</div>
+  <a onclick="show('home')" class="active" id="nh" style="margin-bottom:6px">🏠 Inicio</a>
+  <h2>🗺️ RUTAS</h2>
+  <a onclick="show('home')" style="font-size:0.8rem">🌱 Beginner Path</a>
+  <a onclick="show('home')" style="font-size:0.8rem">📚 2º ESO Path</a>
+  <a onclick="show('home')" style="font-size:0.8rem">🎓 Cambridge A2</a>
+  <a onclick="show('home')" style="font-size:0.8rem">🛡️ Grammar Survival</a>
   <h2>📖 APRENDE</h2>
-  <a onclick="show('home')" class="active" id="nh">🏠 Inicio</a>
-  <a onclick="show('fundamentals')" id="nf">📖 Fundamentos</a>
+  <div class="gram-toggle" id="ft" onclick="toggleFund()"><span class="arr">▶</span> <span id="ft-text">Abrir Fundamentos</span></div>
+  <div class="gram-sub" id="fs">
+    <a onclick="show('f-to-be')" id="nftb">🔤 Verb To Be</a>
+    <a onclick="show('f-subject-pronouns')" id="nfsp">👤 Subject Pronouns</a>
+    <a onclick="show('f-object-pronouns')" id="nfop">👥 Object Pronouns</a>
+    <a onclick="show('f-possessives')" id="nfps">📌 Possessives</a>
+    <a onclick="show('f-there-is-are')" id="nfti">📍 There is / There are</a>
+    <a onclick="show('f-quantifiers')" id="nfq">🔢 Quantifiers</a>
+    <a onclick="show('f-prepositions')" id="nfpr">🗺️ Prepositions</a>
+    <a onclick="show('f-connectors')" id="nfc">🔗 Basic Connectors</a>
+    <a onclick="show('f-sentence-structure')" id="nfss">📐 Sentence Structure</a>
+  </div>
   <a onclick="show('verbs')" id="nv">📋 Irregular Verbs</a>
   <h2>🗣️ GRAMMAR</h2>
   <div class="gram-toggle" id="gt" onclick="toggleGrammar()"><span class="arr">▶</span> <span id="gt-text">Abrir Temas</span></div>
@@ -121,6 +182,7 @@ input.correct,textarea.correct{border-color:var(--success)!important;background:
   <a onclick="show('reading')" id="nrd">📖 Reading Practice</a>
   <h2>🎧 LISTENING</h2>
   <a onclick="show('listening')" id="nlst">🎧 Listening Practice</a>
+  <a href="canciones.html" id="nsng">🎵 Songs</a>
   <h2>📝 PRÁCTICA</h2>
   <a onclick="show('vocabulary')" id="nvoc">📖 Vocabulary</a>
   <a onclick="show('grammar-review')" id="ngr">🔄 Grammar Review</a>
@@ -152,22 +214,26 @@ const SECTIONS = {};
 let currentSection = 'home';
 
 const NAV_MAP = {home:'nh',fundamentals:'nf',verbs:'nv',writing:'nw',simulacro:'nsim',vocabulary:'nvoc',
+  'f-to-be':'nftb','f-subject-pronouns':'nfsp','f-object-pronouns':'nfop',
+  'f-possessives':'nfps','f-there-is-are':'nfti','f-quantifiers':'nfq',
+  'f-prepositions':'nfpr','f-connectors':'nfc','f-sentence-structure':'nfss',
   'g-modal':'ngm','g-future':'ngf','g-comparatives':'ngc','g-just':'ngj',
   'g-present-perfect':'ngpp','g-conditionals':'ngcd','g-reported-speech':'ngrs',
   'g-passive':'ngpv','g-wish-if-only':'ngwi','g-question-tags':'ngqt',
   'g-articles':'ngar','g-indefinite-pronouns':'ngip','g-nor-neither':'ngnn',
   'grammar-review':'ngr','cambridge-a2':'nca',
-  'reading':'nrd','listening':'nlst','writing-practice':'nwp'};
+  'reading':'nrd','listening':'nlst','writing-practice':'nwp','songs':'nsng'};
 
 const PAGE_MAP = {
   'g-present-perfect':'present-perfect.html','g-conditionals':'conditionals.html',
   'g-reported-speech':'reported-speech.html','g-passive':'passive.html',
   'g-wish-if-only':'wish-if-only.html','g-question-tags':'question-tags.html',
   'g-articles':'articles.html','g-indefinite-pronouns':'indefinite-pronouns.html',
-  'g-nor-neither':'nor-neither-so.html','vocabulary':'vocabulary.html','simulacro':'simulacro.html?v=3',
-  'grammar-review':'grammar-review.html','cambridge-a2':'cambridge-a2.html'};
+  'g-nor-neither':'nor-neither-so.html','vocabulary':'vocabulary.html','simulacro':'simulacro.html?v=4',
+  'grammar-review':'grammar-review.html','cambridge-a2':'cambridge-a2.html',
+  'songs':'canciones.html'};
 
-var APP_VERSION = '4.4.1';
+var APP_VERSION = '4.5.0';
 
 function show(name) {
   document.querySelectorAll('.sidebar a').forEach(a=>a.classList.remove('active'));
@@ -181,6 +247,7 @@ function show(name) {
     if (EXERCISES[name]) initExercises(name);
     if (name === 'verbs') setTimeout(()=>renderVerbs(''), 100);
     if (name === 'simulacro') setTimeout(initSimulacro, 300);
+    if (name === 'home') setTimeout(renderDashboard, 50);
     // Pool sections (auto-render con fallback)
     if (name === 'reading' || name === 'listening' || name === 'writing-practice') {
       renderPoolSection(name);
@@ -193,7 +260,89 @@ function show(name) {
   // Hide translator during exams
   var trFloat = document.getElementById('tr-float');
   if (trFloat) trFloat.style.display = (name === 'simulacro') ? 'none' : '';
+  // Hide chatbot during exams
+  var chatBtn = document.querySelector('.chat-btn');
+  var chatOverlay = document.querySelector('.chat-overlay');
+  if (chatBtn) chatBtn.style.display = (name === 'simulacro') ? 'none' : '';
+  if (chatOverlay) {
+    if (name === 'simulacro') { chatOverlay.classList.remove('open'); chatOverlay.style.display = 'none'; }
+    else { chatOverlay.style.display = ''; }
+  }
+  // Disable browser autocomplete on all exercise inputs
+  setTimeout(function() {
+    document.querySelectorAll('.exercise-card input[type="text"], .stem input[type="text"]').forEach(function(el) {
+      el.setAttribute('autocomplete', 'nope');
+    });
+  }, 100);
   window.scrollTo(0,0);
+}
+
+// ==================== DASHBOARD ====================
+function renderDashboard() {
+  if (!window.__tracker) return;
+  const t = window.__tracker;
+  const r = window.__registry;
+  const d = t.getDashboard();
+
+  // Level card
+  document.getElementById('dash-level-badge').textContent = 'Lv.' + d.level;
+  document.getElementById('dash-xp-bar').style.width = Math.min(100, (d.xp / (d.xp + d.xpToNextLevel)) * 100) + '%';
+  document.getElementById('dash-xp-text').textContent = d.xp + ' XP (siguiente nivel: +' + d.xpToNextLevel + ')';
+  document.getElementById('dash-streak').textContent = d.streak;
+  document.getElementById('dash-completion').textContent = d.completionPct + '%';
+  document.getElementById('dash-exercises').textContent = d.totalContent;
+  document.getElementById('dash-time').textContent = d.totalStudyMinutes + 'm';
+
+  // Badges
+  const badgesEl = document.getElementById('dash-badges');
+  if (d.badges.earned.length === 0) {
+    badgesEl.innerHTML = '<span class="dash-muted">Aún no hay logros. ¡Empieza a estudiar!</span>';
+  } else {
+    badgesEl.innerHTML = d.badges.all.map(b =>
+      '<span class="dash-badge-item ' + (b.earned ? 'earned' : 'locked') + '">' + b.icon + ' ' + b.title + (b.earned ? ' ✅' : '') + '</span>'
+    ).join('');
+  }
+
+  // Errors
+  const errEl = document.getElementById('dash-errors');
+  if (d.topErrors.length === 0) {
+    errEl.innerHTML = '<span class="dash-muted">Sin errores registrados</span>';
+  } else {
+    errEl.innerHTML = d.topErrors.map(e =>
+      '<div style="font-size:.8rem;margin-bottom:4px">×' + e.count + ' <b>"' + e.answer + '"</b> → ' + e.correct + '</div>'
+    ).join('');
+  }
+
+  // Needs review
+  const reviewEl = document.getElementById('dash-needs-review');
+  var needReviewList = t.getNeedsReview();
+  if (needReviewList.length > 0) {
+    reviewEl.innerHTML = '<h3>📋 Necesita repaso</h3>' +
+      needReviewList.slice(0, 8).map(function(nr) {
+        var name = nr.id.replace(/^(ex-|g-)/, '').replace(/-/g, ' ');
+        return '<div style="font-size:.8rem;color:#c92a2a;margin-bottom:3px">⚠️ ' + name + ' (' + nr.score + '%)</div>';
+      }).join('') +
+      (needReviewList.length > 8 ? '<div class="dash-muted">... y ' + (needReviewList.length - 8) + ' más</div>' : '');
+  } else {
+    reviewEl.innerHTML = '<h3>📋 Necesita repaso</h3><span class="dash-muted">Todo al día ✅</span>';
+  }
+
+  // Learning paths
+  const pathsEl = document.getElementById('dash-paths');
+  if (r) {
+    const paths = r.getAllPaths();
+    pathsEl.innerHTML = paths.map(p => {
+      const prog = r.getPathProgress(t, p.id);
+      const pct = prog ? prog.pct : 0;
+      return '<div class="dash-path-card" onclick="show(\'home\')">' +
+        '<div class="path-title">' + p.icon + ' ' + p.title + '</div>' +
+        '<div class="path-pct">' + pct + '% completado</div>' +
+        '<div class="path-bar"><div class="path-fill" style="width:' + pct + '%"></div></div>' +
+        '</div>';
+    }).join('');
+  } else {
+    pathsEl.innerHTML = '<span class="dash-muted">Registro de contenido no disponible</span>';
+  }
 }
 
 // ==================== LOAD LEGACY PAGES (sin iframe) ====================
@@ -310,6 +459,16 @@ function toggleGrammar() {
   txt.textContent = t.classList.contains('open') ? 'Cerrar Temas' : 'Abrir Temas';
 }
 
+// ==================== FUNDAMENTOS TOGGLE ====================
+function toggleFund() {
+  const t = document.getElementById('ft');
+  const s = document.getElementById('fs');
+  const txt = document.getElementById('ft-text');
+  t.classList.toggle('open');
+  s.classList.toggle('open');
+  txt.textContent = t.classList.contains('open') ? 'Cerrar Fundamentos' : 'Abrir Fundamentos';
+}
+
 // ==================== FLOATING TRANSLATOR ====================
 function toggleFloatTr() {
   const p = document.getElementById('tr-float-panel');
@@ -404,7 +563,7 @@ function renderInline(data, cid) {
     const card = document.createElement('div');
     card.className = 'exercise-card';
     card.id = `exc-${cid}-${n}`;
-    const stemHtml = ex.stem.replace('___', `<input type="text" id="inp-${cid}-${n}" data-answer="${ex.answer}" data-alts="${JSON.stringify(ex.alts||[]).replace(/"/g,'&quot;')}" style="width:${Math.max(120,(ex.answer.length+4)*10)}px">`);
+    const stemHtml = ex.stem.replace('___', `<input type="text" id="inp-${cid}-${n}" data-answer="${ex.answer}" data-alts="${JSON.stringify(ex.alts||[]).replace(/"/g,'&quot;')}" autocomplete="nope" style="width:${Math.max(120,(ex.answer.length+4)*10)}px">`);
     card.innerHTML = `<p class="stem"><strong>${n}.</strong> ${stemHtml} <span id="fb-${cid}-${n}" class="feedback-inline"></span></p>
       <div class="btn-row">
         <button class="btn-sm btn-check" onclick="chk('${cid}',${n})">✅ Corregir</button>
@@ -469,6 +628,10 @@ function checkAllInline(cid) {
   });
   const score = document.getElementById(`${cid}-score`);
   if (score) { score.style.display='block'; score.innerHTML=`<div class="big">${correct}/${cards.length}</div><p>correctas</p>`; }
+  // Tracker: registrar progreso
+  if (window.__tracker && cards.length > 0) {
+    window.__tracker.recordExercise(cid, { correct, total: cards.length });
+  }
 }
 
 function resetInline(cid) {
@@ -564,6 +727,7 @@ const EXERCISES = {
 function initSimulacro() {
   const main = document.getElementById('main-content');
   if (main.querySelector('#sim-checkboxes')) return; // already added
+  if (main.querySelector('#sim-panel')) return; // legacy page has its own checkboxes
   
   const topics = [
     {id:'cb-modal',label:'Modal Verbs'},{id:'cb-future',label:'Future Tenses'},
@@ -599,61 +763,77 @@ function updateStats(id) {
 }
 
 // ==================== SECTION HTML ====================
-SECTIONS['home'] = `<div class="section active" style="display:block">
-<h2>🏠 Bienvenid@</h2>
-<p style="margin:12px 0;color:var(--text2)">Plataforma completa para aprender inglés. Usa el menú lateral o el <b>traductor flotante</b> 🔤 arriba a la derecha.</p>
+SECTIONS['home'] = `<div class="section active" style="display:block" id="dash-section">
+<div class="dash-cards">
+  <div class="dash-card dash-level">
+    <div class="dash-level-badge" id="dash-level-badge">Lv.1</div>
+    <div class="dash-level-label">NIVEL</div>
+    <div class="dash-xp-bar-wrap"><div class="dash-xp-bar" id="dash-xp-bar" style="width:0%"></div></div>
+    <div class="dash-xp-text" id="dash-xp-text">0 XP</div>
+  </div>
+  <div class="dash-card dash-stat">
+    <div class="dash-stat-num" id="dash-streak">0</div>
+    <div class="dash-stat-label">🔥 Racha</div>
+  </div>
+  <div class="dash-card dash-stat">
+    <div class="dash-stat-num" id="dash-completion">0%</div>
+    <div class="dash-stat-label">📊 Completado</div>
+  </div>
+  <div class="dash-card dash-stat">
+    <div class="dash-stat-num" id="dash-exercises">0</div>
+    <div class="dash-stat-label">📝 Ejercicios</div>
+  </div>
+  <div class="dash-card dash-stat">
+    <div class="dash-stat-num" id="dash-time">0m</div>
+    <div class="dash-stat-label">⏱ Tiempo</div>
+  </div>
+</div>
+
+<div class="dash-row">
+  <div class="dash-panel" id="dash-badges-panel">
+    <h3>🏆 Logros</h3>
+    <div class="dash-badge-list" id="dash-badges"><span class="dash-muted">Aún no hay logros. ¡Empieza a estudiar!</span></div>
+  </div>
+  <div class="dash-panel" id="dash-errors-panel">
+    <h3>⚠️ Errores frecuentes</h3>
+    <div id="dash-errors"><span class="dash-muted">Sin errores registrados</span></div>
+  </div>
+  <div class="dash-panel" id="dash-needs-review-panel">
+    <div id="dash-needs-review"><h3>📋 Necesita repaso</h3><span class="dash-muted">Cargando...</span></div>
+  </div>
+</div>
+
+<div class="dash-panel">
+  <h3>🗺️ Rutas de aprendizaje</h3>
+  <div class="dash-paths" id="dash-paths"></div>
+</div>
+
+<h3 style="margin-top:20px">🔍 Acceso rápido</h3>
 <div class="card-grid">
 <div class="gram-card" onclick="show('fundamentals')"><h4>📖 Fundamentos</h4><p>To Be, To Have, To Get y reglas esenciales</p></div>
-<div class="gram-card" onclick="show('verbs')"><h4>📋 Irregular Verbs</h4><p>Tabla completa con pronunciación de los 3 tiempos</p></div>
-<div class="gram-card" onclick="toggleGrammar();setTimeout(()=>show('g-modal'),400)"><h4>🗣️ Grammar</h4><p>Modal, future, comparatives + 9 temas clásicos</p></div>
-<div class="gram-card" onclick="show('writing')"><h4>✍️ Writing</h4><p>Plantillas con cajas de texto para practicar</p></div>
+<div class="gram-card" onclick="show('verbs')"><h4>📋 Irregular Verbs</h4><p>Tabla completa con pronunciación</p></div>
+<div class="gram-card" onclick="toggleGrammar();setTimeout(()=>show('g-modal'),400)"><h4>🗣️ Grammar</h4><p>Modal, future, comparatives + 9 temas</p></div>
+<div class="gram-card" onclick="show('writing')"><h4>✍️ Writing</h4><p>Plantillas con cajas de texto</p></div>
 <div class="gram-card" onclick="show('simulacro')"><h4>🎯 Simulacro</h4><p>Examen con temas seleccionables</p></div>
-<div class="gram-card" onclick="window.open('pdfs/GUIA_ALUMNO.pdf','_blank')"><h4>📘 Guía de Uso</h4><p>PDF descargable con instrucciones paso a paso</p></div>
-</div></div>`;
+<div class="gram-card" onclick="window.open('pdfs/GUIA_ALUMNO.pdf','_blank')"><h4>📘 Guía de Uso</h4><p>PDF descargable</p></div>
+</div>
+</div>`;
 
 SECTIONS['fundamentals'] = `<div class="section active" style="display:block">
-<h2>📖 Fundamentos</h2>
-<h3>Verb TO BE <span style="font-size:0.8rem;color:var(--text2)">— ser / estar</span></h3>
-<div class="theory-box">
-<p><strong>Presente:</strong> I <code>am</code> · You/We/They <code>are</code> · He/She/It <code>is</code></p>
-<p><strong>Pasado:</strong> I/He/She/It <code>was</code> · You/We/They <code>were</code></p>
-<p><strong>Participio:</strong> <code>been</code> (sido / estado)</p>
-<p><strong>Contracciones:</strong> I'm, you're, he's, she's, it's, we're, they're</p>
+<h2>📖 Fundamentos del Inglés</h2>
+<p style="color:var(--text2);margin-bottom:16px">Selecciona un tema para empezar a aprender desde cero.</p>
+<div class="card-grid">
+<div class="gram-card" onclick="show('f-to-be')"><h4>🔤 Verb To Be</h4><p>Affirmative, negative, questions, short answers, past</p></div>
+<div class="gram-card" onclick="show('f-subject-pronouns')"><h4>👤 Subject Pronouns</h4><p>I, you, he, she, it, we, they</p></div>
+<div class="gram-card" onclick="show('f-object-pronouns')"><h4>👥 Object Pronouns</h4><p>me, him, her, us, them</p></div>
+<div class="gram-card" onclick="show('f-possessives')"><h4>📌 Possessives</h4><p>my/mine, your/yours, his/her...</p></div>
+<div class="gram-card" onclick="show('f-there-is-are')"><h4>📍 There is / There are</h4><p>Existencia, afirmativa, negativa, preguntas</p></div>
+<div class="gram-card" onclick="show('f-quantifiers')"><h4>🔢 Quantifiers</h4><p>much, many, some, any, a lot of, few, little</p></div>
+<div class="gram-card" onclick="show('f-prepositions')"><h4>🗺️ Prepositions</h4><p>Time, place &amp; movement: at, on, in, behind...</p></div>
+<div class="gram-card" onclick="show('f-connectors')"><h4>🔗 Basic Connectors</h4><p>and, but, because, although, however, so</p></div>
+<div class="gram-card" onclick="show('f-sentence-structure')"><h4>📐 Sentence Structure</h4><p>SVO, adjetivos, adverbios, negación</p></div>
 </div>
-<div class="example"><span class="en">I <b>am</b> a student.</span> — <span class="es">Soy estudiante.</span><br>
-<span class="en">They <b>are</b> happy.</span> — <span class="es">Están / Son felices.</span></div>
-<h3>Verb TO HAVE <span style="font-size:0.8rem;color:var(--text2)">— tener / haber / tomar</span></h3>
-<div class="theory-box">
-<p><strong>Presente:</strong> I/You/We/They <code>have</code> · He/She/It <code>has</code></p>
-<p><strong>Pasado + Participio:</strong> <code>had</code></p>
-<p><strong>Have got</strong> = tener (UK): I've got, he's got</p>
-<p><strong>Have + participio</strong> = haber (Present Perfect): I <b>have</b> seen</p>
-<p><strong>Have + sust</strong> = tomar: <code>have breakfast, have a shower</code></p>
-</div>
-<div class="example"><span class="en">She <b>has</b> a car.</span> — <span class="es">Tiene un coche.</span><br>
-<span class="en">I <b>have</b> lunch at 2pm.</span> — <span class="es">Como a las 2.</span></div>
-<h3>Verb TO GET <span style="font-size:0.8rem;color:var(--text2)">— conseguir / recibir / llegar / volverse / comprar</span></h3>
-<div class="theory-box">
-<p><strong>Presente:</strong> get / gets · <strong>Pasado:</strong> got · <strong>Participio:</strong> got (UK) / gotten (US)</p>
-<ul><li><b>Conseguir:</b> <code>get a job, get a ticket</code></li>
-<li><b>Recibir:</b> <code>get an email</code></li>
-<li><b>Llegar:</b> <code>get home, get to school</code></li>
-<li><b>Volverse + adj:</b> <code>get tired, get angry</code></li>
-<li><b>Comprar:</b> <code>get some milk</code></li>
-<li><b>Entender:</b> <code>I get it / I don't get it</code></li></ul>
-</div>
-<h3>3ª persona del singular -s</h3>
-<div class="theory-box">
-<p>• Normal: work→work<b>s</b> · -s,-sh,-ch,-x,-o→+<b>es</b>: watch→watch<b>es</b>, go→go<b>es</b></p>
-<p>• Consonante+y→<b>ies</b>: study→stud<b>ies</b> · <b>Have→has</b> (única irregular)</p>
-</div>
-<h3>Reglas esenciales</h3>
-<div class="theory-box">
-<p>• <b>DO/DOES</b> = negativas e interrogativas en presente</p>
-<p>• <b>DID</b> = negativas e interrogativas en pasado</p>
-<p>• Jamás doble negación: <s>I don't have nothing</s> → I don't have <b>anything</b></p>
-<p>• Adjetivos <b>antes</b> del sustantivo: <code>a red car</code></p>
-</div></div>`;
+</div>`;
 
 SECTIONS['verbs'] = `<div class="section active" style="display:block">
 <h2>📋 Irregular Verbs</h2>
@@ -812,12 +992,286 @@ Conclusion: Opinion + recommendation.</div>
 <textarea id="w-review" oninput="updateStats('w-review')" placeholder="Escribe tu reseña..."></textarea>
 <div class="writing-stats" id="w-review-stats">📝 0 palabras · 0 caracteres · 0 párrafos</div></div></div>`;
 
+// ==================== FUNDAMENTOS ====================
+
+SECTIONS['f-to-be'] = `<div class="section active" style="display:block">
+<h2>🔤 Verb To Be — ser / estar</h2>
+<div class="theory-box">
+<h3>Affirmative</h3>
+<p>I <code>am</code> (I'm) · You/We/They <code>are</code> (you're, we're, they're) · He/She/It <code>is</code> (he's, she's, it's)</p>
+<div class="example"><span class="en">I <b>am</b> a student.</span> — <span class="es">Soy estudiante.</span><br>
+<span class="en">She <b>is</b> happy.</span> — <span class="es">Está feliz.</span><br>
+<span class="en">We <b>are</b> from Spain.</span> — <span class="es">Somos de España.</span></div>
+</div>
+<div class="theory-box">
+<h3>Negative</h3>
+<p><code>am not</code> (I'm not) · <code>are not</code> (aren't) · <code>is not</code> (isn't)</p>
+<div class="example"><span class="en">I <b>am not</b> tired.</span> — <span class="es">No estoy cansado.</span><br>
+<span class="en">He <b>isn't</b> a teacher.</span> — <span class="es">No es profesor.</span><br>
+<span class="en">They <b>aren't</b> here.</span> — <span class="es">No están aquí.</span></div>
+</div>
+<div class="theory-box">
+<h3>Questions &amp; Short Answers</h3>
+<p><b>Am / Is / Are</b> + sujeto + ...?</p>
+<div class="example"><span class="en"><b>Are</b> you OK?</span> — <span class="es">¿Estás bien?</span><br>
+<span class="en"><b>Is</b> she Spanish?</span> — <span class="es">¿Es española?</span></div>
+<p><b>Short answers:</b> Yes, I <b>am</b>. / No, I'm <b>not</b>. · Yes, she <b>is</b>. / No, she <b>isn't</b>. · Yes, they <b>are</b>. / No, they <b>aren't</b>.</p>
+</div>
+<div class="theory-box">
+<h3>Past — was / were</h3>
+<p>I/He/She/It <code>was</code> (wasn't) · You/We/They <code>were</code> (weren't)</p>
+<div class="example"><span class="en">I <b>was</b> at home yesterday.</span> — <span class="es">Ayer estaba en casa.</span><br>
+<span class="en">They <b>were</b> late.</span> — <span class="es">Llegaron tarde.</span></div>
+</div>
+<div class="theory-box">
+<h3>Participio: been</h3>
+<p>Usado con Present Perfect: <code>have/has been</code></p>
+<div class="example"><span class="en">I've <b>been</b> to London twice.</span> — <span class="es">He estado en Londres dos veces.</span></div>
+</div></div>`;
+
+SECTIONS['f-subject-pronouns'] = `<div class="section active" style="display:block">
+<h2>👤 Subject Pronouns</h2>
+<div class="theory-box">
+<p>Los <b>subject pronouns</b> sustituyen al sujeto de la oración. Van <b>antes del verbo</b>.</p>
+<table class="verbs"><thead><tr><th>Pronoun</th><th>Person</th><th>Ejemplo</th></tr></thead><tbody>
+<tr><td><b>I</b></td><td>1ª singular (yo)</td><td><span class="en"><b>I</b> am a student.</span></td></tr>
+<tr><td><b>You</b></td><td>2ª singular (tú/usted)</td><td><span class="en"><b>You</b> are nice.</span></td></tr>
+<tr><td><b>He</b></td><td>3ª singular masc. (él)</td><td><span class="en"><b>He</b> is tall.</span></td></tr>
+<tr><td><b>She</b></td><td>3ª singular fem. (ella)</td><td><span class="en"><b>She</b> is a doctor.</span></td></tr>
+<tr><td><b>It</b></td><td>3ª singular neutro (ello)</td><td><span class="en"><b>It</b> is cold.</span></td></tr>
+<tr><td><b>We</b></td><td>1ª plural (nosotros)</td><td><span class="en"><b>We</b> are friends.</span></td></tr>
+<tr><td><b>They</b></td><td>3ª plural (ellos/as)</td><td><span class="en"><b>They</b> are students.</span></td></tr>
+</tbody></table>
+</div>
+<div class="example">💡 <b>It</b> se usa para objetos, animales y el tiempo/clima.<br>
+<span class="en"><b>It</b> is raining. / <b>It</b> is a book.</span></div>
+<div class="theory-box">
+<h3>Regla importante</h3>
+<p>En inglés SIEMPRE se usa el sujeto. En español podemos omitirlo («es tarde»), pero en inglés siempre: <b>It is late</b>.</p>
+</div></div>`;
+
+SECTIONS['f-object-pronouns'] = `<div class="section active" style="display:block">
+<h2>👥 Object Pronouns</h2>
+<div class="theory-box">
+<p>Los <b>object pronouns</b> sustituyen al <b>complemento</b> (objeto directo o indirecto). Van <b>después del verbo</b> o después de una preposición.</p>
+<table class="verbs"><thead><tr><th>Subject</th><th>Object</th><th>Ejemplo</th></tr></thead><tbody>
+<tr><td>I</td><td><b>me</b></td><td><span class="en">Call <b>me</b>.</span> — Llámame.</td></tr>
+<tr><td>you</td><td><b>you</b></td><td><span class="en">I see <b>you</b>.</span> — Te veo.</td></tr>
+<tr><td>he</td><td><b>him</b></td><td><span class="en">Give it to <b>him</b>.</span> — Dáselo a él.</td></tr>
+<tr><td>she</td><td><b>her</b></td><td><span class="en">Talk to <b>her</b>.</span> — Habla con ella.</td></tr>
+<tr><td>it</td><td><b>it</b></td><td><span class="en">I like <b>it</b>.</span> — Me gusta.</td></tr>
+<tr><td>we</td><td><b>us</b></td><td><span class="en">Follow <b>us</b>.</span> — Síguenos.</td></tr>
+<tr><td>they</td><td><b>them</b></td><td><span class="en">I know <b>them</b>.</span> — Los conozco.</td></tr>
+</tbody></table>
+</div>
+<div class="example">⚠️ No confundir <b>subject</b> y <b>object</b>:<br>
+<span class="en"><b>She</b> loves <b>him</b>.</span> (Ella lo ama a él) ✓<br>
+<span class="en"><b>Her</b> loves <b>she</b>.</span> ✗ (incorrecto)</div></div>`;
+
+SECTIONS['f-possessives'] = `<div class="section active" style="display:block">
+<h2>📌 Possessive Adjectives &amp; Pronouns</h2>
+<div class="theory-box">
+<h3>Possessive Adjectives (mi, tu, su...)</h3>
+<p>Van <b>siempre acompañando a un sustantivo</b>. No llevan artículo.</p>
+<table class="verbs"><thead><tr><th>Sujeto</th><th>Adjetivo</th><th>Ejemplo</th></tr></thead><tbody>
+<tr><td>I</td><td><b>my</b></td><td><span class="en">This is <b>my</b> book.</span> — Este es mi libro.</td></tr>
+<tr><td>you</td><td><b>your</b></td><td><span class="en">Is this <b>your</b> pen?</span> — ¿Es tu bolígrafo?</td></tr>
+<tr><td>he</td><td><b>his</b></td><td><span class="en">I like <b>his</b> car.</span> — Me gusta su coche.</td></tr>
+<tr><td>she</td><td><b>her</b></td><td><span class="en"><b>Her</b> name is Ana.</span> — Su nombre es Ana.</td></tr>
+<tr><td>it</td><td><b>its</b></td><td><span class="en">The cat and <b>its</b> tail.</span> — El gato y su cola.</td></tr>
+<tr><td>we</td><td><b>our</b></td><td><span class="en"><b>Our</b> house is big.</span> — Nuestra casa es grande.</td></tr>
+<tr><td>they</td><td><b>their</b></td><td><span class="en"><b>Their</b> dog is cute.</span> — Su perro es mono.</td></tr>
+</tbody></table>
+</div>
+<div class="theory-box">
+<h3>Possessive Pronouns (mío, tuyo, suyo...)</h3>
+<p>Sustituyen al nombre completo. No necesitan sustantivo después.</p>
+<table class="verbs"><thead><tr><th>Adjetivo</th><th>Pronombre</th><th>Ejemplo</th></tr></thead><tbody>
+<tr><td>my</td><td><b>mine</b></td><td><span class="en">This book is <b>mine</b>.</span> — Este libro es mío.</td></tr>
+<tr><td>your</td><td><b>yours</b></td><td><span class="en">Is this pen <b>yours</b>?</span> — ¿Es tuya?</td></tr>
+<tr><td>his</td><td><b>his</b></td><td><span class="en">That jacket is <b>his</b>.</span> — Esa chaqueta es suya.</td></tr>
+<tr><td>her</td><td><b>hers</b></td><td><span class="en">The bag is <b>hers</b>.</span> — El bolso es suyo.</td></tr>
+<tr><td>our</td><td><b>ours</b></td><td><span class="en">The car is <b>ours</b>.</span> — El coche es nuestro.</td></tr>
+<tr><td>their</td><td><b>theirs</b></td><td><span class="en">The house is <b>theirs</b>.</span> — La casa es suya.</td></tr>
+</tbody></table>
+</div>
+<div class="example">⚠️ <b>Its</b> (su de cosa) no tiene forma de pronombre posesivo. No existe "it's" como posesivo.<br>
+⚠️ <b>Its</b> ≠ <b>It's</b> (it is / it has). ¡Cuidado con el apóstrofe!</div></div>`;
+
+SECTIONS['f-there-is-are'] = `<div class="section active" style="display:block">
+<h2>📍 There is / There are</h2>
+<div class="theory-box">
+<p>Se usa para decir que algo <b>existe</b> o está en un lugar. Equivale a nuestro «hay».</p>
+<table class="verbs"><thead><tr><th></th><th>Singular</th><th>Plural</th></tr></thead><tbody>
+<tr><td><b>Affirmative</b></td><td><b>There is</b> (There's) a book.</td><td><b>There are</b> some books.</td></tr>
+<tr><td><b>Negative</b></td><td><b>There isn't</b> a pen.</td><td><b>There aren't</b> any pens.</td></tr>
+<tr><td><b>Question</b></td><td><b>Is there</b> a pen?</td><td><b>Are there</b> any pens?</td></tr>
+</tbody></table>
+</div>
+<div class="example"><span class="en"><b>There is</b> a cat under the table.</span> — <span class="es">Hay un gato debajo de la mesa.</span><br>
+<span class="en"><b>There are</b> two apples on the desk.</span> — <span class="es">Hay dos manzanas en el escritorio.</span><br>
+<span class="en"><b>Is there</b> a supermarket near here?</span> — <span class="es">¿Hay un supermercado cerca?</span><br>
+<span class="en"><b>There aren't</b> any students in class.</span> — <span class="es">No hay estudiantes en clase.</span></div>
+<div class="theory-box">
+<h3>Contracciones</h3>
+<p><b>There is</b> → <b>There's</b> (There's a problem)<br>
+<b>There are</b> no se contrae.<br>
+<b>There is not</b> → <b>There isn't</b><br>
+<b>There are not</b> → <b>There aren't</b></p>
+</div>
+<div class="example">💡 Para enumerar varias cosas, el verbo <b>concuerda con el primer elemento</b>:<br>
+<span class="en"><b>There is</b> a pen and two books.</span> ✓<br>
+<span class="en"><b>There are</b> two books and a pen.</span> ✓</div></div>`;
+
+SECTIONS['f-quantifiers'] = `<div class="section active" style="display:block">
+<h2>🔢 Quantifiers — much, many, some, any, a lot of, few, little</h2>
+<div class="theory-box">
+<h3>Much / Many / A lot of</h3>
+<p><b>Many</b> = muchos (con contables) · <b>Much</b> = mucho (con incontables) · <b>A lot of</b> = un montón de (ambos)</p>
+<div class="example"><span class="en">How <b>many</b> apples? — Not <b>many</b>.</span> (contable)<br>
+<span class="en">How <b>much</b> water? — Not <b>much</b>.</span> (incontable)<br>
+<span class="en">She has <b>a lot of</b> friends.</span> (ambos casos)</div>
+</div>
+<div class="theory-box">
+<h3>Some / Any</h3>
+<p><b>Some</b> = algún/algo de (afirmativas) · <b>Any</b> = ningún/algo de (negativas e interrogativas)</p>
+<div class="example"><span class="en">I have <b>some</b> money.</span> — Tengo algo de dinero.<br>
+<span class="en">I don't have <b>any</b> money.</span> — No tengo dinero.<br>
+<span class="en">Do you have <b>any</b> questions?</span> — ¿Tienes alguna pregunta?</div>
+</div>
+<div class="theory-box">
+<h3>Few / Little</h3>
+<p><b>Few</b> = pocos (contables) · <b>Little</b> = poco (incontables)</p>
+<div class="example"><span class="en">I have <b>few</b> friends.</span> — Tengo pocos amigos.<br>
+<span class="en">There is <b>little</b> milk.</span> — Queda poca leche.<br>
+<span class="en"><b>A few</b> people came.</span> — Vinieron unas pocas personas (suficientes).<br>
+<span class="en"><b>A little</b> sugar, please.</span> — Un poco de azúcar, por favor.</div>
+</div></div>`;
+
+SECTIONS['f-prepositions'] = `<div class="section active" style="display:block">
+<h2>🗺️ Prepositions — Time, Place &amp; Movement</h2>
+<div class="theory-box">
+<h3>⏰ Time: at / on / in</h3>
+<p><b>At</b> = hora exacta · <b>On</b> = día concreto · <b>In</b> = meses, años, estaciones, partes del día</p>
+<div class="example"><span class="en"><b>At</b> 5 o'clock / <b>at</b> midnight / <b>at</b> night</span><br>
+<span class="en"><b>On</b> Monday / <b>on</b> 25th December / <b>on</b> my birthday</span><br>
+<span class="en"><b>In</b> July / <b>in</b> 2024 / <b>in</b> summer / <b>in</b> the morning</span></div>
+</div>
+<div class="theory-box">
+<h3>📍 Place: behind / next to / opposite / between</h3>
+<p><b>Behind</b> = detrás · <b>Next to</b> = al lado · <b>Opposite</b> = enfrente · <b>Between</b> = entre</p>
+<div class="example"><span class="en">The cat is <b>behind</b> the door.</span> — El gato está detrás de la puerta.<br>
+<span class="en">The bank is <b>next to</b> the library.</span> — El banco está al lado de la biblioteca.<br>
+<span class="en">The supermarket is <b>opposite</b> the station.</span> — El supermercado está enfrente de la estación.<br>
+<span class="en">I sit <b>between</b> Ana and Marcos.</span> — Me siento entre Ana y Marcos.</div>
+</div>
+<div class="theory-box">
+<h3>🏃 Movement: into / across / through / along</h3>
+<p><b>Into</b> = hacia dentro · <b>Across</b> = a través (de lado a lado) · <b>Through</b> = a través (atravesando) · <b>Along</b> = a lo largo de</p>
+<div class="example"><span class="en">Go <b>into</b> the room.</span> — Entra en la habitación.<br>
+<span class="en">Walk <b>across</b> the street.</span> — Cruza la calle.<br>
+<span class="en">The train goes <b>through</b> the tunnel.</span> — El tren atraviesa el túnel.<br>
+<span class="en">Walk <b>along</b> the beach.</span> — Camina a lo largo de la playa.</div>
+</div></div>`;
+
+SECTIONS['f-connectors'] = `<div class="section active" style="display:block">
+<h2>🔗 Basic Connectors</h2>
+<div class="theory-box">
+<p>Los conectores enlazan ideas y hacen tu texto más fluido.</p>
+<table class="verbs"><thead><tr><th>Connector</th><th>Significado</th><th>Ejemplo</th></tr></thead><tbody>
+<tr><td><b>and</b></td><td>y / e</td><td><span class="en">I like cats <b>and</b> dogs.</span></td></tr>
+<tr><td><b>but</b></td><td>pero</td><td><span class="en">She is nice <b>but</b> shy.</span></td></tr>
+<tr><td><b>because</b></td><td>porque</td><td><span class="en">I'm tired <b>because</b> I ran.</span></td></tr>
+<tr><td><b>or</b></td><td>o</td><td><span class="en">Tea <b>or</b> coffee?</span></td></tr>
+<tr><td><b>so</b></td><td>así que, por eso</td><td><span class="en">It was late, <b>so</b> I left.</span></td></tr>
+<tr><td><b>although</b></td><td>aunque</td><td><span class="en"><b>Although</b> it rained, we went out.</span></td></tr>
+<tr><td><b>however</b></td><td>sin embargo (formal)</td><td><span class="en">It was expensive. <b>However</b>, I bought it.</span></td></tr>
+</tbody></table>
+</div>
+<div class="example">💡 <b>However</b> va al inicio de una nueva oración, separado por punto.<br>
+💡 <b>Although</b> va al inicio de la misma oración, sin punto.</div></div>`;
+
+SECTIONS['f-sentence-structure'] = `<div class="section active" style="display:block">
+<h2>📐 Basic Sentence Structure</h2>
+<div class="theory-box">
+<h3>Orden básico: Sujeto + Verbo + Objeto (SVO)</h3>
+<p>En inglés el orden de las palabras es <b>más rígido</b> que en español.</p>
+<div class="example"><span class="en"><b>I</b> (S) <b>love</b> (V) <b>chocolate</b> (O).</span><br>
+<span class="en"><b>She</b> (S) <b>reads</b> (V) <b>a book</b> (O).</span><br>
+<br>
+En español podríamos decir «Chocolate, me encanta», pero en inglés NO se puede alterar el orden.</div>
+</div>
+<div class="theory-box">
+<h3>Adjetivos: antes del sustantivo</h3>
+<p>En español: «un coche rojo» · En inglés: <b>a red car</b> (adjetivo + sustantivo)</p>
+<div class="example">✗ <s>a car red</s> → ✓ <b>a red car</b><br>
+✗ <s>a house big</s> → ✓ <b>a big house</b></div>
+</div>
+<div class="theory-box">
+<h3>Adverbios de frecuencia: antes del verbo</h3>
+<p>always, usually, sometimes, never, often → <b>antes del verbo principal</b></p>
+<div class="example"><span class="en">I <b>always</b> eat breakfast.</span> — Siempre desayuno.<br>
+<span class="en">She <b>never</b> drinks coffee.</span> — Ella nunca bebe café.<br>
+<span class="en">They <b>often</b> play football.</span> — Suelen jugar al fútbol.</div>
+<p>Con el verbo <b>to be</b>, van <b>después</b>:</p>
+<div class="example"><span class="en">I am <b>always</b> on time.</span> — Siempre llego puntual.</div>
+</div>
+<div class="theory-box">
+<h3>Negación: sujeto + don't/doesn't + verbo</h3>
+<p>Para negar en presente: <b>don't</b> (I/you/we/they) o <b>doesn't</b> (he/she/it) + verbo en infinitivo</p>
+<div class="example"><span class="en">I <b>don't</b> like spinach.</span> — No me gustan las espinacas.<br>
+<span class="en">She <b>doesn't</b> speak French.</span> — Ella no habla francés.</div>
+</div></div>`;
+
 // ==================== REGISTER POOL SECTIONS ====================
 if (typeof registerPoolSections === 'function') registerPoolSections(SECTIONS);
 
 // ==================== INIT ====================
 document.getElementById('main-content').innerHTML = SECTIONS['home'];
 setTimeout(()=>renderVerbs(''), 200);
+setTimeout(renderDashboard, 100);
+
+// ── Debug overlay (activa con ?debug en la URL) ──
+document.addEventListener('DOMContentLoaded', () => {
+  if (window.location.search.includes('debug') && window.__tracker) {
+    const dbg = document.createElement('div');
+    dbg.id = 'dbg-overlay';
+    dbg.innerHTML = `<div style="position:fixed;bottom:10px;right:10px;width:320px;max-height:80vh;z-index:99999;background:rgba(0,0,0,.92);border:1px solid #0f0;border-radius:10px;padding:12px;font-family:monospace;font-size:12px;color:#0f0;overflow-y:auto;box-shadow:0 0 20px rgba(0,255,0,.2)" id="dbg-content"><b>⏳</b></div>`;
+    document.body.appendChild(dbg);
+    // ✕ button en la esquina del panel
+    document.getElementById('dbg-content').innerHTML = '<div style="float:right;cursor:pointer;font-size:16px" id="dbg-close">✕</div><div id="dbg-body"><b>⏳</b></div>';
+    document.getElementById('dbg-close').addEventListener('click', () => dbg.remove());
+    const update = () => {
+      try {
+        const t = window.__tracker, r = window.__registry;
+        let html = '🏠 <b>DASHBOARD</b><br>──────────────────────<br>';
+        const d = t.getDashboard();
+        html += `XP: ${d.xp}  |  Nivel: ${d.level}  |  Racha: ${d.streak} días<br>`;
+        html += `Completado: ${d.doneContent}/${d.totalContent} (${d.completionPct}%)<br>`;
+        var needReviewList = t.getNeedsReview();
+        html += `Necesita repaso: ${needReviewList.length} temas`;
+        if (needReviewList.length > 0) {
+          html += '<br>' + needReviewList.slice(0, 8).map(function(nr) {
+            var name = nr.id.replace(/^(ex-|g-)/, '').replace(/-/g, ' ');
+            return `&nbsp;&nbsp;· ${name} (${nr.score}%)`;
+          }).join('<br>');
+          if (needReviewList.length > 8) html += `<br>&nbsp;&nbsp;... y ${needReviewList.length - 8} más`;
+        }
+        html += `<br>`;
+        html += `Tiempo: ${d.totalStudyMinutes} min<br>`;
+        html += `<br>🏆 <b>BADGES</b> (${d.badges.earned.length}/10)<br>`;
+        d.badges.all.forEach(b => html += `${b.earned?'✅':'○'} ${b.icon} ${b.title}<br>`);
+        if (d.topErrors.length) {
+          html += `<br>⚠️ <b>ERRORES</b><br>`;
+          d.topErrors.forEach(e => html += `×${e.count} "${e.answer}"<br>`);
+        }
+        document.getElementById('dbg-body').innerHTML = html;
+      } catch(e) { document.getElementById('dbg-body').textContent = 'Error: '+e.message; }
+    };
+    update();
+    setInterval(update, 3000);
+  }
+});
 </script>
 </body>
 </html>

@@ -52,7 +52,7 @@
 - Menú colapsable de gramática con 13 temas
 
 ### v3.0.1 — Traductor Flotante
-- Botón 🔤 flotante en esquina inferior derecha
+- Botón 🔤 flotante en esquina superior derecha
 - Panel desplegable con traducción y voz
 - Se oculta automáticamente durante el simulacro
 

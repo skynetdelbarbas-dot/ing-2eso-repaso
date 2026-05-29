@@ -56,7 +56,7 @@
 </main>
 </div>
 
-<script src="exercises.js?v=8"></script>
+<script src="exercises.js?v=10"></script>
 <script>
 // ============================================================
 // POOL DE PREGUNTAS (~44)
@@ -222,11 +222,12 @@ function checkAllIndefinitePronouns() {
   else msg += ' Sigue practicando 💪';
   score.innerHTML = '<span class="big">' + correct + '/' + answered + '</span><br>' + msg;
 }
+  if (typeof trackCheckAll === "function" && total > 0) trackCheckAll("indefinite-pronouns.html", correct, total);
 
 function resetIndefinitePronouns() {
   resetAll('ex-indefinite_pronouns', currentData.length);
 }
 </script>
-<script src="chat-widget.js?v=2"></script>
+<script src="chat-widget.js?v=3"></script>
 </body>
 </html>

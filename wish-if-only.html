@@ -64,7 +64,7 @@
 </main>
 </div>
 
-<script src="exercises.js?v=8"></script>
+<script src="exercises.js?v=10"></script>
 <script>
 // ============================================================
 // POOL DE PREGUNTAS (~35)
@@ -211,11 +211,12 @@ function checkAllWish() {
   else msg += ' Sigue practicando 💪';
   score.innerHTML = '<span class="big">' + correct + '/' + answered + '</span><br>' + msg;
 }
+  if (typeof trackCheckAll === "function" && total > 0) trackCheckAll("wish-if-only.html", correct, total);
 
 function resetWish() {
   resetAll('ex-wish-gap', currentData.length);
 }
 </script>
-<script src="chat-widget.js?v=2"></script>
+<script src="chat-widget.js?v=3"></script>
 </body>
 </html>

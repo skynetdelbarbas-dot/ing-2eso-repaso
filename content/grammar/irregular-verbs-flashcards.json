@@ -1,0 +1,53 @@
+{
+  "//": "Irregular Verbs — Flashcards (modo práctica)",
+  "id": "irregular-verbs-flashcards",
+  "title": "Irregular Verbs — Flashcards",
+  "instructions": "Mira el infinitivo, recuerda el past simple y el past participle. Dale la vuelta para comprobar.",
+  "levels": {
+    "basic": {
+      "title": "Básicos",
+      "verbs": [
+        { "infinitive": "be", "past": "was/were", "participle": "been", "translation": "ser/estar" },
+        { "infinitive": "have", "past": "had", "participle": "had", "translation": "tener" },
+        { "infinitive": "do", "past": "did", "participle": "done", "translation": "hacer" },
+        { "infinitive": "go", "past": "went", "participle": "gone", "translation": "ir" },
+        { "infinitive": "say", "past": "said", "participle": "said", "translation": "decir" },
+        { "infinitive": "get", "past": "got", "participle": "got/gotten", "translation": "obtener" },
+        { "infinitive": "make", "past": "made", "participle": "made", "translation": "hacer/fabricar" },
+        { "infinitive": "know", "past": "knew", "participle": "known", "translation": "saber/conocer" },
+        { "infinitive": "come", "past": "came", "participle": "come", "translation": "venir" },
+        { "infinitive": "see", "past": "saw", "participle": "seen", "translation": "ver" }
+      ]
+    },
+    "frequent": {
+      "title": "Frecuentes",
+      "verbs": [
+        { "infinitive": "eat", "past": "ate", "participle": "eaten", "translation": "comer" },
+        { "infinitive": "drink", "past": "drank", "participle": "drunk", "translation": "beber" },
+        { "infinitive": "write", "past": "wrote", "participle": "written", "translation": "escribir" },
+        { "infinitive": "read", "past": "read", "participle": "read", "translation": "leer" },
+        { "infinitive": "speak", "past": "spoke", "participle": "spoken", "translation": "hablar" },
+        { "infinitive": "take", "past": "took", "participle": "taken", "translation": "tomar/llevar" },
+        { "infinitive": "give", "past": "gave", "participle": "given", "translation": "dar" },
+        { "infinitive": "find", "past": "found", "participle": "found", "translation": "encontrar" },
+        { "infinitive": "tell", "past": "told", "participle": "told", "translation": "decir/contar" },
+        { "infinitive": "buy", "past": "bought", "participle": "bought", "translation": "comprar" }
+      ]
+    },
+    "advanced": {
+      "title": "Avanzados",
+      "verbs": [
+        { "infinitive": "break", "past": "broke", "participle": "broken", "translation": "romper" },
+        { "infinitive": "choose", "past": "chose", "participle": "chosen", "translation": "elegir" },
+        { "infinitive": "drive", "past": "drove", "participle": "driven", "translation": "conducir" },
+        { "infinitive": "fly", "past": "flew", "participle": "flown", "translation": "volar" },
+        { "infinitive": "forget", "past": "forgot", "participle": "forgotten", "translation": "olvidar" },
+        { "infinitive": "grow", "past": "grew", "participle": "grown", "translation": "crecer/cultivar" },
+        { "infinitive": "hide", "past": "hid", "participle": "hidden", "translation": "esconder" },
+        { "infinitive": "sing", "past": "sang", "participle": "sung", "translation": "cantar" },
+        { "infinitive": "swim", "past": "swam", "participle": "swum", "translation": "nadar" },
+        { "infinitive": "teach", "past": "taught", "participle": "taught", "translation": "enseñar" }
+      ]
+    }
+  }
+}

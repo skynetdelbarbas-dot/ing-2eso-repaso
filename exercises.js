@@ -125,6 +125,10 @@ function checkAllFull(containerId, total) {
   else if (pct >= 70) msg += ' Muy bien 👍';
   else msg += ' Sigue practicando 💪';
   scoreBox.innerHTML = `<span class="big">${correct}/${total}</span><br>${msg}`;
+  // ── Tracker: registrar progreso ──
+  if (window.__tracker && total > 0) {
+    window.__tracker.recordExercise(containerId, { correct, total });
+  }
 }
 
 function resetAll(containerId, total) {
@@ -182,6 +186,10 @@ function checkAllGap(answers, scoreContainerId) {
     else if (pct >= 70) msg += ' Muy bien 👍';
     else msg += ' Sigue practicando 💪';
     scoreBox.innerHTML = `<span class="big">${correct}/${total}</span><br>${msg}`;
+    // ── Tracker: registrar progreso ──
+    if (window.__tracker && total > 0) {
+      window.__tracker.recordExercise(scoreContainerId, { correct, total });
+    }
   }
 }
 
@@ -236,3 +244,11 @@ document.addEventListener('input', () => {
 document.addEventListener('DOMContentLoaded', () => {
   setTimeout(restoreProgress, 100);
 });
+
+
+// ── Progreso tracker (global helper para checkAll personalizados) ──
+function trackCheckAll(containerId, correct, total) {
+  if (window.__tracker && total > 0) {
+    window.__tracker.recordExercise(containerId, { correct, total });
+  }
+}

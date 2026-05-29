@@ -64,7 +64,7 @@
 </main>
 </div>
 
-<script src="exercises.js?v=8"></script>
+<script src="exercises.js?v=10"></script>
 <script>
 var NS_POOL = [
   { stem: "I don't like broccoli.", expected: ["neither do i", "nor do i"] },
@@ -170,7 +170,7 @@ function renderNS() {
     card.innerHTML = [
       '<p class="stem"><strong>', num, '.</strong> ', ex.stem, '</p>',
       '<p style="font-size:0.85rem;color:var(--text2);margin-bottom:6px">→ Escribe la respuesta completa:</p>',
-      '<input type="text" id="inp-ns-', num, '" placeholder="Ej: so do I, neither can she...">',
+      '<input type="text" id="inp-ns-', num, '" placeholder="Ej: so do I, neither can she..." autocomplete="nope">',
       '<div class="btn-row">',
         '<button class="btn-sm btn-check" onclick="checkNS(', num, ')">✅ Corregir</button>',
         '<button class="btn-sm btn-answer" onclick="showAnswerNS(', num, ')">💡 Mostrar respuesta</button>',
@@ -248,6 +248,7 @@ function checkAllNS() {
   else msg += ' Sigue practicando 💪';
   score.innerHTML = '<span class="big">' + correct + '/' + answered + '</span><br>' + msg;
 }
+  if (typeof trackCheckAll === "function" && total > 0) trackCheckAll("nor-neither-so.html", correct, total);
 
 function resetNS() {
   for (var i = 0; i < currentData.length; i++) {
@@ -269,6 +270,6 @@ function resetNS() {
 loadRound();
 startRound();
 </script>
-<script src="chat-widget.js?v=2"></script>
+<script src="chat-widget.js?v=3"></script>
 </body>
 </html>

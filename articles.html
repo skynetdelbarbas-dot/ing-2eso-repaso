@@ -113,7 +113,7 @@
 </main>
 </div>
 
-<script src="exercises.js?v=8"></script>
+<script src="exercises.js?v=10"></script>
 <script>
 // ============================================================
 // POOL DE PREGUNTAS (~50)
@@ -290,12 +290,16 @@ function checkAllArticles() {
   else if (pct >= 70) msg += ' Muy bien 👍';
   else msg += ' Sigue practicando 💪';
   score.innerHTML = '<span class="big">' + correct + '/' + answered + '</span><br>' + msg;
+  // ── Tracker: registrar progreso ──
+  if (typeof trackCheckAll === 'function' && answered > 0) {
+    trackCheckAll('articles', correct, answered);
+  }
 }
 
 function resetArticles() {
   resetAll('ex-articles', currentData.length);
 }
 </script>
-<script src="chat-widget.js?v=2"></script>
+<script src="chat-widget.js?v=3"></script>
 </body>
 </html>

@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎵 Canciones — Inglés</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#f8f9fa;--card:#ffffff;--text:#212529;--text2:#6c757d;--primary:#4dabf7;--primary-dark:#339af0;--success:#51cf66;--success-bg:#e6fcf5;--error:#ff6b6b;--error-bg:#fff5f5;--warn:#ffd43b;--border:#dee2e6;--shadow:0 2px 8px rgba(0,0,0,0.08);--radius:10px}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh}
+.container{display:flex;max-width:1200px;margin:0 auto;min-height:100vh}
+.sidebar{width:260px;background:var(--card);border-right:1px solid var(--border);padding:20px;position:sticky;top:0;height:100vh;overflow-y:auto;box-shadow:var(--shadow);z-index:10}
+.sidebar h1{font-size:1.1rem;margin-bottom:4px;color:var(--primary-dark)}
+.sidebar .subtitle{font-size:0.7rem;color:var(--text2);margin-bottom:14px}
+.sidebar h2{font-size:0.8rem;text-transform:uppercase;letter-spacing:.5px;color:var(--text2);margin:16px 0 6px}
+.sidebar a{display:block;padding:7px 12px;border-radius:6px;color:var(--text);text-decoration:none;font-size:0.88rem;margin-bottom:2px;transition:all .15s;cursor:pointer}
+.sidebar a:hover,.sidebar a.active{background:var(--primary);color:#fff}
+.gram-toggle{cursor:pointer;user-select:none;display:flex;align-items:center;gap:4px;padding:7px 12px;border-radius:6px;font-size:0.88rem;margin-bottom:2px;color:var(--text);transition:all .15s}
+.gram-toggle:hover{background:var(--primary);color:#fff}
+.gram-toggle .arr{font-size:0.7rem;transition:transform .2s;display:inline-block}
+.gram-toggle.open .arr{transform:rotate(90deg)}
+.gram-sub{max-height:0;overflow:hidden;transition:max-height .3s;margin-left:12px}
+.gram-sub.open{max-height:800px}
+.gram-sub a{font-size:0.8rem;padding:5px 12px}
+.main{flex:1;padding:30px 40px;max-width:900px}
+.section{background:var(--card);border-radius:var(--radius);padding:24px;margin-bottom:20px;box-shadow:var(--shadow)}
+.section h2{font-size:1.15rem;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid var(--primary);display:inline-block}
+
+/* Song selector grid */
+.song-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin:16px 0}
+.song-card{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:14px;cursor:pointer;transition:all .15s;position:relative}
+.song-card:hover{border-color:var(--primary);transform:translateY(-2px);box-shadow:var(--shadow)}
+.song-card.active{border-color:var(--primary);background:#e7f5ff}
+.song-card .level-badge{position:absolute;top:8px;right:8px;font-size:0.65rem;padding:2px 6px;border-radius:4px;font-weight:600}
+.level-a1{background:#d3f9d8;color:#2b8a3e}
+.level-a2{background:#e7f5ff;color:#1971c2}
+.level-b1{background:#fff3bf;color:#e67700}
+.level-b2{background:#fcc2d7;color:#c2255c}
+.song-card h4{font-size:0.9rem;color:var(--primary-dark);margin-bottom:2px;padding-right:40px}
+.song-card .artist{font-size:0.75rem;color:var(--text2);margin-bottom:4px}
+.song-card .grammar-tags{display:flex;flex-wrap:wrap;gap:3px;margin-top:6px}
+.song-card .grammar-tags span{font-size:0.6rem;padding:1px 5px;border-radius:3px;background:#dee2e6;color:var(--text2)}
+
+/* Player area */
+.player-wrap{position:relative;width:100%;padding-bottom:56.25%;margin-bottom:16px;border-radius:8px;overflow:hidden;background:#000}
+.player-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%}
+.song-info{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px}
+.song-info h3{font-size:1.2rem;color:var(--primary-dark)}
+.song-info .artist{font-size:0.9rem;color:var(--text2)}
+.song-info .level-badge{font-size:0.75rem;padding:3px 10px;border-radius:5px;font-weight:600}
+
+/* Lyrics */
+.lyrics-box{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:20px;margin:12px 0;font-size:0.92rem;line-height:1.9;max-height:500px;overflow-y:auto}
+.lyrics-box .en{color:var(--text)}
+.lyrics-box .es{color:var(--text2);font-size:0.85rem;font-style:italic;display:none;margin-bottom:2px}
+.lyrics-box .en.highlight{color:var(--primary-dark);font-weight:600}
+.lyrics-box .line-group{margin-bottom:10px}
+.lyrics-box .line-group .en{display:block}
+.lyrics-box.show-translation .es{display:block}
+.lyrics-box .chunk{font-weight:600;color:var(--text2);font-size:0.8rem;text-transform:uppercase;letter-spacing:1px;margin:16px 0 6px;border-bottom:1px solid var(--border);padding-bottom:4px}
+
+/* Controls */
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.btn-sm{display:inline-flex;align-items:center;gap:4px;border:none;padding:6px 14px;border-radius:6px;font-size:0.82rem;cursor:pointer;transition:all .15s}
+.btn-primary{background:var(--primary);color:#fff}.btn-primary:hover{background:var(--primary-dark)}
+.btn-secondary{background:#dee2e6;color:var(--text)}.btn-secondary:hover{background:#ced4da}
+.btn-success{background:var(--success);color:#fff}.btn-success.active{background:#2f9e44}
+
+/* Exercise section */
+.exercise-area{margin-top:20px}
+.exercise-area textarea{width:100%;min-height:100px;border:2px solid var(--border);border-radius:8px;padding:10px;font-size:0.9rem;font-family:inherit;resize:vertical;margin:8px 0}
+.exercise-area textarea:focus{outline:none;border-color:var(--primary)}
+@media(max-width:700px){.container{flex-direction:column}.sidebar{width:100%;height:auto;position:relative;border-right:none;border-bottom:1px solid var(--border)}.main{padding:16px}.song-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}}
+</style>
+<script src="exercises.js?v=10"></script>
+<script src="pool.js?v=3"></script>
+<script src="chat-widget.js?v=3"></script>
+</head>
+<body>
+<div class="container">
+<nav class="sidebar">
+  <h1>📚 Inglés</h1>
+  <div class="subtitle">Aprende, traduce y practica</div>
+  <a href="index.html" style="margin-bottom:6px">🏠 Inicio</a>
+  <h2>🎵 SONGS</h2>
+  <a onclick="showSong('songs-home')" class="active" id="ns-all">🎶 All Songs</a>
+  <div style="margin-top:4px" id="song-sidebar-list"></div>
+  <div style="margin-top:20px;font-size:0.7rem;color:var(--text2)"><p>🎵 Learn English through songs</p><p>🎤 Sing along & practice</p></div>
+</nav>
+<main class="main" id="main-content">
+<div class="section active" id="songs-home">
+  <h2>🎵 Learn English with Songs</h2>
+  <p style="color:var(--text2);margin:10px 0 6px">Choose a song below. Listen, read the lyrics, and learn grammar naturally through music.</p>
+  <div class="song-grid" id="song-grid"></div>
+</div>
+<div class="section" id="song-player" style="display:none">
+  <div id="song-content"></div>
+</div>
+</main>
+</div>
+
+<script>
+// ==================== SONG DATABASE ====================
+
+const SONGS = [
+  {
+    id: 'lemon-tree',
+    title: 'Lemon Tree',
+    artist: 'Fool\'s Garden',
+    level: 'A2',
+    year: 1995,
+    youtube: 'wCQfkEkePx8',
+    grammar: ['Present Continuous', 'Feelings'],
+    description: 'Perfect for practicing present continuous and feeling verbs.',
+    lyrics: [
+      {chunk: "Verse 1"},
+      {en: "I'm sitting here in the boring room", es: "Estoy sentado aquí en la aburrida habitación"},
+      {en: "It's just another rainy Sunday afternoon", es: "Es solo otro lluvioso domingo por la tarde"},
+      {en: "I'm wasting my time, I got nothing to do", es: "Estoy perdiendo el tiempo, no tengo nada que hacer"},
+      {en: "I'm hanging around, I'm waiting for you", es: "Estoy holgazaneando, esperándote"},
+      {en: "But nothing ever happens and I wonder", es: "Pero nunca pasa nada y me pregunto"},
+      {gap: true},
+      {chunk: "Verse 2"},
+      {en: "I'm driving around in my car", es: "Estoy conduciendo en mi coche"},
+      {en: "I'm driving too fast, I'm driving too far", es: "Conduzco demasiado rápido, conduzco demasiado lejos"},
+      {en: "I'd like to change my point of view", es: "Me gustaría cambiar mi punto de vista"},
+      {en: "I feel so lonely, I'm waiting for you", es: "Me siento tan solo, esperándote"},
+      {en: "But nothing ever happens and I wonder", es: "Pero nunca pasa nada y me pregunto"},
+      {gap: true},
+      {chunk: "Chorus"},
+      {en: "I wonder how, I wonder why", es: "Me pregunto cómo, me pregunto por qué"},
+      {en: "Yesterday you told me 'bout the blue blue sky", es: "Ayer me hablaste del cielo azul, azul"},
+      {en: "And all that I can see is just a yellow lemon tree", es: "Y todo lo que puedo ver es solo un amarillo limonero"},
+      {en: "I'm turning my head up and down", es: "Giro la cabeza arriba y abajo"},
+      {en: "I'm turning, turning, turning, turning, turning around", es: "Estoy girando, girando, girando, girando, girando"},
+      {en: "And all that I can see is just a yellow lemon tree", es: "Y todo lo que puedo ver es solo un amarillo limonero"},
+      {gap: true},
+      {chunk: "Verse 3"},
+      {en: "I'm sitting here, I miss the power", es: "Estoy sentado aquí, extraño la energía"},
+      {en: "I'd like to go out taking a shower", es: "Me gustaría salir a tomar una ducha"},
+      {en: "But there's a heavy cloud inside my head", es: "Pero hay una nube pesada dentro de mi cabeza"},
+      {en: "I feel so tired, put myself into bed", es: "Me siento tan cansado, me meto en la cama"},
+      {en: "Well, nothing ever happens and I wonder", es: "Bueno, nunca pasa nada y me pregunto"},
+      {gap: true},
+      {chunk: "Chorus"},
+      {en: "I wonder how, I wonder why", es: "Me pregunto cómo, me pregunto por qué"},
+      {en: "Yesterday you told me 'bout the blue blue sky", es: "Ayer me hablaste del cielo azul, azul"},
+      {en: "And all that I can see is just a yellow lemon tree", es: "Y todo lo que puedo ver es solo un amarillo limonero"},
+      {en: "I'm turning my head up and down", es: "Giro la cabeza arriba y abajo"},
+      {en: "I'm turning, turning, turning, turning, turning around", es: "Estoy girando, girando, girando, girando, girando"},
+      {en: "And all that I can see is just a yellow lemon tree", es: "Y todo lo que puedo ver es solo un amarillo limonero"},
+      {gap: true},
+      {chunk: "Outro"},
+      {en: "Yellow, wonderful, wonderful yellow lemon tree", es: "Amarillo, maravilloso, maravilloso amarillo limonero"},
+      ]
+  },
+  {
+    id: 'count-on-me',
+    title: 'Count on Me',
+    artist: 'Bruno Mars',
+    level: 'A2',
+    year: 2010,
+    youtube: '6k8cpUkKK4c',
+    grammar: ['Phrasal Verbs', 'Future (will)', 'Friendship vocabulary'],
+    description: 'A song about friendship. Great for learning phrasal verbs and future tense.',
+    lyrics: [
+      {chunk: "Intro"},
+      {en: "Oh-oh-oh-oh-oh, oh-oh-oh-oh-oh", es: "Oh-oh-oh-oh-oh, oh-oh-oh-oh-oh"},
+      {en: "You can count on me like one, two, three", es: "Puedes contar conmigo como uno, dos, tres"},
+      {en: "I'll be there", es: "Estaré allí"},
+      {en: "And I know when I need it", es: "Y sé que cuando lo necesito"},
+      {en: "I can count on you like four, three, two", es: "Puedo contar contigo como cuatro, tres, dos"},
+      {en: "You'll be there", es: "Estarás allí"},
+      {en: "'Cause that's what friends are supposed to do", es: "Porque eso es lo que se supone que hacen los amigos"},
+      {en: "Oh-oh-oh-oh-oh, oh-oh-oh-oh-oh", es: "Oh-oh-oh-oh-oh, oh-oh-oh-oh-oh"},
+      {gap: true},
+      {chunk: "Verse 1"},
+      {en: "If you ever find yourself stuck in the middle of the sea", es: "Si alguna vez te encuentras atrapado en medio del mar"},
+      {en: "I'll sail the world to find you", es: "Navegaré el mundo para encontrarte"},
+      {en: "If you ever find yourself lost in the dark and you can't see", es: "Si alguna vez te encuentras perdido en la oscuridad y no puedes ver"},
+      {en: "I'll be the light to guide you", es: "Seré la luz que te guíe"},
+      {gap: true},
+      {chunk: "Chorus"},
+      {en: "We find out what we're made of", es: "Descubrimos de qué estamos hechos"},
+      {en: "When we are called to help our friends in need", es: "Cuando somos llamados a ayudar a nuestros amigos necesitados"},
+      {en: "You can count on me like one, two, three", es: "Puedes contar conmigo como uno, dos, tres"},
+      {en: "I'll be there", es: "Estaré allí"},
+      {en: "And I know when I need it", es: "Y sé que cuando lo necesito"},
+      {en: "I can count on you like four, three, two", es: "Puedo contar contigo como cuatro, tres, dos"},
+      {en: "You'll be there", es: "Estarás allí"},
+      {en: "'Cause that's what friends are supposed to do", es: "Porque eso es lo que se supone que hacen los amigos"},
+      {gap: true},
+      {chunk: "Bridge"},
+      {en: "Oh-oh-oh-oh-oh, oh-oh-oh-oh-oh", es: "Oh-oh-oh-oh-oh, oh-oh-oh-oh-oh"},
+      {en: "You'll always have my hand when you need it", es: "Siempre tendrás mi mano cuando la necesites"},
+      {en: "Oh-oh-oh-oh-oh, oh-oh-oh-oh-oh", es: "Oh-oh-oh-oh-oh, oh-oh-oh-oh-oh"},
+      {en: "I'm giving you my heart, so don't lose it", es: "Te estoy dando mi corazón, así que no lo pierdas"},
+      {en: "Just call my name and I'll be there", es: "Solo llama mi nombre y estaré allí"},
+      {gap: true},
+      {chunk: "Final Chorus"},
+      {en: "We find out what we're made of", es: "Descubrimos de qué estamos hechos"},
+      {en: "When we are called to help our friends in need", es: "Cuando somos llamados a ayudar a nuestros amigos necesitados"},
+      {en: "You can count on me like one, two, three", es: "Puedes contar conmigo como uno, dos, tres"},
+      {en: "I'll be there", es: "Estaré allí"},
+      {en: "And I know when I need it", es: "Y sé que cuando lo necesito"},
+      {en: "I can count on you like four, three, two", es: "Puedo contar contigo como cuatro, tres, dos"},
+      {en: "You'll be there", es: "Estarás allí"},
+      {en: "'Cause that's what friends are supposed to do", es: "Porque eso es lo que se supone que hacen los amigos"},
+      {en: "You can count on me 'cause I can count on you", es: "Puedes contar conmigo porque yo puedo contar contigo"},
+      ]
+  },
+  {
+    id: 'yesterday',
+    title: 'Yesterday',
+    artist: 'The Beatles',
+    level: 'A2',
+    year: 1965,
+    youtube: 'ogKi-58S26Y',
+    grammar: ['Past Simple', 'Past habits (used to)', 'Regrets'],
+    description: 'Classic Beatles song. Full of past simple verbs.',
+    lyrics: [
+      {chunk: "Verse 1"},
+      {en: "Yesterday", es: "Ayer"},
+      {en: "All my troubles seemed so far away", es: "Todos mis problemas parecían tan lejanos"},
+      {en: "Now it looks as though they're here to stay", es: "Ahora parece que han llegado para quedarse"},
+      {en: "Oh, I believe in yesterday", es: "Oh, creo en el ayer"},
+      {gap: true},
+      {chunk: "Verse 2"},
+      {en: "Suddenly", es: "De repente"},
+      {en: "I'm not half the man I used to be", es: "No soy ni la mitad del hombre que solía ser"},
+      {en: "There's a shadow hanging over me", es: "Hay una sombra que cuelga sobre mí"},
+      {en: "Oh, yesterday came suddenly", es: "Oh, el ayer llegó de repente"},
+      {gap: true},
+      {chunk: "Chorus"},
+      {en: "Why she had to go", es: "Por qué ella tuvo que irse"},
+      {en: "I don't know, she wouldn't say", es: "No lo sé, ella no quiso decir"},
+      {en: "I said something wrong", es: "Dije algo mal"},
+      {en: "Now I long for yesterday", es: "Ahora anhelo el ayer"},
+      {gap: true},
+      {chunk: "Verse 3"},
+      {en: "Yesterday", es: "Ayer"},
+      {en: "Love was such an easy game to play", es: "El amor era un juego tan fácil de jugar"},
+      {en: "Now I need a place to hide away", es: "Ahora necesito un lugar para esconderme"},
+      {en: "Oh, I believe in yesterday", es: "Oh, creo en el ayer"},
+      {gap: true},
+      {chunk: "Chorus"},
+      {en: "Why she had to go", es: "Por qué ella tuvo que irse"},
+      {en: "I don't know, she wouldn't say", es: "No lo sé, ella no quiso decir"},
+      {en: "I said something wrong", es: "Dije algo mal"},
+      {en: "Now I long for yesterday", es: "Ahora anhelo el ayer"},
+      {gap: true},
+      {chunk: "Outro"},
+      {en: "Yesterday", es: "Ayer"},
+      {en: "Love was such an easy game to play", es: "El amor era un juego tan fácil de jugar"},
+      {en: "Now I need a place to hide away", es: "Ahora necesito un lugar para esconderme"},
+      {en: "Oh, I believe in yesterday", es: "Oh, creo en el ayer"},
+      {en: "Mm-mm-mm-mm-mm-mm-mm", es: "Mm-mm-mm-mm-mm-mm-mm"},
+      ]
+  },
+  {
+    id: 'imagine',
+    title: 'Imagine',
+    artist: 'John Lennon',
+    level: 'A2',
+    year: 1971,
+    youtube: 'YkgkThdzX-8',
+    grammar: ['Imperatives', 'Modal (would)', 'Conditionals', 'Vocabulary: Peace'],
+    description: 'One of the most famous songs ever. Clear pronunciation and powerful vocabulary.',
+    lyrics: [
+      {chunk: "Verse 1"},
+      {en: "Imagine there's no heaven", es: "Imagina que no hay cielo"},
+      {en: "It's easy if you try", es: "Es fácil si lo intentas"},
+      {en: "No hell below us", es: "Ningún infierno debajo de nosotros"},
+      {en: "Above us only sky", es: "Arriba de nosotros solo cielo"},
+      {en: "Imagine all the people", es: "Imagina a toda la gente"},
+      {en: "Livin' for today", es: "Viviendo el hoy"},
+      {gap: true},
+      {chunk: "Chorus"},
+      {en: "Imagine there's no countries", es: "Imagina que no hay países"},
+      {en: "It isn't hard to do", es: "No es difícil de hacer"},
+      {en: "Nothing to kill or die for", es: "Nada por lo que matar o morir"},
+      {en: "And no religion too", es: "Y ninguna religión tampoco"},
+      {en: "Imagine all the people", es: "Imagina a toda la gente"},
+      {en: "Livin' life in peace", es: "Viviendo la vida en paz"},
+      {gap: true},
+      {chunk: "Chorus 2"},
+      {en: "You may say I'm a dreamer", es: "Puedes decir que soy un soñador"},
+      {en: "But I'm not the only one", es: "Pero no soy el único"},
+      {en: "I hope someday you'll join us", es: "Espero que algún día te unas a nosotros"},
+      {en: "And the world will be as one", es: "Y el mundo será uno"},
+      {gap: true},
+      {chunk: "Verse 3"},
+      {en: "Imagine no possessions", es: "Imagina que no hay posesiones"},
+      {en: "I wonder if you can", es: "Me pregunto si puedes"},
+      {en: "No need for greed or hunger", es: "Sin necesidad de avaricia ni hambre"},
+      {en: "A brotherhood of man", es: "Una hermandad del hombre"},
+      {en: "Imagine all the people", es: "Imagina a toda la gente"},
+      {en: "Sharing all the world", es: "Compartiendo todo el mundo"},
+      {gap: true},
+      {chunk: "Chorus 2"},
+      {en: "You may say I'm a dreamer", es: "Puedes decir que soy un soñador"},
+      {en: "But I'm not the only one", es: "Pero no soy el único"},
+      {en: "I hope someday you'll join us", es: "Espero que algún día te unas a nosotros"},
+      {en: "And the world will be as one", es: "Y el mundo será uno"},
+      ]
+  },
+  {
+    id: 'let-it-be',
+    title: 'Let It Be',
+    artist: 'The Beatles',
+    level: 'A2',
+    year: 1970,
+    youtube: 'CGj85pVzRJs',
+    grammar: ['Imperatives (let)', 'Modal verbs', 'Vocabulary: Wisdom'],
+    description: 'Beautiful melody with clear lyrics. Learn the let it be structure.',
+    lyrics: [
+      {chunk: "Verse 1"},
+      {en: "When I find myself in times of trouble", es: "Cuando me encuentro en tiempos de problemas"},
+      {en: "Mother Mary comes to me", es: "La Madre María viene a mí"},
+      {en: "Speaking words of wisdom, let it be", es: "Diciendo palabras de sabiduría, déjalo ser"},
+      {en: "And in my hour of darkness", es: "Y en mi hora de oscuridad"},
+      {en: "She is standing right in front of me", es: "Ella está de pie frente a mí"},
+      {en: "Speaking words of wisdom, let it be", es: "Diciendo palabras de sabiduría, déjalo ser"},
+      {gap: true},
+      {chunk: "Chorus"},
+      {en: "Let it be, let it be, let it be, let it be", es: "Déjalo ser, déjalo ser, déjalo ser, déjalo ser"},
+      {en: "Whisper words of wisdom, let it be", es: "Susurra palabras de sabiduría, déjalo ser"},
+      {gap: true},
+      {chunk: "Verse 2"},
+      {en: "And when the brokenhearted people", es: "Y cuando las personas con el corazón roto"},
+      {en: "Living in the world agree", es: "Viviendo en el mundo están de acuerdo"},
+      {en: "There will be an answer, let it be", es: "Habrá una respuesta, déjalo ser"},
+      {en: "For though they may be parted", es: "Porque aunque puedan estar separados"},
+      {en: "There is still a chance that they will see", es: "Todavía hay una posibilidad de que vean"},
+      {en: "There will be an answer, let it be", es: "Habrá una respuesta, déjalo ser"},
+      {gap: true},
+      {chunk: "Chorus"},
+      {en: "Let it be, let it be, let it be, let it be", es: "Déjalo ser, déjalo ser, déjalo ser, déjalo ser"},
+      {en: "Whisper words of wisdom, let it be", es: "Susurra palabras de sabiduría, déjalo ser"},
+      {gap: true},
+      {chunk: "Verse 3"},
+      {en: "And when the night is cloudy", es: "Y cuando la noche está nublada"},
+      {en: "There is still a light that shines on me", es: "Todavía hay una luz que brilla sobre mí"},
+      {en: "Shine until tomorrow, let it be", es: "Brilla hasta mañana, déjalo ser"},
+      {en: "I wake up to the sound of music", es: "Me despierto con el sonido de la música"},
+      {en: "Mother Mary comes to me", es: "La Madre María viene a mí"},
+      {en: "Speaking words of wisdom, let it be", es: "Diciendo palabras de sabiduría, déjalo ser"},
+      {gap: true},
+      {chunk: "Chorus"},
+      {en: "Let it be, let it be, let it be, let it be", es: "Déjalo ser, déjalo ser, déjalo ser, déjalo ser"},
+      {en: "Whisper words of wisdom, let it be", es: "Susurra palabras de sabiduría, déjalo ser"},
+      {en: "Let it be, let it be, let it be, let it be", es: "Déjalo ser, déjalo ser, déjalo ser, déjalo ser"},
+      {en: "There will be an answer, let it be", es: "Habrá una respuesta, déjalo ser"},
+      {en: "Let it be, let it be, let it be, let it be", es: "Déjalo ser, déjalo ser, déjalo ser, déjalo ser"},
+      {en: "Whisper words of wisdom, let it be", es: "Susurra palabras de sabiduría, déjalo ser"},
+      ]
+  },
+  {
+    id: 'stand-by-me',
+    title: 'Stand By Me',
+    artist: 'Ben E. King',
+    level: 'A1',
+    year: 1961,
+    youtube: 'hwZNL7QVJjE',
+    grammar: ['Future (will)', 'Imperatives', 'Simple vocabulary'],
+    description: 'Simple, slow, and full of repetition. Perfect for beginners.',
+    lyrics: [
+      {chunk: "Verse 1"},
+      {en: "When the night has come", es: "Cuando la noche ha llegado"},
+      {en: "And the land is dark", es: "Y la tierra está oscura"},
+      {en: "And the moon is the only light we'll see", es: "Y la luna es la única luz que veremos"},
+      {gap: true},
+      {en: "No, I won't be afraid", es: "No, no tendré miedo"},
+      {en: "No, I won't be afraid", es: "No, no tendré miedo"},
+      {en: "Just as long as you stand, stand by me", es: "Mientras tú estés, estés a mi lado"},
+      {gap: true},
+      {chunk: "Chorus"},
+      {en: "So darling, darling", es: "Así que cariño, cariño"},
+      {en: "Stand by me, oh, stand by me", es: "Quédate a mi lado, oh, quédate a mi lado"},
+      {en: "Oh, stand, stand by me", es: "Oh, quédate, quédate a mi lado"},
+      {en: "Stand by me", es: "Quédate a mi lado"},
+      {gap: true},
+      {chunk: "Verse 2"},
+      {en: "If the sky that we look upon", es: "Si el cielo que miramos"},
+      {en: "Should tumble and fall", es: "Se desplomara y cayera"},
+      {en: "Or the mountain should crumble to the sea", es: "O la montaña se desmoronara en el mar"},
+      {gap: true},
+      {en: "I won't cry, I won't cry", es: "No lloraré, no lloraré"},
+      {en: "No, I won't shed a tear", es: "No, no derramaré una lágrima"},
+      {en: "Just as long as you stand, stand by me", es: "Mientras tú estés, estés a mi lado"},
+      {gap: true},
+      {chunk: "Chorus"},
+      {en: "So darling, darling", es: "Así que cariño, cariño"},
+      {en: "Stand by me, oh, stand by me", es: "Quédate a mi lado, oh, quédate a mi lado"},
+      {en: "Oh, stand, stand by me", es: "Oh, quédate, quédate a mi lado"},
+      {en: "Stand by me", es: "Quédate a mi lado"},
+      {gap: true},
+      {chunk: "Outro"},
+      {en: "Whenever you're in trouble", es: "Cuando estés en problemas"},
+      {en: "Won't you stand by me", es: "¿No te quedarás a mi lado?"},
+      {en: "Oh, stand by me", es: "Oh, quédate a mi lado"},
+      {en: "Won't you stand by me?", es: "¿No te quedarás a mi lado?"},
+      ]
+  },
+  {
+    id: 'someone-like-you',
+    title: 'Someone Like You',
+    artist: 'Adele',
+    level: 'B1',
+    year: 2011,
+    youtube: 'hLQl3WQQoQ0',
+    grammar: ['Present Perfect', 'Past Simple', 'Future (will)', 'Conditionals'],
+    description: 'Excellent for contrasting present perfect and past simple.',
+    lyrics: [
+      {chunk: "Verse 1"},
+      {en: "I heard that you're settled down", es: "Escuché que te has establecido"},
+      {en: "That you found a girl and you're married now", es: "Que encontraste a una chica y ahora estás casado"},
+      {en: "I heard that your dreams came true", es: "Escuché que tus sueños se hicieron realidad"},
+      {en: "Guess she gave you things I didn't give to you", es: "Supongo que ella te dio cosas que yo no te di"},
+      {gap: true},
+      {chunk: "Pre-chorus"},
+      {en: "Old friend, why are you so shy?", es: "Viejo amigo, ¿por qué eres tan tímido?"},
+      {en: "It ain't like you to hold back or hide from the light", es: "No es propio de ti contenerte o esconderte de la luz"},
+      {gap: true},
+      {chunk: "Chorus"},
+      {en: "Never mind, I'll find someone like you", es: "No importa, encontraré a alguien como tú"},
+      {en: "I wish nothing but the best for you two", es: "No deseo más que lo mejor para ustedes dos"},
+      {en: "Don't forget me, I beg", es: "No me olvides, te lo ruego"},
+      {en: "I'll remember you said, 'Sometimes it lasts in love'", es: "Recordaré que dijiste: 'A veces el amor perdura'"},
+      {en: "But sometimes it hurts instead", es: "Pero a veces duele en su lugar"},
+      {gap: true},
+      {chunk: "Post-chorus"},
+      {en: "Sometimes it lasts in love", es: "A veces el amor perdura"},
+      {en: "But sometimes it hurts instead", es: "Pero a veces duele en su lugar"},
+      {gap: true},
+      {chunk: "Verse 2"},
+      {en: "You know how the time flies", es: "Sabes cómo vuela el tiempo"},
+      {en: "Only yesterday was the time of our lives", es: "Solo ayer fue el tiempo de nuestras vidas"},
+      {en: "We were born and raised in a summer haze", es: "Nacimos y crecimos en una bruma de verano"},
+      {en: "Bound by the surprise of our glory days", es: "Unidos por la sorpresa de nuestros días de gloria"},
+      {gap: true},
+      {chunk: "Chorus"},
+      {en: "Never mind, I'll find someone like you", es: "No importa, encontraré a alguien como tú"},
+      {en: "I wish nothing but the best for you two", es: "No deseo más que lo mejor para ustedes dos"},
+      {en: "Don't forget me, I beg", es: "No me olvides, te lo ruego"},
+      {en: "I'll remember you said, 'Sometimes it lasts in love'", es: "Recordaré que dijiste: 'A veces el amor perdura'"},
+      {en: "But sometimes it hurts instead", es: "Pero a veces duele en su lugar"},
+      {gap: true},
+      {chunk: "Bridge"},
+      {en: "Nothing compares, no worries or cares", es: "Nada se compara, sin preocupaciones ni cuidados"},
+      {en: "Regrets and mistakes, they're memories made", es: "Arrepentimientos y errores, se convierten en recuerdos"},
+      {en: "Who would have known how bittersweet this would taste?", es: "¿Quién hubiera sabido lo agridulce que esto sabría?"},
+      ]
+  },
+  {
+    id: 'hello-adele',
+    title: 'Hello',
+    artist: 'Adele',
+    level: 'A2',
+    year: 2015,
+    youtube: 'YQHsXMglC9A',
+    grammar: ['Present Perfect', 'Past Simple', 'Questions', 'Telephone vocabulary'],
+    description: 'Slow, clear, and repetitive. Great for present perfect vs past simple.',
+    lyrics: [
+      {chunk: "Verse 1"},
+      {en: "Hello, it's me", es: "Hola, soy yo"},
+      {en: "I was wondering if after all these years you'd like to meet", es: "Me preguntaba si después de todos estos años te gustaría reunirte"},
+      {en: "To go over everything", es: "Para repasar todo"},
+      {gap: true},
+      {en: "They say that time's supposed to heal ya", es: "Dicen que se supone que el tiempo te sana"},
+      {en: "But I ain't done much healing", es: "Pero no he sanado mucho"},
+      {gap: true},
+      {chunk: "Verse 2"},
+      {en: "Hello, can you hear me?", es: "Hola, ¿puedes oírme?"},
+      {en: "I'm in California dreaming about who we used to be", es: "Estoy en California soñando con lo que solíamos ser"},
+      {en: "When we were younger and free", es: "Cuando éramos más jóvenes y libres"},
+      {en: "I've forgotten how it felt before the world fell at our feet", es: "He olvidado cómo se sentía antes de que el mundo cayera a nuestros pies"},
+      {gap: true},
+      {chunk: "Pre-chorus"},
+      {en: "There's such a difference between us", es: "Hay una gran diferencia entre nosotros"},
+      {en: "And a million miles", es: "Y un millón de millas"},
+      {gap: true},
+      {chunk: "Chorus"},
+      {en: "Hello from the other side", es: "Hola desde el otro lado"},
+      {en: "I must have called a thousand times", es: "Debo haber llamado mil veces"},
+      {en: "To tell you I'm sorry for everything that I've done", es: "Para decirte que lo siento por todo lo que he hecho"},
+      {en: "But when I call, you never seem to be home", es: "Pero cuando llamo, nunca pareces estar en casa"},
+      {gap: true},
+      {en: "Hello from the outside", es: "Hola desde el exterior"},
+      {en: "At least I can say that I've tried", es: "Al menos puedo decir que lo intenté"},
+      {en: "To tell you I'm sorry for breaking your heart", es: "Para decirte que lo siento por romper tu corazón"},
+      {en: "But it don't matter, it clearly doesn't tear you apart anymore", es: "Pero no importa, claramente ya no te destroza"},
+      ]
+  },
+  {
+    id: 'don-worry-be-happy',
+    title: 'Don\'t Worry, Be Happy',
+    artist: 'Bobby McFerrin',
+    level: 'A1',
+    year: 1988,
+    youtube: 'd-diB65scQU',
+    grammar: ['Imperatives (negative)', 'Simple present', 'Feelings vocabulary'],
+    description: 'Very simple vocabulary, slow tempo, and catchy. Perfect for absolute beginners.',
+    lyrics: [
+      {chunk: "Verse 1"},
+      {en: "Here's a little song I wrote", es: "Aquí hay una pequeña canción que escribí"},
+      {en: "You might want to sing it note for note", es: "Quizás quieras cantarla nota por nota"},
+      {en: "Don't worry, be happy", es: "No te preocupes, sé feliz"},
+      {gap: true},
+      {chunk: "Verse 2"},
+      {en: "In every life we have some trouble", es: "En cada vida tenemos algunos problemas"},
+      {en: "When you worry you make it double", es: "Cuando te preocupas, lo duplicas"},
+      {en: "Don't worry, be happy", es: "No te preocupes, sé feliz"},
+      {gap: true},
+      {chunk: "Chorus"},
+      {en: "Don't worry, be happy now", es: "No te preocupes, sé feliz ahora"},
+      {en: "Don't worry, be happy", es: "No te preocupes, sé feliz"},
+      {en: "Don't worry, be happy now", es: "No te preocupes, sé feliz ahora"},
+      {gap: true},
+      {chunk: "Verse 3"},
+      {en: "Ain't got no place to lay your head", es: "No tienes un lugar donde recostar tu cabeza"},
+      {en: "Somebody came and took your bed", es: "Alguien vino y tomó tu cama"},
+      {en: "Don't worry, be happy", es: "No te preocupes, sé feliz"},
+      {gap: true},
+      {chunk: "Verse 4"},
+      {en: "The landlord say your rent is late", es: "El casero dice que tu alquiler está atrasado"},
+      {en: "He may have to litigate", es: "Puede que tenga que demandar"},
+      {en: "Don't worry, be happy", es: "No te preocupes, sé feliz"},
+      {gap: true},
+      {chunk: "Chorus"},
+      {en: "Don't worry, be happy now", es: "No te preocupes, sé feliz ahora"},
+      {en: "Don't worry, be happy", es: "No te preocupes, sé feliz"},
+      {en: "Don't worry, be happy now", es: "No te preocupes, sé feliz ahora"},
+      {gap: true},
+      {chunk: "Verse 5"},
+      {en: "Got no style, I've got no clothes", es: "No tengo estilo, no tengo ropa"},
+      {en: "That's a problem, leave it be", es: "Eso es un problema, déjalo estar"},
+      {gap: true},
+      {en: "'Cause when you worry your face will frown", es: "Porque cuando te preocupas, tu cara se frunce"},
+      {en: "And that will bring everybody down", es: "Y eso hará que todos se sientan mal"},
+      {gap: true},
+      {chunk: "Chorus"},
+      {en: "Don't worry, be happy", es: "No te preocupes, sé feliz"},
+      {en: "Don't worry, be happy now", es: "No te preocupes, sé feliz ahora"},
+      {en: "Don't worry, be happy", es: "No te preocupes, sé feliz"},
+      ]
+  },
+  {
+    id: 'we-are-the-champions',
+    title: 'We Are the Champions',
+    artist: 'Queen',
+    level: 'B1',
+    year: 1977,
+    youtube: '04854XqcfCY',
+    grammar: ['Present Perfect', 'Past Simple', 'Modals (have to)', 'Determiners'],
+    description: 'Iconic anthem with great vocabulary. Practice present perfect.',
+    lyrics: [
+      {chunk: "Verse 1"},
+      {en: "I've paid my dues", es: "He pagado mis deudas"},
+      {en: "Time after time", es: "Una y otra vez"},
+      {en: "I've done my sentence", es: "He cumplido mi condena"},
+      {en: "But committed no crime", es: "Pero no cometí ningún crimen"},
+      {gap: true},
+      {chunk: "Verse 2"},
+      {en: "And bad mistakes", es: "Y malos errores"},
+      {en: "I've made a few", es: "He cometido algunos"},
+      {en: "I've had my share of sand kicked in my face", es: "He tenido mi parte de arena pateada en mi cara"},
+      {en: "But I've come through", es: "Pero he salido adelante"},
+      {gap: true},
+      {chunk: "Chorus"},
+      {en: "We are the champions, my friends", es: "Somos los campeones, mis amigos"},
+      {en: "And we'll keep on fighting 'til the end", es: "Y seguiremos luchando hasta el final"},
+      {en: "We are the champions", es: "Somos los campeones"},
+      {en: "We are the champions", es: "Somos los campeones"},
+      {en: "No time for losers", es: "No hay tiempo para perdedores"},
+      {en: "'Cause we are the champions of the world", es: "Porque somos los campeones del mundo"},
+      {gap: true},
+      {chunk: "Verse 3"},
+      {en: "I've taken my bows", es: "He hecho mis reverencias"},
+      {en: "And my curtain calls", es: "Y mis salidas a escena"},
+      {en: "You brought me fame and fortune and everything that goes with it", es: "Me trajeron fama y fortuna y todo lo que conlleva"},
+      {en: "I thank you all", es: "Les agradezco a todos"},
+      {gap: true},
+      {chunk: "Verse 4"},
+      {en: "But it's been no bed of roses", es: "Pero no ha sido un lecho de rosas"},
+      {en: "No pleasure cruise", es: "No un crucero de placer"},
+      {en: "I consider it a challenge before the whole human race", es: "Lo considero un desafío ante toda la raza humana"},
+      {en: "And I ain't gonna lose", es: "Y no voy a perder"},
+      {gap: true},
+      {chunk: "Chorus"},
+      {en: "We are the champions, my friends", es: "Somos los campeones, mis amigos"},
+      {en: "And we'll keep on fighting 'til the end", es: "Y seguiremos luchando hasta el final"},
+      {en: "We are the champions", es: "Somos los campeones"},
+      {en: "We are the champions", es: "Somos los campeones"},
+      {en: "No time for losers", es: "No hay tiempo para perdedores"},
+      {en: "'Cause we are the champions of the world", es: "Porque somos los campeones del mundo"},
+      {gap: true},
+      {chunk: "Final"},
+      {en: "We are the champions", es: "Somos los campeones"},
+      {en: "We are the champions", es: "Somos los campeones"},
+      {en: "We are the champions", es: "Somos los campeones"},
+      {en: "We are the champions of the world", es: "Somos los campeones del mundo"},
+      ]
+  },
+  {
+    id: 'love-me-like-you-do',
+    title: 'Love Me Like You Do',
+    artist: 'Ellie Goulding',
+    level: 'A2',
+    year: 2015,
+    youtube: 'AJtDXIazrMo',
+    grammar: ['Present Simple', 'Comparatives', 'Love vocabulary'],
+    description: 'From Fifty Shades of Grey soundtrack. Clear pronunciation.',
+    lyrics: [
+      {chunk: "Verse 1"},
+      {en: "You're the light, you're the night", es: "Eres la luz, eres la noche"},
+      {en: "You're the color of my blood", es: "Eres el color de mi sangre"},
+      {en: "You're the cure, you're the pain", es: "Eres la cura, eres el dolor"},
+      {en: "You're the only thing I wanna touch", es: "Eres lo único que quiero tocar"},
+      {en: "Never knew that it could mean so much, so much", es: "Nunca supe que podría significar tanto, tanto"},
+      {gap: true},
+      {chunk: "Pre-Chorus"},
+      {en: "Fading in, fading out", es: "Desvaneciéndome, apareciendo"},
+      {en: "On the edge of paradise", es: "Al borde del paraíso"},
+      {gap: true},
+      {chunk: "Chorus"},
+      {en: "Every inch of your skin is a holy grail I've got to find", es: "Cada centímetro de tu piel es un santo grial que debo encontrar"},
+      {en: "Only you can set my heart on fire, on fire", es: "Solo tú puedes prender fuego a mi corazón, en llamas"},
+      {gap: true},
+      {chunk: "Verse 2"},
+      {en: "Yeah, I'll let you set the pace", es: "Sí, dejaré que marques el ritmo"},
+      {en: "'Cause I'm not thinking straight", es: "Porque no estoy pensando con claridad"},
+      {en: "My head's spinning around, I can't see clear no more", es: "Mi cabeza da vueltas, ya no veo con claridad"},
+      {gap: true},
+      {chunk: "Pre-Chorus"},
+      {en: "Fading in, fading out", es: "Desvaneciéndome, apareciendo"},
+      {en: "On the edge of paradise", es: "Al borde del paraíso"},
+      {gap: true},
+      {chunk: "Chorus"},
+      {en: "Every inch of your skin is a holy grail I've got to find", es: "Cada centímetro de tu piel es un santo grial que debo encontrar"},
+      {en: "Only you can set my heart on fire, on fire", es: "Solo tú puedes prender fuego a mi corazón, en llamas"},
+      {gap: true},
+      {chunk: "Bridge"},
+      {en: "What are you waiting for?", es: "¿Qué estás esperando?"},
+      {en: "What are you waiting for?", es: "¿Qué estás esperando?"},
+      {gap: true},
+      {chunk: "Breakdown"},
+      {en: "You're the fear, I don't care", es: "Eres el miedo, no me importa"},
+      {en: "'Cause I'm never giving up", es: "Porque nunca me rendiré"},
+      {en: "I know you can take it all", es: "Sé que puedes soportarlo todo"},
+      {en: "You can take it all", es: "Puedes soportarlo todo"},
+      {gap: true},
+      {chunk: "Chorus"},
+      {en: "Every inch of your skin is a holy grail I've got to find", es: "Cada centímetro de tu piel es un santo grial que debo encontrar"},
+      {en: "Only you can set my heart on fire, on fire", es: "Solo tú puedes prender fuego a mi corazón, en llamas"},
+      {gap: true},
+      {chunk: "Outro"},
+      {en: "On the edge of paradise", es: "Al borde del paraíso"},
+      {en: "Every inch of your skin is a holy grail I've got to find", es: "Cada centímetro de tu piel es un santo grial que debo encontrar"},
+      {en: "Only you can set my heart on fire, on fire", es: "Solo tú puedes prender fuego a mi corazón, en llamas"},
+      ]
+  },
+  {
+    id: 'photograph',
+    title: 'Photograph',
+    artist: 'Ed Sheeran',
+    level: 'A2',
+    year: 2014,
+    youtube: 'nSDgHBxUbVQ',
+    grammar: ['Past Simple', 'Future (will)', 'Love vocabulary', 'Memories'],
+    description: 'A tender song about memories and love. Slow tempo.',
+    lyrics: [
+      {chunk: "Verse 1"},
+      {en: "Loving can hurt, loving can hurt sometimes", es: "Amar puede doler, amar puede doler a veces"},
+      {en: "But it's the only thing that I know", es: "Pero es lo único que conozco"},
+      {en: "When it gets hard, you know it can get hard sometimes", es: "Cuando se pone difícil, sabes que puede ponerse difícil a veces"},
+      {en: "It is the only thing that makes us feel alive", es: "Es lo único que nos hace sentir vivos"},
+      {gap: true},
+      {chunk: "Chorus"},
+      {en: "We keep this love in a photograph", es: "Guardamos este amor en una fotografía"},
+      {en: "We made these memories for ourselves", es: "Creamos estos recuerdos para nosotros"},
+      {en: "Where our eyes are never closing", es: "Donde nuestros ojos nunca se cierran"},
+      {en: "Hearts are never broken", es: "Los corazones nunca se rompen"},
+      {en: "And time's forever frozen still", es: "Y el tiempo está eternamente congelado"},
+      {gap: true},
+      {en: "So you can keep me", es: "Así que puedes guardarme"},
+      {en: "Inside the pocket of your ripped jeans", es: "Dentro del bolsillo de tus jeans rotos"},
+      {en: "Holding me closer 'til our eyes meet", es: "Abrazándome hasta que nuestros ojos se encuentren"},
+      {en: "You won't ever be alone, wait for me to come home", es: "Nunca estarás solo, espera a que vuelva a casa"},
+      {gap: true},
+      {chunk: "Verse 2"},
+      {en: "Loving can heal, loving can mend your soul", es: "Amar puede sanar, amar puede reparar tu alma"},
+      {en: "And it's the only thing that I know", es: "Y es lo único que conozco"},
+      {en: "When it gets hard, you know it can get hard sometimes", es: "Cuando se pone difícil, sabes que puede ponerse difícil a veces"},
+      {en: "It is the only thing that makes us feel alive", es: "Es lo único que nos hace sentir vivos"},
+      {gap: true},
+      {chunk: "Chorus"},
+      {en: "We keep this love in a photograph", es: "Guardamos este amor en una fotografía"},
+      {en: "We made these memories for ourselves", es: "Creamos estos recuerdos para nosotros"},
+      {en: "Where our eyes are never closing", es: "Donde nuestros ojos nunca se cierran"},
+      {en: "Hearts are never broken", es: "Los corazones nunca se rompen"},
+      {en: "And time's forever frozen still", es: "Y el tiempo está eternamente congelado"},
+      {gap: true},
+      {en: "So you can keep me", es: "Así que puedes guardarme"},
+      {en: "Inside the pocket of your ripped jeans", es: "Dentro del bolsillo de tus jeans rotos"},
+      {en: "Holding me closer 'til our eyes meet", es: "Abrazándome hasta que nuestros ojos se encuentren"},
+      {en: "You won't ever be alone, wait for me to come home", es: "Nunca estarás solo, espera a que vuelva a casa"},
+      {gap: true},
+      {chunk: "Bridge"},
+      {en: "When I'm away, I will remember how you kissed me", es: "Cuando esté lejos, recordaré cómo me besaste"},
+      {en: "Under the lamppost back on Sixth Street", es: "Bajo la farola en la calle Sexta"},
+      {en: "Hearing you whisper through the phone", es: "Escuchándote susurrar a través del teléfono"},
+      {en: "Wait for me to come home", es: "Espera a que vuelva a casa"},
+      ]
+  },
+  {
+    id: 'a-thousand-years',
+    title: 'A Thousand Years',
+    artist: 'Christina Perri',
+    level: 'A2',
+    year: 2011,
+    youtube: 'rtOvBOTyX00',
+    grammar: ['Present Perfect', 'Past Simple', 'Future (will)', 'Love vocabulary'],
+    description: 'From the Twilight saga. Slow, romantic, full of present perfect tense.',
+    lyrics: [
+      {chunk: "Verse 1"},
+      {en: "Heart beats fast", es: "El corazón late rápido"},
+      {en: "Colors and promises", es: "Colores y promesas"},
+      {en: "How to be brave?", es: "¿Cómo ser valiente?"},
+      {en: "How can I love when I'm afraid to fall?", es: "¿Cómo puedo amar si tengo miedo de caer?"},
+      {en: "But watching you stand alone", es: "Pero al verte estar solo"},
+      {en: "All of my doubt suddenly goes away somehow", es: "Toda mi duda de repente desaparece de alguna manera"},
+      {gap: true},
+      {chunk: "Pre-Chorus"},
+      {en: "One step closer", es: "Un paso más cerca"},
+      {gap: true},
+      {chunk: "Chorus"},
+      {en: "I have died everyday waiting for you", es: "He muerto cada día esperándote"},
+      {en: "Darling, don't be afraid, I have loved you", es: "Cariño, no tengas miedo, te he amado"},
+      {en: "For a thousand years", es: "Por mil años"},
+      {en: "I'll love you for a thousand more", es: "Te amaré por mil más"},
+      {gap: true},
+      {chunk: "Verse 2"},
+      {en: "Time stands still", es: "El tiempo se detiene"},
+      {en: "Beauty in everything she is", es: "Belleza en todo lo que ella es"},
+      {en: "I will be brave", es: "Seré valiente"},
+      {en: "I will not let anything take away", es: "No dejaré que nada se lleve"},
+      {en: "What's standing in front of me", es: "Lo que está frente a mí"},
+      {en: "Every breath, every hour has come to this", es: "Cada respiro, cada hora ha llegado a esto"},
+      {gap: true},
+      {chunk: "Pre-Chorus"},
+      {en: "One step closer", es: "Un paso más cerca"},
+      {gap: true},
+      {chunk: "Chorus"},
+      {en: "I have died everyday waiting for you", es: "He muerto cada día esperándote"},
+      {en: "Darling, don't be afraid, I have loved you", es: "Cariño, no tengas miedo, te he amado"},
+      {en: "For a thousand years", es: "Por mil años"},
+      {en: "I'll love you for a thousand more", es: "Te amaré por mil más"},
+      {gap: true},
+      {chunk: "Bridge"},
+      {en: "And all along I believed I would find you", es: "Y siempre creí que te encontraría"},
+      {en: "Time has brought your heart to me", es: "El tiempo ha traído tu corazón a mí"},
+      {en: "I have loved you for a thousand years", es: "Te he amado por mil años"},
+      {en: "I'll love you for a thousand more", es: "Te amaré por mil más"},
+      {gap: true},
+      {chunk: "Pre-Chorus"},
+      {en: "One step closer", es: "Un paso más cerca"},
+      {gap: true},
+      {chunk: "Chorus"},
+      {en: "I have died everyday waiting for you", es: "He muerto cada día esperándote"},
+      {en: "Darling, don't be afraid, I have loved you", es: "Cariño, no tengas miedo, te he amado"},
+      {en: "For a thousand years", es: "Por mil años"},
+      {en: "I'll love you for a thousand more", es: "Te amaré por mil más"},
+      {gap: true},
+      {chunk: "Outro"},
+      {en: "I'll love you for a thousand more", es: "Te amaré por mil más"},
+      ]
+  },
+  {
+    id: 'x-and-y',
+    title: 'X&Y',
+    artist: 'Coldplay',
+    level: 'B1',
+    year: 2005,
+    youtube: 'uIgxY0yWLNY',
+    grammar: ['Present Simple', 'Questions', 'Modal (could)', 'Abstract vocabulary'],
+    description: 'A thoughtful Coldplay song about connection and searching for answers.',
+    lyrics: [
+      {chunk: "Verse 1"},
+      {en: "When you're very close to me", es: "Cuando estás muy cerca de mí"},
+      {en: "I'm finding it hard to breathe", es: "Me está costando respirar"},
+      {en: "There's a secret that I know", es: "Hay un secreto que sé"},
+      {en: "I'm not allowed to show", es: "No me está permitido mostrar"},
+      {gap: true},
+      {chunk: "Chorus"},
+      {en: "Do you know what X&Y means?", es: "¿Sabes lo que X&Y significa?"},
+      {en: "It could mean everything", es: "Podría significar todo"},
+      {en: "It could mean anything", es: "Podría significar cualquier cosa"},
+      {en: "And I'm caught up in between", es: "Y estoy atrapado en el medio"},
+      {gap: true},
+      {chunk: "Verse 2"},
+      {en: "You see, the world is changing", es: "Verás, el mundo está cambiando"},
+      {en: "And I'm not sure if I am ready", es: "Y no estoy seguro de estar listo"},
+      {en: "For all that we've been through", es: "Para todo lo que hemos pasado"},
+      {en: "And all that we're about to do", es: "Y todo lo que estamos por hacer"},
+      {gap: true},
+      {chunk: "Chorus"},
+      {en: "Do you know what X&Y means?", es: "¿Sabes lo que X&Y significa?"},
+      {en: "It could mean everything", es: "Podría significar todo"},
+      {en: "It could mean anything", es: "Podría significar cualquier cosa"},
+      {en: "And I'm caught up in between", es: "Y estoy atrapado en el medio"},
+      {gap: true},
+      {chunk: "Bridge"},
+      {en: "And if you go, I will follow", es: "Y si te vas, te seguiré"},
+      {en: "To the depths of the ocean", es: "A las profundidades del océano"},
+      {en: "To the ends of the earth", es: "Hasta los confines de la tierra"},
+      {en: "I'd go anywhere with you", es: "Iría a cualquier lugar contigo"},
+      {en: "And I'm not scared", es: "Y no tengo miedo"},
+      {en: "'Cause we've got this chemistry", es: "Porque tenemos esta química"},
+      ]
+  },
+  {
+    id: 'fix-you',
+    title: 'Fix You',
+    artist: 'Coldplay',
+    level: 'A2',
+    year: 2005,
+    youtube: 'k4V3Mo61fJM',
+    grammar: ['Imperatives', 'Modal (will)', 'Present Simple', 'Encouragement vocabulary'],
+    description: 'One of Coldplay\'s most iconic songs. Perfect for imperatives.',
+    lyrics: [
+      {chunk: "Verse 1"},
+      {en: "When you try your best but you don't succeed", es: "Cuando das lo mejor de ti pero no tienes exito"},
+      {en: "When you get what you want but not what you need", es: "Cuando obtienes lo que quieres pero no lo que necesitas"},
+      {en: "When you feel so tired but you can't sleep", es: "Cuando te sientes tan cansado pero no puedes dormir"},
+      {en: "Stuck in reverse", es: "Atascado en reversa"},
+      {gap: true},
+      {chunk: "Verse 2"},
+      {en: "And the tears come streaming down your face", es: "Y las lagrimas caen por tu cara"},
+      {en: "When you lose something you can't replace", es: "Cuando pierdes algo que no puedes reemplazar"},
+      {en: "When you love someone but it goes to waste", es: "Cuando amas a alguien pero se desperdicia"},
+      {en: "Could it be worse?", es: "Podria ser peor?"},
+      {gap: true},
+      {chunk: "Chorus"},
+      {en: "Lights will guide you home", es: "Las luces te guiaran a casa"},
+      {en: "And ignite your bones", es: "Y encenderan tus huesos"},
+      {en: "And I will try to fix you", es: "Y tratare de arreglarte"},
+      {gap: true},
+      {chunk: "Bridge"},
+      {en: "And high up above or down below", es: "Y muy arriba o abajo"},
+      {en: "When you're too in love to let it go", es: "Cuando estas demasiado enamorado para dejarlo ir"},
+      {en: "But if you never try you'll never know", es: "Pero si nunca lo intentas nunca lo sabras"},
+      {en: "Just what you're worth", es: "Lo que vales"},
+      {gap: true},
+      {chunk: "Chorus"},
+      {en: "Lights will guide you home", es: "Las luces te guiarán a casa"},
+      {en: "And ignite your bones", es: "Y encenderán tus huesos"},
+      {en: "And I will try to fix you", es: "Y trataré de arreglarte"},
+      {gap: true},
+      {chunk: "Outro"},
+      {en: "Tears stream down your face", es: "Las lágrimas caen por tu cara"},
+      {en: "When you lose something you cannot replace", es: "Cuando pierdes algo que no puedes reemplazar"},
+      {en: "Tears stream down your face and I", es: "Las lágrimas caen por tu cara y yo"},
+      {gap: true},
+      {en: "Tears stream down your face", es: "Las lágrimas caen por tu cara"},
+      {en: "I promise you I will learn from my mistakes", es: "Te prometo que aprenderé de mis errores"},
+      {en: "Tears stream down your face and I", es: "Las lágrimas caen por tu cara y yo"},
+      {gap: true},
+      {en: "Lights will guide you home", es: "Las luces te guiarán a casa"},
+      {en: "And ignite your bones", es: "Y encenderán tus huesos"},
+      {en: "And I will try to fix you", es: "Y trataré de arreglarte"}
+      ]
+  },
+  {
+    id: 'winner-takes-it-all',
+    title: 'The Winner Takes It All',
+    artist: 'ABBA',
+    level: 'A2',
+    year: 1980,
+    youtube: '92cwKCU8Z5c',
+    grammar: ['Past Simple', 'Present Simple', 'Comparatives', 'Determiners'],
+    description: 'ABBA classic. Slow, clear, and full of useful vocabulary.',
+    lyrics: [
+      {chunk: "Verse 1"},
+      {en: "I don't wanna talk", es: "No quiero hablar"},
+      {en: "About the things we've gone through", es: "Sobre las cosas que hemos pasado"},
+      {en: "Though it's hurting me", es: "Aunque me está doliendo"},
+      {en: "Now it's history", es: "Ahora es historia"},
+      {gap: true},
+      {chunk: "Verse 2"},
+      {en: "I've played all my cards", es: "He jugado todas mis cartas"},
+      {en: "And that's what you've done too", es: "Y eso es lo que tú también has hecho"},
+      {en: "Nothing more to say", es: "Nada más que decir"},
+      {en: "No more ace to play", es: "No más ases que jugar"},
+      {gap: true},
+      {chunk: "Chorus"},
+      {en: "The winner takes it all", es: "El ganador se lo lleva todo"},
+      {en: "The loser's standing small", es: "El perdedor queda pequeño"},
+      {en: "Beside the victory", es: "Junto a la victoria"},
+      {en: "That's her destiny", es: "Ese es su destino"},
+      {gap: true},
+      {chunk: "Verse 3"},
+      {en: "I was in your arms", es: "Estaba en tus brazos"},
+      {en: "Thinking I belonged there", es: "Pensando que pertenecía allí"},
+      {en: "I figured it made sense", es: "Pensé que tenía sentido"},
+      {en: "Building me a fence", es: "Construyéndome una cerca"},
+      {gap: true},
+      {en: "Building me a home", es: "Construyéndome un hogar"},
+      {en: "Thinking I'd be strong there", es: "Pensando que sería fuerte allí"},
+      {en: "But I was a fool", es: "Pero fui una tonta"},
+      {en: "Playing by the rules", es: "Jugando según las reglas"},
+      {gap: true},
+      {chunk: "Chorus"},
+      {en: "The winner takes it all", es: "El ganador se lo lleva todo"},
+      {en: "The loser's standing small", es: "El perdedor queda pequeño"},
+      {en: "Beside the victory", es: "Junto a la victoria"},
+      {en: "That's her destiny", es: "Ese es su destino"},
+      {gap: true},
+      {chunk: "Verse 4"},
+      {en: "The gods may throw a dice", es: "Los dioses pueden lanzar un dado"},
+      {en: "Their minds as cold as ice", es: "Sus mentes tan frías como el hielo"},
+      {en: "And someone way down here", es: "Y alguien aquí abajo"},
+      {en: "Loses someone dear", es: "Pierde a alguien querido"},
+      {gap: true},
+      {chunk: "Verse 5"},
+      {en: "I don't wanna talk", es: "No quiero hablar"},
+      {en: "If it makes you feel sad", es: "Si te hace sentir triste"},
+      {en: "And I understand", es: "Y lo entiendo"},
+      {en: "You've come to shake my hand", es: "Has venido a estrechar mi mano"},
+      {gap: true},
+      {en: "I apologize", es: "Me disculpo"},
+      {en: "If it makes you feel bad", es: "Si te hace sentir mal"},
+      {en: "Seeing me so tense", es: "Verme tan tensa"},
+      {en: "No self-confidence", es: "Sin confianza en mí misma"},
+      {gap: true},
+      {chunk: "Bridge"},
+      {en: "But you see", es: "Pero ves"},
+      {en: "The winner takes it all", es: "El ganador se lo lleva todo"},
+      {en: "The winner takes it all", es: "El ganador se lo lleva todo"},
+      {gap: true},
+      {chunk: "Outro"},
+      {en: "The game is on again", es: "El juego comienza de nuevo"},
+      {en: "Only you know the end", es: "Solo tú sabes el final"},
+      ]
+  }
+];
+
+// ==================== NAVIGATION ====================
+let currentSong = null;
+let showTranslation = false;
+
+function buildSidebar() {
+  const list = document.getElementById('song-sidebar-list');
+  if (!list) return;
+  list.innerHTML = '';
+  SONGS.forEach(s => {
+    const a = document.createElement('a');
+    a.textContent = '\ud83c\udfb5 ' + s.title;
+    a.onclick = () => showSong(s.id);
+    a.id = 'ns-' + s.id;
+    list.appendChild(a);
+  });
+}
+
+function buildGrid() {
+  const grid = document.getElementById('song-grid');
+  grid.innerHTML = '';
+  SONGS.forEach(s => {
+    const card = document.createElement('div');
+    card.className = 'song-card';
+    card.onclick = () => showSong(s.id);
+    card.innerHTML = `
+      <span class="level-badge level-${s.level.toLowerCase()}">${s.level}</span>
+      <h4>${s.title}</h4>
+      <div class="artist">${s.artist} \u00b7 ${s.year}</div>
+      <div class="grammar-tags">${s.grammar.map(g => '<span>' + g + '</span>').join('')}</div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function showSong(songId) {
+  const song = SONGS.find(s => s.id === songId);
+  if (!song) return;
+  currentSong = song;
+  showTranslation = false;
+  document.querySelectorAll('.sidebar a').forEach(a => a.classList.remove('active'));
+  const navItem = document.getElementById('ns-' + songId);
+  if (navItem) navItem.classList.add('active');
+
+  document.getElementById('songs-home').style.display = 'none';
+  document.getElementById('song-player').style.display = 'block';
+
+  const container = document.getElementById('song-content');
+  container.innerHTML = `
+    <div class="song-info">
+      <div>
+        <h3>${song.title}</h3>
+        <div class="artist">${song.artist} \u00b7 ${song.year}</div>
+        <p style="color:var(--text2);font-size:0.85rem;margin-top:6px">${song.description}</p>
+      </div>
+      <span class="level-badge level-${song.level.toLowerCase()}" style="font-size:0.85rem;padding:4px 12px">${song.level}</span>
+    </div>
+    <div class="player-wrap">
+      <iframe src="https://www.youtube-nocookie.com/embed/${song.youtube}?rel=0&autoplay=0" 
+              allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+              allowfullscreen loading="lazy"></iframe>
+    </div>
+    <div class="toolbar">
+      <button class="btn-sm btn-primary" onclick="toggleTranslation()" id="btn-translate">\ud83c\uddea\ud83c\uddf8 Show translation</button>
+      <button class="btn-sm btn-secondary" onclick="scrollLyrics()">\ud83d\udcdc Scroll to lyrics</button>
+      <span style="margin-left:auto;font-size:0.75rem;color:var(--text2)">\ud83c\udfa4 Grammar focus: ${song.grammar.join(' \u00b7 ')}</span>
+    </div>
+    <h3 style="margin-top:20px">\ud83d\udcdd Lyrics</h3>
+    <div class="lyrics-box" id="lyrics-box">
+      ${renderLyrics(song.lyrics)}
+    </div>
+    <div class="exercise-area">
+      <h3>\u270d\ufe0f Practice</h3>
+      <p style="color:var(--text2);font-size:0.85rem;margin-bottom:6px">What do you think this song is about? Write a short paragraph in English (30-50 words).</p>
+      <textarea id="song-exercise" placeholder="Write your thoughts about the song in English..."></textarea>
+      <button class="btn-sm btn-primary" onclick="checkSongExercise()">\ud83d\udcdd Check words</button>
+      <span id="song-exercise-feedback" style="margin-left:8px;font-size:0.85rem;color:var(--text2)"></span>
+    </div>
+  `;
+}
+
+function renderLyrics(lyrics) {
+  return lyrics.map(line => {
+    if (line.chunk) {
+      return `<div class="chunk">${line.chunk}</div>`;
+    }
+    if (line.gap) {
+      return `<div style="height:8px"></div>`;
+    }
+    const esLine = line.es ? `<div class="es">${line.es}</div>` : '';
+    return `<div class="line-group">${esLine}<div class="en">${line.en}</div></div>`;
+  }).join('');
+}
+
+function toggleTranslation() {
+  showTranslation = !showTranslation;
+  const box = document.getElementById('lyrics-box');
+  if (box) box.classList.toggle('show-translation', showTranslation);
+  const btn = document.getElementById('btn-translate');
+  if (btn) btn.textContent = showTranslation ? '\ud83c\uddea\ud83c\uddf8 Hide translation' : '\ud83c\uddea\ud83c\uddf8 Show translation';
+}
+
+function scrollLyrics() {
+  const box = document.getElementById('lyrics-box');
+  if (box) box.scrollIntoView({behavior: 'smooth', block: 'start'});
+}
+
+function checkSongExercise() {
+  const textarea = document.getElementById('song-exercise');
+  const feedback = document.getElementById('song-exercise-feedback');
+  const text = textarea.value.trim();
+  const words = text ? text.split(/\s+/) : [];
+  if (words.length < 20) {
+    feedback.textContent = '\u270f\ufe0f Try to write at least 20 words. You wrote ' + words.length + '.';
+    feedback.style.color = '#e03131';
+  } else {
+    feedback.textContent = '\u2705 Good! You wrote ' + words.length + ' words. Keep practicing!';
+    feedback.style.color = '#2b8a3e';
+  }
+}
+
+// ==================== INIT ====================
+buildSidebar();
+buildGrid();
+
+const hash = window.location.hash.slice(1);
+if (hash && SONGS.some(s => s.id === hash)) {
+  showSong(hash);
+}
+</script>
+</body>
+</html>

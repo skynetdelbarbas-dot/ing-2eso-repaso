@@ -1,6 +1,7 @@
 /**
  * English Tutor — Floating Chat Widget
  * Multi-level (A1-C1) with student registration and personalization.
+ * Includes connection status monitoring and graceful degradation.
  * 
  * Add to any HTML page: <script src="chat-widget.js"></script>
  * Config: set window.TUTOR_API_URL before loading, or defaults to current origin.
@@ -16,11 +17,17 @@
     const API_BASE = (window.TUTOR_API_URL || 'https://tutor.skynetdelbarbas.com/api').replace(/\/chat$/, '');
     const API_CHAT = API_BASE + '/chat';
     const API_START = API_BASE + '/start';
+    const API_HEALTH = API_BASE + '/health';
 
     // ─── localStorage keys ───
     const LS_ID = 'tutor_student_id';
     const LS_NAME = 'tutor_student_name';
     const LS_LEVEL = 'tutor_student_level';
+
+    // ─── Status monitoring ───
+    var tutorOnline = true;
+    var statusCheckInterval = null;
+    var statusCheckInProgress = false;
 
     // ─── Inject CSS ───
     var css = document.createElement('style');
@@ -33,6 +40,13 @@
 .chat-header{background:#4dabf7;color:#fff;padding:14px 16px;font-weight:600;font-size:0.95rem;display:flex;justify-content:space-between;align-items:center}
 .chat-header .close-btn{background:none;border:none;color:#fff;font-size:20px;cursor:pointer;opacity:0.7;padding:0 4px;line-height:1}
 .chat-header .close-btn:hover{opacity:1}
+/* Status dot in header */
+.chat-status{display:flex;align-items:center;gap:6px;font-size:0.7rem;font-weight:400;opacity:0.9;margin-left:8px}
+.chat-status .dot{width:8px;height:8px;border-radius:50%;display:inline-block;flex-shrink:0}
+.chat-status .dot.online{background:#51cf66;box-shadow:0 0 6px rgba(81,207,102,0.6)}
+.chat-status .dot.offline{background:#ff6b6b;box-shadow:0 0 6px rgba(255,107,107,0.6)}
+.chat-status .dot.checking{background:#ffd43b;animation:pulse 1s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
 
 /* Registration screen */
 .chat-screen{padding:0;overflow:hidden;display:flex;flex-direction:column;flex:1}
@@ -46,8 +60,10 @@
 .register-form .reg-btn:hover{background:#339af0}
 .register-form .reg-btn:disabled{opacity:0.5;cursor:not-allowed}
 .reg-error{color:#e03131;font-size:0.8rem;margin-top:6px;display:none}
+.reg-error.info{color:#1971c2;font-size:0.8rem;margin-top:6px;display:none}
 .reg-welcome{font-size:0.85rem;color:#6c757d;margin-top:8px}
 .reg-welcome strong{color:#212529}
+.offline-msg{background:#fff5f5;border:1px solid #ffc9c9;border-radius:8px;padding:10px 12px;margin:0 20px 12px;font-size:0.78rem;color:#c92a2a;text-align:center;display:none}
 
 /* Chat screen */
 .chat-messages{flex:1;overflow-y:auto;padding:12px;background:#f8f9fa;min-height:200px;max-height:350px}
@@ -56,9 +72,12 @@
 .chat-msg.user{background:#4dabf7;color:#fff;margin-left:auto;border-bottom-right-radius:4px}
 .chat-msg.bot{background:#e9ecef;color:#212529;margin-right:auto;border-bottom-left-radius:4px}
 .chat-msg.bot.loading{color:#868e96;font-style:italic}
+.chat-msg.bot.offline-notice{background:#fff5f5;color:#c92a2a;border:1px solid #ffc9c9;font-size:0.82rem}
+.chat-msg.bot.reconnect-notice{background:#e6fcf5;color:#2b8a3e;border:1px solid #b2f2bb;font-size:0.82rem}
 .chat-input-wrap{display:flex;padding:10px 12px;border-top:1px solid #e9ecef;background:#fff;gap:8px}
 .chat-input-wrap input{flex:1;padding:10px 12px;border:1px solid #dee2e6;border-radius:10px;font-size:0.87rem;outline:none;font-family:inherit}
 .chat-input-wrap input:focus{border-color:#4dabf7;box-shadow:0 0 0 3px rgba(77,171,247,0.12)}
+.chat-input-wrap input:disabled{background:#f1f3f5;cursor:not-allowed}
 .chat-input-wrap button{padding:8px 16px;border-radius:10px;border:none;background:#4dabf7;color:#fff;font-size:0.87rem;cursor:pointer;font-weight:600;white-space:nowrap}
 .chat-input-wrap button:disabled{opacity:0.5;cursor:not-allowed}
 .chat-input-wrap button:hover:not(:disabled){background:#339af0}
@@ -82,13 +101,20 @@
     overlay.className = 'chat-overlay';
     overlay.innerHTML = `
       <div class="chat-header">
-        🎓 English Tutor
+        <span style="display:flex;align-items:center;gap:4px">
+          🎓 English Tutor
+          <span class="chat-status" id="chat-status">
+            <span class="dot checking" id="status-dot"></span>
+            <span id="status-label">Checking...</span>
+          </span>
+        </span>
         <button class="close-btn" aria-label="Cerrar">&times;</button>
       </div>
       <div class="chat-screen" id="screen-register" style="display:${storedName ? 'none' : 'flex'}">
         <div class="register-form">
           <h3>👋 Welcome!</h3>
           <p>Tell us about yourself to start practicing English.</p>
+          <div class="offline-msg" id="reg-offline-msg">🔌 The tutor is offline right now. You can still study the exercises — the chat will work again when the connection is restored.</div>
           <label for="reg-name">Your name</label>
           <input type="text" id="reg-name" placeholder="e.g. Ana, Marcos, Laura..." value="${storedName}" autocomplete="off">
           <label for="reg-level">Your English level</label>
@@ -127,9 +153,86 @@
     var regLevel = document.getElementById('reg-level');
     var regBtn = document.getElementById('reg-start');
     var regError = document.getElementById('reg-error');
+    var regOfflineMsg = document.getElementById('reg-offline-msg');
     var input = document.getElementById('chat-input');
     var sendBtn = document.getElementById('chat-send');
     var msgsEl = document.getElementById('chat-msgs');
+    var statusDot = document.getElementById('status-dot');
+    var statusLabel = document.getElementById('status-label');
+
+    // ─── Connection status monitoring ───
+
+    function updateStatusUI(online) {
+      tutorOnline = online;
+      statusDot.className = 'dot ' + (online ? 'online' : 'offline');
+      statusLabel.textContent = online ? 'Connected' : 'Offline';
+
+      // Update input availability
+      if (screenChat.style.display !== 'none') {
+        input.disabled = !online;
+        sendBtn.disabled = !online || sending;
+        input.placeholder = online ? 'Write in English...' : '🔌 Tutor offline — exercises still work!';
+      }
+
+      // Show/hide offline message on register screen
+      if (regOfflineMsg) {
+        regOfflineMsg.style.display = online ? 'none' : 'block';
+      }
+    }
+
+    function checkStatus() {
+      if (statusCheckInProgress) return;
+      statusCheckInProgress = true;
+      statusDot.className = 'dot checking';
+      statusLabel.textContent = 'Checking...';
+
+      fetch(API_HEALTH, { signal: AbortSignal.timeout(5000) })
+        .then(function(r) {
+          return r.ok;
+        })
+        .then(function(ok) {
+          var wasOffline = !tutorOnline;
+          updateStatusUI(ok);
+          // If we just came back online while chat is open, notify the user
+          if (ok && wasOffline && open && screenChat.style.display !== 'none') {
+            var div = document.createElement('div');
+            div.className = 'chat-msg bot reconnect-notice';
+            div.textContent = '🔌 The tutor is back online! You can chat again.';
+            msgsEl.appendChild(div);
+            msgsEl.scrollTop = msgsEl.scrollHeight;
+          }
+        })
+        .catch(function() {
+          var wasOnline = tutorOnline;
+          updateStatusUI(false);
+          // If we just went offline while chat is open, notify the user
+          if (wasOnline && open && screenChat.style.display !== 'none') {
+            var div = document.createElement('div');
+            div.className = 'chat-msg bot offline-notice';
+            div.innerHTML = '🔌 <b>Tutor connection lost.</b> You can still practice exercises and study — the chat will resume automatically when the connection is restored.';
+            msgsEl.appendChild(div);
+            msgsEl.scrollTop = msgsEl.scrollHeight;
+          }
+        })
+        .finally(function() {
+          statusCheckInProgress = false;
+        });
+    }
+
+    function startStatusMonitoring() {
+      // Initial check
+      checkStatus();
+      // Periodic check every 30 seconds
+      if (statusCheckInterval) clearInterval(statusCheckInterval);
+      statusCheckInterval = setInterval(checkStatus, 30000);
+    }
+
+    function stopStatusMonitoring() {
+      if (statusCheckInterval) {
+        clearInterval(statusCheckInterval);
+        statusCheckInterval = null;
+      }
+    }
 
     // ─── Helper functions ───
 
@@ -143,10 +246,22 @@
       div.className = 'chat-msg bot';
       div.innerHTML = greeting;
       msgsEl.appendChild(div);
+
+      // If offline when switching to chat, show notice
+      if (!tutorOnline) {
+        var notice = document.createElement('div');
+        notice.className = 'chat-msg bot offline-notice';
+        notice.innerHTML = '🔌 <b>Tutor is offline.</b> You can still study and practice exercises. The chat will work again when the connection is restored.';
+        msgsEl.appendChild(notice);
+        input.disabled = true;
+        sendBtn.disabled = true;
+        input.placeholder = '🔌 Tutor offline — exercises still work!';
+      }
+
       msgsEl.scrollTop = msgsEl.scrollHeight;
 
       setTimeout(function() {
-        input.focus();
+        if (tutorOnline) input.focus();
       }, 300);
     }
 
@@ -159,11 +274,7 @@
     function addMessage(text, cls) {
       var div = document.createElement('div');
       div.className = 'chat-msg ' + cls;
-      if (cls === 'user' || cls.indexOf('loading') === -1) {
-        div.textContent = text;
-      } else {
-        div.textContent = text;
-      }
+      div.textContent = text;
       msgsEl.appendChild(div);
       msgsEl.scrollTop = msgsEl.scrollHeight;
       return div;
@@ -181,6 +292,13 @@
         return;
       }
       regError.style.display = 'none';
+
+      if (!tutorOnline) {
+        regError.textContent = '🔌 The tutor is offline. Please try again later.';
+        regError.style.display = 'block';
+        return;
+      }
+
       regBtn.disabled = true;
       regBtn.textContent = '⏳ Registering...';
 
@@ -202,7 +320,11 @@
         }
       })
       .catch(function() {
-        regError.textContent = '❌ Connection error. Check your internet.';
+        if (!tutorOnline) {
+          regError.textContent = '🔌 The tutor is offline. Please try again later.';
+        } else {
+          regError.textContent = '❌ Connection error. Check your internet.';
+        }
         regError.style.display = 'block';
       })
       .finally(function() {
@@ -224,6 +346,11 @@
     async function sendMessage() {
       var text = input.value.trim();
       if (!text || sending) return;
+
+      if (!tutorOnline) {
+        addMessage('🔌 The tutor is offline. You can still practice exercises — the chat will work when the connection is restored.', 'bot offline-notice');
+        return;
+      }
 
       var studentId = localStorage.getItem(LS_ID);
       if (!studentId) {
@@ -261,11 +388,15 @@
         }
       } catch(e) {
         loadingEl.remove();
-        addMessage('❌ Connection error. Check your internet and try again.', 'bot');
+        if (!tutorOnline) {
+          addMessage('🔌 The tutor is offline. You can still practice exercises — the chat will work when the connection is restored.', 'bot offline-notice');
+        } else {
+          addMessage('❌ Connection error. Check your internet and try again.', 'bot');
+        }
       }
-      sendBtn.disabled = false;
+      sendBtn.disabled = !tutorOnline;
       sending = false;
-      input.focus();
+      if (tutorOnline) input.focus();
     }
 
     input.addEventListener('keydown', function(e) {
@@ -278,31 +409,43 @@
       open = !open;
       overlay.classList.toggle('open', open);
       if (open) {
+        // Start or resume status monitoring when opening
+        if (!statusCheckInterval) startStatusMonitoring();
+        // Do a fresh check immediately
+        checkStatus();
+
         var sid = localStorage.getItem(LS_ID);
         if (sid && screenChat.style.display !== 'none') {
-          setTimeout(function() { input.focus(); }, 300);
+          setTimeout(function() { if (tutorOnline) input.focus(); }, 300);
         } else if (sid) {
-          // Already registered but showing register screen? Switch.
           var name = localStorage.getItem(LS_NAME);
           var level = localStorage.getItem(LS_LEVEL);
           switchToChat(name, level);
         } else {
           setTimeout(function() { regName.focus(); }, 300);
         }
+      } else {
+        // Pause monitoring when closed to save resources
+        stopStatusMonitoring();
       }
     });
 
     overlay.querySelector('.close-btn').addEventListener('click', function() {
       open = false;
       overlay.classList.remove('open');
+      stopStatusMonitoring();
     });
 
-    // ─── If student already stored, show chat directly ───
+    // ─── If student already stored, show chat directly and start monitoring ───
     if (storedName) {
-      // Wait for DOM to be ready, then show greeting
       setTimeout(function() {
         switchToChat(storedName, storedLevel);
       }, 100);
+    }
+
+    // Start monitoring if chat is visible on page load (user already registered)
+    if (storedName) {
+      startStatusMonitoring();
     }
   }
 

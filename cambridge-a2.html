@@ -83,7 +83,7 @@
 </main>
 </div>
 
-<script src="exercises.js?v=8"></script>
+<script src="exercises.js?v=10"></script>
 <script>
 // ============================================================
 // PART 1 — Multiple Choice (6 questions)
@@ -270,7 +270,7 @@ function renderPart5() {
     card.id = 'ex-p5-' + num;
     card.innerHTML =
       '<p class="stem"><strong>' + num + '.</strong> ' + ex.stem + '</p>' +
-      '<input type="text" id="inp-p5-' + num + '" data-answer="' + ex.answer + '" data-alts="[]" placeholder="Ej: with, at, for...">' +
+      '<input type="text" id="inp-p5-' + num + '" data-answer="' + ex.answer + '" data-alts="[]" placeholder="Ej: with, at, for..." autocomplete="nope">' +
       '<div class="btn-row">' +
         '<button class="btn-sm btn-check" onclick="checkOne(\'p5\', ' + num + ')">✅ Corregir</button>' +
         '<button class="btn-sm btn-answer" onclick="showAnswer(\'p5\', ' + num + ')">💡 Mostrar respuesta</button>' +
@@ -352,6 +352,6 @@ function showAnswer(prefix, num) {
 
 renderPart5();
 </script>
-<script src="chat-widget.js?v=2"></script>
+<script src="chat-widget.js?v=3"></script>
 </body>
 </html>

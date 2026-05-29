@@ -84,7 +84,7 @@
 </main>
 </div>
 
-<script src="exercises.js?v=8"></script>
+<script src="exercises.js?v=10"></script>
 <script>
 // ============================================================
 // POOL DE PREGUNTAS (~46)
@@ -261,6 +261,7 @@ function checkAllPassive() {
   else if (pct >= 70) msg += ' Muy bien 👍';
   else msg += ' Sigue practicando 💪';
   score.innerHTML = '<span class="big">' + correct + '/' + answered + '</span><br>' + msg;
+  if (typeof trackCheckAll === 'function' && answered > 0) trackCheckAll('ex-passive', correct, answered);
 }
 
 function resetPassive() {
@@ -358,6 +359,7 @@ function checkAllPassive2() {
   else if (pct >= 70) msg += ' Muy bien 👍';
   else msg += ' Sigue practicando 💪';
   score.innerHTML = '<span class=\"big\">' + correct + '/' + answered + '</span><br>' + msg;
+  if (typeof trackCheckAll === 'function' && answered > 0) trackCheckAll('ex-passive2', correct, answered);
 }
 
 function resetPassive2() {
@@ -375,6 +377,6 @@ function resetPassive2() {
 
 renderPassive2();
 </script>
-<script src="chat-widget.js?v=2"></script>
+<script src="chat-widget.js?v=3"></script>
 </body>
 </html>

@@ -1,0 +1,164 @@
+{
+  "//": "Present Simple — teoría y reglas",
+  "id": "present-simple",
+  "title": "Present Simple",
+  "sections": [
+    {
+      "type": "intro",
+      "content": "El **Present Simple** se usa para hablar de rutinas, hechos generales y verdades universales."
+    },
+    {
+      "type": "usage",
+      "title": "📌 Usos principales",
+      "items": [
+        {
+          "label": "Rutinas y hábitos",
+          "example": "I *wake up* at 7 every day.",
+          "note": "Acciones que se repiten"
+        },
+        {
+          "label": "Hechos generales",
+          "example": "Water *boils* at 100°C.",
+          "note": "Verdades universales"
+        },
+        {
+          "label": "Horarios",
+          "example": "The bus *leaves* at 6 PM.",
+          "note": "Horarios fijos"
+        }
+      ]
+    },
+    {
+      "type": "affirmative",
+      "title": "✅ Affirmative",
+      "rules": [
+        {
+          "subject": "I / You / We / They",
+          "form": "verb (base form)",
+          "examples": ["I play tennis.", "They live in Murcia."]
+        },
+        {
+          "subject": "He / She / It",
+          "form": "verb + -s / -es",
+          "examples": ["He plays tennis.", "She watches TV.", "It rains a lot."],
+          "notes": [
+            "-s: play → plays",
+            "-es: watch → watches ( -sh, -ch, -ss, -x, -o )",
+            "-ies: study → studies ( consonante + y → -ies )"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "negative",
+      "title": "❌ Negative",
+      "rules": [
+        {
+          "subject": "I / You / We / They",
+          "form": "subject + don't + verb",
+          "examples": ["I don't like coffee.", "They don't live here."]
+        },
+        {
+          "subject": "He / She / It",
+          "form": "subject + doesn't + verb (sin -s)",
+          "examples": ["He doesn't play football.", "She doesn't eat meat."],
+          "note": "¡Importante! Tras doesn't el verbo vuelve a la forma base (sin -s)"
+        }
+      ]
+    },
+    {
+      "type": "questions",
+      "title": "❓ Questions",
+      "rules": [
+        {
+          "form": "Do / Does + subject + verb?",
+          "examples": [
+            "Do you like pizza? → Yes, I do. / No, I don't.",
+            "Does he speak English? → Yes, he does. / No, he doesn't."
+          ]
+        }
+      ]
+    },
+    {
+      "type": "signal-words",
+      "title": "🔑 Signal words (palabras clave)",
+      "items": [
+        "always", "usually", "often", "sometimes", "rarely", "never",
+        "every day / week / month",
+        "once a week", "twice a month",
+        "in the morning / afternoon / evening",
+        "on Mondays / at weekends"
+      ]
+    }
+  ],
+  "exercises": [
+    {
+      "id": "ps-1",
+      "type": "gap",
+      "stem": "She ___ (play) tennis every Sunday.",
+      "answer": "plays"
+    },
+    {
+      "id": "ps-2",
+      "type": "gap",
+      "stem": "They ___ (not / like) coffee.",
+      "answer": "don't like"
+    },
+    {
+      "id": "ps-3",
+      "type": "gap",
+      "stem": "___ he ___ (speak) French?",
+      "answer": "Does speak",
+      "alts": ["Does ... speak"]
+    },
+    {
+      "id": "ps-4",
+      "type": "gap",
+      "stem": "My father ___ (work) in an office.",
+      "answer": "works"
+    },
+    {
+      "id": "ps-5",
+      "type": "gap",
+      "stem": "We ___ (not / go) to school on Sundays.",
+      "answer": "don't go"
+    },
+    {
+      "id": "ps-6",
+      "type": "reorder",
+      "stem": "Ordena: always / I / coffee / drink / in the morning",
+      "answer": "I always drink coffee in the morning."
+    },
+    {
+      "id": "ps-7",
+      "type": "gap",
+      "stem": "She ___ (study) English at school.",
+      "answer": "studies"
+    },
+    {
+      "id": "ps-8",
+      "type": "choice",
+      "stem": "He ___ (go) to the gym on Fridays.",
+      "answer": "goes",
+      "options": ["go", "goes", "going", "gone"]
+    },
+    {
+      "id": "ps-9",
+      "type": "gap",
+      "stem": "___ you ___ (want) a drink?",
+      "answer": "Do want"
+    },
+    {
+      "id": "ps-10",
+      "type": "gap",
+      "stem": "The train ___ (leave) at 9:00 AM.",
+      "answer": "leaves"
+    }
+  ],
+  "tips": [
+    "El verbo en 3ª persona singular lleva -s: he plays, she works, it rains.",
+    "Con 'doesn't' el verbo NUNCA lleva -s: he doesn't play (no 'he doesn't plays').",
+    "Los adverbios de frecuencia van ANTES del verbo: I always eat breakfast.",
+    "Pero van DESPUÉS del verbo 'to be': I am never late."
+  ]
+}
