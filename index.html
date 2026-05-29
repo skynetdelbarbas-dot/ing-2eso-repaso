@@ -174,6 +174,17 @@ input.correct,textarea.correct{border-color:var(--success)!important;background:
     <a onclick="show('g-articles')" id="ngar">Articles (a/an/the)</a>
     <a onclick="show('g-indefinite-pronouns')" id="ngip">Indefinite Pronouns</a>
     <a onclick="show('g-nor-neither')" id="ngnn">Nor / Neither / So</a>
+    <a onclick="show('g-present-simple')" id="ngps">📖 Present Simple</a>
+    <a onclick="show('g-present-continuous')" id="ngpc">⏳ Present Continuous</a>
+    <a onclick="show('g-past-simple')" id="ngpast">⏪ Past Simple</a>
+    <a onclick="show('g-past-continuous')" id="ngpastc">⏮️ Past Continuous</a>
+    <a onclick="show('g-used-to')" id="ngused">🕰️ Used To</a>
+    <a onclick="show('g-gerunds-infinitives')" id="nggi">🏃 Gerunds &amp; Infinitives</a>
+    <a onclick="show('g-relative-clauses')" id="ngrc">🔗 Relative Clauses</a>
+    <a onclick="show('g-possessives-s-of')" id="ngposs">📌 Possessives ('s / of)</a>
+    <a onclick="show('g-imperatives')" id="ngimp">❗ Imperatives</a>
+    <a onclick="show('g-linking-words')" id="nglw">🧩 Linking Words</a>
+    <a onclick="show('g-phrasal-verbs')" id="ngpv2">🔀 Phrasal Verbs</a>
   </div>
   <h2>✍️ WRITING</h2>
   <a onclick="show('writing')" id="nw">📝 Plantillas</a>
@@ -222,6 +233,11 @@ const NAV_MAP = {home:'nh',fundamentals:'nf',verbs:'nv',writing:'nw',simulacro:'
   'g-passive':'ngpv','g-wish-if-only':'ngwi','g-question-tags':'ngqt',
   'g-articles':'ngar','g-indefinite-pronouns':'ngip','g-nor-neither':'ngnn',
   'grammar-review':'ngr','cambridge-a2':'nca',
+  'g-present-simple':'ngps','g-present-continuous':'ngpc',
+  'g-past-simple':'ngpast','g-past-continuous':'ngpastc',
+  'g-used-to':'ngused','g-gerunds-infinitives':'nggi',
+  'g-relative-clauses':'ngrc','g-possessives-s-of':'ngposs',
+  'g-imperatives':'ngimp','g-linking-words':'nglw','g-phrasal-verbs':'ngpv2',
   'reading':'nrd','listening':'nlst','writing-practice':'nwp','songs':'nsng'};
 
 const PAGE_MAP = {
@@ -1235,6 +1251,195 @@ En español podríamos decir «Chocolate, me encanta», pero en inglés NO se pu
 <div class="example"><span class="en">I <b>don't</b> like spinach.</span> — No me gustan las espinacas.<br>
 <span class="en">She <b>doesn't</b> speak French.</span> — Ella no habla francés.</div>
 </div></div>`;
+
+// ==================== GRAMMAR — Nuevos temas ====================
+
+SECTIONS['g-present-simple'] = `<div class="section active" style="display:block">
+<h2>📖 Present Simple</h2>
+<div class="theory-box">
+<h3>Uso</h3>
+<p>Se usa para <b>rutinas</b>, <b>hechos generales</b> y <b>verdades universales</b>.</p>
+<div class="example"><span class="en">I <b>wake up</b> at 7am every day.</span> — Me despierto a las 7am cada día.<br>
+<span class="en">Water <b>boils</b> at 100°C.</span> — El agua hierve a 100°C.<br>
+<span class="en">She <b>works</b> in a hospital.</span> — Ella trabaja en un hospital.</div>
+</div>
+<div class="theory-box">
+<h3>Affirmative</h3>
+<p>I/You/We/They → <b>verbo</b> · He/She/It → <b>verbo + -(e)s</b></p>
+<div class="example">I play · You play · He/she/it <b>plays</b> · We play · They play</div>
+<p><b>Reglas 3ª persona -s:</b> Normal: work→works · -s,-sh,-ch,-x,-o→+es: watch→watches, go→goes · Consonante+y→-ies: study→studies</p>
+</div>
+<div class="theory-box">
+<h3>Negative — don't / doesn't</h3>
+<p><b>I/you/we/they + don't + verbo</b> · <b>He/she/it + doesn't + verbo</b> (el verbo SIN -s)</p>
+<div class="example"><span class="en">I <b>don't</b> like coffee.</span> — No me gusta el café.<br>
+<span class="en">She <b>doesn't</b> speak French.</span> — Ella no habla francés.</div>
+</div>
+<div class="theory-box">
+<h3>Questions — Do / Does</h3>
+<p><b>Do/Does + sujeto + verbo?</b></p>
+<div class="example"><span class="en"><b>Do</b> you play tennis?</span> — ¿Juegas al tenis?<br>
+<span class="en"><b>Does</b> he live here?</span> — ¿Vive aquí?<br>
+<span class="en">Where <b>do</b> you work?</span> — ¿Dónde trabajas?</div>
+</div>
+<div class="theory-box">
+<h3>Frequency Adverbs</h3>
+<p>Siempre <b>antes del verbo principal</b> (pero <b>después del verbo to be</b>).</p>
+<table class="verbs"><thead><tr><th>Adverb</th><th>Meaning</th><th>Example</th></tr></thead><tbody>
+<tr><td><b>always</b></td><td>siempre</td><td><span class="en">I <b>always</b> arrive on time.</span></td></tr>
+<tr><td><b>usually</b></td><td>normalmente</td><td><span class="en">She <b>usually</b> walks to school.</span></td></tr>
+<tr><td><b>often</b></td><td>a menudo</td><td><span class="en">We <b>often</b> eat out.</span></td></tr>
+<tr><td><b>sometimes</b></td><td>a veces</td><td><span class="en">He <b>sometimes</b> plays guitar.</span></td></tr>
+<tr><td><b>rarely</b></td><td>rara vez</td><td><span class="en">They <b>rarely</b> watch TV.</span></td></tr>
+<tr><td><b>never</b></td><td>nunca</td><td><span class="en">I <b>never</b> drink alcohol.</span></td></tr>
+</tbody></table>
+<div class="example">Con to be: <span class="en">I am <b>always</b> happy. / She is <b>never</b> late.</span></div>
+</div>
+<div class="theory-box">
+<h3>Spelling rules 3rd person</h3>
+<p>• <b>-s</b>: work → work<b>s</b>, eat → eat<b>s</b><br>
+• <b>-es</b> (-s, -sh, -ch, -x, -o): watch → watch<b>es</b>, go → go<b>es</b>, fix → fix<b>es</b><br>
+• <b>-ies</b> (consonante + y): study → stud<b>ies</b>, fly → fl<b>ies</b><br>
+• <b>Have</b> → <b>Has</b> (único irregular)</p>
+</div></div>`;
+
+SECTIONS['g-present-continuous'] = `<div class="section active" style="display:block">
+<h2>⏳ Present Continuous</h2>
+<div class="theory-box">
+<h3>Uso</h3>
+<p>Se usa para acciones que están ocurriendo <b>ahora mismo</b> o <b>en este período</b>. También para <b>planes futuros fijados</b>.</p>
+<div class="example"><span class="en">I <b>am reading</b> a book right now.</span> — Estoy leyendo un libro ahora.<br>
+<span class="en">She <b>is studying</b> for her exam this week.</span> — Está estudiando para su examen esta semana.<br>
+<span class="en">We <b>are meeting</b> Sarah at 6pm tomorrow.</span> — Quedamos con Sarah mañana a las 6.</div>
+</div>
+<div class="theory-box">
+<h3>Structure</h3>
+<p><b>am / is / are + verbo-ing</b></p>
+<table class="verbs"><thead><tr><th></th><th>Affirmative</th><th>Negative</th><th>Question</th></tr></thead><tbody>
+<tr><td>I</td><td>I <b>am eating</b></td><td>I <b>am not eating</b></td><td><b>Am</b> I eating?</td></tr>
+<tr><td>You</td><td>You <b>are eating</b></td><td>You <b>aren't eating</b></td><td><b>Are</b> you eating?</td></tr>
+<tr><td>He/She/It</td><td>He <b>is eating</b></td><td>He <b>isn't eating</b></td><td><b>Is</b> he eating?</td></tr>
+<tr><td>We/They</td><td>We <b>are eating</b></td><td>We <b>aren't eating</b></td><td><b>Are</b> they eating?</td></tr>
+</tbody></table>
+</div>
+<div class="theory-box">
+<h3>-ing Spelling Rules</h3>
+<p>• Normal: <b>+ing</b>: play → playing, eat → eating<br>
+• E muda: <b>quita e + ing</b>: write → writing, dance → dancing<br>
+• CVC (consonante-vocal-consonante): <b>dobla final + ing</b>: run → running, swim → swimming, get → getting<br>
+• -ie → <b>-ying</b>: die → dying, lie → lying</p>
+</div>
+<div class="theory-box">
+<h3>Present Simple vs Present Continuous</h3>
+<table class="verbs"><thead><tr><th>Present Simple</th><th>Present Continuous</th></tr></thead><tbody>
+<tr><td>Rutinas y hechos generales</td><td>Acciones ahora o en este período</td></tr>
+<tr><td><span class="en">I <b>work</b> in an office.</span> (general)</td><td><span class="en">I <b>am working</b> from home today.</span> (ahora/hoy)</td></tr>
+<tr><td><span class="en">She <b>plays</b> tennis.</span> (hobby)</td><td><span class="en">She <b>is playing</b> tennis now.</span> (ahora mismo)</td></tr>
+</tbody></table>
+<p>🚫 Verbos de estado (<b>stative verbs</b>) no suelen usarse en continuous: <b>know, believe, love, hate, want, need, understand, seem</b></p>
+<div class="example">✗ I am knowing the answer → ✓ I <b>know</b> the answer.</div>
+</div></div>`;
+
+SECTIONS['g-past-simple'] = `<div class="section active" style="display:block">
+<h2>⏪ Past Simple</h2>
+<div class="theory-box">
+<h3>Uso</h3>
+<p>Se usa para acciones <b>completadas en el pasado</b>. Siempre se sabe <b>cuándo</b> ocurrieron.</p>
+<div class="example"><span class="en">I <b>visited</b> London <b>last year</b>.</span><br>
+<span class="en">She <b>arrived</b> at 8pm <b>yesterday</b>.</span><br>
+<span class="en">We <b>lived</b> in Murcia <b>from 2010 to 2015</b>.</span></div>
+</div>
+<div class="theory-box">
+<h3>Regular Verbs — add -ed</h3>
+<table class="verbs"><thead><tr><th>Rule</th><th>Example</th></tr></thead><tbody>
+<tr><td>Normal: +ed</td><td>work → work<b>ed</b>, play → play<b>ed</b></td></tr>
+<tr><td>E final: +d</td><td>like → like<b>d</b>, dance → dance<b>d</b></td></tr>
+<tr><td>CVC: doblar +ed</td><td>stop → stop<b>ped</b>, plan → plan<b>ned</b></td></tr>
+<tr><td>Consonante+y: -y→-ied</td><td>study → stud<b>ied</b>, cry → cr<b>ied</b></td></tr>
+</tbody></table>
+<div class="example"><span class="en">I <b>walked</b> to school yesterday.</span><br>
+<span class="en">She <b>studied</b> all night.</span></div>
+<p>💡 Pronunciación -ed: /t/ (walked), /d/ (played), /ɪd/ (wanted). No son todos iguales.</p>
+</div>
+<div class="theory-box">
+<h3>Irregular Verbs</h3>
+<p>No siguen regla. Hay que <b>memorizarlos</b>. Ver lista completa en <a onclick="show('verbs')" style="color:var(--primary-dark);text-decoration:underline;cursor:pointer">📋 Irregular Verbs</a>.</p>
+<div class="example"><span class="en">go → <b>went</b> · eat → <b>ate</b> · buy → <b>bought</b><br>
+see → <b>saw</b> · have → <b>had</b> · make → <b>made</b></span></div>
+</div>
+<div class="theory-box">
+<h3>Negative — didn't</h3>
+<p><b>didn't + infinitivo</b> (el verbo NO se conjuga en pasado)</p>
+<div class="example"><span class="en">I <b>didn't go</b> to the party.</span> — No fui a la fiesta.<br>
+<span class="en">She <b>didn't eat</b> meat.</span> — No comió carne.<br>
+<span class="en">✗ I didn't <s>went</s> → ✓ I didn't <b>go</b></span></div>
+</div>
+<div class="theory-box">
+<h3>Questions — Did</h3>
+<p><b>Did + sujeto + infinitivo?</b></p>
+<div class="example"><span class="en"><b>Did</b> you <b>see</b> the film?</span> — ¿Viste la película?<br>
+<span class="en"><b>Did</b> she <b>call</b> you?</span> — ¿Te llamó?<br>
+<span class="en">Where <b>did</b> they <b>go</b>?</span> — ¿Adónde fueron?</div>
+</div></div>`;
+
+SECTIONS['g-past-continuous'] = `<div class="section active" style="display:block">
+<h2>⏮️ Past Continuous</h2>
+<div class="theory-box">
+<h3>Uso</h3>
+<p>Se usa para acciones que estaban en curso en un <b>momento concreto del pasado</b>. A menudo es <b>interrumpida</b> por otra acción.</p>
+<div class="example"><span class="en">I <b>was watching</b> TV at 9pm last night.</span><br>
+<span class="en"><b>While</b> I <b>was walking</b> home, it started to rain.</span><br>
+<span class="en">She <b>was cooking</b> <b>when</b> the phone rang.</span></div>
+</div>
+<div class="theory-box">
+<h3>Structure</h3>
+<p><b>was/were + verbo-ing</b></p>
+<table class="verbs"><thead><tr><th></th><th>Affirmative</th><th>Negative</th></tr></thead><tbody>
+<tr><td>I / He / She / It</td><td><b>was</b> playing</td><td><b>wasn't</b> playing</td></tr>
+<tr><td>You / We / They</td><td><b>were</b> playing</td><td><b>weren't</b> playing</td></tr>
+</tbody></table>
+<div class="example"><span class="en">What <b>were</b> you <b>doing</b> at 8pm?</span> — ¿Qué estabas haciendo a las 8pm?<br>
+<span class="en">They <b>weren't listening</b> to the teacher.</span> — No estaban escuchando al profesor.</div>
+</div>
+<div class="theory-box">
+<h3>While / When</h3>
+<p><b>While</b> + acción larga (past continuous) · <b>When</b> + acción corta (past simple)</p>
+<div class="example"><span class="en"><b>While</b> I <b>was sleeping</b>, someone knocked at the door.</span><br>
+<span class="en">I <b>was having</b> a shower <b>when</b> the power went out.</span><br>
+<span class="en">She <b>was driving</b> <b>when</b> she saw the accident.</span></div>
+</div>
+<div class="theory-box">
+<h3>Interrupted Actions</h3>
+<p>Past Continuous = acción en progreso (larga) · Past Simple = acción que interrumpe (corta)</p>
+<div class="example"><span class="en">We <b>were having</b> dinner <b>when</b> the guests arrived.</span><br>
+<span class="en">I <b>was running</b> <b>when</b> I fell.</span></div>
+</div>
+<div class="theory-box">
+<h3>Two simultaneous actions</h3>
+<p>Dos acciones largas simultáneas: <b>While + past continuous, past continuous</b></p>
+<div class="example"><span class="en"><b>While</b> I <b>was cooking</b>, my brother <b>was watching</b> TV.</span></div>
+</div></div>`;
+
+SECTIONS['g-used-to'] = `<div class="section active" style="display:block">
+<h2>🕰️ Used To</h2>
+<div class="theory-box">
+<h3>Uso</h3>
+<p>Se usa para <b>hábitos pasados</b> o <b>estados que ya no son ciertos</b>. No existe en presente.</p>
+<div class="example"><span class="en">I <b>used to</b> play football every weekend.</span> — Solía jugar al fútbol cada fin de semana (ya no).<br>
+<span class="en">She <b>used to</b> live in Madrid.</span> — Vivía en Madrid (ya no).<br>
+<span class="en">He <b>didn't use to</b> like coffee.</span> — Antes no le gustaba el café.</div>
+</div>
+<div class="theory-box">
+<h3>Structure</h3>
+<table class="verbs"><thead><tr><th></th><th>Structure</th><th>Example</th></tr></thead><tbody>
+<tr><td><b>Affirmative</b></td><td>used to + infinitive</td><td><span class="en">I <b>used to</b> smoke.</span></td></tr>
+<tr><td><b>Negative</b></td><td>didn't use to + infinitive</td><td><span class="en">I <b>didn't use to</b> smoke.</span></td></tr>
+<tr><td><b>Question</b></td><td>Did + sujeto + use to?</td><td><span class="en"><b>Did</b> you <b>use to</b> smoke?</span></td></tr>
+</tbody></table>
+</div>
+<div class="example">⚠️ Negativo: <b>didn't use to</b> (con -d, sin -d en use).<br>
+⚠️ <b>Used to</b> ≠ <b>be used to</b> (estar acostumbrado a) — son diferentes.<br>
+<span class="en">I <b>am used to</b> waking up early.</span> — Estoy acostumbrado a madrugar.</div></div>`;
 
 // ==================== REGISTER POOL SECTIONS ====================
 if (typeof registerPoolSections === 'function') registerPoolSections(SECTIONS);
