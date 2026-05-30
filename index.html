@@ -409,7 +409,14 @@ function renderDashboard() {
   if (needReviewList.length > 0) {
     reviewEl.innerHTML = '<h3>📋 Necesita repaso</h3>' +
       needReviewList.slice(0, 8).map(function(nr) {
-        var name = nr.id.replace(/^(ex-|g-)/, '').replace(/-/g, ' ');
+        var nameMap = {'ex-vc':'Collocations','ex-vp':'Phrasal Verbs','ex-vi':'Idioms','ex-vf':'Word Formation','ex-vm':'Mixed Review',
+          'ex-f-to-be':'Verb To Be','ex-f-subject-pronouns':'Subject Pronouns','ex-f-object-pronouns':'Object Pronouns',
+          'ex-f-possessives':'Possessives','ex-f-there-is-are':'There is/are','ex-f-quantifiers':'Quantifiers',
+          'ex-f-prepositions':'Prepositions','ex-f-connectors':'Connectors','ex-f-sentence-structure':'Sentence Structure',
+          'ex-f-question-words':'Question Words','ex-f-numbers':'Numbers','ex-f-frequency-adverbs':'Frequency Adverbs',
+          'ex-adv-modals':'Advanced Modals','ex-vocab-colloc':'Collocations','ex-vocab-phrasal':'Phrasal Verbs',
+          'ex-vocab-idioms':'Idioms','ex-vocab-formation':'Word Formation','ex-vocab-mixed':'Mixed Review'};
+        var name = nameMap[nr.id] || nr.id.replace(/^(ex-|g-)/, '').replace(/-/g, ' ');
         return '<div style="font-size:.8rem;color:#c92a2a;margin-bottom:3px">⚠️ ' + name + ' (' + nr.score + '%)</div>';
       }).join('') +
       (needReviewList.length > 8 ? '<div class="dash-muted">... y ' + (needReviewList.length - 8) + ' más</div>' : '');
@@ -3320,7 +3327,14 @@ document.addEventListener('DOMContentLoaded', () => {
         html += `Necesita repaso: ${needReviewList.length} temas`;
         if (needReviewList.length > 0) {
           html += '<br>' + needReviewList.slice(0, 8).map(function(nr) {
-            var name = nr.id.replace(/^(ex-|g-)/, '').replace(/-/g, ' ');
+            var nameMap = {'ex-vc':'Collocations','ex-vp':'Phrasal Verbs','ex-vi':'Idioms','ex-vf':'Word Formation','ex-vm':'Mixed Review',
+              'ex-f-to-be':'Verb To Be','ex-f-subject-pronouns':'Subject Pronouns','ex-f-object-pronouns':'Object Pronouns',
+              'ex-f-possessives':'Possessives','ex-f-there-is-are':'There is/are','ex-f-quantifiers':'Quantifiers',
+              'ex-f-prepositions':'Prepositions','ex-f-connectors':'Connectors','ex-f-sentence-structure':'Sentence Structure',
+              'ex-f-question-words':'Question Words','ex-f-numbers':'Numbers','ex-f-frequency-adverbs':'Frequency Adverbs',
+              'ex-adv-modals':'Advanced Modals','ex-vocab-colloc':'Collocations','ex-vocab-phrasal':'Phrasal Verbs',
+              'ex-vocab-idioms':'Idioms','ex-vocab-formation':'Word Formation','ex-vocab-mixed':'Mixed Review'};
+            var name = nameMap[nr.id] || nr.id.replace(/^(ex-|g-)/, '').replace(/-/g, ' ');
             return `&nbsp;&nbsp;· ${name} (${nr.score}%)`;
           }).join('<br>');
           if (needReviewList.length > 8) html += `<br>&nbsp;&nbsp;... y ${needReviewList.length - 8} más`;
