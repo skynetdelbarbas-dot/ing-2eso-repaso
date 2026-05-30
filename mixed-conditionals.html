@@ -1,0 +1,159 @@
+<main class="main">
+  <div class="breadcrumb"><a href="index.html">Inicio</a> / Mixed Conditionals</div>
+  <h1 class="page-title">🔀 Mixed Conditionals</h1>
+  <p class="intro">Aprende a combinar tiempos verbales para expresar situaciones donde la condición y el resultado <strong>ocurren en momentos diferentes</strong> (nivel B2).</p>
+
+  <div class="section">
+    <h2>📖 Teoría rápida — Mixed Conditionals</h2>
+
+    <h3>🔀 Tipo A: Pasado → Presente (3rd → 2nd)</h3>
+    <div class="theory-box">
+      <strong>If + Past Perfect , would + infinitive</strong><br><br>
+      <strong>Condición en el pasado</strong> que no se cumplió → <strong>resultado en el presente</strong>.<br><br>
+      <em>If I had studied medicine, I would be a doctor now.</em><br>
+      <span style="color:var(--text2);font-size:0.9em">(No estudié medicina en el pasado → no soy médico ahora)</span>
+    </div>
+
+    <h3>🔀 Tipo B: Presente → Pasado (2nd → 3rd)</h3>
+    <div class="theory-box">
+      <strong>If + Past Simple , would have + Past Participle</strong><br><br>
+      <strong>Condición en el presente</strong> (irreal) → <strong>resultado en el pasado</strong>.<br><br>
+      <em>If I weren't afraid of flying, I would have visited Japan last year.</em><br>
+      <span style="color:var(--text2);font-size:0.9em">(Tengo miedo a volar ahora → no visité Japón en el pasado)</span>
+    </div>
+
+    <h3>⚖️ Comparativa rápida</h3>
+    <div class="theory-box">
+      <strong>3rd (normal):</strong> <em>If I had studied, I would have passed.</em> (pasado → pasado)<br>
+      <strong>Mixed A (3→2):</strong> <em>If I had studied, I would be a doctor now.</em> (pasado → presente)<br>
+      <strong>Mixed B (2→3):</strong> <em>If I were rich, I would have bought that house.</em> (presente → pasado)<br>
+      <strong>2nd (normal):</strong> <em>If I were rich, I would buy that house.</em> (presente → futuro)
+    </div>
+
+    <div class="example">
+      <span class="en">[3→2] If she had taken that job, she would be rich now. 💰</span><br>
+      <span class="en">[2→3] If he spoke Italian, he would have helped us with the translation. 🇮🇹</span><br>
+      <span class="en">[3→2] We wouldn't be lost now if we had followed the map. 🗺️</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>✏️ Ejercicios — Mixed Conditionals</h2>
+    <p style="color:var(--text2);margin-bottom:14px">Completa cada frase con la forma verbal correcta. Hay dos tipos: <strong>3→2</strong> (pasado→presente) y <strong>2→3</strong> (presente→pasado).</p>
+
+    <div class="exercise-card">
+      <p class="stem"><strong>1.</strong> If I ______ (not break) my leg, I would play football now.</p>
+      <input type="text" id="inp-ex-mixedcond-1" data-answer="hadn't broken" data-alts='["had not broken"]' placeholder="Ej: hadn't broken" style="display:none">
+      <div class="btn-row">
+        <button class="btn-sm btn-check" onclick="checkOne('ex-mixedcond', 1)">✅ Corregir</button>
+        <button class="btn-sm btn-answer" onclick="showAnswer('ex-mixedcond', 1)">👁️ Mostrar respuesta</button>
+      </div>
+      <div id="fb-ex-mixedcond-1" class="feedback-line"></div>
+      <div id="hint-ex-mixedcond-1" class="hint-box"></div>
+    </div>
+
+    <div class="exercise-card">
+      <p class="stem"><strong>2.</strong> She ______ (be) a doctor now if she had studied medicine.</p>
+      <input type="text" id="inp-ex-mixedcond-2" data-answer="would be" placeholder="Ej: would be" style="display:none">
+      <div class="btn-row">
+        <button class="btn-sm btn-check" onclick="checkOne('ex-mixedcond', 2)">✅ Corregir</button>
+        <button class="btn-sm btn-answer" onclick="showAnswer('ex-mixedcond', 2)">👁️ Mostrar respuesta</button>
+      </div>
+      <div id="fb-ex-mixedcond-2" class="feedback-line"></div>
+      <div id="hint-ex-mixedcond-2" class="hint-box"></div>
+    </div>
+
+    <div class="exercise-card">
+      <p class="stem"><strong>3.</strong> If he ______ (not be) afraid of flying, he would have visited Japan last year.</p>
+      <input type="text" id="inp-ex-mixedcond-3" data-answer="weren't" data-alts='["were not","was not"]' placeholder="Ej: weren't" style="display:none">
+      <div class="btn-row">
+        <button class="btn-sm btn-check" onclick="checkOne('ex-mixedcond', 3)">✅ Corregir</button>
+        <button class="btn-sm btn-answer" onclick="showAnswer('ex-mixedcond', 3)">👁️ Mostrar respuesta</button>
+      </div>
+      <div id="fb-ex-mixedcond-3" class="feedback-line"></div>
+      <div id="hint-ex-mixedcond-3" class="hint-box"></div>
+    </div>
+
+    <div class="exercise-card">
+      <p class="stem"><strong>4.</strong> If I ______ (take) that job, I would be rich now.</p>
+      <input type="text" id="inp-ex-mixedcond-4" data-answer="had taken" placeholder="Ej: had taken" style="display:none">
+      <div class="btn-row">
+        <button class="btn-sm btn-check" onclick="checkOne('ex-mixedcond', 4)">✅ Corregir</button>
+        <button class="btn-sm btn-answer" onclick="showAnswer('ex-mixedcond', 4)">👁️ Mostrar respuesta</button>
+      </div>
+      <div id="fb-ex-mixedcond-4" class="feedback-line"></div>
+      <div id="hint-ex-mixedcond-4" class="hint-box"></div>
+    </div>
+
+    <div class="exercise-card">
+      <p class="stem"><strong>5.</strong> We ______ (not be) lost now if we had followed the map.</p>
+      <input type="text" id="inp-ex-mixedcond-5" data-answer="wouldn't be" data-alts='["would not be"]' placeholder="Ej: wouldn't be" style="display:none">
+      <div class="btn-row">
+        <button class="btn-sm btn-check" onclick="checkOne('ex-mixedcond', 5)">✅ Corregir</button>
+        <button class="btn-sm btn-answer" onclick="showAnswer('ex-mixedcond', 5)">👁️ Mostrar respuesta</button>
+      </div>
+      <div id="fb-ex-mixedcond-5" class="feedback-line"></div>
+      <div id="hint-ex-mixedcond-5" class="hint-box"></div>
+    </div>
+
+    <div class="exercise-card">
+      <p class="stem"><strong>6.</strong> If she ______ (speak) Italian, she would have helped us with the translation.</p>
+      <input type="text" id="inp-ex-mixedcond-6" data-answer="spoke" placeholder="Ej: spoke" style="display:none">
+      <div class="btn-row">
+        <button class="btn-sm btn-check" onclick="checkOne('ex-mixedcond', 6)">✅ Corregir</button>
+        <button class="btn-sm btn-answer" onclick="showAnswer('ex-mixedcond', 6)">👁️ Mostrar respuesta</button>
+      </div>
+      <div id="fb-ex-mixedcond-6" class="feedback-line"></div>
+      <div id="hint-ex-mixedcond-6" class="hint-box"></div>
+    </div>
+
+    <div class="exercise-card">
+      <p class="stem"><strong>7.</strong> If they ______ (save) more money, they would be able to buy a house now.</p>
+      <input type="text" id="inp-ex-mixedcond-7" data-answer="had saved" placeholder="Ej: had saved" style="display:none">
+      <div class="btn-row">
+        <button class="btn-sm btn-check" onclick="checkOne('ex-mixedcond', 7)">✅ Corregir</button>
+        <button class="btn-sm btn-answer" onclick="showAnswer('ex-mixedcond', 7)">👁️ Mostrar respuesta</button>
+      </div>
+      <div id="fb-ex-mixedcond-7" class="feedback-line"></div>
+      <div id="hint-ex-mixedcond-7" class="hint-box"></div>
+    </div>
+
+    <div class="exercise-card">
+      <p class="stem"><strong>8.</strong> I ______ (not feel) tired today if I had gone to bed earlier.</p>
+      <input type="text" id="inp-ex-mixedcond-8" data-answer="wouldn't feel" data-alts='["would not feel"]' placeholder="Ej: wouldn't feel" style="display:none">
+      <div class="btn-row">
+        <button class="btn-sm btn-check" onclick="checkOne('ex-mixedcond', 8)">✅ Corregir</button>
+        <button class="btn-sm btn-answer" onclick="showAnswer('ex-mixedcond', 8)">👁️ Mostrar respuesta</button>
+      </div>
+      <div id="fb-ex-mixedcond-8" class="feedback-line"></div>
+      <div id="hint-ex-mixedcond-8" class="hint-box"></div>
+    </div>
+
+    <div class="exercise-card">
+      <p class="stem"><strong>9.</strong> If I ______ (have) his phone number, I would have called him yesterday.</p>
+      <input type="text" id="inp-ex-mixedcond-9" data-answer="had" placeholder="Ej: had" style="display:none">
+      <div class="btn-row">
+        <button class="btn-sm btn-check" onclick="checkOne('ex-mixedcond', 9)">✅ Corregir</button>
+        <button class="btn-sm btn-answer" onclick="showAnswer('ex-mixedcond', 9)">👁️ Mostrar respuesta</button>
+      </div>
+      <div id="fb-ex-mixedcond-9" class="feedback-line"></div>
+      <div id="hint-ex-mixedcond-9" class="hint-box"></div>
+    </div>
+
+    <div class="exercise-card">
+      <p class="stem"><strong>10.</strong> If it ______ (not be) so cold today, we would have gone to the beach yesterday.</p>
+      <input type="text" id="inp-ex-mixedcond-10" data-answer="weren't" data-alts='["were not","was not"]' placeholder="Ej: weren't" style="display:none">
+      <div class="btn-row">
+        <button class="btn-sm btn-check" onclick="checkOne('ex-mixedcond', 10)">✅ Corregir</button>
+        <button class="btn-sm btn-answer" onclick="showAnswer('ex-mixedcond', 10)">👁️ Mostrar respuesta</button>
+      </div>
+      <div id="fb-ex-mixedcond-10" class="feedback-line"></div>
+      <div id="hint-ex-mixedcond-10" class="hint-box"></div>
+    </div>
+
+    <div class="btn-section">
+      <button class="btn btn-check-all" onclick="checkAllFull('ex-mixedcond', 10)">✅ Corregir todo</button>
+      <button class="btn btn-reset" onclick="resetAll('ex-mixedcond', 10)">🔄 Limpiar todo</button>
+    </div>
+  </div>
+</main>

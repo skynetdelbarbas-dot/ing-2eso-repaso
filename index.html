@@ -17,12 +17,18 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .sidebar a:hover,.sidebar a.active{background:var(--primary);color:#fff}
 .gram-toggle{cursor:pointer;user-select:none;display:flex;align-items:center;gap:4px;padding:7px 12px;border-radius:6px;font-size:0.88rem;margin-bottom:2px;color:var(--text);transition:all .15s}
 .gram-toggle:hover{background:var(--primary);color:#fff}
-.gram-toggle .arr{font-size:0.7rem;transition:transform .2s;display:inline-block}
-.gram-toggle.open .arr{transform:rotate(90deg)}
-.gram-sub{max-height:0;overflow:hidden;transition:max-height .3s;margin-left:12px}
-.gram-sub.open{max-height:1200px}
-.gram-sub a{font-size:0.8rem;padding:5px 12px}
+.gram-toggle .arr,.cefr-toggle .arr{font-size:0.7rem;transition:transform .2s;display:inline-block}
+.gram-toggle.open .arr,.cefr-toggle.open .arr{transform:rotate(90deg)}
+.gram-sub,.cefr-sub{max-height:0;overflow:hidden;transition:max-height .3s;margin-left:12px}
+.gram-sub.open,.cefr-sub.open{max-height:1200px}
+.gram-sub a,.cefr-sub a{font-size:0.8rem;padding:5px 12px}
 .gram-level-label{font-size:0.65rem;text-transform:uppercase;letter-spacing:1px;color:var(--text2);padding:8px 12px 2px;font-weight:700;opacity:0.7}
+.cefr-toggle{cursor:pointer;user-select:none;display:flex;align-items:center;gap:6px;padding:6px 12px;border-radius:6px;font-size:0.82rem;margin-bottom:1px;color:var(--text);transition:all .15s;font-weight:600}
+.cefr-toggle:hover{background:var(--primary);color:#fff}
+.cefr-dot{font-size:0.6rem;line-height:1}
+.cefr-a1{color:#2b8a3e}.cefr-a2{color:#2f9e44}.cefr-b1{color:#e67700}.cefr-b2{color:#e03131}
+.cefr-sub{margin-left:16px;margin-bottom:4px}
+.cefr-sub a{font-size:0.78rem;padding:4px 10px}
 .main{flex:1;padding:30px 40px;max-width:900px}
 .section{background:var(--card);border-radius:var(--radius);padding:24px;margin-bottom:20px;box-shadow:var(--shadow)}
 .section h2{font-size:1.15rem;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid var(--primary);display:inline-block}
@@ -160,35 +166,61 @@ input.correct,textarea.correct{border-color:var(--success)!important;background:
   </div>
   <a onclick="show('verbs')" id="nv">📋 Irregular Verbs</a>
   <h2>🗣️ GRAMMAR</h2>
-  <div class="gram-toggle" id="gt" onclick="toggleGrammar()"><span class="arr">▶</span> <span id="gt-text">Abrir Temas</span></div>
-  <div class="gram-sub" id="gs">
-    <div class="gram-level-label">A1 - A2</div>
+
+  <!-- 🟢 A1 Foundations -->
+  <div class="cefr-toggle" id="gt-a1" onclick="toggleCEFR('a1')">
+    <span class="arr">▶</span> <span class="cefr-dot cefr-a1">●</span> A1 Foundations
+  </div>
+  <div class="cefr-sub" id="gs-a1">
+    <a onclick="show('f-to-be')" id="ngtb">🔤 Verb To Be</a>
+    <a onclick="show('g-have-got')" id="nghg">🅰️ Have Got</a>
     <a onclick="show('g-present-simple')" id="ngps">📖 Present Simple</a>
     <a onclick="show('g-present-continuous')" id="ngpc">⏳ Present Continuous</a>
+    <a onclick="show('f-there-is-are')" id="ngti">📍 There Is / There Are</a>
+    <a onclick="show('g-articles')" id="ngar">📝 Articles</a>
+    <a onclick="show('f-possessives')" id="ngposs">📌 Possessives</a>
     <a onclick="show('g-imperatives')" id="ngimp">❗ Imperatives</a>
+  </div>
+
+  <!-- 🟢 A2 Elementary -->
+  <div class="cefr-toggle" id="gt-a2" onclick="toggleCEFR('a2')">
+    <span class="arr">▶</span> <span class="cefr-dot cefr-a2">●</span> A2 Elementary
+  </div>
+  <div class="cefr-sub" id="gs-a2">
     <a onclick="show('g-past-simple')" id="ngpast">⏪ Past Simple</a>
     <a onclick="show('g-past-continuous')" id="ngpastc">⏮️ Past Continuous</a>
     <a onclick="show('g-used-to')" id="ngused">🕰️ Used To</a>
-    <a onclick="show('g-articles')" id="ngar">📝 Articles (a/an/the)</a>
-    <a onclick="show('g-comparatives')" id="ngc">📊 Comparatives &amp; Superlatives</a>
-    <a onclick="show('g-possessives-s-of')" id="ngposs">📌 Possessives ('s / of)</a>
-    <div class="gram-level-label">A2 - B1</div>
-    <a onclick="show('g-future')" id="ngf">🔮 Future Tenses</a>
+    <a onclick="show('g-future')" id="ngf">🔮 Future Forms</a>
     <a onclick="show('g-modal')" id="ngm">⚠️ Modal Verbs</a>
-    <a onclick="show('g-present-perfect')" id="ngpp">⏳ Present Perfect S/C</a>
-    <a onclick="show('g-just')" id="ngj">⏱️ Just / Already / Yet / Still</a>
-    <a onclick="show('g-gerunds-infinitives')" id="nggi">🏃 Gerunds &amp; Infinitives</a>
-    <a onclick="show('g-indefinite-pronouns')" id="ngip">❔ Indefinite Pronouns</a>
-    <a onclick="show('g-nor-neither')" id="ngnn">➕ Nor / Neither / So</a>
-    <a onclick="show('g-relative-clauses')" id="ngrc">🔗 Relative Clauses</a>
+    <a onclick="show('g-comparatives')" id="ngc">📊 Comparatives</a>
+    <a onclick="show('f-quantifiers')" id="ngq">🔢 Quantifiers</a>
+    <a onclick="show('g-present-perfect')" id="ngpp">⏳ Present Perfect</a>
+  </div>
+
+  <!-- 🟡 B1 Intermediate -->
+  <div class="cefr-toggle" id="gt-b1" onclick="toggleCEFR('b1')">
+    <span class="arr">▶</span> <span class="cefr-dot cefr-b1">●</span> B1 Intermediate
+  </div>
+  <div class="cefr-sub" id="gs-b1">
+    <a onclick="show('g-present-perfect-continuous')" id="ngppc">⏳ Present Perfect Continuous</a>
     <a onclick="show('g-question-tags')" id="ngqt">❓ Question Tags</a>
+    <a onclick="show('g-relative-clauses')" id="ngrc">🔗 Relative Clauses</a>
     <a onclick="show('g-linking-words')" id="nglw">🧩 Linking Words</a>
-    <div class="gram-level-label">B1 - B2</div>
-    <a onclick="show('g-conditionals')" id="ngcd">🔀 Conditionals</a>
-    <a onclick="show('g-wish-if-only')" id="ngwi">💭 I wish / If only</a>
     <a onclick="show('g-passive')" id="ngpv">🔄 Passive Voice</a>
     <a onclick="show('g-reported-speech')" id="ngrs">🗣️ Reported Speech</a>
-    <a onclick="show('g-phrasal-verbs')" id="ngpv2">🔀 Phrasal Verbs</a>
+    <a onclick="show('g-conditionals')" id="ngcd">🔀 Conditionals 0-1-2</a>
+  </div>
+
+  <!-- 🟠 B2 Upper Intermediate -->
+  <div class="cefr-toggle" id="gt-b2" onclick="toggleCEFR('b2')">
+    <span class="arr">▶</span> <span class="cefr-dot cefr-b2">●</span> B2 Upper Intermediate
+  </div>
+  <div class="cefr-sub" id="gs-b2">
+    <a onclick="show('g-third-conditional')" id="ngtc">🔀 Third Conditional</a>
+    <a onclick="show('g-mixed-conditionals')" id="ngmc">🔀 Mixed Conditionals</a>
+    <a onclick="show('g-wish-if-only')" id="ngwi">💭 I Wish / If Only</a>
+    <a onclick="show('g-passive')" id="ngpva">🔄 Advanced Passive</a>
+    <a onclick="show('g-reported-speech')" id="ngrsa">🗣️ Advanced Reported Speech</a>
   </div>
   <h2>✍️ WRITING</h2>
   <a onclick="show('writing')" id="nw">📝 Plantillas</a>
@@ -232,24 +264,31 @@ const NAV_MAP = {home:'nh',fundamentals:'nf',verbs:'nv',writing:'nw',simulacro:'
   'f-to-be':'nftb','f-subject-pronouns':'nfsp','f-object-pronouns':'nfop',
   'f-possessives':'nfps','f-there-is-are':'nfti','f-quantifiers':'nfq',
   'f-prepositions':'nfpr','f-connectors':'nfc','f-sentence-structure':'nfss',
-  'g-modal':'ngm','g-future':'ngf','g-comparatives':'ngc','g-just':'ngj',
-  'g-present-perfect':'ngpp','g-conditionals':'ngcd','g-reported-speech':'ngrs',
-  'g-passive':'ngpv','g-wish-if-only':'ngwi','g-question-tags':'ngqt',
-  'g-articles':'ngar','g-indefinite-pronouns':'ngip','g-nor-neither':'ngnn',
+  'g-have-got':'nghg','g-present-simple':'ngps','g-present-continuous':'ngpc',
+  'g-imperatives':'ngimp','g-past-simple':'ngpast','g-past-continuous':'ngpastc',
+  'g-used-to':'ngused','g-future':'ngf','g-modal':'ngm',
+  'g-comparatives':'ngc','g-present-perfect':'ngpp',
+  'g-present-perfect-continuous':'ngppc','g-question-tags':'ngqt',
+  'g-relative-clauses':'ngrc','g-linking-words':'nglw',
+  'g-passive':'ngpv','g-reported-speech':'ngrs',
+  'g-conditionals':'ngcd','g-third-conditional':'ngtc',
+  'g-mixed-conditionals':'ngmc','g-wish-if-only':'ngwi',
+  'g-articles':'ngar','g-passive-adv':'ngpva','g-reported-speech-adv':'ngrsa',
   'grammar-review':'ngr','cambridge-a2':'nca',
-  'g-present-simple':'ngps','g-present-continuous':'ngpc',
-  'g-past-simple':'ngpast','g-past-continuous':'ngpastc',
-  'g-used-to':'ngused','g-gerunds-infinitives':'nggi',
-  'g-relative-clauses':'ngrc','g-possessives-s-of':'ngposs',
-  'g-imperatives':'ngimp','g-linking-words':'nglw','g-phrasal-verbs':'ngpv2',
   'reading':'nrd','listening':'nlst','writing-practice':'nwp','songs':'nsng'};
 
 const PAGE_MAP = {
+  'g-have-got':'have-got.html',
   'g-present-perfect':'present-perfect.html','g-conditionals':'conditionals.html',
   'g-reported-speech':'reported-speech.html','g-passive':'passive.html',
   'g-wish-if-only':'wish-if-only.html','g-question-tags':'question-tags.html',
   'g-articles':'articles.html','g-indefinite-pronouns':'indefinite-pronouns.html',
-  'g-nor-neither':'nor-neither-so.html','vocabulary':'vocabulary.html','simulacro':'simulacro.html?v=4',
+  'g-nor-neither':'nor-neither-so.html','g-passive-adv':'passive.html',
+  'g-reported-speech-adv':'reported-speech.html',
+  'g-third-conditional':'third-conditional.html',
+  'g-mixed-conditionals':'mixed-conditionals.html',
+  'g-present-perfect-continuous':'present-perfect-continuous.html',
+  'vocabulary':'vocabulary.html','simulacro':'simulacro.html?v=4',
   'grammar-review':'grammar-review.html','cambridge-a2':'cambridge-a2.html',
   'songs':'canciones.html'};
 
@@ -469,14 +508,12 @@ function loadLegacyPage(name, url) {
 }
 
 
-// ==================== GRAMMAR TOGGLE ====================
-function toggleGrammar() {
-  const t = document.getElementById('gt');
-  const s = document.getElementById('gs');
-  const txt = document.getElementById('gt-text');
+// ==================== CEFR ACCORDION TOGGLE ====================
+function toggleCEFR(level) {
+  var t = document.getElementById('gt-' + level);
+  var s = document.getElementById('gs-' + level);
   t.classList.toggle('open');
   s.classList.toggle('open');
-  txt.textContent = t.classList.contains('open') ? 'Cerrar Temas' : 'Abrir Temas';
 }
 
 // ==================== FUNDAMENTOS TOGGLE ====================

@@ -486,17 +486,38 @@ class ProgressTracker {
       }
     })
 
-    // Guardar tiempo de estudio cada 15s para que el contador avance en vivo
-    setInterval(() => {
+    // ── Inactividad: corta sesión tras 5 min sin interacción ──
+    var inactivityTimer = null;
+    var INACTIVITY_LIMIT = 5 * 60 * 1000; // 5 min
+    function resetInactivity() {
+      clearTimeout(inactivityTimer);
       if (window.__tracker) {
+        // Si no hay sesión activa y la página está visible, reanudar
+        if (!window.__tracker._data.sessionStart && !document.hidden) {
+          window.__tracker.startSession()
+        }
+      }
+      inactivityTimer = setTimeout(function() {
+        if (window.__tracker) window.__tracker.endSession()
+      }, INACTIVITY_LIMIT);
+    }
+    document.addEventListener('click', resetInactivity);
+    document.addEventListener('keydown', resetInactivity);
+    document.addEventListener('mousemove', resetInactivity);
+    document.addEventListener('touchstart', resetInactivity);
+    resetInactivity();
+
+    // Guardar tiempo de estudio cada 15s (solo si página visible)
+    setInterval(function() {
+      if (window.__tracker && !document.hidden) {
         window.__tracker.endSession()
         window.__tracker.startSession()
-        // Actualizar el tiempo en el dashboard si está visible
-        var dashTime = document.getElementById('dash-time');
-        if (dashTime) {
-          var mins = window.__tracker.getDashboard().totalStudyMinutes;
-          dashTime.textContent = mins + 'm';
-        }
+      }
+      // Actualizar el tiempo en el dashboard si está visible
+      var dashTime = document.getElementById('dash-time');
+      if (dashTime && window.__tracker) {
+        var mins = window.__tracker.getDashboard().totalStudyMinutes;
+        dashTime.textContent = mins + 'm';
       }
     }, 15000)
   } catch (e) {
