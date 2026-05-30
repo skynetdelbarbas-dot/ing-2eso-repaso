@@ -5,25 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Reported Speech — 2º ESO</title>
 <link rel="stylesheet" href="style.css?v=5">
-<style>
-.exercise-card textarea {
-  width: 100%;
-  max-width: 600px;
-  min-height: 50px;
-  border: 2px solid var(--border);
-  border-radius: 8px;
-  padding: 10px;
-  font-size: 0.95rem;
-  font-family: inherit;
-  margin-bottom: 8px;
-  resize: vertical;
-  transition: border-color 0.2s;
-}
-.exercise-card textarea:focus {
-  outline: none;
-  border-color: var(--primary);
-}
-</style>
 </head>
 <body data-topic="reported-speech">
 <div class="container">
@@ -77,60 +58,94 @@
     </div>
   </div>
 
-  <div class="section" id="ex-rs">
+  <div class="section">
     <h2>✏️ Ejercicios — <span id="round-label">Ronda 1/3</span></h2>
-    <p style="color:var(--text2);margin-bottom:14px">Escribe la frase completa en estilo indirecto en el recuadro.</p>
-    <div id="ex-rs-list"></div>
+    <p style="color:var(--text2);margin-bottom:14px">Completa cada frase en estilo indirecto escribiendo la palabra que falta.</p>
+    <div id="ex-rs"></div>
     <div class="btn-section">
       <button class="btn btn-check-all" onclick="checkAllRS()">✅ Corregir todo</button>
       <button class="btn btn-reset" onclick="resetRS()">🔄 Limpiar todo</button>
       <button class="btn btn-next" onclick="nextRound()" id="btn-next-round">▶️ Siguiente ronda</button>
     </div>
-    <div id="rs-score" class="score-box" style="display:none"></div>
+    <div id="ex-rs-score" class="score-box" style="display:none"></div>
   </div>
-
 </main>
+</div>
 
 <script src="exercises.js?v=10"></script>
 <script>
+// ============================================================
+// POOL DE PREGUNTAS (~42) — Reported Speech
+// Cada respuesta es UNA PALABRA (el cambio de tiempo verbal clave)
+// ============================================================
 var RS_POOL = [
-  { id: 1, stem: 'He said, "I will be there by noon."', answer: "he said (that) he would be there by noon", alts: ["he said he would be there by noon"] },
-  { id: 2, stem: 'The twins said, "We are five years old."', answer: "the twins said (that) they were five years old", alts: ["the twins said they were five years old"] },
-  { id: 3, stem: 'Mum said, "You will have to get up early for the trip tomorrow."', answer: "mum said (that) i would have to get up early for the trip the next day", alts: ["mum said (that) i would have to get up early for the trip the following day"] },
-  { id: 4, stem: 'The teacher told her, "You speak English very well."', answer: "the teacher told her (that) she spoke english very well", alts: ["the teacher told her she spoke english very well"] },
-  { id: 5, stem: 'The doctor said, "Your mother will recover quickly."', answer: "the doctor said (that) my mother would recover quickly", alts: ["the doctor said (that) her mother would recover quickly"] },
-  { id: 6, stem: 'My aunt said, "I am leaving early on Friday morning."', answer: "my aunt said (that) she was leaving early on friday morning", alts: [] },
-  { id: 7, stem: 'The boy said, "I have been to Australia before."', answer: "the boy said (that) he had been to australia before", alts: [] },
-  { id: 8, stem: 'Herbert said, "We are going to live in Manchester."', answer: "herbert said (that) they were going to live in manchester", alts: [] },
-  { id: 9, stem: 'Jennifer said, "I have already read that book."', answer: "jennifer said (that) she had already read that book", alts: [] },
-  { id: 10, stem: 'Jim said, "I hope it won\'t rain tomorrow."', answer: "jim said (that) he hoped it wouldn't rain the next day", alts: ["jim said (that) he hoped it wouldn't rain the following day"] },
-  { id: 11, stem: 'My mum said, "You can go shopping later."', answer: "my mum said (that) i could go shopping later", alts: [] },
-  { id: 12, stem: 'She told me, "We are going to spend the weekend in Barcelona."', answer: "she told me (that) they were going to spend the weekend in barcelona", alts: [] },
-  { id: 13, stem: 'He said, "I have finished my homework."', answer: "he said (that) he had finished his homework", alts: [] },
-  { id: 14, stem: 'She said, "I don\'t like coffee."', answer: "she said (that) she didn't like coffee", alts: ["she said (that) she did not like coffee"] },
-  { id: 15, stem: 'Tom said, "I am studying for my exam."', answer: "tom said (that) he was studying for his exam", alts: [] },
-  { id: 16, stem: 'They said, "We have never been to Japan."', answer: "they said (that) they had never been to japan", alts: [] },
-  { id: 17, stem: 'She said, "I will call you later."', answer: "she said (that) she would call me later", alts: ["she said (that) she would call you later"] },
-  { id: 18, stem: 'He said, "I can swim very well."', answer: "he said (that) he could swim very well", alts: [] },
-  { id: 19, stem: 'My sister said, "I am reading a great book."', answer: "my sister said (that) she was reading a great book", alts: [] },
-  { id: 20, stem: 'The man said, "I work in a bank."', answer: "the man said (that) he worked in a bank", alts: [] },
-  { id: 21, stem: 'She said, "I bought a new car yesterday."', answer: "she said (that) she had bought a new car the day before", alts: ["she said (that) she had bought a new car the previous day"] },
-  { id: 22, stem: 'He said, "We are moving to London next month."', answer: "he said (that) they were moving to london the following month", alts: ["he said (that) they were moving to london the next month"] },
-  { id: 23, stem: 'The teacher said, "You must do your homework."', answer: "the teacher said (that) i had to do my homework", alts: ["the teacher said (that) we had to do our homework"] },
-  { id: 24, stem: 'She said, "I may be late for the meeting."', answer: "she said (that) she might be late for the meeting", alts: [] },
-  { id: 25, stem: 'He said, "I have been working all day."', answer: "he said (that) he had been working all day", alts: [] },
-  { id: 26, stem: 'They said, "We will help you with the project."', answer: "they said (that) they would help me with the project", alts: ["they said (that) they would help us with the project"] },
-  { id: 27, stem: 'She said, "I don\'t know the answer."', answer: "she said (that) she didn't know the answer", alts: ["she said (that) she did not know the answer"] },
-  { id: 28, stem: 'He said, "I saw that movie last week."', answer: "he said (that) he had seen that movie the week before", alts: ["he said (that) he had seen that movie the previous week"] },
-  { id: 29, stem: 'My mum said, "Dinner is ready."', answer: "my mum said (that) dinner was ready", alts: [] },
-  { id: 30, stem: 'Peter said, "I am feeling tired today."', answer: "peter said (that) he was feeling tired that day", alts: [] },
+  // ── Present Simple → Past Simple ──
+  {stem:"'I like coffee.' → She said (that) she ___ coffee.", answer:"liked", alts:[]},
+  {stem:"'I play tennis.' → He said (that) he ___ tennis.", answer:"played", alts:[]},
+  {stem:"'She works hard.' → He said (that) she ___ hard.", answer:"worked", alts:[]},
+  {stem:"'They live in Madrid.' → She said (that) they ___ in Madrid.", answer:"lived", alts:[]},
+  {stem:"'I don't like coffee.' → He said (that) he ___ like coffee.", answer:"didn't", alts:["did not"]},
+  {stem:"'She doesn't work here.' → He said (that) she ___ work here.", answer:"didn't", alts:["did not"]},
+  {stem:"'I am tired.' → He said (that) he ___ tired.", answer:"was", alts:[]},
+  {stem:"'She is happy.' → He said (that) she ___ happy.", answer:"was", alts:[]},
+  {stem:"'They are friends.' → She said (that) they ___ friends.", answer:"were", alts:[]},
+  {stem:"'Dinner is ready.' → Mum said (that) dinner ___ ready.", answer:"was", alts:[]},
+
+  // ── Present Continuous → Past Continuous ──
+  {stem:"'I am studying.' → She said (that) she ___ studying.", answer:"was", alts:[]},
+  {stem:"'They are playing.' → He said (that) they ___ playing.", answer:"were", alts:[]},
+  {stem:"'She is reading.' → He said (that) she ___ reading.", answer:"was", alts:[]},
+  {stem:"'We are leaving.' → They said (that) they ___ leaving.", answer:"were", alts:[]},
+
+  // ── Present Perfect → Past Perfect ──
+  {stem:"'I have seen it.' → She said (that) she ___ seen it.", answer:"had", alts:[]},
+  {stem:"'She has finished.' → He said (that) she ___ finished.", answer:"had", alts:[]},
+  {stem:"'They have arrived.' → She said (that) they ___ arrived.", answer:"had", alts:[]},
+  {stem:"'I have been working.' → He said (that) he ___ been working.", answer:"had", alts:[]},
+
+  // ── Past Simple → Past Perfect ──
+  {stem:"'I bought a car.' → He said (that) he ___ bought a car.", answer:"had", alts:[]},
+  {stem:"'She went home.' → He said (that) she ___ gone home.", answer:"had", alts:[]},
+  {stem:"'They ate dinner.' → She said (that) they ___ eaten dinner.", answer:"had", alts:[]},
+  {stem:"'I saw that movie.' → He said (that) he ___ seen that movie.", answer:"had", alts:[]},
+
+  // ── Will → Would ──
+  {stem:"'I will help you.' → He promised (that) he ___ help me.", answer:"would", alts:[]},
+  {stem:"'She will come.' → He said (that) she ___ come.", answer:"would", alts:[]},
+  {stem:"'They will arrive.' → She said (that) they ___ arrive.", answer:"would", alts:[]},
+  {stem:"'It will rain.' → He said (that) it ___ rain.", answer:"would", alts:[]},
+  {stem:"'I will call you.' → She said (that) she ___ call me.", answer:"would", alts:[]},
+
+  // ── Can → Could ──
+  {stem:"'I can swim.' → She said (that) she ___ swim.", answer:"could", alts:[]},
+  {stem:"'He can drive.' → She said (that) he ___ drive.", answer:"could", alts:[]},
+  {stem:"'They can come.' → He said (that) they ___ come.", answer:"could", alts:[]},
+  {stem:"'You can go.' → Mum said (that) I ___ go.", answer:"could", alts:[]},
+
+  // ── May → Might ──
+  {stem:"'I may be late.' → He said (that) he ___ be late.", answer:"might", alts:[]},
+  {stem:"'She may come.' → He said (that) she ___ come.", answer:"might", alts:[]},
+
+  // ── Must → Had to ──
+  {stem:"'I must go.' → He said (that) he ___ to go.", answer:"had", alts:[]},
+  {stem:"'You must study.' → The teacher said (that) we ___ to study.", answer:"had", alts:[]},
+
+  // ── Time expressions ──
+  {stem:"'I am tired today.' → He said (that) he was tired ___ day.", answer:"that", alts:[]},
+  {stem:"'I will call you tomorrow.' → He said (that) he would call me ___ next day.", answer:"the", alts:[]},
+  {stem:"'She arrived yesterday.' → He said (that) she had arrived the day ___.", answer:"before", alts:["previous"]},
+  {stem:"'I am busy now.' → He said (that) he was busy ___.", answer:"then", alts:[]},
+  {stem:"'We will travel next week.' → They said (that) they would travel ___ following week.", answer:"the", alts:[]},
 ];
 
-var ROUND_SIZE = 10;
+var ROUND_SIZE = 12;
 var TOTAL_ROUNDS = 3;
 var currentData = [];
 var roundNum = 1;
 
+// ============================================================
+// Utilidad: seleccionar N aleatorios sin repetir
+// ============================================================
 function pickRandom(arr, n) {
   var shuffled = arr.slice();
   for (var i = shuffled.length - 1; i > 0; i--) {
@@ -142,23 +157,26 @@ function pickRandom(arr, n) {
   return shuffled.slice(0, n);
 }
 
+// ============================================================
+// Gestión de rondas
+// ============================================================
 function loadRound() {
-  try { roundNum = parseInt(localStorage.getItem('reported-speech-round')) || 1; } catch(e) { roundNum = 1; }
+  try {
+    roundNum = parseInt(localStorage.getItem('rs-round')) || 1;
+  } catch(e) { roundNum = 1; }
   if (roundNum < 1) roundNum = 1;
   if (roundNum > TOTAL_ROUNDS) roundNum = TOTAL_ROUNDS;
 }
 
 function saveRound() {
-  try { localStorage.setItem('reported-speech-round', roundNum); } catch(e) {}
+  try { localStorage.setItem('rs-round', roundNum); } catch(e) {}
 }
 
 function startRound() {
-  var raw = pickRandom(RS_POOL, ROUND_SIZE);
-  // Re-assign sequential IDs
-  currentData = raw.map(function(item, idx) {
-    return { id: idx + 1, stem: item.stem, answer: item.answer, alts: item.alts };
-  });
-  renderRS();
+  currentData = pickRandom(RS_POOL, ROUND_SIZE);
+  var container = document.getElementById('ex-rs');
+  container.innerHTML = '';
+  renderExercises(currentData, 'ex-rs', 'Ej: liked');
   document.getElementById('round-label').textContent = 'Ronda ' + roundNum + '/' + TOTAL_ROUNDS;
   var btn = document.getElementById('btn-next-round');
   if (roundNum >= TOTAL_ROUNDS) {
@@ -168,8 +186,16 @@ function startRound() {
     btn.textContent = '▶️ Siguiente ronda';
     btn.disabled = false;
   }
-  var scoreBox = document.getElementById('rs-score');
+  // Reset score
+  var scoreBox = document.getElementById('ex-rs-score');
   if (scoreBox) { scoreBox.style.display = 'none'; scoreBox.innerHTML = ''; }
+  // Reset inputs feedback
+  for (var i = 1; i <= ROUND_SIZE; i++) {
+    var fb = document.getElementById('fb-ex-rs-' + i);
+    if (fb) { fb.className = 'feedback-line'; fb.textContent = ''; }
+    var hint = document.getElementById('hint-ex-rs-' + i);
+    if (hint) { hint.className = 'hint-box'; hint.innerHTML = ''; }
+  }
 }
 
 function nextRound() {
@@ -184,96 +210,33 @@ function nextRound() {
   startRound();
 }
 
-// Render all exercises (custom, uses textarea)
-function renderRS() {
-  var container = document.getElementById('ex-rs-list');
-  container.innerHTML = '';
-  currentData.forEach(function(ex) {
-    var card = document.createElement('div');
-    card.className = 'exercise-card';
-    card.id = 'ex-rs-' + ex.id;
-    card.innerHTML = [
-      '<p class="stem"><strong>', ex.id, '.</strong> ', ex.stem, '</p>',
-      '<textarea id="ta-rs-', ex.id, '" placeholder="Escribe la frase en reported speech..."></textarea>',
-      '<div class="btn-row">',
-        '<button class="btn-sm btn-check" onclick="checkRS(', ex.id, ')">✅ Corregir</button>',
-        '<button class="btn-sm btn-answer" onclick="showRS(', ex.id, ')">💡 Mostrar respuesta</button>',
-      '</div>',
-      '<div id="fb-rs-', ex.id, '" class="feedback-line"></div>',
-      '<div id="hint-rs-', ex.id, '" class="hint-box"></div>'
-    ].join('');
-    container.appendChild(card);
-  });
-}
+// ============================================================
+// Inicialización
+// ============================================================
+loadRound();
+startRound();
 
-function getRS(exId) {
-  for (var i = 0; i < currentData.length; i++) {
-    if (currentData[i].id === exId) return currentData[i];
-  }
-  return null;
-}
-
-function checkRS(id) {
-  var ta = document.getElementById('ta-rs-' + id);
-  var fb = document.getElementById('fb-rs-' + id);
-  var hint = document.getElementById('hint-rs-' + id);
-  if (!ta || !fb) return;
-  var val = ta.value.trim().toLowerCase().replace(/\(that\)/g, '').replace(/\bthat\s/g, '').trim();
-  var ex = getRS(id);
-  if (!ex) return;
-  var valid = [ex.answer].concat(ex.alts || []).map(function(a) {
-    return a.toLowerCase().replace(/\(that\)/g, '').replace(/\bthat\s/g, '').trim();
-  });
-  if (valid.indexOf(val) !== -1) {
-    ta.classList.remove('wrong');
-    ta.classList.add('correct');
-    fb.className = 'feedback-line show ok';
-    fb.textContent = '✅ ¡Correcto!';
-    if (hint) hint.classList.remove('show');
-  } else {
-    ta.classList.remove('correct');
-    ta.classList.add('wrong');
-    fb.className = 'feedback-line show ko';
-    fb.textContent = '❌ Incorrecto';
-    if (hint) {
-      hint.className = 'hint-box show';
-      hint.innerHTML = '<strong>Respuesta:</strong> <span class="correct-answer">' + ex.answer + '</span>';
-    }
-  }
-}
-
-function showRS(id) {
-  var ta = document.getElementById('ta-rs-' + id);
-  var hint = document.getElementById('hint-rs-' + id);
-  var ex = getRS(id);
-  if (!ta || !ex) return;
-  ta.value = ex.answer;
-  ta.classList.remove('wrong', 'correct');
-  if (hint) {
-    hint.className = 'hint-box show';
-    hint.innerHTML = '<strong>Respuesta:</strong> <span class="correct-answer">' + ex.answer + '</span>';
-  }
-  var fb = document.getElementById('fb-rs-' + id);
-  if (fb) fb.className = 'feedback-line';
-}
-
+// ============================================================
+// Corrección
+// ============================================================
 function checkAllRS() {
   var correct = 0;
   var answered = 0;
-  currentData.forEach(function(ex) {
-    checkRS(ex.id);
-    var ta = document.getElementById('ta-rs-' + ex.id);
-    if (ta) {
-      var _empty = ta.value.trim() === '';
-      if (!_empty || ta.classList.contains('correct')) {
+  var total = currentData.length;
+  for (var i = 1; i <= total; i++) {
+    checkOne('ex-rs', i);
+    var inp = document.getElementById('inp-ex-rs-' + i);
+    if (inp) {
+      var _empty = inp.value.trim() === '';
+      if (!_empty || inp.classList.contains('correct')) {
         answered++;
-        if (ta.classList.contains('correct')) correct++;
+        if (inp.classList.contains('correct')) correct++;
       }
     }
-  });
+  }
   var denom = answered > 0 ? answered : 1;
   var pct = Math.round((correct / denom) * 100);
-  var score = document.getElementById('rs-score');
+  var score = document.getElementById('ex-rs-score');
   score.style.display = 'block';
   var msg = '🎯 ' + correct + '/' + answered + ' correctas (' + pct + '%)';
   if (answered === 0) msg = '✏️ Responde al menos una pregunta';
@@ -281,28 +244,15 @@ function checkAllRS() {
   else if (pct >= 70) msg += ' Muy bien 👍';
   else msg += ' Sigue practicando 💪';
   score.innerHTML = '<span class="big">' + correct + '/' + answered + '</span><br>' + msg;
+  // ── Tracker: registrar progreso ──
+  if (typeof trackCheckAll === 'function' && answered > 0) {
+    trackCheckAll('reported-speech', correct, answered);
+  }
 }
-  if (typeof trackCheckAll === "function" && total > 0) trackCheckAll("reported-speech.html", correct, total);
 
 function resetRS() {
-  for (var i = 0; i < currentData.length; i++) {
-    var id = currentData[i].id;
-    var ta = document.getElementById('ta-rs-' + id);
-    if (ta) {
-      ta.value = '';
-      ta.classList.remove('correct', 'wrong');
-    }
-    var fb = document.getElementById('fb-rs-' + id);
-    if (fb) { fb.className = 'feedback-line'; fb.textContent = ''; }
-    var hint = document.getElementById('hint-rs-' + id);
-    if (hint) { hint.className = 'hint-box'; hint.innerHTML = ''; }
-  }
-  var scoreBox = document.getElementById('rs-score');
-  if (scoreBox) { scoreBox.style.display = 'none'; scoreBox.innerHTML = ''; }
+  resetAll('ex-rs', currentData.length);
 }
-
-loadRound();
-setTimeout(startRound, 50);
 </script>
 <script src="chat-widget.js?v=3"></script>
 </body>
