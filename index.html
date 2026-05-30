@@ -160,9 +160,12 @@ input.correct,textarea.correct{border-color:var(--success)!important;background:
   <div class="gram-sub" id="fs">
     <a onclick="show('f-to-be')" id="nftb">🔤 Verb To Be</a>
     <a onclick="show('f-subject-pronouns')" id="nfsp">👤 Subject Pronouns</a>
-    <a onclick="show('f-object-pronouns')" id="nfop">👥 Object Pronouns</a>
-    <a onclick="show('f-possessives')" id="nfps">📌 Possessives</a>
+    <a onclick="show('f-numbers')" id="nfnm">🔢 Numbers</a>
     <a onclick="show('f-there-is-are')" id="nfti">📍 There is / There are</a>
+    <a onclick="show('f-possessives')" id="nfps">📌 Possessives</a>
+    <a onclick="show('f-object-pronouns')" id="nfop">👥 Object Pronouns</a>
+    <a onclick="show('f-question-words')" id="nfqw">❓ Question Words</a>
+    <a onclick="show('f-frequency-adverbs')" id="nffa">⏱ Frequency Adverbs</a>
     <a onclick="show('f-quantifiers')" id="nfq">🔢 Quantifiers</a>
     <a onclick="show('f-prepositions')" id="nfpr">🗺️ Prepositions</a>
     <a onclick="show('f-connectors')" id="nfc">🔗 Basic Connectors</a>
@@ -225,6 +228,7 @@ input.correct,textarea.correct{border-color:var(--success)!important;background:
     <a onclick="show('g-wish-if-only')" id="ngwi">💭 I Wish / If Only</a>
     <a onclick="show('g-passive')" id="ngpva">🔄 Advanced Passive</a>
     <a onclick="show('g-reported-speech')" id="ngrsa">🗣️ Advanced Reported Speech</a>
+    <a onclick="show('g-advanced-modals')" id="ngam">🔹 Advanced Modals</a>
   </div>
   <h2>✍️ WRITING</h2>
   <a onclick="show('writing')" id="nw">📝 Plantillas</a>
@@ -235,11 +239,11 @@ input.correct,textarea.correct{border-color:var(--success)!important;background:
   <a onclick="show('listening')" id="nlst">🎧 Listening Practice</a>
   <a href="canciones.html" id="nsng">🎵 Songs</a>
   <h2>📝 PRÁCTICA</h2>
-  <a onclick="show('vocabulary')" id="nvoc">📖 Vocabulary</a>
+  <a onclick="show('vocabulary')" id="nvoc">🧠 Vocabulary Hub</a>
   <a onclick="show('grammar-review')" id="ngr">🔄 Grammar Review</a>
   <a onclick="show('cambridge-a2')" id="nca">🎓 Cambridge A2 Key</a>
   <a onclick="show('simulacro')" id="nsim">🎯 Simulacro examen</a>
-  <div style="margin-top:20px;font-size:0.7rem;color:var(--text2)"><p>🗣️ UK 🇬🇧 / US 🇺🇸</p><p>🔤 Botón flotante = traductor</p><p>💬 Globo = tutor IA</p><p>📦 v5.0.0</p></div>
+  <div style="margin-top:20px;font-size:0.7rem;color:var(--text2)"><p>🗣️ UK 🇬🇧 / US 🇺🇸</p><p>🔤 Botón flotante = traductor</p><p>💬 Globo = tutor IA</p><p>📦 v5.3.0</p></div>
 </nav>
 <main class="main" id="main-content"></main>
 </div>
@@ -268,6 +272,7 @@ const NAV_MAP = {home:'nh',fundamentals:'nf',verbs:'nv',writing:'nw',simulacro:'
   'f-to-be':'nftb','f-subject-pronouns':'nfsp','f-object-pronouns':'nfop',
   'f-possessives':'nfps','f-there-is-are':'nfti','f-quantifiers':'nfq',
   'f-prepositions':'nfpr','f-connectors':'nfc','f-sentence-structure':'nfss',
+  'f-question-words':'nfqw','f-numbers':'nfnm','f-frequency-adverbs':'nffa',
   'g-have-got':'nghg','g-present-simple':'ngps','g-present-continuous':'ngpc',
   'g-imperatives':'ngimp','g-past-simple':'ngpast','g-past-continuous':'ngpastc',
   'g-used-to':'ngused','g-future':'ngf','g-modal':'ngm',
@@ -278,6 +283,7 @@ const NAV_MAP = {home:'nh',fundamentals:'nf',verbs:'nv',writing:'nw',simulacro:'
   'g-conditionals':'ngcd','g-third-conditional':'ngtc',
   'g-mixed-conditionals':'ngmc','g-wish-if-only':'ngwi',
   'g-articles':'ngar','g-passive-adv':'ngpva','g-reported-speech-adv':'ngrsa',
+  'g-advanced-modals':'ngam',
   'grammar-review':'ngr','cambridge-a2':'nca',
   'reading':'nrd','listening':'nlst','writing-practice':'nwp','songs':'nsng'};
 
@@ -296,7 +302,7 @@ const PAGE_MAP = {
   'grammar-review':'grammar-review.html','cambridge-a2':'cambridge-a2.html',
   'songs':'canciones.html'};
 
-var APP_VERSION = '5.0.0';
+var APP_VERSION = '5.3.0';
 
 function show(name) {
   document.querySelectorAll('.sidebar a').forEach(a=>a.classList.remove('active'));
@@ -633,6 +639,15 @@ async function speakAll3(inf, past, pp) {
   await speak(past); await new Promise(r=>setTimeout(r,300));
   await speak(pp);
 }
+function speakEN(text) {
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  const voices = speechSynthesis.getVoices();
+  const v = voices.find(x=>x.lang.startsWith('en-GB'))||voices.find(x=>x.lang.startsWith('en'));
+  if (v) u.voice = v;
+  u.rate = 0.8;
+  speechSynthesis.speak(u);
+}
 function filterV() { renderVerbs(document.getElementById('verb-search')?.value||''); }
 
 // ==================== INLINE EXERCISE ENGINE ====================
@@ -777,6 +792,32 @@ const MODAL_EXERCISES = [
   {stem:"You ___ touch that — it's hot!", answer:"mustn't", alts:["must not","can't"]},
   {stem:"___ you like to join us for dinner?", answer:"Would", alts:[]},
   {stem:"He ___ be 30 — he looks much younger.", answer:"can't", alts:["cannot"]},
+];
+const ADVANCED_MODALS_EX = [
+  {stem:"She's not at work. She ___ have gone home. (seguro)", answer:"must", alts:[]},
+  {stem:"He ___ have forgotten — he always remembers birthdays. (no puede ser)", answer:"can't", alts:["cannot"]},
+  {stem:"I don't know where my keys are. I ___ have left them in the car. (quizás)", answer:"might", alts:["may","could"]},
+  {stem:"You ___ have told me earlier! I waited for hours. (deberías)", answer:"should", alts:["ought to"]},
+  {stem:"The lights are off. They ___ have gone to bed. (seguro que sí)", answer:"must", alts:[]},
+  {stem:"She ___ have taken the money — she's very honest. (no es posible)", answer:"can't", alts:["cannot"]},
+  {stem:"I'm not sure but he ___ have missed the train. (podría)", answer:"might", alts:["may","could"]},
+  {stem:"You ___ have called me. I was really worried. (deberías haber)", answer:"should", alts:["ought to"]},
+  {stem:"The ground is wet. It ___ have rained last night. (seguro)", answer:"must", alts:[]},
+  {stem:"They ___ have arrived yet — the traffic is terrible. (no pueden haber)", answer:"can't", alts:["cannot"]},
+  {stem:"She looks tired. She ___ have studied all night. (puede que)", answer:"might", alts:["may","could"]},
+  {stem:"I ___ have studied more for the exam. (debería haber)", answer:"should", alts:["ought to"]},
+  {stem:"He's been running for an hour. He ___ be exhausted. (tiene que)", answer:"must", alts:[]},
+  {stem:"She ___ have seen us — she walked right past. (no pudo)", answer:"can't", alts:["cannot"]},
+  {stem:"Jack isn't here. He ___ have got stuck in traffic. (quizás)", answer:"might", alts:["may","could"]},
+  {stem:"We ___ have booked a table. Now there's no space. (deberíamos haber)", answer:"should", alts:["ought to"]},
+  {stem:"They're laughing. The joke ___ have been funny. (debió ser)", answer:"must", alts:[]},
+  {stem:"He ___ have finished already — he just started! (no es posible)", answer:"can't", alts:["cannot"]},
+  {stem:"She ___ have taken my pen by mistake. (puede que)", answer:"might", alts:["may","could"]},
+  {stem:"You ___ have seen a doctor sooner. (deberías haber)", answer:"should", alts:["ought to"]},
+  {stem:"The computer is working now. Someone ___ have fixed it. (alguien debió)", answer:"must", alts:[]},
+  {stem:"They ___ have left the party early — I didn't see them. (pudieron)", answer:"might", alts:["may","could"]},
+  {stem:"He's very pale. He ___ have been ill. (seguro que ha estado)", answer:"must", alts:[]},
+  {stem:"I ___ have bought that dress. It doesn't fit me. (no debería haber)", answer:"shouldn't", alts:["should not","ought not to have"]},
 ];
 const FUTURE_EXERCISES = [
   {stem:"I ___ help you with that.", answer:"will", alts:[]},
@@ -1364,29 +1405,111 @@ const F_CONNECTORS_EX = [
 ];
 
 const F_SENTENCE_STRUCTURE_EX = [
-  {stem:"She ___ chocolate. (likes)", answer:"likes", alts:[]},
-  {stem:"A dog ___ four legs. (has)", answer:"has", alts:["has got"]},
-  {stem:"They ___ football on Saturdays. (play)", answer:"play", alts:[]},
-  {stem:"___ a red car. (He has)", answer:"He has", alts:["He has got"]},
-  {stem:"I ___ breakfast every morning. (eat)", answer:"eat", alts:[]},
-  {stem:"The children ___ in the park. (are playing)", answer:"are playing", alts:[]},
-  {stem:"___ a big house. (We have)", answer:"We have", alts:["We have got"]},
-  {stem:"She ___ to music. (listens / always)", answer:"always listens", alts:[]},
-  {stem:"I ___ coffee. (don't like)", answer:"don't like", alts:["do not like"]},
-  {stem:"He ___ French. (doesn't speak)", answer:"doesn't speak", alts:["does not speak"]},
-  {stem:"___ you like pizza? (Do)", answer:"Do", alts:[]},
-  {stem:"___ she live here? (Does)", answer:"Does", alts:[]},
-  {stem:"She is a ___ girl. (tall / very)", answer:"very tall", alts:[]},
-  {stem:"I bought a ___ dress. (beautiful / blue)", answer:"beautiful blue", alts:["blue beautiful"]},
-  {stem:"They ___ their grandparents on Sundays. (visit / often)", answer:"often visit", alts:[]},
-  {stem:"He is ___ late. (never)", answer:"never", alts:[]},
-  {stem:"She ___ breakfast at 8am. (has / usually)", answer:"usually has", alts:[]},
-  {stem:"The cat ___ under the table. (sits / often)", answer:"often sits", alts:[]},
-  {stem:"We ___ to the cinema on Fridays. (go / sometimes)", answer:"sometimes go", alts:[]},
-  {stem:"I ___ spinach. (don't eat / never)", answer:"never eat", alts:["don't ever eat"]},
-  {stem:"___ a beautiful day! (It is)", answer:"It is", alts:["It's"]},
-  {stem:"They ___ very friendly. (are)", answer:"are", alts:[]},
-  {stem:"She ___ a new bike. (has got)", answer:"has got", alts:["has"]},
+  {stem:"She ___ chocolate.", answer:"likes", alts:[]},
+  {stem:"A dog ___ four legs.", answer:"has", alts:["has got"]},
+  {stem:"They ___ football on Saturdays.", answer:"play", alts:[]},
+  {stem:"He ___ a red car.", answer:"has", alts:["has got"]},
+  {stem:"I ___ breakfast every morning.", answer:"eat", alts:[]},
+  {stem:"The children ___ in the park.", answer:"are playing", alts:[]},
+  {stem:"We ___ a big house.", answer:"have", alts:["have got"]},
+  {stem:"She ___ to music. (always)", answer:"always listens", alts:[]},
+  {stem:"I ___ coffee. I prefer tea.", answer:"don't like", alts:["do not like"]},
+  {stem:"He ___ French. Only Spanish.", answer:"doesn't speak", alts:["does not speak"]},
+  {stem:"___ you like pizza?", answer:"Do", alts:[]},
+  {stem:"___ she live here?", answer:"Does", alts:[]},
+  {stem:"She is a ___ girl. (very / tall)", answer:"very tall", alts:[]},
+  {stem:"I bought a ___ dress. (blue / beautiful)", answer:"beautiful blue", alts:["blue beautiful"]},
+  {stem:"They ___ their grandparents on Sundays. (often)", answer:"often visit", alts:[]},
+  {stem:"He is ___ late. (nunca)", answer:"never", alts:[]},
+  {stem:"She ___ breakfast at 8am. (usually)", answer:"usually has", alts:[]},
+  {stem:"The cat ___ under the table. (often)", answer:"often sits", alts:[]},
+  {stem:"We ___ to the cinema on Fridays. (sometimes)", answer:"sometimes go", alts:[]},
+  {stem:"I ___ spinach. (never)", answer:"never eat", alts:["don't ever eat"]},
+  {stem:"___ a beautiful day!", answer:"It is", alts:["It's"]},
+  {stem:"They ___ very friendly.", answer:"are", alts:[]},
+  {stem:"She ___ a new bike.", answer:"has got", alts:["has"]},
+];
+
+const F_QUESTION_WORDS_EX = [
+  {stem:"___ is your name?", answer:"What", alts:[]},
+  {stem:"___ do you live?", answer:"Where", alts:[]},
+  {stem:"___ is your birthday?", answer:"When", alts:[]},
+  {stem:"___ are you sad?", answer:"Why", alts:[]},
+  {stem:"___ is your favourite singer?", answer:"Who", alts:[]},
+  {stem:"___ do you go to school?", answer:"How", alts:[]},
+  {stem:"___ colour do you prefer, red or blue?", answer:"Which", alts:[]},
+  {stem:"___ book is this?", answer:"Whose", alts:[]},
+  {stem:"___ apples do you want?", answer:"How many", alts:[]},
+  {stem:"___ money do you need?", answer:"How much", alts:[]},
+  {stem:"___ tall is your brother?", answer:"How", alts:[]},
+  {stem:"___ do you visit your grandparents?", answer:"How often", alts:[]},
+  {stem:"___ is your phone number?", answer:"What", alts:[]},
+  {stem:"___ are you from?", answer:"Where", alts:[]},
+  {stem:"___ does the film start?", answer:"When", alts:[]},
+  {stem:"___ don't you like broccoli?", answer:"Why", alts:[]},
+  {stem:"___ is knocking at the door?", answer:"Who", alts:[]},
+  {stem:"___ do you make a pizza?", answer:"How", alts:[]},
+  {stem:"___ coat is this?", answer:"Whose", alts:[]},
+  {stem:"___ brothers and sisters have you got?", answer:"How many", alts:[]},
+  {stem:"___ sugar do you take?", answer:"How much", alts:[]},
+  {stem:"___ is the weather like?", answer:"What", alts:[]},
+  {stem:"___ one do you want, big or small?", answer:"Which", alts:[]},
+  {stem:"___ you like playing tennis?", answer:"Do", alts:[]},
+  {stem:"___ old are you?", answer:"How", alts:[]},
+];
+
+const F_NUMBERS_EX = [
+  {stem:"Write the number: 15 = ___", answer:"fifteen", alts:[]},
+  {stem:"Write the number: 50 = ___", answer:"fifty", alts:[]},
+  {stem:"Write the number: 100 = ___", answer:"one hundred", alts:["a hundred"]},
+  {stem:"Write the number: 21 = ___", answer:"twenty-one", alts:["twenty one"]},
+  {stem:"Write the number: 1000 = ___", answer:"one thousand", alts:["a thousand"]},
+  {stem:"Ordinal: 1st = ___", answer:"first", alts:[]},
+  {stem:"Ordinal: 2nd = ___", answer:"second", alts:[]},
+  {stem:"Ordinal: 3rd = ___", answer:"third", alts:[]},
+  {stem:"Ordinal: 5th = ___", answer:"fifth", alts:[]},
+  {stem:"Ordinal: 12th = ___", answer:"twelfth", alts:[]},
+  {stem:"Ordinal: 21st = ___", answer:"twenty-first", alts:["twenty first"]},
+  {stem:"Month: 5th (May) = the ___", answer:"fifth", alts:[]},
+  {stem:"Month: 12th (December) = the ___", answer:"twelfth", alts:[]},
+  {stem:"Price: \u00a35.50 = five pounds ___", answer:"fifty", alts:["five pounds fifty"]},
+  {stem:"Write the number: 80 = ___", answer:"eighty", alts:[]},
+  {stem:"Write the number: 17 = ___", answer:"seventeen", alts:[]},
+  {stem:"Write the number: 40 = ___", answer:"forty", alts:[]},
+  {stem:"Ordinal: 9th = ___", answer:"ninth", alts:[]},
+  {stem:"Ordinal: 30th = ___", answer:"thirtieth", alts:[]},
+  {stem:"Year: 2010 = twenty ___", answer:"ten", alts:[]},
+  {stem:"Year: 1998 = nineteen ninety-___", answer:"eight", alts:[]},
+  {stem:"Write the number: 100,000 = one hundred ___", answer:"thousand", alts:[]},
+  {stem:"Price: \u00a310.99 = ten pounds ninety-___", answer:"nine", alts:[]},
+  {stem:"Ordinal: 22nd = twenty-___", answer:"second", alts:[]},
+];
+
+const F_FREQUENCY_ADVERBS_EX = [
+  {stem:"I ___ go to the gym. (siempre) — correct position", answer:"always go", alts:[]},
+  {stem:"She ___ drinks coffee. (nunca)", answer:"never drinks", alts:[]},
+  {stem:"They are ___ on time. (siempre)", answer:"always", alts:[]},
+  {stem:"He ___ eats breakfast. (normalmente)", answer:"usually eats", alts:[]},
+  {stem:"We ___ play football on Saturdays. (a veces)", answer:"sometimes play", alts:[]},
+  {stem:"I am ___ tired after work. (a menudo)", answer:"often", alts:[]},
+  {stem:"She is ___ late for class. (nunca)", answer:"never", alts:[]},
+  {stem:"They ___ go to the beach. (a menudo)", answer:"often go", alts:[]},
+  {stem:"He ___ reads a book before bed. (a veces)", answer:"sometimes reads", alts:[]},
+  {stem:"We ___ have pizza for dinner. (raramente)", answer:"rarely have", alts:["seldom have"]},
+  {stem:"I ___ get up at 7am. (normalmente)", answer:"usually get up", alts:[]},
+  {stem:"She is ___ happy. (siempre)", answer:"always", alts:[]},
+  {stem:"It is ___ cold in July. (raramente)", answer:"rarely", alts:[]},
+  {stem:"They ___ visit us. (a veces)", answer:"sometimes visit", alts:[]},
+  {stem:"He ___ forgets his keys. (siempre)", answer:"always forgets", alts:[]},
+  {stem:"I ___ go to bed after midnight. (nunca)", answer:"never go", alts:[]},
+  {stem:"She ___ walks to school. (a menudo)", answer:"often walks", alts:[]},
+  {stem:"My parents ___ eat out. (raramente)", answer:"rarely eat", alts:["seldom eat"]},
+  {stem:"We ___ watch TV after dinner. (normalmente)", answer:"usually watch", alts:[]},
+  {stem:"He ___ plays video games. (a veces)", answer:"sometimes plays", alts:[]},
+  {stem:"I ___ eat meat. (nunca) — correct position", answer:"never eat", alts:[]},
+  {stem:"She is ___ at home in the morning. (normalmente)", answer:"usually", alts:[]},
+  {stem:"They ___ go camping. (nunca)", answer:"never go", alts:[]},
+  {stem:"He ___ studies in the library. (a menudo)", answer:"often studies", alts:[]},
 ];
 
 const EXERCISES = {
@@ -1405,6 +1528,7 @@ const EXERCISES = {
   'g-possessives-s-of': {data:POSSESSIVES_EX, cid:'ex-pos', rounds:3},
   'g-linking-words': {data:LINKING_WORDS_EX, cid:'ex-lw', rounds:3},
   'g-phrasal-verbs': {data:PHRASAL_VERBS_EX, cid:'ex-pv', rounds:3},
+  'g-advanced-modals': {data:ADVANCED_MODALS_EX, cid:'ex-adv-modals', rounds:3},
   'f-to-be': {data:F_TO_BE_EX, cid:'ex-f-to-be', rounds:3},
   'f-subject-pronouns': {data:F_SUBJECT_PRONOUNS_EX, cid:'ex-f-subject-pronouns', rounds:3},
   'f-object-pronouns': {data:F_OBJECT_PRONOUNS_EX, cid:'ex-f-object-pronouns', rounds:3},
@@ -1414,6 +1538,9 @@ const EXERCISES = {
   'f-prepositions': {data:F_PREPOSITIONS_EX, cid:'ex-f-prepositions', rounds:3},
   'f-connectors': {data:F_CONNECTORS_EX, cid:'ex-f-connectors', rounds:3},
   'f-sentence-structure': {data:F_SENTENCE_STRUCTURE_EX, cid:'ex-f-sentence-structure', rounds:3},
+  'f-question-words': {data:F_QUESTION_WORDS_EX, cid:'ex-f-question-words', rounds:3},
+  'f-numbers': {data:F_NUMBERS_EX, cid:'ex-f-numbers', rounds:3},
+  'f-frequency-adverbs': {data:F_FREQUENCY_ADVERBS_EX, cid:'ex-f-frequency-adverbs', rounds:3},
 };
 
 // ==================== SIMULACRO CHECKBOXES ====================
@@ -2013,6 +2140,165 @@ En español podríamos decir «Chocolate, me encanta», pero en inglés NO se pu
 </div>
 <div id="ex-f-sentence-structure-score" class="score-box" style="display:none"></div></div>`;
 
+SECTIONS['f-question-words'] = `<div class="section active" style="display:block">
+<h2>❓ Question Words — Palabras interrogativas</h2>
+<div class="theory-box">
+<h3>Las 8 preguntas básicas (Wh- &amp; How)</h3>
+<p>En inglés, las preguntas empiezan con una <b>question word</b> seguida del verbo auxiliar (o <i>to be</i>) y el sujeto.</p>
+<table class="verbs"><thead><tr><th>Word</th><th>Uso</th><th>Ejemplo</th></tr></thead><tbody>
+<tr><td><b>What</b></td><td>qué / ¿cuál? (información general)</td><td><span class="en"><b>What</b> is your name?</span> — ¿Cómo te llamas?</td></tr>
+<tr><td><b>Where</b></td><td>dónde (lugar)</td><td><span class="en"><b>Where</b> do you live?</span> — ¿Dónde vives?</td></tr>
+<tr><td><b>When</b></td><td>cuándo (tiempo)</td><td><span class="en"><b>When</b> is your birthday?</span> — ¿Cuándo es tu cumpleaños?</td></tr>
+<tr><td><b>Why</b></td><td>por qué (razón) → respuesta: <b>because...</b></td><td><span class="en"><b>Why</b> are you sad?</span> — ¿Por qué estás triste?</td></tr>
+<tr><td><b>Who</b></td><td>quién (persona)</td><td><span class="en"><b>Who</b> is your teacher?</span> — ¿Quién es tu profesor?</td></tr>
+<tr><td><b>How</b></td><td>cómo (manera / grado)</td><td><span class="en"><b>How</b> do you go to school?</span> — ¿Cómo vas al cole?</td></tr>
+<tr><td><b>Which</b></td><td>cuál (elección entre opciones)</td><td><span class="en"><b>Which</b> colour do you prefer?</span> — ¿Qué color prefieres?</td></tr>
+<tr><td><b>Whose</b></td><td>de quién (posesión)</td><td><span class="en"><b>Whose</b> book is this?</span> — ¿De quién es este libro?</td></tr>
+</tbody></table>
+</div>
+<div class="theory-box">
+<h3>How + adjetivo / adverbio</h3>
+<p><b>How</b> se combina con adjetivos para preguntar sobre medidas, cantidad o frecuencia:</p>
+<div class="example">
+<span class="en"><b>How many</b> apples do you want?</span> — ¿Cuántas manzanas quieres? (contable)<br>
+<span class="en"><b>How much</b> money do you have?</span> — ¿Cuánto dinero tienes? (incontable)<br>
+<span class="en"><b>How old</b> are you?</span> — ¿Cuántos años tienes?<br>
+<span class="en"><b>How often</b> do you play tennis?</span> — ¿Con qué frecuencia juegas al tenis?<br>
+<span class="en"><b>How tall</b> is your brother?</span> — ¿Cuánto mide tu hermano?
+</div>
+</div>
+<div class="theory-box">
+<h3>Estructura de la pregunta</h3>
+<p><b>Question Word</b> + <b>auxiliar</b> (do/does/is/are/have) + <b>sujeto</b> + <b>verbo</b>?</p>
+<div class="example">
+<span class="en"><b>Where do</b> you <b>live</b>?</span><br>
+<span class="en"><b>What is</b> your favourite food?</span><br>
+<span class="en"><b>How often does</b> she <b>visit</b> her grandparents?</span>
+</div>
+<p>⚠️ Con el verbo <b>to be</b> NO se necesita auxiliar:</p>
+<div class="example">
+<span class="en"><b>Where are</b> you from?</span> (✓) · <span class="en"><s>Where do you are from?</s></span> (✗)
+</div>
+</div>
+<h3>📝 Ejercicios <span id="ex-f-question-words-rnd" style="font-size:0.75rem;color:var(--text2)"></span></h3>
+<div id="ex-f-question-words"></div>
+<div class="btn-row" style="margin-top:12px">
+<button class="btn-check-all" onclick="checkAllInline('ex-f-question-words')">✅ Corregir todo</button>
+<button class="btn-reset" onclick="resetInline('ex-f-question-words')">🔄 Reset</button>
+<button class="btn-next" onclick="_rounds['f-question-words']&&_rounds['f-question-words'].next()">▶️ Siguiente ronda</button>
+</div>
+<div id="ex-f-question-words-score" class="score-box" style="display:none"></div></div>`;
+
+SECTIONS['f-numbers'] = `<div class="section active" style="display:block">
+<h2>🔢 Numbers — Números cardinales y ordinales</h2>
+<div class="theory-box">
+<h3>🔢 Cardinal Numbers (1–100)</h3>
+<table class="verbs"><thead><tr><th>Nº</th><th>Inglés</th><th style="width:40px">🎧</th><th>Nº</th><th>Inglés</th><th style="width:40px">🎧</th></tr></thead><tbody>
+<tr><td>1</td><td><b>one</b></td><td><span style="cursor:pointer;font-size:.8rem" onclick="speakEN('one')">🔊</span></td><td>11</td><td><b>eleven</b></td><td><span style="cursor:pointer;font-size:.8rem" onclick="speakEN('eleven')">🔊</span></td></tr>
+<tr><td>2</td><td><b>two</b></td><td><span style="cursor:pointer;font-size:.8rem" onclick="speakEN('two')">🔊</span></td><td>12</td><td><b>twelve</b></td><td><span style="cursor:pointer;font-size:.8rem" onclick="speakEN('twelve')">🔊</span></td></tr>
+<tr><td>3</td><td><b>three</b></td><td><span style="cursor:pointer;font-size:.8rem" onclick="speakEN('three')">🔊</span></td><td>13</td><td><b>thirteen</b></td><td><span style="cursor:pointer;font-size:.8rem" onclick="speakEN('thirteen')">🔊</span></td></tr>
+<tr><td>4</td><td><b>four</b></td><td><span style="cursor:pointer;font-size:.8rem" onclick="speakEN('four')">🔊</span></td><td>14</td><td><b>fourteen</b></td><td><span style="cursor:pointer;font-size:.8rem" onclick="speakEN('fourteen')">🔊</span></td></tr>
+<tr><td>5</td><td><b>five</b></td><td><span style="cursor:pointer;font-size:.8rem" onclick="speakEN('five')">🔊</span></td><td>15</td><td><b>fifteen</b></td><td><span style="cursor:pointer;font-size:.8rem" onclick="speakEN('fifteen')">🔊</span></td></tr>
+<tr><td>6</td><td><b>six</b></td><td><span style="cursor:pointer;font-size:.8rem" onclick="speakEN('six')">🔊</span></td><td>20</td><td><b>twenty</b></td><td><span style="cursor:pointer;font-size:.8rem" onclick="speakEN('twenty')">🔊</span></td></tr>
+<tr><td>7</td><td><b>seven</b></td><td><span style="cursor:pointer;font-size:.8rem" onclick="speakEN('seven')">🔊</span></td><td>30</td><td><b>thirty</b></td><td><span style="cursor:pointer;font-size:.8rem" onclick="speakEN('thirty')">🔊</span></td></tr>
+<tr><td>8</td><td><b>eight</b></td><td><span style="cursor:pointer;font-size:.8rem" onclick="speakEN('eight')">🔊</span></td><td>40</td><td><b>forty</b></td><td><span style="cursor:pointer;font-size:.8rem" onclick="speakEN('forty')">🔊</span></td></tr>
+<tr><td>9</td><td><b>nine</b></td><td><span style="cursor:pointer;font-size:.8rem" onclick="speakEN('nine')">🔊</span></td><td>50</td><td><b>fifty</b></td><td><span style="cursor:pointer;font-size:.8rem" onclick="speakEN('fifty')">🔊</span></td></tr>
+<tr><td>10</td><td><b>ten</b></td><td><span style="cursor:pointer;font-size:.8rem" onclick="speakEN('ten')">🔊</span></td><td>100</td><td><b>a hundred</b></td><td><span style="cursor:pointer;font-size:.8rem" onclick="speakEN('one hundred')">🔊</span></td></tr>
+</tbody></table>
+<p style="margin-top:8px">Del 21 al 99: decena + guion + unidad. Ej: 21 = <b>twenty-one</b>, 47 = <b>forty-seven</b></p>
+</div>
+<div class="theory-box">
+<h3>🏆 Ordinal Numbers</h3>
+<table class="verbs"><thead><tr><th>Ordinal</th><th>Escritura</th><th style="width:40px">🎧</th><th>Regla</th></tr></thead><tbody>
+<tr><td>1st</td><td><b>first</b></td><td><span style="cursor:pointer;font-size:.8rem" onclick="speakEN('first')">🔊</span></td><td>Irregular</td></tr>
+<tr><td>2nd</td><td><b>second</b></td><td><span style="cursor:pointer;font-size:.8rem" onclick="speakEN('second')">🔊</span></td><td>Irregular</td></tr>
+<tr><td>3rd</td><td><b>third</b></td><td><span style="cursor:pointer;font-size:.8rem" onclick="speakEN('third')">🔊</span></td><td>Irregular</td></tr>
+<tr><td>4th</td><td><b>fourth</b></td><td><span style="cursor:pointer;font-size:.8rem" onclick="speakEN('fourth')">🔊</span></td><td>Cardinal + <b>th</b></td></tr>
+<tr><td>5th</td><td><b>fifth</b></td><td><span style="cursor:pointer;font-size:.8rem" onclick="speakEN('fifth')">🔊</span></td><td>five → fifth (ve cambia)</td></tr>
+<tr><td>9th</td><td><b>ninth</b></td><td><span style="cursor:pointer;font-size:.8rem" onclick="speakEN('ninth')">🔊</span></td><td>nine → ninth (sin e)</td></tr>
+<tr><td>12th</td><td><b>twelfth</b></td><td><span style="cursor:pointer;font-size:.8rem" onclick="speakEN('twelfth')">🔊</span></td><td>twelve → twelfth (ve→f)</td></tr>
+<tr><td>20th</td><td><b>twentieth</b></td><td><span style="cursor:pointer;font-size:.8rem" onclick="speakEN('twentieth')">🔊</span></td><td>y → ie + th</td></tr>
+<tr><td>21st</td><td><b>twenty-first</b></td><td><span style="cursor:pointer;font-size:.8rem" onclick="speakEN('twenty first')">🔊</span></td><td>Unidad irregular, decena normal</td></tr>
+<tr><td>100th</td><td><b>one hundredth</b></td><td><span style="cursor:pointer;font-size:.8rem" onclick="speakEN('one hundredth')">🔊</span></td><td>Cardinal + th</td></tr>
+</tbody></table>
+<p style="margin-top:8px">⚠️ Los ordinales se usan para <b>fechas</b>: <span class="en">May 5th = May the <b>fifth</b></span></p>
+</div>
+<div class="theory-box">
+<h3>📅 Years &amp; Prices</h3>
+<p><b>Años:</b> se dividen en dos grupos de dos dígitos:</p>
+<div class="example">
+1998 = nineteen ninety-eight<br>
+2010 = twenty ten (o two thousand ten)<br>
+2024 = twenty twenty-four<br>
+1905 = nineteen oh five
+</div>
+<p><b>Precios:</b> £5.50 = <i>five pounds fifty</i> · €12.99 = <i>twelve euros ninety-nine</i></p>
+</div>
+<h3>📝 Ejercicios <span id="ex-f-numbers-rnd" style="font-size:0.75rem;color:var(--text2)"></span></h3>
+<div id="ex-f-numbers"></div>
+<div class="btn-row" style="margin-top:12px">
+<button class="btn-check-all" onclick="checkAllInline('ex-f-numbers')">✅ Corregir todo</button>
+<button class="btn-reset" onclick="resetInline('ex-f-numbers')">🔄 Reset</button>
+<button class="btn-next" onclick="_rounds['f-numbers']&&_rounds['f-numbers'].next()">▶️ Siguiente ronda</button>
+</div>
+<div id="ex-f-numbers-score" class="score-box" style="display:none"></div></div>`;
+
+SECTIONS['f-frequency-adverbs'] = `<div class="section active" style="display:block">
+<h2>⏱ Frequency Adverbs — Adverbios de frecuencia</h2>
+<div class="theory-box">
+<h3>¿Qué son?</h3>
+<p>Los adverbios de frecuencia indican <b>cada cuánto</b> ocurre una acción. Van <b>siempre antes del verbo principal</b>, pero <b>después del verbo to be</b>.</p>
+</div>
+<div class="theory-box">
+<h3>Escala de frecuencia</h3>
+<table class="verbs"><thead><tr><th>Adverbio</th><th>Frecuencia</th><th>Ejemplo</th></tr></thead><tbody>
+<tr><td><b>Always</b></td><td>100% — siempre</td><td><span class="en">I <b>always</b> brush my teeth.</span></td></tr>
+<tr><td><b>Usually</b></td><td>~90% — normalmente</td><td><span class="en">She <b>usually</b> walks to school.</span></td></tr>
+<tr><td><b>Often</b></td><td>~70% — a menudo</td><td><span class="en">They <b>often</b> play football.</span></td></tr>
+<tr><td><b>Sometimes</b></td><td>~50% — a veces</td><td><span class="en">We <b>sometimes</b> eat out.</span></td></tr>
+<tr><td><b>Rarely / Seldom</b></td><td>~10% — raramente</td><td><span class="en">He <b>rarely</b> watches TV.</span></td></tr>
+<tr><td><b>Never</b></td><td>0% — nunca</td><td><span class="en">I <b>never</b> drink coffee.</span></td></tr>
+</tbody></table>
+</div>
+<div class="theory-box">
+<h3>📐 Posición en la frase</h3>
+<p><b>Regla 1 — Con verbos normales: antes del verbo</b></p>
+<div class="example">
+<span class="en">I <b>always</b> get up early.</span> — Siempre me levanto temprano.<br>
+<span class="en">She <b>never</b> eats meat.</span> — Ella nunca come carne.<br>
+<span class="en">They <b>often</b> visit their grandparents.</span> — A menudo visitan a sus abuelos.
+</div>
+<p><b>Regla 2 — Con to be: después del verbo</b></p>
+<div class="example">
+<span class="en">He is <b>always</b> happy.</span> — Él siempre está feliz.<br>
+<span class="en">I am <b>never</b> late.</span> — Nunca llego tarde.<br>
+<span class="en">She is <b>often</b> tired after work.</span> — A menudo está cansada después del trabajo.
+</div>
+<p><b>Regla 3 — En negativas: before the main verb</b></p>
+<div class="example">
+<span class="en">I don't <b>usually</b> eat breakfast.</span> — Normalmente no desayuno.<br>
+<span class="en">She doesn't <b>often</b> go to the cinema.</span> — No va a menudo al cine.
+</div>
+</div>
+<div class="theory-box">
+<h3>📌 Otras expresiones de frecuencia</h3>
+<p>También se usan <b>expresiones</b> al final de la frase:</p>
+<div class="example">
+<span class="en">I go to the gym <b>every day</b>.</span><br>
+<span class="en">She plays tennis <b>once a week</b>.</span><br>
+<span class="en">We visit our grandparents <b>twice a month</b>.</span><br>
+<span class="en">He goes swimming <b>three times a week</b>.</span>
+</div>
+</div>
+<h3>📝 Ejercicios <span id="ex-f-frequency-adverbs-rnd" style="font-size:0.75rem;color:var(--text2)"></span></h3>
+<div id="ex-f-frequency-adverbs"></div>
+<div class="btn-row" style="margin-top:12px">
+<button class="btn-check-all" onclick="checkAllInline('ex-f-frequency-adverbs')">✅ Corregir todo</button>
+<button class="btn-reset" onclick="resetInline('ex-f-frequency-adverbs')">🔄 Reset</button>
+<button class="btn-next" onclick="_rounds['f-frequency-adverbs']&&_rounds['f-frequency-adverbs'].next()">▶️ Siguiente ronda</button>
+</div>
+<div id="ex-f-frequency-adverbs-score" class="score-box" style="display:none"></div></div>`;
+
 // ==================== GRAMMAR — Nuevos temas ====================
 
 SECTIONS['g-present-simple'] = `<div class="section active" style="display:block">
@@ -2453,6 +2739,68 @@ SECTIONS['g-phrasal-verbs'] = `<div class="section active" style="display:block"
 <button class="btn-next" onclick="_rounds['g-phrasal-verbs']&&_rounds['g-phrasal-verbs'].next()">▶️ Siguiente ronda</button>
 </div>
 <div id="ex-pv-score" class="score-box" style="display:none"></div></div>`;
+
+SECTIONS['g-advanced-modals'] = `<div class="section active" style="display:block">
+<h2>🔹 Advanced Modals — Deducción pasada y crítica</h2>
+<div class="theory-box">
+<p>Estos modales se combinan con <b>have + participio</b> para hablar del <b>pasado</b>.</p>
+</div>
+<div class="theory-box">
+<h3>🔍 MUST HAVE + pp — Deducción (seguro que...)</h3>
+<p>Usamos <b>must have + participio</b> cuando estamos <b>seguros</b> de que algo ocurrió en el pasado por las evidencias.</p>
+<div class="example">
+<span class="en">The ground is wet. It <b>must have rained</b>.</span><br>
+<span class="en">She's not at work. She <b>must have gone</b> home.</span><br>
+<span class="en">They're laughing. The joke <b>must have been</b> funny.</span>
+</div>
+</div>
+<div class="theory-box">
+<h3>❌ CAN'T HAVE + pp — Imposibilidad (no puede ser que...)</h3>
+<p>Usamos <b>can't have / cannot have + participio</b> cuando estamos <b>seguros</b> de que algo NO ocurrió.</p>
+<div class="example">
+<span class="en">He <b>can't have forgotten</b> — he always remembers birthdays.</span><br>
+<span class="en">She <b>can't have seen</b> us — she walked right past.</span><br>
+<span class="en">They <b>can't have arrived</b> yet — the traffic is terrible.</span>
+</div>
+</div>
+<div class="theory-box">
+<h3>🤔 MIGHT / MAY / COULD HAVE + pp — Posibilidad (quizás...)</h3>
+<p>Usamos estos modales cuando algo <b>pudo haber ocurrido</b> pero no estamos seguros.</p>
+<div class="example">
+<span class="en">I don't know where my keys are. I <b>might have left</b> them in the car.</span><br>
+<span class="en">Jack isn't here. He <b>could have got</b> stuck in traffic.</span><br>
+<span class="en">She looks tired. She <b>may have studied</b> all night.</span>
+</div>
+</div>
+<div class="theory-box">
+<h3>😬 SHOULD (NOT) HAVE + pp — Crítica / Arrepentimiento</h3>
+<p>Usamos <b>should have + participio</b> para decir que <b>algo debió hacerse pero no se hizo</b> (crítica o arrepentimiento).</p>
+<p><b>Shouldn't have + participio</b> = algo se hizo pero no debía haberse hecho.</p>
+<div class="example">
+<span class="en">You <b>should have told</b> me earlier! I waited for hours.</span><br>
+<span class="en">I <b>should have studied</b> more for the exam.</span><br>
+<span class="en">I <b>shouldn't have bought</b> that dress. It doesn't fit me.</span><br>
+<span class="en">We <b>should have booked</b> a table. Now there's no space.</span>
+</div>
+</div>
+<div class="theory-box">
+<h3>⚡ Estructura rápida</h3>
+<table class="verbs"><thead><tr><th>Modal</th><th>Significado</th><th>Ejemplo</th></tr></thead><tbody>
+<tr><td><b>must have</b> + pp</td><td>Seguro que... / Debió...</td><td><span class="en">It <b>must have</b> rained.</span></td></tr>
+<tr><td><b>can't have</b> + pp</td><td>No puede ser que...</td><td><span class="en">He <b>can't have</b> forgotten.</span></td></tr>
+<tr><td><b>might/may/could have</b> + pp</td><td>Quizás... / Puede que...</td><td><span class="en">She <b>might have</b> left.</span></td></tr>
+<tr><td><b>should have</b> + pp</td><td>Debería haber... (pero no)</td><td><span class="en">You <b>should have</b> called.</span></td></tr>
+<tr><td><b>shouldn't have</b> + pp</td><td>No debería haber... (pero sí)</td><td><span class="en">I <b>shouldn't have</b> said that.</span></td></tr>
+</tbody></table>
+</div>
+<h3>📝 Ejercicios <span id="ex-adv-modals-rnd" style="font-size:0.75rem;color:var(--text2)"></span></h3>
+<div id="ex-adv-modals"></div>
+<div class="btn-row" style="margin-top:12px">
+<button class="btn-check-all" onclick="checkAllInline('ex-adv-modals')">✅ Corregir todo</button>
+<button class="btn-reset" onclick="resetInline('ex-adv-modals')">🔄 Reset</button>
+<button class="btn-next" onclick="_rounds['g-advanced-modals']&&_rounds['g-advanced-modals'].next()">▶️ Siguiente ronda</button>
+</div>
+<div id="ex-adv-modals-score" class="score-box" style="display:none"></div></div>`;
 
 // ==================== REGISTER POOL SECTIONS ====================
 if (typeof registerPoolSections === 'function') registerPoolSections(SECTIONS);

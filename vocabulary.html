@@ -3,29 +3,31 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vocabulary — 2º ESO</title>
+<title>🧠 Vocabulary Hub — 2º ESO</title>
 <link rel="stylesheet" href="style.css?v=5">
 <style>
-.vocab-unit {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 14px 16px;
-  margin-bottom: 10px;
-}
-.vocab-unit h3 {
-  margin: 0 0 6px;
-  font-size: 1rem;
-  color: var(--primary-dark);
-}
-.vocab-unit .topics {
-  font-size: 0.9rem;
-  color: var(--text2);
-  line-height: 1.6;
-}
-.vocab-unit .topics strong {
-  color: var(--text1);
-}
+.vhub-nav{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;padding:10px 0;border-bottom:2px solid var(--primary);}
+.vhub-nav a{text-decoration:none;padding:8px 14px;border-radius:8px;background:var(--bg);color:var(--text);font-size:0.85rem;font-weight:600;transition:all .15s;border:1px solid var(--border)}
+.vhub-nav a:hover,.vhub-nav a:focus{background:var(--primary);color:#fff;border-color:var(--primary)}
+.vhub-section{margin-bottom:24px;padding-top:8px}
+.vhub-section h2{font-size:1.5rem;margin-bottom:16px;padding-bottom:8px;border-bottom:3px solid var(--primary);display:inline-block}
+.vhub-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px 18px;margin-bottom:10px;transition:border-color .15s}
+.vhub-card:hover{border-color:var(--primary)}
+.vhub-card h3{margin:0 0 6px;font-size:.95rem;color:var(--primary-dark)}
+.vhub-card .words{font-size:.88rem;line-height:1.7;color:var(--text)}
+.vhub-card .words .en{color:#1864ab;font-weight:600}
+.vhub-card .words .es{color:var(--text2)}
+.vhub-card .words .sep{margin:0 6px;color:var(--border)}
+.vhub-sub{background:var(--bg);border-radius:8px;padding:12px 16px;margin-top:8px}
+.vhub-sub summary{font-size:.88rem;font-weight:600;cursor:pointer;color:var(--primary-dark);padding:4px 0}
+.vhub-sub .sub-content{padding:8px 0 4px 12px;line-height:1.8}
+.vhub-example{background:#f1f3f5;padding:8px 12px;border-radius:6px;margin:6px 0;font-style:italic;font-size:.85rem}
+.vhub-example .en{color:#1864ab}
+.vhub-example .es{color:var(--text2);font-size:.9em}
+.vocab-unit{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;margin-bottom:10px}
+.vocab-unit h3{margin:0 0 6px;font-size:1rem;color:var(--primary-dark)}
+.vocab-unit .topics{font-size:0.9rem;color:var(--text2);line-height:1.6}
+.vocab-unit .topics strong{color:var(--text1)}
 </style>
 </head>
 <body data-topic="vocabulary">
@@ -44,116 +46,414 @@
   <a href="indefinite-pronouns.html" class="">Indefinite Pronouns</a>
   <a href="nor-neither-so.html" class="">Nor / Neither / So</a>
   <h2>📖 Vocabulary</h2>
-  <a href="vocabulary.html">Units 1-3, 5-11</a>
+  <a href="vocabulary.html">🧠 Vocabulary Hub</a>
   <h2>🔄 Review</h2>
   <a href="grammar-review.html">Grammar Review 1º ESO</a>
   <h2>🎯 Exams</h2>
   <a href="cambridge-a2.html">Cambridge A2 Key</a>
-
   <h2>🎯 Simulacro</h2>
   <a href="simulacro.html">Examen mixto</a>
-
 </nav>
 <main class="main">
-  <div class="breadcrumb"><a href="index.html">Inicio</a> / Vocabulary</div>
-  <h1 class="page-title">Vocabulary</h1>
-  <p class="intro">Vocabulario de las <strong>Units 1, 3, 5, 6, 7, 8, 9, 10 y 11</strong> según las páginas de referencia del PDF oficial.</p>
+  <div class="breadcrumb"><a href="index.html">Inicio</a> / Vocabulary Hub</div>
+  <h1 class="page-title">🧠 Vocabulary Hub</h1>
+  <p class="intro">Vocabulario temático con colocaciones, phrasal verbs, idioms y formación de palabras.</p>
 
-  <div class="section">
-    <h2>📖 Referencia por unidades</h2>
-    <p style="color:var(--text2);margin-bottom:14px;font-size:0.9rem">
-      Basado en las páginas de referencia (fondo rosa) del PDF de vocabulario.
-      Cada unidad tiene un círculo con términos clave, colocaciones y expresiones.
-    </p>
+  <!-- ==================== HUB NAV ==================== -->
+  <div class="vhub-nav" id="vhub-top">
+    <a href="#v-topics">📚 Topics</a>
+    <a href="#v-colloc">🔗 Collocations</a>
+    <a href="#v-phrasal">🔀 Phrasal Verbs</a>
+    <a href="#v-idioms">💬 Idioms</a>
+    <a href="#v-formation">🎯 Word Formation</a>
+    <a href="#v-exercises">✏️ Ejercicios</a>
+  </div>
 
+  <!-- ==================== TOPICS ==================== -->
+  <div class="vhub-section" id="v-topics">
+    <h2>📚 Topics</h2>
+
+    <!-- NEW: School -->
     <div class="vocab-unit">
-      <h3>📘 Unit 1 — Personality adjectives · Collocations</h3>
+      <h3>🏫 School — El colegio</h3>
       <div class="topics">
-        <strong>🔵 Personality adjectives:</strong> serious, cheerful, brave, positive, talented, creative, active, laid‑back, charming<br>
-        <strong>🔗 Collocations:</strong> make a mistake / an appearance · do your best / work · get a present / a reputation · lose a race / your life · take a risk / a photograph · form a group / an opinion<br>
-        <strong>💬 JUST phrases:</strong> It was just a joke · Tom's just arrived · The book was just fantastic
+        <strong>📖 Subjects (asignaturas):</strong> maths, science, history, geography, English, Spanish, art, music, PE (physical education), IT (information technology)<br>
+        <strong>✏️ Objects (objetos):</strong> pen, pencil, ruler, rubber, sharpener, book, notebook, bag, desk, board, computer, calculator, dictionary<br>
+        <strong>👩‍🏫 Verbs (verbos):</strong> study, learn, teach, explain, understand, listen, write, read, draw, calculate, revise, pass (an exam), fail (an exam)<br>
+        <strong>🏢 Places (lugares):</strong> classroom, library, canteen, gym, playground, laboratory, office, sports field
       </div>
     </div>
 
+    <!-- NEW: Travel -->
     <div class="vocab-unit">
-      <h3>📘 Unit 3 — Types of films/TV · Expressions with GET</h3>
+      <h3>✈️ Travel — Viajes</h3>
       <div class="topics">
-        <strong>🎬 Types of films:</strong> documentary, comedy, action film, animated film, horror, thriller, science fiction (sci‑fi), romantic comedy (rom‑com)<br>
-        <strong>📺 Types of TV programmes:</strong> game show, chat show, sports programme, reality show, sitcom, cartoon, soap (opera), drama series, talent show<br>
+        <strong>🚗 Transport:</strong> car, bus, train, plane, bike, taxi, ferry, underground / metro, tram, coach, motorbike<br>
+        <strong>🏨 Accommodation:</strong> hotel, hostel, campsite, B&amp;B, apartment, guesthouse, resort<br>
+        <strong>🔁 Travel verbs:</strong> book, reserve, pack, arrive, depart, catch (a train), miss (a flight), check in, explore, visit, travel, go on holiday<br>
+        <strong>🧳 Travel vocab:</strong> ticket, passport, luggage, suitcase, map, guide, journey, trip, flight, boarding pass, destination, souvenir<br>
+        <strong>📍 Directions:</strong> turn left/right, go straight on, cross the road, at the corner, opposite, next to, between
+      </div>
+    </div>
+
+    <!-- NEW: Food -->
+    <div class="vocab-unit">
+      <h3>🍔 Food &amp; Drink — Comida y bebida</h3>
+      <div class="topics">
+        <strong>🍽️ Meals (comidas):</strong> breakfast, lunch, dinner, snack, dessert, brunch<br>
+        <strong>🥦 Food groups:</strong> fruit (apple, banana, orange), vegetables (carrot, tomato, onion), meat (chicken, beef, pork), fish, dairy (milk, cheese, yoghurt), grains (bread, rice, pasta)<br>
+        <strong>👨‍🍳 Cooking verbs:</strong> cook, boil, fry, bake, roast, grill, chop, mix, peel, pour, add, stir, cut<br>
+        <strong>🍝 Restaurant:</strong> menu, waiter / waitress, order, bill, tip, main course, starter, dessert, take away, book a table<br>
+        <strong>🥤 Drinks:</strong> water, juice, milk, coffee, tea, soda, smoothie, hot chocolate
+      </div>
+    </div>
+
+    <!-- EXISTING reorganized: Personality adjectives (U1) -->
+    <div class="vocab-unit">
+      <h3>👤 Personality — Cómo somos (U1)</h3>
+      <div class="topics">
+        <strong>🔵 Adjectives:</strong> serious, cheerful, brave, positive, talented, creative, active, laid‑back, charming<br>
+        <strong>🔗 Collocations:</strong> make a mistake / an appearance · do your best / work · get a present / a reputation · lose a race / your life · take a risk / a photograph · form a group / an opinion<br>
+        <strong>💬 JUST phrases:</strong> It was just a joke / Tom's just arrived / The book was just fantastic
+      </div>
+    </div>
+
+    <!-- EXISTING: Films/TV (U3) -->
+    <div class="vocab-unit">
+      <h3>🎬 Films &amp; TV — Cine y televisión (U3)</h3>
+      <div class="topics">
+        <strong>🎥 Types of films:</strong> documentary, comedy, action film, animated film, horror, thriller, science fiction (sci‑fi), romantic comedy (rom‑com)<br>
+        <strong>📺 TV programmes:</strong> game show, chat show, sports programme, reality show, sitcom, cartoon, soap (opera), drama series, talent show<br>
         <strong>🔗 GET expressions:</strong> get angry, get bored, get a drink, get better, get there
       </div>
     </div>
 
+    <!-- EXISTING: Music (U5) -->
     <div class="vocab-unit">
-      <h3>📘 Unit 5 — Musical instruments · Making music · OUT</h3>
+      <h3>🎵 Music &amp; Instruments — Música (U5)</h3>
       <div class="topics">
-        <strong>🎵 Musical instruments:</strong> trumpet, violin, guitar, piano, drums, saxophone, keyboard, bass guitar<br>
+        <strong>🎸 Instruments:</strong> trumpet, violin, guitar, piano, drums, saxophone, keyboard, bass guitar<br>
         <strong>🎤 Making music:</strong> download a song, write songs &amp; lyrics, enter a talent show, go on tour, start a band, record / release a single, enter the charts, win a competition, play a gig<br>
         <strong>🔗 Phrasal verbs with OUT:</strong> start out, find out, run out of, come out, go out, sort out
       </div>
     </div>
 
+    <!-- EXISTING: Environment (U6) -->
     <div class="vocab-unit">
-      <h3>📘 Unit 6 — The environment · Verbs to talk about energy</h3>
+      <h3>🌍 Environment — Medio ambiente (U6)</h3>
       <div class="topics">
-        <strong>🌍 The environment:</strong> litter, water / air pollution, flood, recycling, melt, extinct, rubbish, waste, laws, smog<br>
-        <strong>⚡ Verbs to talk about energy:</strong> to recycle, to throw away, to waste, to charge, to reuse, to leave on standby, to disconnect, to save
+        <strong>♻️ The environment:</strong> litter, water / air pollution, flood, recycling, melt, extinct, rubbish, waste, laws, smog<br>
+        <strong>⚡ Energy verbs:</strong> recycle, throw away, waste, charge, reuse, leave on standby, disconnect, save
       </div>
     </div>
 
+    <!-- EXISTING: Future/Parties (U7) -->
     <div class="vocab-unit">
-      <h3>📘 Unit 7 — Future time · Arranging a party · ABOUT</h3>
+      <h3>🎉 Events &amp; Parties — Eventos (U7)</h3>
       <div class="topics">
-        <strong>⏰ Future time expressions:</strong> the day after tomorrow, the (week/month) after next, before too long, next (week/month/year/weekend), four (days/weeks) from now, later (today/this week), in the near future, in (two weeks' / a year's) time<br>
-        <strong>🎉 Arranging a party:</strong> choose a theme, decorate the room, draw up a guest list, get permission, book/hire a DJ, send out invitations, organise food &amp; drinks<br>
-        <strong>💬 Phrases with ABOUT:</strong> about (10 o'clock / half an hour), about to (go home), What about you?, sorry about (that), forget about (it), think about (it)
+        <strong>⏰ Future time:</strong> the day after tomorrow, the (week/month) after next, before too long, next (week/month/year), from now, in the near future<br>
+        <strong>🎈 Arranging a party:</strong> choose a theme, decorate the room, draw up a guest list, get permission, book/hire a DJ, send out invitations, organise food &amp; drinks<br>
+        <strong>💬 ABOUT phrases:</strong> about (10 o'clock), about to (go home), What about you?, sorry about (that), think about (it)
       </div>
     </div>
 
+    <!-- EXISTING: Direction/Science (U8) -->
     <div class="vocab-unit">
-      <h3>📘 Unit 8 — Direction and movement · Science</h3>
+      <h3>🔬 Science &amp; Movement — Ciencia (U8)</h3>
       <div class="topics">
-        <strong>🧭 Direction and movement:</strong> away from, around, down, backwards, towards, up and down, forwards, up<br>
+        <strong>🧭 Direction &amp; movement:</strong> away from, around, down, backwards, towards, up and down, forwards, up<br>
         <strong>🔬 Science:</strong> laboratory, scientist, discovery, experiment, machine, invention, cure, invent, do research
       </div>
     </div>
 
+    <!-- EXISTING: Jobs (U9) -->
     <div class="vocab-unit">
-      <h3>📘 Unit 9 — Jobs · Time with IN · Work as/in/for · Work vs Job</h3>
+      <h3>💼 Jobs &amp; Work — Trabajo (U9)</h3>
       <div class="topics">
         <strong>💼 Jobs (pay &amp; conditions):</strong> work long hours, earn money, get paid holidays, give in your notice, on‑the‑job training, start a career, a challenging job, be promoted, be successful<br>
-        <strong>⏰ Time expressions WITH IN:</strong> in the end, in the next few years, in the past, in a day, in three hours, in June, in two weeks' time<br>
+        <strong>⏰ Time expressions WITH IN:</strong> in the end, in the next few years, in the past, in a day, in three hours, in June<br>
         <strong>🔗 Work as / in / for:</strong> work <strong>as</strong> a teacher, work <strong>in</strong> television, work <strong>for</strong> a big bank<br>
-        <strong>⚖️ Work vs Job:</strong> a good <strong>job</strong> (countable, puesto) · difficult <strong>work</strong> (uncountable, concepto)
+        <strong>⚖️ Work vs Job:</strong> a good <strong>job</strong> · difficult <strong>work</strong>
       </div>
     </div>
 
+    <!-- EXISTING: Health (U10) -->
     <div class="vocab-unit">
-      <h3>📘 Unit 10 — Time linkers · Illness collocations</h3>
+      <h3>🤒 Health &amp; Illness — Salud (U10)</h3>
       <div class="topics">
         <strong>⏱️ Time linkers:</strong> when, then, until<br>
         <strong>🤒 Illness collocations:</strong> take exercise, get better, see a doctor, have an operation, make an appointment, feel sick
       </div>
     </div>
 
+    <!-- EXISTING: Fun/Leisure (U11) -->
     <div class="vocab-unit">
-      <h3>📘 Unit 11 — Fun · Verbs + object + infinitive · MAKE</h3>
+      <h3>🎉 Leisure &amp; Free Time — Ocio (U11)</h3>
       <div class="topics">
-        <strong>🎉 Fun &amp; leisure:</strong> have fun, enjoy oneself, play games, go out with friends, watch a film, listen to music, spend time, relax<br>
-        <strong>🔗 Verbs with object + infinitive:</strong> want someone to do, ask someone to do, tell someone to do, expect someone to do, would like someone to do<br>
+        <strong>🎮 Fun &amp; leisure:</strong> have fun, enjoy oneself, play games, go out with friends, watch a film, listen to music, spend time, relax<br>
+        <strong>🔗 Verbs + object + infinitive:</strong> want someone to do, ask someone to do, tell someone to do, expect someone to do, would like someone to do<br>
         <strong>🔗 Expressions with MAKE:</strong> make plans, make a decision, make a phone call, make a mistake, make someone laugh, make noise, make the bed, make friends, make sure
       </div>
     </div>
 
-    <div style="margin-top:16px;padding-top:12px;border-top:1px solid var(--border);text-align:center">
-      <a href="pdfs/VOCABULARY-2o-ESO.pdf" target="_blank" rel="noopener" class="btn-link" style="display:inline-block;padding:8px 18px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:0.9rem">
-        📄 PDF de referencia — Páginas rosa con vocabulario por unidades
-      </a>
+    <div style="margin-top:12px;text-align:right">
+      <a href="#vhub-top" style="font-size:0.8rem;color:var(--text2)">⬆ Volver arriba</a>
     </div>
   </div>
 
-  <div class="section">
-    <h2>✏️ Ejercicio — Vocabulary mix <span id="round-label">Ronda 1/3</span></h2>
+  <!-- ==================== COLLOCATIONS ==================== -->
+  <div class="vhub-section" id="v-colloc">
+    <h2>🔗 Collocations</h2>
+    <p style="color:var(--text2);margin-bottom:12px">Combinaciones de palabras que suenan naturales juntas.</p>
+
+    <div class="vhub-card">
+      <h3>📌 MAKE — hacer / fabricar</h3>
+      <div class="words">
+        <span class="en">make a mistake</span> <span class="es">(cometer un error)</span><span class="sep">·</span>
+        <span class="en">make a decision</span> <span class="es">(tomar una decisión)</span><span class="sep">·</span>
+        <span class="en">make plans</span> <span class="es">(hacer planes)</span><span class="sep">·</span>
+        <span class="en">make a phone call</span> <span class="es">(hacer una llamada)</span><span class="sep">·</span>
+        <span class="en">make noise</span> <span class="es">(hacer ruido)</span><span class="sep">·</span>
+        <span class="en">make friends</span> <span class="es">(hacer amigos)</span><span class="sep">·</span>
+        <span class="en">make the bed</span> <span class="es">(hacer la cama)</span><span class="sep">·</span>
+        <span class="en">make sure</span> <span class="es">(asegurarse)</span><span class="sep">·</span>
+        <span class="en">make an effort</span> <span class="es">(esforzarse)</span><span class="sep">·</span>
+        <span class="en">make a difference</span> <span class="es">(marcar la diferencia)</span>
+      </div>
+    </div>
+
+    <div class="vhub-card">
+      <h3>📌 DO — hacer / realizar</h3>
+      <div class="words">
+        <span class="en">do homework</span> <span class="es">(hacer deberes)</span><span class="sep">·</span>
+        <span class="en">do the shopping</span> <span class="es">(hacer la compra)</span><span class="sep">·</span>
+        <span class="en">do your best</span> <span class="es">(dar lo mejor de ti)</span><span class="sep">·</span>
+        <span class="en">do a favour</span> <span class="es">(hacer un favor)</span><span class="sep">·</span>
+        <span class="en">do exercise</span> <span class="es">(hacer ejercicio)</span><span class="sep">·</span>
+        <span class="en">do business</span> <span class="es">(hacer negocios)</span><span class="sep">·</span>
+        <span class="en">do the housework</span> <span class="es">(hacer tareas domésticas)</span><span class="sep">·</span>
+        <span class="en">do well</span> <span class="es">(ir bien, tener éxito)</span>
+      </div>
+    </div>
+
+    <div class="vhub-card">
+      <h3>📌 TAKE — tomar / coger</h3>
+      <div class="words">
+        <span class="en">take a break</span> <span class="es">(tomar un descanso)</span><span class="sep">·</span>
+        <span class="en">take a photo</span> <span class="es">(hacer una foto)</span><span class="sep">·</span>
+        <span class="en">take a shower</span> <span class="es">(ducharse)</span><span class="sep">·</span>
+        <span class="en">take care</span> <span class="es">(cuidarse / tener cuidado)</span><span class="sep">·</span>
+        <span class="en">take time</span> <span class="es">(tomarse tiempo)</span><span class="sep">·</span>
+        <span class="en">take a seat</span> <span class="es">(sentarse)</span><span class="sep">·</span>
+        <span class="en">take an exam</span> <span class="es">(hacer un examen)</span><span class="sep">·</span>
+        <span class="en">take part in</span> <span class="es">(participar en)</span><span class="sep">·</span>
+        <span class="en">take place</span> <span class="es">(tener lugar)</span>
+      </div>
+    </div>
+
+    <div class="vhub-card">
+      <h3>📌 HAVE — tener / tomar</h3>
+      <div class="words">
+        <span class="en">have breakfast / lunch / dinner</span> <span class="es">(desayunar / comer / cenar)</span><span class="sep">·</span>
+        <span class="en">have a shower</span> <span class="es">(ducharse)</span><span class="sep">·</span>
+        <span class="en">have a look</span> <span class="es">(echar un vistazo)</span><span class="sep">·</span>
+        <span class="en">have fun</span> <span class="es">(divertirse)</span><span class="sep">·</span>
+        <span class="en">have a party</span> <span class="es">(dar una fiesta)</span><span class="sep">·</span>
+        <span class="en">have an idea</span> <span class="es">(tener una idea)</span><span class="sep">·</span>
+        <span class="en">have a good time</span> <span class="es">(pasarlo bien)</span><span class="sep">·</span>
+        <span class="en">have a conversation</span> <span class="es">(mantener una conversación)</span>
+      </div>
+    </div>
+
+    <div class="vhub-card">
+      <h3>📌 GET — conseguir / volverse</h3>
+      <div class="words">
+        <span class="en">get ready</span> <span class="es">(prepararse)</span><span class="sep">·</span>
+        <span class="en">get dressed</span> <span class="es">(vestirse)</span><span class="sep">·</span>
+        <span class="en">get lost</span> <span class="es">(perderse)</span><span class="sep">·</span>
+        <span class="en">get married</span> <span class="es">(casarse)</span><span class="sep">·</span>
+        <span class="en">get angry</span> <span class="es">(enfadarse)</span><span class="sep">·</span>
+        <span class="en">get better</span> <span class="es">(mejorar / recuperarse)</span><span class="sep">·</span>
+        <span class="en">get a job</span> <span class="es">(conseguir un trabajo)</span><span class="sep">·</span>
+        <span class="en">get permission</span> <span class="es">(obtener permiso)</span><span class="sep">·</span>
+        <span class="en">get home</span> <span class="es">(llegar a casa)</span>
+      </div>
+    </div>
+
+    <div style="margin-top:12px;text-align:right">
+      <a href="#vhub-top" style="font-size:0.8rem;color:var(--text2)">⬆ Volver arriba</a>
+    </div>
+  </div>
+
+  <!-- ==================== PHRASAL VERBS ==================== -->
+  <div class="vhub-section" id="v-phrasal">
+    <h2>🔀 Phrasal Verbs</h2>
+    <p style="color:var(--text2);margin-bottom:12px">Verbos compuestos: verbo + partícula. El significado cambia completamente.</p>
+
+    <div class="vhub-card">
+      <h3>⬆ UP</h3>
+      <div class="words">
+        <span class="en">get up</span> <span class="es">(levantarse)</span><span class="sep">·</span>
+        <span class="en">wake up</span> <span class="es">(despertarse)</span><span class="sep">·</span>
+        <span class="en">give up</span> <span class="es">(rendirse / dejar)</span><span class="sep">·</span>
+        <span class="en">pick up</span> <span class="es">(recoger)</span><span class="sep">·</span>
+        <span class="en">look up</span> <span class="es">(buscar información)</span><span class="sep">·</span>
+        <span class="en">turn up</span> <span class="es">(subir el volumen / aparecer)</span><span class="sep">·</span>
+        <span class="en">grow up</span> <span class="es">(crecer)</span><span class="sep">·</span>
+        <span class="en">make up</span> <span class="es">(inventar / maquillar / reconciliarse)</span><span class="sep">·</span>
+        <span class="en">clean up</span> <span class="es">(limpiar, recoger)</span><span class="sep">·</span>
+        <span class="en">end up</span> <span class="es">(terminar haciendo algo)</span>
+      </div>
+    </div>
+
+    <div class="vhub-card">
+      <h3>⬇️ DOWN</h3>
+      <div class="words">
+        <span class="en">turn down</span> <span class="es">(bajar volumen / rechazar)</span><span class="sep">·</span>
+        <span class="en">put down</span> <span class="es">(dejar / anotar)</span><span class="sep">·</span>
+        <span class="en">write down</span> <span class="es">(apuntar)</span><span class="sep">·</span>
+        <span class="en">calm down</span> <span class="es">(calmarse)</span><span class="sep">·</span>
+        <span class="en">break down</span> <span class="es">(averiarse / derrumbarse)</span><span class="sep">·</span>
+        <span class="en">slow down</span> <span class="es">(reducir la velocidad)</span><span class="sep">·</span>
+        <span class="en">settle down</span> <span class="es">(establecerse / sentar cabeza)</span>
+      </div>
+    </div>
+
+    <div class="vhub-card">
+      <h3>↗️ OFF</h3>
+      <div class="words">
+        <span class="en">turn off / switch off</span> <span class="es">(apagar)</span><span class="sep">·</span>
+        <span class="en">take off</span> <span class="es">(quitarse ropa / despegar)</span><span class="sep">·</span>
+        <span class="en">put off</span> <span class="es">(posponer)</span><span class="sep">·</span>
+        <span class="en">go off</span> <span class="es">(dispararse / estropearse / sonar alarma)</span><span class="sep">·</span>
+        <span class="en">set off</span> <span class="es">(ponerse en camino)</span><span class="sep">·</span>
+        <span class="en">show off</span> <span class="es">(presumir)</span><span class="sep">·</span>
+        <span class="en">pay off</span> <span class="es">(pagar deuda / dar resultado)</span>
+      </div>
+    </div>
+
+    <div class="vhub-card">
+      <h3>↩️ OUT</h3>
+      <div class="words">
+        <span class="en">find out</span> <span class="es">(descubrir / averiguar)</span><span class="sep">·</span>
+        <span class="en">run out of</span> <span class="es">(quedarse sin)</span><span class="sep">·</span>
+        <span class="en">go out</span> <span class="es">(salir / apagarse)</span><span class="sep">·</span>
+        <span class="en">come out</span> <span class="es">(salir / publicarse)</span><span class="sep">·</span>
+        <span class="en">sort out</span> <span class="es">(solucionar / ordenar)</span><span class="sep">·</span>
+        <span class="en">work out</span> <span class="es">(resolver / hacer ejercicio)</span><span class="sep">·</span>
+        <span class="en">figure out</span> <span class="es">(averiguar, entender)</span><span class="sep">·</span>
+        <span class="en">check out</span> <span class="es">(echar un vistazo / pagar y marcharse)</span><span class="sep">·</span>
+        <span class="en">start out</span> <span class="es">(empezar, comenzar)</span>
+      </div>
+    </div>
+
+    <div class="vhub-card">
+      <h3>🔁 IN</h3>
+      <div class="words">
+        <span class="en">come in</span> <span class="es">(entrar)</span><span class="sep">·</span>
+        <span class="en">get in</span> <span class="es">(entrar al coche / llegar)</span><span class="sep">·</span>
+        <span class="en">give in</span> <span class="es">(rendirse / ceder)</span><span class="sep">·</span>
+        <span class="en">fill in</span> <span class="es">(rellenar un formulario)</span><span class="sep">·</span>
+        <span class="en">check in</span> <span class="es">(registrarse en hotel / facturar)</span><span class="sep">·</span>
+        <span class="en">believe in</span> <span class="es">(creer en)</span><span class="sep">·</span>
+        <span class="en">join in</span> <span class="es">(unirse a / participar)</span>
+      </div>
+    </div>
+
+    <div style="margin-top:12px;text-align:right">
+      <a href="#vhub-top" style="font-size:0.8rem;color:var(--text2)">⬆ Volver arriba</a>
+    </div>
+  </div>
+
+  <!-- ==================== IDIOMS ==================== -->
+  <div class="vhub-section" id="v-idioms">
+    <h2>💬 Idioms — Expresiones</h2>
+    <p style="color:var(--text2);margin-bottom:12px">Expresiones fijas con significado figurado. No se traducen literalmente.</p>
+
+    <div class="vhub-card">
+      <div class="words">
+        <span class="en"><b>a piece of cake</b></span> <span class="es">— algo muy fácil</span><br>
+        <span class="en"><b>break a leg</b></span> <span class="es">— ¡mucha suerte!</span><br>
+        <span class="en"><b>cost an arm and a leg</b></span> <span class="es">— costar un ojo de la cara</span><br>
+        <span class="en"><b>hit the nail on the head</b></span> <span class="es">— dar en el clavo</span><br>
+        <span class="en"><b>once in a blue moon</b></span> <span class="es">— de vez en cuando / muy raramente</span><br>
+        <span class="en"><b>under the weather</b></span> <span class="es">— indispuesto / algo enfermo</span><br>
+        <span class="en"><b>the ball is in your court</b></span> <span class="es">— la pelota está en tu tejado</span><br>
+        <span class="en"><b>spill the beans</b></span> <span class="es">— revelar un secreto</span><br>
+        <span class="en"><b>it's raining cats and dogs</b></span> <span class="es">— llover a cántaros</span><br>
+        <span class="en"><b>feel under the weather</b></span> <span class="es">— sentirse malito</span><br>
+        <span class="en"><b>be all ears</b></span> <span class="es">— ser todo oídos</span><br>
+        <span class="en"><b>let the cat out of the bag</b></span> <span class="es">— revelar un secreto sin querer</span><br>
+        <span class="en"><b>add insult to injury</b></span> <span class="es">— encima de que…, para más inri</span><br>
+        <span class="en"><b>call it a day</b></span> <span class="es">— dar por terminado el día</span><br>
+        <span class="en"><b>better late than never</b></span> <span class="es">— más vale tarde que nunca</span>
+      </div>
+    </div>
+
+    <div class="vhub-example">
+      <span class="en">"The exam was <b>a piece of cake</b>."</span><br>
+      <span class="en">"Break a leg" — I told her before the concert.</span><br>
+      <span class="en">"It's <b>raining cats and dogs</b>! Take an umbrella."</span>
+    </div>
+
+    <div style="margin-top:12px;text-align:right">
+      <a href="#vhub-top" style="font-size:0.8rem;color:var(--text2)">⬆ Volver arriba</a>
+    </div>
+  </div>
+
+  <!-- ==================== WORD FORMATION ==================== -->
+  <div class="vhub-section" id="v-formation">
+    <h2>🎯 Word Formation</h2>
+    <p style="color:var(--text2);margin-bottom:12px">Cómo cambiar una palabra añadiendo prefijos y sufijos para formar nuevas palabras.</p>
+
+    <div class="vhub-card">
+      <h3>📌 Sufijos — cambian el tipo de palabra</h3>
+      <div class="words">
+        <span class="en"><b>-er / -or</b></span> <span class="es">persona que hace algo: </span>teach → teacher, act → actor<br>
+        <span class="en"><b>-tion / -sion</b></span> <span class="es">acción o proceso: </span>inform → information, decide → decision<br>
+        <span class="en"><b>-ness</b></span> <span class="es">cualidad (adj → noun): </span>happy → happiness, kind → kindness<br>
+        <span class="en"><b>-ment</b></span> <span class="es">resultado o estado: </span>agree → agreement, enjoy → enjoyment<br>
+        <span class="en"><b>-ly</b></span> <span class="es">forma adverbio (adj → adv): </span>quick → quickly, careful → carefully<br>
+        <span class="en"><b>-ful</b></span> <span class="es">lleno de: </span>help → helpful, beauty → beautiful, care → careful<br>
+        <span class="en"><b>-less</b></span> <span class="es">sin: </span>home → homeless, care → careless, help → helpless<br>
+        <span class="en"><b>-able / -ible</b></span> <span class="es">que se puede: </span>comfort → comfortable, access → accessible<br>
+        <span class="en"><b>-ous</b></span> <span class="es">lleno de / carácter: </span>danger → dangerous, fame → famous<br>
+        <span class="en"><b>-ish</b></span> <span class="es">aproximación o nacionalidad: </span>child → childish, Spain → Spanish<br>
+        <span class="en"><b>-y</b></span> <span class="es">que tiene cualidad: </span>sun → sunny, rain → rainy, health → healthy<br>
+        <span class="en"><b>-al</b></span> <span class="es">relativo a: </span>music → musical, nature → natural, education → educational
+      </div>
+    </div>
+
+    <div class="vhub-card">
+      <h3>📌 Prefijos — cambian el significado</h3>
+      <div class="words">
+        <span class="en"><b>un-</b></span> <span class="es">no / inverso: </span>happy → unhappy, friendly → unfriendly, pack → unpack<br>
+        <span class="en"><b>im- / in- / ir- / il-</b></span> <span class="es">no (antes de p, b, r, l): </span>possible → impossible, correct → incorrect, regular → irregular, legal → illegal<br>
+        <span class="en"><b>dis-</b></span> <span class="es">no / inverso: </span>agree → disagree, appear → disappear, honest → dishonest<br>
+        <span class="en"><b>re-</b></span> <span class="es">de nuevo / otra vez: </span>write → rewrite, do → redo, build → rebuild, cycle → recycle<br>
+        <span class="en"><b>mis-</b></span> <span class="es">mal / incorrectamente: </span>understand → misunderstand, spell → misspell, lead → mislead<br>
+        <span class="en"><b>over-</b></span> <span class="es">demasiado / exceso: </span>cook → overcook, sleep → oversleep, eat → overeat<br>
+        <span class="en"><b>pre-</b></span> <span class="es">antes: </span>view → preview, pay → prepay, heat → preheat<br>
+        <span class="en"><b>inter-</b></span> <span class="es">entre: </span>national → international, net → internet, act → interact
+      </div>
+    </div>
+
+    <div class="vhub-example">
+      <strong>Ejemplos en contexto:</strong><br>
+      <span class="en">She's a very <b>creative</b> (create) person.</span><br>
+      <span class="en">It was <b>unfair</b> (fair) to blame him.</span><br>
+      <span class="en">The film was <b>useless</b> (use) — don't watch it.</span><br>
+      <span class="en">I need to <b>rewrite</b> (write) my essay.</span>
+    </div>
+
+    <div style="margin-top:12px;text-align:right">
+      <a href="#vhub-top" style="font-size:0.8rem;color:var(--text2)">⬆ Volver arriba</a>
+    </div>
+  </div>
+
+  <!-- ==================== EXERCISES ==================== -->
+  <div class="section" id="v-exercises">
+    <h2>✏️ Ejercicios — Vocabulary Mix <span id="round-label">Ronda 1/3</span></h2>
     <p style="color:var(--text2);margin-bottom:14px">Completa cada frase con la palabra o expresión correcta.</p>
     <div id="ex-vocab"></div>
     <div class="btn-section">
@@ -163,15 +463,53 @@
     </div>
     <div id="ex-vocab-score" class="score-box" style="display:none"></div>
   </div>
+
+  <div style="margin-top:16px;padding-top:12px;border-top:1px solid var(--border);text-align:center">
+    <a href="pdfs/VOCABULARY-2o-ESO.pdf" target="_blank" rel="noopener" class="btn-link" style="display:inline-block;padding:8px 18px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-size:0.9rem">
+      📄 PDF de referencia — Páginas rosa con vocabulario por unidades
+    </a>
+  </div>
 </main>
 </div>
 
 <script src="exercises.js?v=10"></script>
 <script>
 // ============================================================
-// POOL DE PREGUNTAS (~47)
+// POOL DE PREGUNTAS (~100+)
 // ============================================================
 var VOCAB_POOL = [
+  // ============================================================
+  // SCHOOL
+  // ============================================================
+  {stem: "We study the past in __________________ class.", answer: "history", alts: []},
+  {stem: "In __________________ we learn about the Earth, maps and countries.", answer: "geography", alts: ["geography"]},
+  {stem: "Please hand in your __________________ on Friday — write 300 words.", answer: "essay", alts: ["homework"]},
+  {stem: "I always __________________ my homework before dinner.", answer: "do", alts: ["finish", "complete"]},
+  {stem: "The teacher __________________ us irregular verbs yesterday.", answer: "taught", alts: ["explained"]},
+  {stem: "I need a __________________ to make straight lines.", answer: "ruler", alts: []},
+
+  // ============================================================
+  // TRAVEL
+  // ============================================================
+  {stem: "We went to Paris by __________________ — it was faster than driving.", answer: "train", alts: ["plane"]},
+  {stem: "Don't forget your __________________ when you travel abroad.", answer: "passport", alts: []},
+  {stem: "We stayed at a nice __________________ with a swimming pool.", answer: "hotel", alts: ["resort"]},
+  {stem: "We need to __________________ a table at the restaurant.", answer: "book", alts: ["reserve"]},
+  {stem: "The flight __________________ at 8am so we have to wake up early.", answer: "departs", alts: ["leaves"]},
+  {stem: "I bought a __________________ in the gift shop to remember my trip.", answer: "souvenir", alts: ["present"]},
+  {stem: "Turn __________________ at the traffic lights, then go straight on.", answer: "left", alts: ["right"]},
+
+  // ============================================================
+  // FOOD
+  // ============================================================
+  {stem: "I usually have __________________ at 8am before school.", answer: "breakfast", alts: []},
+  {stem: "She's a vegetarian — she doesn't eat __________________.", answer: "meat", alts: ["chicken", "beef", "pork"]},
+  {stem: "Can you __________________ the potatoes for me? (pelar)", answer: "peel", alts: []},
+  {stem: "I'd like to __________________ a pizza, please. (pedir)", answer: "order", alts: []},
+  {stem: "The __________________ was delicious — I had chocolate cake.", answer: "dessert", alts: ["pudding"]},
+  {stem: "Let's __________________ the onions in olive oil.", answer: "fry", alts: ["cook", "sauté"]},
+  {stem: "Could I have the __________________, please? I'm ready to pay.", answer: "bill", alts: ["check"]},
+
   // ============================================================
   // U1: Personality adjectives + Collocations
   // ============================================================
@@ -268,7 +606,6 @@ var VOCAB_POOL = [
   {stem: "Walk __________________ and down the stairs to exercise.", answer: "up", alts: []},
   {stem: "We did an __________________ in science class today.", answer: "experiment", alts: []},
   {stem: "A __________________ works in a lab and does experiments.", answer: "scientist", alts: ["researcher"]},
-  {stem: "The __________________ made an important discovery.", answer: "scientist", alts: ["researcher"]},
   {stem: "We did some __________________ for our school project.", answer: "research", alts: []},
   {stem: "A __________________ is a place where scientists work.", answer: "laboratory", alts: ["lab"]},
   {stem: "Who wants to __________________ a time machine?", answer: "invent", alts: ["create"]},
@@ -296,8 +633,6 @@ var VOCAB_POOL = [
   {stem: "__________________ I'm 18, I'm going to learn to drive.", answer: "when", alts: []},
   {stem: "First I finished my homework, __________________ I watched TV.", answer: "then", alts: []},
   {stem: "Wait here __________________ I come back.", answer: "until", alts: ["till"]},
-  {stem: "I stayed in bed __________________ I felt better.", answer: "until", alts: ["till"]},
-  {stem: "Read the text __________________ answer the questions.", answer: "then", alts: []},
   {stem: "If you feel sick, you should __________________ a doctor.", answer: "see", alts: ["visit"]},
   {stem: "She needs to have an __________________ on her knee.", answer: "operation", alts: ["surgery"]},
   {stem: "You should __________________ an appointment before going.", answer: "make", alts: ["book"]},
@@ -321,17 +656,65 @@ var VOCAB_POOL = [
   {stem: "After a long week, I just want to __________________.", answer: "relax", alts: ["rest"]},
   {stem: "My parents want me __________________ study harder.", answer: "to", alts: []},
   {stem: "She told me __________________ wait here.", answer: "to", alts: []},
-  {stem: "I asked him __________________ help me with my homework.", answer: "to", alts: []}
+  {stem: "I asked him __________________ help me with my homework.", answer: "to", alts: []},
+
+  // ============================================================
+  // COLLOCATIONS (make/do/take/have/get)
+  // ============================================================
+  {stem: "I need to __________________ a shower before we go out.", answer: "take", alts: ["have"]},
+  {stem: "Can you __________________ me a favour?", answer: "do", alts: []},
+  {stem: "She wants to __________________ a party for her birthday.", answer: "have", alts: ["throw", "give"]},
+  {stem: "__________________ your best and don't worry about the result.", answer: "do", alts: ["give"]},
+  {stem: "Let me __________________ a look at that photo.", answer: "have", alts: ["take"]},
+  {stem: "I need to __________________ a decision by Friday.", answer: "make", alts: ["take"]},
+
+  // ============================================================
+  // PHRASAL VERBS
+  // ============================================================
+  {stem: "I need to __________________ up early tomorrow for the flight.", answer: "get", alts: ["wake"]},
+  {stem: "Please __________________ up your room — it's a mess!", answer: "clean", alts: ["tidy"]},
+  {stem: "I can't hear the TV. Could you __________________ it up?", answer: "turn", alts: []},
+  {stem: "Don't give __________________! You can do it!", answer: "up", alts: []},
+  {stem: "The car broke __________________ on the motorway.", answer: "down", alts: []},
+  {stem: "Please __________________ down the volume — it's too loud.", answer: "turn", alts: []},
+  {stem: "We need to __________________ off the lights before leaving.", answer: "turn", alts: ["switch"]},
+  {stem: "The plane will __________________ off at 6pm.", answer: "take", alts: []},
+  {stem: "I need to __________________ out what happened.", answer: "find", alts: ["figure"]},
+  {stem: "We've __________________ out of milk. Can you buy some?", answer: "run", alts: []},
+  {stem: "Please __________________ in this form with your details.", answer: "fill", alts: []},
+
+  // ============================================================
+  // IDIOMS
+  // ============================================================
+  {stem: "The test was a __________________ of cake — I finished in 10 minutes.", answer: "piece", alts: []},
+  {stem: "Break a __________________! I know you'll do great in the concert.", answer: "leg", alts: []},
+  {stem: "That new phone cost an arm and a __________________!", answer: "leg", alts: []},
+  {stem: "You're feeling under the __________________? Maybe you should rest.", answer: "weather", alts: []},
+  {stem: "It's raining __________________ and dogs outside. Take an umbrella!", answer: "cats", alts: []},
+  {stem: "Don't spill the __________________! It's a surprise party.", answer: "beans", alts: []},
+  {stem: "She hit the __________________ on the head with that answer.", answer: "nail", alts: []},
+
+  // ============================================================
+  // WORD FORMATION
+  // ============================================================
+  {stem: "My mum works as a __________________ (teach) at the local school.", answer: "teacher", alts: []},
+  {stem: "She was very __________________ (help) during the project.", answer: "helpful", alts: []},
+  {stem: "It's __________________ (possible) to finish this in one day!", answer: "impossible", alts: []},
+  {stem: "I need to __________________ (write) this essay — it's full of mistakes.", answer: "rewrite", alts: []},
+  {stem: "The news made her very __________________ (happy).", answer: "unhappy", alts: ["sad"]},
+  {stem: "Sunny days make me feel __________________ (happiness).", answer: "happy", alts: []},
+  {stem: "Be __________________ (care) when you cross the road.", answer: "careful", alts: []},
+  {stem: "He drove __________________ (careful) because the road was wet.", answer: "carefully", alts: []},
+  {stem: "I __________________ (agree) with you — I think you're wrong.", answer: "disagree", alts: []},
+  {stem: "The film was __________________ (bore) — I almost fell asleep.", answer: "boring", alts: []},
 ];
 
+// ============================================================
 var ROUND_SIZE = 12;
 var TOTAL_ROUNDS = 3;
 var currentData = [];
 var roundNum = 1;
 
-// ============================================================
-// Utilidad: seleccionar N aleatorios sin repetir
-// ============================================================
 function pickRandom(arr, n) {
   var shuffled = arr.slice();
   for (var i = shuffled.length - 1; i > 0; i--) {
@@ -343,13 +726,8 @@ function pickRandom(arr, n) {
   return shuffled.slice(0, n);
 }
 
-// ============================================================
-// Gestión de rondas
-// ============================================================
 function loadRound() {
-  try {
-    roundNum = parseInt(localStorage.getItem('vocab-round')) || 1;
-  } catch(e) { roundNum = 1; }
+  try { roundNum = parseInt(localStorage.getItem('vocab-round')) || 1; } catch(e) { roundNum = 1; }
   if (roundNum < 1) roundNum = 1;
   if (roundNum > TOTAL_ROUNDS) roundNum = TOTAL_ROUNDS;
 }
@@ -361,10 +739,12 @@ function saveRound() {
 function startRound() {
   currentData = pickRandom(VOCAB_POOL, ROUND_SIZE);
   var container = document.getElementById('ex-vocab');
+  if (!container) return;
   container.innerHTML = '';
   renderExercises(currentData, 'ex-vocab', 'Escribe la palabra...');
   document.getElementById('round-label').textContent = 'Ronda ' + roundNum + '/' + TOTAL_ROUNDS;
   var btn = document.getElementById('btn-next-round');
+  if (!btn) return;
   if (roundNum >= TOTAL_ROUNDS) {
     btn.textContent = '🔄 Empezar de nuevo';
     btn.disabled = false;
@@ -372,10 +752,8 @@ function startRound() {
     btn.textContent = '▶️ Siguiente ronda';
     btn.disabled = false;
   }
-  // Reset score
   var scoreBox = document.getElementById('ex-vocab-score');
   if (scoreBox) { scoreBox.style.display = 'none'; scoreBox.innerHTML = ''; }
-  // Reset inputs feedback
   for (var i = 1; i <= ROUND_SIZE; i++) {
     var fb = document.getElementById('fb-ex-vocab-' + i);
     if (fb) { fb.className = 'feedback-line'; fb.textContent = ''; }
@@ -385,36 +763,22 @@ function startRound() {
 }
 
 function nextRound() {
-  if (roundNum >= TOTAL_ROUNDS) {
-    roundNum = 1;
-    saveRound();
-    startRound();
-    return;
-  }
+  if (roundNum >= TOTAL_ROUNDS) { roundNum = 1; saveRound(); startRound(); return; }
   roundNum++;
   saveRound();
   startRound();
 }
 
-// ============================================================
-// Inicialización
-// ============================================================
 loadRound();
 startRound();
 
-// ============================================================
-// Corrección
-// ============================================================
 function checkAllVocab() {
-  var correct = 0;
-  var answered = 0;
-  var total = currentData.length;
+  var correct = 0, answered = 0, total = currentData.length;
   for (var i = 1; i <= total; i++) {
     checkOne('ex-vocab', i);
     var inp = document.getElementById('inp-ex-vocab-' + i);
     if (inp) {
-      var _empty = inp.value.trim() === '';
-      if (!_empty || inp.classList.contains('correct')) {
+      if (inp.value.trim() !== '' || inp.classList.contains('correct')) {
         answered++;
         if (inp.classList.contains('correct')) correct++;
       }
@@ -423,15 +787,16 @@ function checkAllVocab() {
   var denom = answered > 0 ? answered : 1;
   var pct = Math.round((correct / denom) * 100);
   var score = document.getElementById('ex-vocab-score');
+  if (!score) return;
   score.style.display = 'block';
   var msg = '🎯 ' + correct + '/' + answered + ' correctas (' + pct + '%)';
   if (answered === 0) msg = '✏️ Responde al menos una pregunta';
   else if (pct === 100) msg += ' ¡Perfecto! 🏆';
   else if (pct >= 70) msg += ' Muy bien 👍';
   else msg += ' Sigue practicando 💪';
-  score.innerHTML = '<span class="big">' + correct + '/' + answered + '</span><br>' + msg;
+  score.innerHTML = '<span class=\"big\">' + correct + '/' + answered + '</span><br>' + msg;
+  if (typeof trackCheckAll === "function" && total > 0) trackCheckAll("vocabulary", correct, total);
 }
-  if (typeof trackCheckAll === "function" && total > 0) trackCheckAll("vocabulary.html", correct, total);
 
 function resetVocab() {
   resetAll('ex-vocab', currentData.length);
