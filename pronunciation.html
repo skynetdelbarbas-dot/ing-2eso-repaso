@@ -194,14 +194,14 @@
         <div style="font-size:.82rem;color:#495057"><strong>Voiceless</strong> (sordo)</div>
         <div style="font-size:.82rem;color:var(--text2)">lengua entre dientes, <em>sin</em> vibración</div>
         <div class="example"><strong>th</strong>ink, <strong>th</strong>ree, <strong>th</strong>ank you, ba<strong>th</strong>, mou<strong>th</strong></div>
-        <button class="sound-btn" onclick="speakWord('/θ/ sound: think, three, thank you, bath, mouth')">🔊 Escuchar /θ/</button>
+        <button class="sound-btn" onclick="speakWord('think, three, thank you, bath, mouth')">🔊 Escuchar /θ/</button>
       </div>
       <div class="phoneme-card">
         <div class="symbol">/ð/</div>
         <div style="font-size:.82rem;color:#495057"><strong>Voiced</strong> (sonoro)</div>
         <div style="font-size:.82rem;color:var(--text2)">lengua entre dientes, <em>con</em> vibración</div>
         <div class="example"><strong>th</strong>e, <strong>th</strong>is, <strong>th</strong>at, wea<strong>th</strong>er, bro<strong>th</strong>er</div>
-        <button class="sound-btn" onclick="speakWord('/ð/ sound: the, this, that, weather, brother')">🔊 Escuchar /ð/</button>
+        <button class="sound-btn" onclick="speakWord('the, this, that, weather, brother')">🔊 Escuchar /ð/</button>
       </div>
     </div>
 
@@ -235,7 +235,7 @@
         <tr><td style="padding:6px 10px;border:1px solid var(--border);background:#e7f5ff"><strong>/t/</strong></td><td style="padding:6px 10px;border:1px solid var(--border)">Cuando el verbo termina en sonido <strong>sordo</strong> (p, k, f, s, sh, ch, x)</td><td style="padding:6px 10px;border:1px solid var(--border)"><span class="pron-word">hel<b>ped</b></span> → /helpt/<br><span class="pron-word">watc<b>hed</b></span> → /wɒtʃt/</td></tr>
         <tr><td style="padding:6px 10px;border:1px solid var(--border);background:#d3f9d8"><strong>/d/</strong></td><td style="padding:6px 10px;border:1px solid var(--border)">Cuando el verbo termina en sonido <strong>sonoro</strong> (todo lo demás)</td><td style="padding:6px 10px;border:1px solid var(--border)"><span class="pron-word">play<b>ed</b></span> → /pleɪd/<br><span class="pron-word">open<b>ed</b></span> → /ˈəʊ.pənd/</td></tr>
       </table>
-      <button class="sound-btn" style="margin-top:6px" onclick="speakWord('wanted /ˈwɒn.tɪd/, helped /helpt/, played /pleɪd/')">🔊 Escuchar los 3 sonidos</button>
+      <button class="sound-btn" style="margin-top:6px" onclick="speakWord('wanted, helped, played')">🔊 Escuchar los 3 sonidos</button>
     </div>
 
     <p style="margin:14px 0 6px;font-weight:600">🎯 Escucha el verbo en pasado y elige cómo se pronuncia su -ed:</p>
@@ -278,26 +278,26 @@ speechSynthesis.onvoiceschanged = function() { speechSynthesis.getVoices(); };
 // 1. WORD STRESS
 // ============================================================
 var wsData = [
-  { word: 'PHOto', syllables: ['PHO', 'to'], answer: 0, hint: 'Los nombres de 2 s\xEDlabas suelen acentuarse en la 1\xAA' },
-  { word: 'beGIN', syllables: ['be', 'GIN'], answer: 1, hint: 'Los verbos de 2 s\xEDlabas suelen acentuarse en la 2\xAA' },
-  { word: 'TABLE', syllables: ['TA', 'ble'], answer: 0, hint: 'Los nombres de 2 s\xEDlabas \u2192 1\xAA s\xEDlaba' },
-  { word: 'enJOY', syllables: ['en', 'JOY'], answer: 1, hint: 'Verbo de 2 s\xEDlabas \u2192 2\xAA s\xEDlaba' },
-  { word: 'HAPpy', syllables: ['HAP', 'py'], answer: 0, hint: 'Adjetivo de 2 s\xEDlabas \u2192 1\xAA s\xEDlaba' },
-  { word: 'reCEIVE', syllables: ['re', 'CEIVE'], answer: 1, hint: 'Verbo de 2 s\xEDlabas \u2192 2\xAA s\xEDlaba' },
-  { word: 'DOCtor', syllables: ['DOC', 'tor'], answer: 0, hint: 'Nombres de 2 s\xEDlabas \u2192 1\xAA s\xEDlaba' },
-  { word: 'preFER', syllables: ['pre', 'FER'], answer: 1, hint: 'Verbo de 2 s\xEDlabas \u2192 2\xAA s\xEDlaba' },
-  { word: 'CLEver', syllables: ['CLE', 'ver'], answer: 0, hint: 'Adjetivo de 2 s\xEDlabas \u2192 1\xAA s\xEDlaba' },
-  { word: 'deCIDE', syllables: ['de', 'CIDE'], answer: 1, hint: 'Verbo de 2 s\xEDlabas \u2192 2\xAA s\xEDlaba' },
-  { word: 'inforMAtion', syllables: ['in', 'for', 'MA', 'tion'], answer: 2, hint: 'Palabras terminadas en -tion: acento en la anterior' },
-  { word: 'biOLogy', syllables: ['bi', 'O', 'lo', 'gy'], answer: 1, hint: 'Palabras terminadas en -gy: 3\xAA por el final' },
-  { word: 'Terrific', syllables: ['Ter', 'RIF', 'ic'], answer: 1, hint: 'Palabras terminadas en -ic: acento en la anterior' },
-  { word: 'deMOcracy', syllables: ['de', 'MO', 'cra', 'cy'], answer: 1, hint: 'Palabras terminadas en -cy: 3\xAA por el final' },
-  { word: 'COMPuter', syllables: ['COM', 'PU', 'ter'], answer: 0, hint: 'Innombrable pero se acent\xFAa en la 1\xAA' },
-  { word: 'toDAY', syllables: ['to', 'DAY'], answer: 1, hint: 'Palabra de 2 s\xEDlabas que se acent\xFAa en la 2\xAA' },
-  { word: 'SCIence', syllables: ['SCI', 'ence'], answer: 0, hint: 'Nombres de 2 s\xEDlabas \u2192 1\xAA s\xEDlaba' },
-  { word: 'deCIsion', syllables: ['de', 'CI', 'sion'], answer: 1, hint: 'Terminaci\xF3n -sion: acento en la anterior' },
-  { word: 'MU sic', syllables: ['MU', 'sic'], answer: 0, hint: 'Nombres de 2 s\xEDlabas \u2192 1\xAA s\xEDlaba' },
-  { word: 'aLIVE', syllables: ['a', 'LIVE'], answer: 1, hint: 'Adjetivos de 2 s\xEDlabas con prefijo a- \u2192 2\xAA' },
+  { word: 'PHOto', syllables: ['pho', 'to'], answer: 0, hint: 'Los nombres de 2 sílabas suelen acentuarse en la 1ª' },
+  { word: 'beGIN', syllables: ['be', 'gin'], answer: 1, hint: 'Los verbos de 2 sílabas suelen acentuarse en la 2ª' },
+  { word: 'TABLE', syllables: ['ta', 'ble'], answer: 0, hint: 'Los nombres de 2 sílabas → 1ª sílaba' },
+  { word: 'enJOY', syllables: ['en', 'joy'], answer: 1, hint: 'Verbo de 2 sílabas → 2ª sílaba' },
+  { word: 'HAPpy', syllables: ['hap', 'py'], answer: 0, hint: 'Adjetivo de 2 sílabas → 1ª sílaba' },
+  { word: 'reCEIVE', syllables: ['re', 'ceive'], answer: 1, hint: 'Verbo de 2 sílabas → 2ª sílaba' },
+  { word: 'DOCtor', syllables: ['doc', 'tor'], answer: 0, hint: 'Nombres de 2 sílabas → 1ª sílaba' },
+  { word: 'preFER', syllables: ['pre', 'fer'], answer: 1, hint: 'Verbo de 2 sílabas → 2ª sílaba' },
+  { word: 'CLEver', syllables: ['cle', 'ver'], answer: 0, hint: 'Adjetivo de 2 sílabas → 1ª sílaba' },
+  { word: 'deCIDE', syllables: ['de', 'cide'], answer: 1, hint: 'Verbo de 2 sílabas → 2ª sílaba' },
+  { word: 'inforMAtion', syllables: ['in', 'for', 'ma', 'tion'], answer: 2, hint: 'Palabras terminadas en -tion: acento en la anterior' },
+  { word: 'biOLogy', syllables: ['bi', 'o', 'lo', 'gy'], answer: 1, hint: 'Palabras terminadas en -gy: 3ª por el final' },
+  { word: 'Terrific', syllables: ['ter', 'rif', 'ic'], answer: 1, hint: 'Palabras terminadas en -ic: acento en la anterior' },
+  { word: 'deMOcracy', syllables: ['de', 'mo', 'cra', 'cy'], answer: 1, hint: 'Palabras terminadas en -cy: 3ª por el final' },
+  { word: 'COMPuter', syllables: ['com', 'pu', 'ter'], answer: 0, hint: 'Innombrable pero se acentúa en la 1ª' },
+  { word: 'toDAY', syllables: ['to', 'day'], answer: 1, hint: 'Palabra de 2 sílabas que se acentúa en la 2ª' },
+  { word: 'SCIence', syllables: ['sci', 'ence'], answer: 0, hint: 'Nombres de 2 sílabas → 1ª sílaba' },
+  { word: 'deCIsion', syllables: ['de', 'ci', 'sion'], answer: 1, hint: 'Terminación -sion: acento en la anterior' },
+  { word: 'MU sic', syllables: ['mu', 'sic'], answer: 0, hint: 'Nombres de 2 sílabas → 1ª sílaba' },
+  { word: 'aLIVE', syllables: ['a', 'live'], answer: 1, hint: 'Adjetivos de 2 sílabas con prefijo a- → 2ª' },
 ];
 var wsIndex = 0;
 var wsCorrect = 0;
@@ -374,16 +374,16 @@ function wsUpdateScore() {
 // 2. SENTENCE STRESS
 // ============================================================
 var ssData = [
-  { sentence: "I'll MEET you at the STA tion", answer: ['MEET', 'STA'], options: ['MEET', 'station', 'at', 'the', "I'll"] },
-  { sentence: "SHE bought a NEW DRESS", answer: ['SHE', 'NEW', 'DRESS'], options: ['SHE', 'bought', 'NEW', 'DRESS', 'a'] },
-  { sentence: "We had a GREAT TIME", answer: ['GREAT', 'TIME'], options: ['We', 'had', 'GREAT', 'TIME', 'a'] },
-  { sentence: "He WORKS in a HOSpital", answer: ['WORKS', 'HOS'], options: ['He', 'WORKS', 'in', 'HOSpital', 'a'] },
-  { sentence: "I don't KNOW what to DO", answer: ['KNOW', 'DO'], options: ['I', 'KNOW', 'what', 'to', 'DO'] },
-  { sentence: "LET'S GO to the PARK", answer: ["LET'S", 'GO', 'PARK'], options: ["LET'S", 'GO', 'to', 'the', 'PARK'] },
-  { sentence: "Your CAR is very FAST", answer: ['CAR', 'FAST'], options: ['Your', 'CAR', 'is', 'very', 'FAST'] },
-  { sentence: "We STUDied all NIGHT", answer: ['STUD', 'NIGHT'], options: ['We', 'STUDied', 'all', 'NIGHT', 'the'] },
-  { sentence: "She SPEAKS three LANguages", answer: ['SPEAKS', 'LAN'], options: ['She', 'SPEAKS', 'three', 'LANguages', 'fluently'] },
-  { sentence: "I LOVE Lis-tening to MUSic", answer: ['LOVE', 'Lis', 'MUS'], options: ['I', 'LOVE', 'Lis', 'to', 'MUSic'] },
+  { sentence: "I'll meet you at the station", answer: ['meet', 'station'], options: ['meet', 'station', 'at', 'the', "I'll"] },
+  { sentence: "She bought a new dress", answer: ['she', 'new', 'dress'], options: ['she', 'bought', 'new', 'dress', 'a'] },
+  { sentence: "We had a great time", answer: ['great', 'time'], options: ['we', 'had', 'great', 'time', 'a'] },
+  { sentence: "He works in a hospital", answer: ['works', 'hospital'], options: ['he', 'works', 'in', 'hospital', 'a'] },
+  { sentence: "I don't know what to do", answer: ['know', 'do'], options: ['i', 'know', 'what', 'to', 'do'] },
+  { sentence: "Let's go to the park", answer: ["let's", 'go', 'park'], options: ["let's", 'go', 'to', 'the', 'park'] },
+  { sentence: "Your car is very fast", answer: ['car', 'fast'], options: ['your', 'car', 'is', 'very', 'fast'] },
+  { sentence: "We studied all night", answer: ['studied', 'night'], options: ['we', 'studied', 'all', 'night', 'the'] },
+  { sentence: "She speaks three languages", answer: ['speaks', 'languages'], options: ['she', 'speaks', 'three', 'languages', 'fluently'] },
+  { sentence: "I love listening to music", answer: ['love', 'listening', 'music'], options: ['i', 'love', 'listening', 'to', 'music'] },
 ];
 var ssIndex = 0;
 var ssCorrect = 0;
