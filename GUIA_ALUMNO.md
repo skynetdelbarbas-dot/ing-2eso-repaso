@@ -1,7 +1,7 @@
 # 🎯 Guía de Uso — Plataforma de Inglés
 
 > **Accede desde:** [ingles.skynetdelbarbas.com](https://ingles.skynetdelbarbas.com)  
-> **Versión:** v5.2.0  
+> **Versión:** v5.4.0  
 > **Creada para:** ayudarte a practicar y preparar tus exámenes de Inglés
 
 ---
