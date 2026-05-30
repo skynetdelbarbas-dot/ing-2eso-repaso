@@ -270,6 +270,38 @@ Escribe tus respuestas en los recuadros. El tamaño del recuadro se ajusta solo 
 
 ---
 
+## 🤖 14. Tutor Virtual (Chatbot)
+
+¿Tienes una duda concreta y no encuentras la respuesta en los temas? La plataforma incluye un **asistente virtual de inglés** en forma de chatbot inteligente. Está disponible en todas las páginas.
+
+### ¿Cómo se usa?
+
+1. Busca el botón **💬** en la esquina inferior derecha de la pantalla
+2. La primera vez, introduce tu **nombre** y selecciona tu **nivel de inglés** (A1–C1)
+3. ¡Empieza a preguntar! Escribe tus dudas directamente en inglés
+
+### ¿Qué puedes preguntarle?
+
+| Tipo de pregunta | Ejemplo |
+|---|---|
+| 📝 **Gramática** | *"Why do we use present perfect here?"* |
+| 📖 **Vocabulario** | *"What's the difference between 'watch' and 'see'?"* |
+| ✍️ **Redacción** | *"Can you check if this sentence is correct?"* |
+| 🗣️ **Conversación** | *"Let's practice ordering food in a restaurant"* |
+| ❓ **Dudas de ejercicios** | *"I don't understand exercise 3 in Present Perfect"* |
+
+### Características
+
+- 🎯 **Se adapta a tu nivel** — si eres A1 recibirás frases muy cortas y sencillas; si eres B2, conversación más avanzada
+- 💬 **Siempre en inglés** — el tutor te responde en inglés para que practiques
+- 🌐 **Sin límites** — puedes preguntar tantas veces como quieras
+- 🔌 **Detección automática** — si el tutor está offline (por mantenimiento), el chat te avisa y puedes seguir estudiando los ejercicios con normalidad
+- 🔄 **Reconexión automática** — cuando el tutor vuelve a estar disponible, el chat se reactiva solo
+
+> 💡 **Consejo:** usa el chatbot cuando te atasques con un ejercicio o quieras practicar conversación. Piensa en él como un profesor particular que siempre está disponible.
+
+---
+
 ## 💡 Consejos para Estudiar
 
 1. **Empieza por Fundamentos** si estás perdido — ve tema por tema en orden (del 1 al 12)
