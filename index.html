@@ -735,11 +735,104 @@ const JUST_EXERCISES = [
   {stem:"She's been studying ___ three hours.", answer:"for", alts:[]},
 ];
 
+// ── Nuevos ejercicios ──
+const PRESENT_SIMPLE_EX = [
+  {stem:"She ___ (work) in a hospital.", answer:"works", alts:["workes"]},
+  {stem:"I ___ (like) coffee.", answer:"like", alts:[]},
+  {stem:"He ___ (play) tennis every Sunday.", answer:"plays", alts:[]},
+  {stem:"___ you speak French?", answer:"Do", alts:[]},
+  {stem:"She ___ (not/eat) meat.", answer:"doesn't eat", alts:["does not eat"]},
+  {stem:"Where ___ she live?", answer:"does", alts:[]},
+  {stem:"We ___ (go) to school by bus.", answer:"go", alts:[]},
+  {stem:"My brother ___ (study) at university.", answer:"studies", alts:[]},
+  {stem:"___ he like chocolate?", answer:"Does", alts:[]},
+  {stem:"I ___ (not/smoke).", answer:"don't smoke", alts:["do not smoke"]},
+];
+const PRESENT_CONTINUOUS_EX = [
+  {stem:"She ___ (read) a book right now.", answer:"is reading", alts:[]},
+  {stem:"They ___ (play) football at the moment.", answer:"are playing", alts:[]},
+  {stem:"I ___ (not/watch) TV now.", answer:"am not watching", alts:["'m not watching"]},
+  {stem:"___ you ___ (listen) to me?", answer:"Are listening", alts:[]},
+  {stem:"He ___ (swim) in the pool.", answer:"is swimming", alts:[]},
+  {stem:"We ___ (have) dinner right now.", answer:"are having", alts:[]},
+  {stem:"The baby ___ (sleep) at the moment.", answer:"is sleeping", alts:[]},
+  {stem:"I ___ (write) an email.", answer:"am writing", alts:[]},
+  {stem:"They ___ (not/come) to the party tonight.", answer:"aren't coming", alts:["are not coming"]},
+  {stem:"What ___ you ___ (do) now?", answer:"are doing", alts:[]},
+];
+const PAST_SIMPLE_EX = [
+  {stem:"She ___ (visit) her grandma yesterday.", answer:"visited", alts:[]},
+  {stem:"I ___ (go) to the cinema last night.", answer:"went", alts:[]},
+  {stem:"He ___ (not/study) for the exam.", answer:"didn't study", alts:["did not study"]},
+  {stem:"___ you ___ (see) the film?", answer:"Did see", alts:[]},
+  {stem:"We ___ (live) in London in 2020.", answer:"lived", alts:[]},
+  {stem:"She ___ (buy) a new car last week.", answer:"bought", alts:[]},
+  {stem:"I ___ (not/eat) breakfast this morning.", answer:"didn't eat", alts:["did not eat"]},
+  {stem:"They ___ (play) football yesterday.", answer:"played", alts:[]},
+  {stem:"What time ___ you ___ (arrive)?", answer:"did arrive", alts:[]},
+  {stem:"He ___ (stop) smoking last year.", answer:"stopped", alts:[]},
+];
+const PAST_CONTINUOUS_EX = [
+  {stem:"I ___ (watch) TV at 9pm last night.", answer:"was watching", alts:[]},
+  {stem:"While I ___ (walk) home, it started to rain.", answer:"was walking", alts:[]},
+  {stem:"They ___ (not/listen) to the teacher.", answer:"weren't listening", alts:["were not listening"]},
+  {stem:"What ___ you ___ (do) at 8pm?", answer:"were doing", alts:[]},
+  {stem:"She ___ (cook) when the phone rang.", answer:"was cooking", alts:[]},
+  {stem:"We ___ (have) dinner when the guests arrived.", answer:"were having", alts:[]},
+  {stem:"He ___ (run) when he fell.", answer:"was running", alts:[]},
+  {stem:"While she ___ (sleep), someone knocked.", answer:"was sleeping", alts:[]},
+  {stem:"They ___ (not/play) when I arrived.", answer:"weren't playing", alts:["were not playing"]},
+  {stem:"I ___ (drive) when I saw the accident.", answer:"was driving", alts:[]},
+];
+const USED_TO_EX = [
+  {stem:"I ___ (play) football every weekend.", answer:"used to play", alts:[]},
+  {stem:"She ___ (live) in Madrid.", answer:"used to live", alts:[]},
+  {stem:"He ___ (not/like) coffee.", answer:"didn't use to like", alts:["did not use to like"]},
+  {stem:"___ you ___ (smoke)?", answer:"Did use to smoke", alts:[]},
+  {stem:"We ___ (go) to the beach every summer.", answer:"used to go", alts:[]},
+  {stem:"I ___ (be) shy when I was a child.", answer:"used to be", alts:[]},
+  {stem:"She ___ (not/eat) meat, but now she does.", answer:"didn't use to eat", alts:["did not use to eat"]},
+  {stem:"Where ___ you ___ (live) before?", answer:"did use to live", alts:[]},
+  {stem:"They ___ (have) a dog when they were young.", answer:"used to have", alts:[]},
+  {stem:"I ___ (wake up) early, now I sleep late.", answer:"used to wake up", alts:[]},
+];
+const IMPERATIVES_EX = [
+  {stem:"___ the book. (open)", answer:"Open", alts:[]},
+  {stem:"___ in the hallway. (not/run)", answer:"Don't run", alts:["Do not run"]},
+  {stem:"___ quiet, please. (be)", answer:"Be", alts:[]},
+  {stem:"___ to me! (not/lie)", answer:"Don't lie", alts:["Do not lie"]},
+  {stem:"___ left at the corner. (turn)", answer:"Turn", alts:[]},
+  {stem:"___ your phone. (turn off)", answer:"Turn off", alts:[]},
+  {stem:"___ to call me. (not/forget)", answer:"Don't forget", alts:["Do not forget"]},
+  {stem:"___ your seatbelt. (fasten)", answer:"Fasten", alts:[]},
+  {stem:"___ late. (not/be)", answer:"Don't be", alts:["Do not be"]},
+  {stem:"___ the door, please. (close)", answer:"Close", alts:[]},
+];
+const GERUNDS_INF_EX = [
+  {stem:"I enjoy ___ (play) tennis.", answer:"playing", alts:[]},
+  {stem:"She wants ___ (go) home.", answer:"to go", alts:[]},
+  {stem:"He suggested ___ (eat) out.", answer:"eating", alts:[]},
+  {stem:"They decided ___ (buy) a house.", answer:"to buy", alts:[]},
+  {stem:"I hate ___ (get up) early.", answer:"getting up", alts:["getting-up"]},
+  {stem:"She learned ___ (speak) French.", answer:"to speak", alts:[]},
+  {stem:"He stopped ___ (smoke) last year.", answer:"smoking", alts:[]},
+  {stem:"I need ___ (study) more.", answer:"to study", alts:[]},
+  {stem:"My mom made me ___ (clean) my room.", answer:"clean", alts:[]},
+  {stem:"Let's ___ (go) to the park.", answer:"go", alts:[]},
+];
+
 const EXERCISES = {
   'g-modal': {data:MODAL_EXERCISES, cid:'ex-modal', rounds:3},
   'g-future': {data:FUTURE_EXERCISES, cid:'ex-future', rounds:3},
   'g-comparatives': {data:COMPARATIVE_EXERCISES, cid:'ex-comp', rounds:3},
   'g-just': {data:JUST_EXERCISES, cid:'ex-just', rounds:3},
+  'g-present-simple': {data:PRESENT_SIMPLE_EX, cid:'ex-ps', rounds:3},
+  'g-present-continuous': {data:PRESENT_CONTINUOUS_EX, cid:'ex-pc', rounds:3},
+  'g-past-simple': {data:PAST_SIMPLE_EX, cid:'ex-past', rounds:3},
+  'g-past-continuous': {data:PAST_CONTINUOUS_EX, cid:'ex-pastc', rounds:3},
+  'g-used-to': {data:USED_TO_EX, cid:'ex-used', rounds:3},
+  'g-imperatives': {data:IMPERATIVES_EX, cid:'ex-imp', rounds:3},
+  'g-gerunds-infinitives': {data:GERUNDS_INF_EX, cid:'ex-gi', rounds:3},
 };
 
 // ==================== SIMULACRO CHECKBOXES ====================
@@ -1304,7 +1397,15 @@ SECTIONS['g-present-simple'] = `<div class="section active" style="display:block
 • <b>-es</b> (-s, -sh, -ch, -x, -o): watch → watch<b>es</b>, go → go<b>es</b>, fix → fix<b>es</b><br>
 • <b>-ies</b> (consonante + y): study → stud<b>ies</b>, fly → fl<b>ies</b><br>
 • <b>Have</b> → <b>Has</b> (único irregular)</p>
-</div></div>`;
+</div>
+<h3>📝 Ejercicios <span id="ex-ps-rnd" style="font-size:0.75rem;color:var(--text2)"></span></h3>
+<div id="ex-ps"></div>
+<div class="btn-row" style="margin-top:12px">
+<button class="btn-check-all" onclick="checkAllInline('ex-ps')">✅ Corregir todo</button>
+<button class="btn-reset" onclick="resetInline('ex-ps')">🔄 Reset</button>
+<button class="btn-next" onclick="_rounds['g-present-simple']&&_rounds['g-present-simple'].next()">▶️ Siguiente ronda</button>
+</div>
+<div id="ex-ps-score" class="score-box" style="display:none"></div></div>`;
 
 SECTIONS['g-present-continuous'] = `<div class="section active" style="display:block">
 <h2>⏳ Present Continuous</h2>
@@ -1341,7 +1442,15 @@ SECTIONS['g-present-continuous'] = `<div class="section active" style="display:b
 </tbody></table>
 <p>🚫 Verbos de estado (<b>stative verbs</b>) no suelen usarse en continuous: <b>know, believe, love, hate, want, need, understand, seem</b></p>
 <div class="example">✗ I am knowing the answer → ✓ I <b>know</b> the answer.</div>
-</div></div>`;
+</div>
+<h3>📝 Ejercicios <span id="ex-pc-rnd" style="font-size:0.75rem;color:var(--text2)"></span></h3>
+<div id="ex-pc"></div>
+<div class="btn-row" style="margin-top:12px">
+<button class="btn-check-all" onclick="checkAllInline('ex-pc')">✅ Corregir todo</button>
+<button class="btn-reset" onclick="resetInline('ex-pc')">🔄 Reset</button>
+<button class="btn-next" onclick="_rounds['g-present-continuous']&&_rounds['g-present-continuous'].next()">▶️ Siguiente ronda</button>
+</div>
+<div id="ex-pc-score" class="score-box" style="display:none"></div></div>`;
 
 SECTIONS['g-past-simple'] = `<div class="section active" style="display:block">
 <h2>⏪ Past Simple</h2>
@@ -1383,7 +1492,15 @@ see → <b>saw</b> · have → <b>had</b> · make → <b>made</b></span></div>
 <div class="example"><span class="en"><b>Did</b> you <b>see</b> the film?</span> — ¿Viste la película?<br>
 <span class="en"><b>Did</b> she <b>call</b> you?</span> — ¿Te llamó?<br>
 <span class="en">Where <b>did</b> they <b>go</b>?</span> — ¿Adónde fueron?</div>
-</div></div>`;
+</div>
+<h3>📝 Ejercicios <span id="ex-past-rnd" style="font-size:0.75rem;color:var(--text2)"></span></h3>
+<div id="ex-past"></div>
+<div class="btn-row" style="margin-top:12px">
+<button class="btn-check-all" onclick="checkAllInline('ex-past')">✅ Corregir todo</button>
+<button class="btn-reset" onclick="resetInline('ex-past')">🔄 Reset</button>
+<button class="btn-next" onclick="_rounds['g-past-simple']&&_rounds['g-past-simple'].next()">▶️ Siguiente ronda</button>
+</div>
+<div id="ex-past-score" class="score-box" style="display:none"></div></div>`;
 
 SECTIONS['g-past-continuous'] = `<div class="section active" style="display:block">
 <h2>⏮️ Past Continuous</h2>
@@ -1421,7 +1538,15 @@ SECTIONS['g-past-continuous'] = `<div class="section active" style="display:bloc
 <h3>Two simultaneous actions</h3>
 <p>Dos acciones largas simultáneas: <b>While + past continuous, past continuous</b></p>
 <div class="example"><span class="en"><b>While</b> I <b>was cooking</b>, my brother <b>was watching</b> TV.</span></div>
-</div></div>`;
+</div>
+<h3>📝 Ejercicios <span id="ex-pastc-rnd" style="font-size:0.75rem;color:var(--text2)"></span></h3>
+<div id="ex-pastc"></div>
+<div class="btn-row" style="margin-top:12px">
+<button class="btn-check-all" onclick="checkAllInline('ex-pastc')">✅ Corregir todo</button>
+<button class="btn-reset" onclick="resetInline('ex-pastc')">🔄 Reset</button>
+<button class="btn-next" onclick="_rounds['g-past-continuous']&&_rounds['g-past-continuous'].next()">▶️ Siguiente ronda</button>
+</div>
+<div id="ex-pastc-score" class="score-box" style="display:none"></div></div>`;
 
 SECTIONS['g-used-to'] = `<div class="section active" style="display:block">
 <h2>🕰️ Used To</h2>
@@ -1442,7 +1567,16 @@ SECTIONS['g-used-to'] = `<div class="section active" style="display:block">
 </div>
 <div class="example">⚠️ Negativo: <b>didn't use to</b> (con -d, sin -d en use).<br>
 ⚠️ <b>Used to</b> ≠ <b>be used to</b> (estar acostumbrado a) — son diferentes.<br>
-<span class="en">I <b>am used to</b> waking up early.</span> — Estoy acostumbrado a madrugar.</div></div>`;
+<span class="en">I <b>am used to</b> waking up early.</span> — Estoy acostumbrado a madrugar.</div>
+</div>
+<h3>📝 Ejercicios <span id="ex-used-rnd" style="font-size:0.75rem;color:var(--text2)"></span></h3>
+<div id="ex-used"></div>
+<div class="btn-row" style="margin-top:12px">
+<button class="btn-check-all" onclick="checkAllInline('ex-used')">✅ Corregir todo</button>
+<button class="btn-reset" onclick="resetInline('ex-used')">🔄 Reset</button>
+<button class="btn-next" onclick="_rounds['g-used-to']&&_rounds['g-used-to'].next()">▶️ Siguiente ronda</button>
+</div>
+<div id="ex-used-score" class="score-box" style="display:none"></div></div>`;
 
 SECTIONS['g-gerunds-infinitives'] = `<div class="section active" style="display:block">
 <h2>🏃 Gerunds &amp; Infinitives</h2>
@@ -1475,7 +1609,15 @@ SECTIONS['g-gerunds-infinitives'] = `<div class="section active" style="display:
 </tbody></table>
 <div class="example"><span class="en">I <b>stopped smoking</b> last year.</span> — Dejé de fumar.<br>
 <span class="en">I <b>stopped to buy</b> water.</span> — Paré para comprar agua.</div>
-</div></div>`;
+</div>
+<h3>📝 Ejercicios <span id="ex-gi-rnd" style="font-size:0.75rem;color:var(--text2)"></span></h3>
+<div id="ex-gi"></div>
+<div class="btn-row" style="margin-top:12px">
+<button class="btn-check-all" onclick="checkAllInline('ex-gi')">✅ Corregir todo</button>
+<button class="btn-reset" onclick="resetInline('ex-gi')">🔄 Reset</button>
+<button class="btn-next" onclick="_rounds['g-gerunds-infinitives']&&_rounds['g-gerunds-infinitives'].next()">▶️ Siguiente ronda</button>
+</div>
+<div id="ex-gi-score" class="score-box" style="display:none"></div></div>`;
 
 SECTIONS['g-relative-clauses'] = `<div class="section active" style="display:block">
 <h2>🔗 Relative Clauses — who, which, where, that, whose, whom</h2>
@@ -1552,7 +1694,16 @@ SECTIONS['g-imperatives'] = `<div class="section active" style="display:block">
 <span class="en"><b>Let's have</b> a break.</span> — Tomemos un descanso.</div>
 </div>
 <div class="example">💡 Los imperativos se usan en <b>instrucciones</b>, <b>recetas</b>, <b>señales</b>, <b>consejos</b> y <b>órdenes</b>.<br>
-💡 Añade <b>please</b> para ser más educado.</div></div>`;
+💡 Añade <b>please</b> para ser más educado.</div>
+</div>
+<h3>📝 Ejercicios <span id="ex-imp-rnd" style="font-size:0.75rem;color:var(--text2)"></span></h3>
+<div id="ex-imp"></div>
+<div class="btn-row" style="margin-top:12px">
+<button class="btn-check-all" onclick="checkAllInline('ex-imp')">✅ Corregir todo</button>
+<button class="btn-reset" onclick="resetInline('ex-imp')">🔄 Reset</button>
+<button class="btn-next" onclick="_rounds['g-imperatives']&&_rounds['g-imperatives'].next()">▶️ Siguiente ronda</button>
+</div>
+<div id="ex-imp-score" class="score-box" style="display:none"></div></div>`;
 
 SECTIONS['g-linking-words'] = `<div class="section active" style="display:block">
 <h2>🧩 Linking Words</h2>
