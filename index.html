@@ -1131,6 +1131,236 @@ const PHRASAL_VERBS_EX = [
   {stem:"I finally ___ the courage to speak. (build up)", answer:"built up", alts:[]},
 ];
 
+// ==================== FUNDAMENTOS EXERCISES ====================
+const F_TO_BE_EX = [
+  {stem:"She ___ a teacher.", answer:"is", alts:[]},
+  {stem:"I ___ from Spain.", answer:"am", alts:[]},
+  {stem:"They ___ happy.", answer:"are", alts:[]},
+  {stem:"He ___ tired. (negativa)", answer:"isn't", alts:["is not"]},
+  {stem:"___ you OK?", answer:"Are", alts:[]},
+  {stem:"We ___ at the park yesterday.", answer:"were", alts:[]},
+  {stem:"She ___ at home last night.", answer:"was", alts:[]},
+  {stem:"I ___ a student.", answer:"am", alts:[]},
+  {stem:"They ___ late for class. (negativa)", answer:"aren't", alts:["are not"]},
+  {stem:"___ he your brother?", answer:"Is", alts:[]},
+  {stem:"You ___ very kind.", answer:"are", alts:[]},
+  {stem:"It ___ a beautiful day.", answer:"is", alts:[]},
+  {stem:"We ___ hungry. (negativa)", answer:"aren't", alts:["are not"]},
+  {stem:"___ they at school?", answer:"Are", alts:[]},
+  {stem:"I ___ at home yesterday. (negativa)", answer:"wasn't", alts:["was not"]},
+  {stem:"She ___ in London last year.", answer:"was", alts:[]},
+  {stem:"You ___ very tall.", answer:"are", alts:[]},
+  {stem:"He ___ my best friend.", answer:"is", alts:[]},
+  {stem:"They ___ at the cinema yesterday.", answer:"were", alts:[]},
+  {stem:"___ I late?", answer:"Am", alts:[]},
+  {stem:"The books ___ on the table.", answer:"are", alts:[]},
+  {stem:"She ___ interested in art.", answer:"is", alts:[]},
+  {stem:"I ___ tired after the run. (negativa)", answer:"wasn't", alts:["was not"]},
+  {stem:"Where ___ you born?", answer:"were", alts:[]},
+];
+
+const F_SUBJECT_PRONOUNS_EX = [
+  {stem:"___ is a doctor. (María)", answer:"She", alts:[]},
+  {stem:"___ are from Brazil. (Juan and I)", answer:"We", alts:[]},
+  {stem:"___ is very hot today. (the weather)", answer:"It", alts:[]},
+  {stem:"___ am 12 years old.", answer:"I", alts:[]},
+  {stem:"___ are my friends. (Peter and John)", answer:"They", alts:[]},
+  {stem:"___ is my brother. (Mike)", answer:"He", alts:[]},
+  {stem:"___ are a good student.", answer:"You", alts:[]},
+  {stem:"___ is a good movie.", answer:"It", alts:[]},
+  {stem:"___ are going to the party. (my sister and I)", answer:"We", alts:[]},
+  {stem:"___ are in the garden. (the children)", answer:"They", alts:[]},
+  {stem:"___ is my favourite singer. (Adele)", answer:"She", alts:[]},
+  {stem:"___ is raining outside.", answer:"It", alts:[]},
+  {stem:"___ are very friendly. (your parents)", answer:"They", alts:[]},
+  {stem:"___ have a dog called Rex.", answer:"I", alts:[]},
+  {stem:"___ is the capital of France. (Paris)", answer:"It", alts:[]},
+  {stem:"___ are always happy. (you and your sister)", answer:"You", alts:[]},
+  {stem:"___ works in a hospital. (my mother)", answer:"She", alts:[]},
+  {stem:"___ live in a flat. (my family and I)", answer:"We", alts:[]},
+  {stem:"___ plays football every Saturday. (Tom)", answer:"He", alts:[]},
+  {stem:"___ is very interesting. (this book)", answer:"It", alts:[]},
+  {stem:"___ are my neighbours. (the Smiths)", answer:"They", alts:[]},
+  {stem:"___ can speak three languages. (Laura)", answer:"She", alts:[]},
+];
+
+const F_OBJECT_PRONOUNS_EX = [
+  {stem:"Please call ___. (I)", answer:"me", alts:[]},
+  {stem:"I can see ___. (they)", answer:"them", alts:[]},
+  {stem:"Give the book to ___. (he)", answer:"him", alts:[]},
+  {stem:"She sits next to ___. (I)", answer:"me", alts:[]},
+  {stem:"I love ___. (she)", answer:"her", alts:[]},
+  {stem:"Can you help ___? (we)", answer:"us", alts:[]},
+  {stem:"I'll meet ___ at the station. (you)", answer:"you", alts:[]},
+  {stem:"Look at ___! (they)", answer:"them", alts:[]},
+  {stem:"This gift is for ___. (she)", answer:"her", alts:[]},
+  {stem:"We don't know ___. (he)", answer:"him", alts:[]},
+  {stem:"Please tell ___ a story. (we)", answer:"us", alts:[]},
+  {stem:"I found ___ under the bed. (it)", answer:"it", alts:[]},
+  {stem:"The teacher asked ___ a question. (I)", answer:"me", alts:[]},
+  {stem:"She talked to ___ about the problem. (they)", answer:"them", alts:[]},
+  {stem:"I've never seen ___ before. (she)", answer:"her", alts:[]},
+  {stem:"Can you pass ___ the salt? (I)", answer:"me", alts:[]},
+  {stem:"He gave ___ a present. (she)", answer:"her", alts:[]},
+  {stem:"We need to help ___. (they)", answer:"them", alts:[]},
+  {stem:"I'll tell ___ the news later. (you)", answer:"you", alts:[]},
+  {stem:"She invited ___ to the party. (we)", answer:"us", alts:[]},
+  {stem:"I can hear ___. (he — singing in the shower)", answer:"him", alts:[]},
+  {stem:"Don't touch ___! (it — the painting)", answer:"it", alts:[]},
+];
+
+const F_POSSESSIVES_EX = [
+  {stem:"This is ___ book. (I)", answer:"my", alts:[]},
+  {stem:"That pen is ___. (I)", answer:"mine", alts:[]},
+  {stem:"___ name is Sarah. (she)", answer:"Her", alts:[]},
+  {stem:"This house is ___. (they)", answer:"theirs", alts:[]},
+  {stem:"He's ___ brother. (I)", answer:"my", alts:[]},
+  {stem:"Is this umbrella ___? (you — singular)", answer:"yours", alts:[]},
+  {stem:"___ car is very fast. (he)", answer:"His", alts:[]},
+  {stem:"The dog wagged ___ tail.", answer:"its", alts:[]},
+  {stem:"These are ___ keys. (you — plural)", answer:"your", alts:[]},
+  {stem:"The responsibility is ___. (we)", answer:"ours", alts:[]},
+  {stem:"She loves ___ grandparents. (she)", answer:"her", alts:[]},
+  {stem:"This laptop is ___. (he)", answer:"his", alts:[]},
+  {stem:"___ school is near the park. (we)", answer:"Our", alts:[]},
+  {stem:"That bike is ___. (you — singular)", answer:"yours", alts:[]},
+  {stem:"They're ___ neighbours. (they)", answer:"their", alts:[]},
+  {stem:"The cat is ___. (she)", answer:"hers", alts:[]},
+  {stem:"Is this ___ jacket? (you — singular)", answer:"your", alts:[]},
+  {stem:"The victory was ___. (we)", answer:"ours", alts:[]},
+  {stem:"She's ___ best friend. (I)", answer:"my", alts:[]},
+  {stem:"___ opinion matters. (you — singular)", answer:"Your", alts:[]},
+  {stem:"Those are ___ shoes. (they)", answer:"their", alts:[]},
+  {stem:"The decision is ___. (they)", answer:"theirs", alts:[]},
+  {stem:"That house is ___. (he)", answer:"his", alts:[]},
+];
+
+const F_THERE_IS_ARE_EX = [
+  {stem:"___ a cat under the table.", answer:"There is", alts:["There's"]},
+  {stem:"___ two apples on the desk.", answer:"There are", alts:[]},
+  {stem:"___ any milk in the fridge? (interrogativa)", answer:"Is there", alts:[]},
+  {stem:"___ a supermarket near here.", answer:"There is", alts:["There's"]},
+  {stem:"___ any students in class? (interrogativa negativa)", answer:"Aren't there", alts:["Are there not"]},
+  {stem:"___ a problem with the car.", answer:"There is", alts:["There's"]},
+  {stem:"___ many people at the party.", answer:"There are", alts:[]},
+  {stem:"___ a book and two pens on the table.", answer:"There is", alts:["There's"]},
+  {stem:"___ any water in the bottle? (interrogativa)", answer:"Is there", alts:[]},
+  {stem:"___ a good film on TV tonight.", answer:"There is", alts:["There's"]},
+  {stem:"___ some biscuits in the cupboard.", answer:"There are", alts:[]},
+  {stem:"___ a restaurant in this hotel? (interrogativa)", answer:"Is there", alts:[]},
+  {stem:"___ any cheese in the sandwich. (negativa)", answer:"There isn't", alts:["There is not"]},
+  {stem:"___ many birds in the garden.", answer:"There are", alts:[]},
+  {stem:"___ a post office near here? (interrogativa)", answer:"Is there", alts:[]},
+  {stem:"___ any chairs in the room. (negativa)", answer:"There aren't", alts:["There are not"]},
+  {stem:"___ two cats and a dog in the house.", answer:"There are", alts:[]},
+  {stem:"___ a big window in the kitchen.", answer:"There is", alts:["There's"]},
+  {stem:"___ any potatoes? (interrogativa)", answer:"Are there", alts:[]},
+  {stem:"___ some sugar in the cupboard.", answer:"There is", alts:["There's"]},
+  {stem:"___ twenty students in my class.", answer:"There are", alts:[]},
+  {stem:"___ a train at 6pm? (interrogativa)", answer:"Is there", alts:[]},
+];
+
+const F_QUANTIFIERS_EX = [
+  {stem:"How ___ apples do we need? (much/many)", answer:"many", alts:[]},
+  {stem:"There isn't ___ milk in the fridge.", answer:"any", alts:[]},
+  {stem:"I have ___ money in my pocket.", answer:"some", alts:[]},
+  {stem:"She has ___ friends. (a lot of)", answer:"a lot of", alts:["lots of"]},
+  {stem:"How ___ time do we have? (much/many)", answer:"much", alts:[]},
+  {stem:"Do you have ___ questions?", answer:"any", alts:[]},
+  {stem:"There are ___ people waiting. (a few)", answer:"a few", alts:["few"]},
+  {stem:"He has very ___ patience. (little)", answer:"little", alts:[]},
+  {stem:"I need ___ water, please. (a little)", answer:"a little", alts:["some"]},
+  {stem:"We don't have ___ homework today.", answer:"much", alts:["any"]},
+  {stem:"___ students passed the exam. (many)", answer:"Many", alts:["A lot of"]},
+  {stem:"She put ___ sugar in her tea. (a little)", answer:"a little", alts:["some"]},
+  {stem:"There aren't ___ chairs in the room.", answer:"many", alts:["any"]},
+  {stem:"Would you like ___ coffee?", answer:"some", alts:[]},
+  {stem:"I've read ___ books this summer. (a few)", answer:"a few", alts:["few","several"]},
+  {stem:"He earns very ___ money. (little)", answer:"little", alts:[]},
+  {stem:"How ___ eggs do you need? (much/many)", answer:"many", alts:[]},
+  {stem:"There's ___ bread on the table.", answer:"some", alts:[]},
+  {stem:"I don't have ___ friends in this city.", answer:"many", alts:["any"]},
+  {stem:"She spent ___ time on the project. (a lot of)", answer:"a lot of", alts:["lots of"]},
+  {stem:"Can I have ___ more rice, please?", answer:"some", alts:[]},
+  {stem:"There are very ___ houses in the village. (few)", answer:"few", alts:["a few"]},
+];
+
+const F_PREPOSITIONS_EX = [
+  {stem:"I get up ___ 7am.", answer:"at", alts:[]},
+  {stem:"My birthday is ___ July.", answer:"in", alts:[]},
+  {stem:"She was born ___ 2010.", answer:"in", alts:[]},
+  {stem:"The cat is ___ the bed. (under)", answer:"under", alts:[]},
+  {stem:"We go to school ___ Monday.", answer:"on", alts:[]},
+  {stem:"The bank is ___ the library. (next to)", answer:"next to", alts:["beside"]},
+  {stem:"He put the book ___ the table. (on)", answer:"on", alts:[]},
+  {stem:"I usually sleep ___ night.", answer:"at", alts:[]},
+  {stem:"The restaurant is ___ the cinema. (opposite)", answer:"opposite", alts:["across from"]},
+  {stem:"She lives ___ Madrid.", answer:"in", alts:[]},
+  {stem:"The keys are ___ my pocket. (in)", answer:"in", alts:[]},
+  {stem:"The supermarket is ___ the corner. (at/on)", answer:"on", alts:["at"]},
+  {stem:"I'll see you ___ Christmas.", answer:"at", alts:[]},
+  {stem:"The dog is ___ the door. (behind)", answer:"behind", alts:[]},
+  {stem:"He arrived ___ the airport at 5pm.", answer:"at", alts:[]},
+  {stem:"The school is ___ the park and the bank. (between)", answer:"between", alts:[]},
+  {stem:"___ summer we go to the beach.", answer:"In", alts:[]},
+  {stem:"The picture is ___ the wall. (on)", answer:"on", alts:[]},
+  {stem:"She always goes to bed ___ midnight.", answer:"at", alts:[]},
+  {stem:"The meeting is ___ Friday afternoon.", answer:"on", alts:[]},
+  {stem:"There's a bridge ___ the river. (over)", answer:"over", alts:["above"]},
+  {stem:"He walked ___ the street. (across)", answer:"across", alts:[]},
+];
+
+const F_CONNECTORS_EX = [
+  {stem:"I like tea ___ coffee. (y)", answer:"and", alts:[]},
+  {stem:"She is nice ___ shy. (pero)", answer:"but", alts:[]},
+  {stem:"I'm tired ___ I ran a lot. (porque)", answer:"because", alts:[]},
+  {stem:"Would you like tea ___ coffee? (o)", answer:"or", alts:[]},
+  {stem:"It was late, ___ I went home. (así que)", answer:"so", alts:[]},
+  {stem:"___ it rained, we enjoyed the picnic. (aunque)", answer:"Although", alts:["Though"]},
+  {stem:"He studied hard, ___ he passed the exam.", answer:"so", alts:[]},
+  {stem:"I like maths ___ science. (y)", answer:"and", alts:[]},
+  {stem:"She was tired, ___ she didn't go to bed. (pero)", answer:"but", alts:[]},
+  {stem:"We stayed inside ___ it was raining. (porque)", answer:"because", alts:[]},
+  {stem:"You can have cake ___ ice cream. (o)", answer:"or", alts:[]},
+  {stem:"He was ill, ___ he didn't go to work. (así que)", answer:"so", alts:[]},
+  {stem:"___ he is young, he is very responsible. (aunque)", answer:"Although", alts:["Though"]},
+  {stem:"She speaks French ___ Italian. (y)", answer:"and", alts:[]},
+  {stem:"I wanted to go, ___ I was too busy. (pero)", answer:"but", alts:[]},
+  {stem:"He failed the test ___ he didn't study. (porque)", answer:"because", alts:[]},
+  {stem:"Is this train going to Madrid ___ Barcelona? (o)", answer:"or", alts:[]},
+  {stem:"The film was boring, ___ we left early. (así que)", answer:"so", alts:[]},
+  {stem:"___ it was expensive, she bought the dress. (aunque)", answer:"Although", alts:["Though"]},
+  {stem:"I enjoy reading ___ writing. (y)", answer:"and", alts:[]},
+  {stem:"___ it was cold, she didn't wear a jacket. (aunque)", answer:"Although", alts:["Though"]},
+  {stem:"He got up late, ___ he missed the bus. (así que)", answer:"so", alts:[]},
+];
+
+const F_SENTENCE_STRUCTURE_EX = [
+  {stem:"She ___ chocolate. (likes)", answer:"likes", alts:[]},
+  {stem:"A dog ___ four legs. (has)", answer:"has", alts:["has got"]},
+  {stem:"They ___ football on Saturdays. (play)", answer:"play", alts:[]},
+  {stem:"___ a red car. (He has)", answer:"He has", alts:["He has got"]},
+  {stem:"I ___ breakfast every morning. (eat)", answer:"eat", alts:[]},
+  {stem:"The children ___ in the park. (are playing)", answer:"are playing", alts:[]},
+  {stem:"___ a big house. (We have)", answer:"We have", alts:["We have got"]},
+  {stem:"She ___ to music. (listens / always)", answer:"always listens", alts:[]},
+  {stem:"I ___ coffee. (don't like)", answer:"don't like", alts:["do not like"]},
+  {stem:"He ___ French. (doesn't speak)", answer:"doesn't speak", alts:["does not speak"]},
+  {stem:"___ you like pizza? (Do)", answer:"Do", alts:[]},
+  {stem:"___ she live here? (Does)", answer:"Does", alts:[]},
+  {stem:"She is a ___ girl. (tall / very)", answer:"very tall", alts:[]},
+  {stem:"I bought a ___ dress. (beautiful / blue)", answer:"beautiful blue", alts:["blue beautiful"]},
+  {stem:"They ___ their grandparents on Sundays. (visit / often)", answer:"often visit", alts:[]},
+  {stem:"He is ___ late. (never)", answer:"never", alts:[]},
+  {stem:"She ___ breakfast at 8am. (has / usually)", answer:"usually has", alts:[]},
+  {stem:"The cat ___ under the table. (sits / often)", answer:"often sits", alts:[]},
+  {stem:"We ___ to the cinema on Fridays. (go / sometimes)", answer:"sometimes go", alts:[]},
+  {stem:"I ___ spinach. (don't eat / never)", answer:"never eat", alts:["don't ever eat"]},
+  {stem:"___ a beautiful day! (It is)", answer:"It is", alts:["It's"]},
+  {stem:"They ___ very friendly. (are)", answer:"are", alts:[]},
+  {stem:"She ___ a new bike. (has got)", answer:"has got", alts:["has"]},
+];
+
 const EXERCISES = {
   'g-modal': {data:MODAL_EXERCISES, cid:'ex-modal', rounds:3},
   'g-future': {data:FUTURE_EXERCISES, cid:'ex-future', rounds:3},
@@ -1147,6 +1377,15 @@ const EXERCISES = {
   'g-possessives-s-of': {data:POSSESSIVES_EX, cid:'ex-pos', rounds:3},
   'g-linking-words': {data:LINKING_WORDS_EX, cid:'ex-lw', rounds:3},
   'g-phrasal-verbs': {data:PHRASAL_VERBS_EX, cid:'ex-pv', rounds:3},
+  'f-to-be': {data:F_TO_BE_EX, cid:'ex-f-to-be', rounds:3},
+  'f-subject-pronouns': {data:F_SUBJECT_PRONOUNS_EX, cid:'ex-f-subject-pronouns', rounds:3},
+  'f-object-pronouns': {data:F_OBJECT_PRONOUNS_EX, cid:'ex-f-object-pronouns', rounds:3},
+  'f-possessives': {data:F_POSSESSIVES_EX, cid:'ex-f-possessives', rounds:3},
+  'f-there-is-are': {data:F_THERE_IS_ARE_EX, cid:'ex-f-there-is-are', rounds:3},
+  'f-quantifiers': {data:F_QUANTIFIERS_EX, cid:'ex-f-quantifiers', rounds:3},
+  'f-prepositions': {data:F_PREPOSITIONS_EX, cid:'ex-f-prepositions', rounds:3},
+  'f-connectors': {data:F_CONNECTORS_EX, cid:'ex-f-connectors', rounds:3},
+  'f-sentence-structure': {data:F_SENTENCE_STRUCTURE_EX, cid:'ex-f-sentence-structure', rounds:3},
 };
 
 // ==================== SIMULACRO CHECKBOXES ====================
@@ -1452,8 +1691,16 @@ SECTIONS['f-to-be'] = `<div class="section active" style="display:block">
 <div class="theory-box">
 <h3>Participio: been</h3>
 <p>Usado con Present Perfect: <code>have/has been</code></p>
-<div class="example"><span class="en">I've <b>been</b> to London twice.</span> — <span class="es">He estado en Londres dos veces.</span></div>
-</div></div>`;
+    <div class="example"><span class="en">I've <b>been</b> to London twice.</span> — <span class="es">He estado en Londres dos veces.</span></div>
+</div>
+<h3>📝 Ejercicios <span id="ex-f-to-be-rnd" style="font-size:0.75rem;color:var(--text2)"></span></h3>
+<div id="ex-f-to-be"></div>
+<div class="btn-row" style="margin-top:12px">
+<button class="btn-check-all" onclick="checkAllInline('ex-f-to-be')">✅ Corregir todo</button>
+<button class="btn-reset" onclick="resetInline('ex-f-to-be')">🔄 Reset</button>
+<button class="btn-next" onclick="_rounds['f-to-be']&&_rounds['f-to-be'].next()">▶️ Siguiente ronda</button>
+</div>
+<div id="ex-f-to-be-score" class="score-box" style="display:none"></div></div>`;
 
 SECTIONS['f-subject-pronouns'] = `<div class="section active" style="display:block">
 <h2>👤 Subject Pronouns</h2>
@@ -1475,7 +1722,15 @@ SECTIONS['f-subject-pronouns'] = `<div class="section active" style="display:blo
 <div class="theory-box">
 <h3>Regla importante</h3>
 <p>En inglés SIEMPRE se usa el sujeto. En español podemos omitirlo («es tarde»), pero en inglés siempre: <b>It is late</b>.</p>
-</div></div>`;
+</div>
+<h3>📝 Ejercicios <span id="ex-f-subject-pronouns-rnd" style="font-size:0.75rem;color:var(--text2)"></span></h3>
+<div id="ex-f-subject-pronouns"></div>
+<div class="btn-row" style="margin-top:12px">
+<button class="btn-check-all" onclick="checkAllInline('ex-f-subject-pronouns')">✅ Corregir todo</button>
+<button class="btn-reset" onclick="resetInline('ex-f-subject-pronouns')">🔄 Reset</button>
+<button class="btn-next" onclick="_rounds['f-subject-pronouns']&&_rounds['f-subject-pronouns'].next()">▶️ Siguiente ronda</button>
+</div>
+<div id="ex-f-subject-pronouns-score" class="score-box" style="display:none"></div></div>`;
 
 SECTIONS['f-object-pronouns'] = `<div class="section active" style="display:block">
 <h2>👥 Object Pronouns</h2>
@@ -1494,7 +1749,15 @@ SECTIONS['f-object-pronouns'] = `<div class="section active" style="display:bloc
 </div>
 <div class="example">⚠️ No confundir <b>subject</b> y <b>object</b>:<br>
 <span class="en"><b>She</b> loves <b>him</b>.</span> (Ella lo ama a él) ✓<br>
-<span class="en"><b>Her</b> loves <b>she</b>.</span> ✗ (incorrecto)</div></div>`;
+<span class="en"><b>Her</b> loves <b>she</b>.</span> ✗ (incorrecto)</div>
+<h3>📝 Ejercicios <span id="ex-f-object-pronouns-rnd" style="font-size:0.75rem;color:var(--text2)"></span></h3>
+<div id="ex-f-object-pronouns"></div>
+<div class="btn-row" style="margin-top:12px">
+<button class="btn-check-all" onclick="checkAllInline('ex-f-object-pronouns')">✅ Corregir todo</button>
+<button class="btn-reset" onclick="resetInline('ex-f-object-pronouns')">🔄 Reset</button>
+<button class="btn-next" onclick="_rounds['f-object-pronouns']&&_rounds['f-object-pronouns'].next()">▶️ Siguiente ronda</button>
+</div>
+<div id="ex-f-object-pronouns-score" class="score-box" style="display:none"></div></div>`;
 
 SECTIONS['f-possessives'] = `<div class="section active" style="display:block">
 <h2>📌 Possessive Adjectives &amp; Pronouns</h2>
@@ -1526,7 +1789,15 @@ SECTIONS['f-possessives'] = `<div class="section active" style="display:block">
 </tbody></table>
 </div>
 <div class="example">⚠️ <b>Its</b> (su de cosa) no tiene forma de pronombre posesivo. No existe "it's" como posesivo.<br>
-⚠️ <b>Its</b> ≠ <b>It's</b> (it is / it has). ¡Cuidado con el apóstrofe!</div></div>`;
+⚠️ <b>Its</b> ≠ <b>It's</b> (it is / it has). ¡Cuidado con el apóstrofe!</div>
+<h3>📝 Ejercicios <span id="ex-f-possessives-rnd" style="font-size:0.75rem;color:var(--text2)"></span></h3>
+<div id="ex-f-possessives"></div>
+<div class="btn-row" style="margin-top:12px">
+<button class="btn-check-all" onclick="checkAllInline('ex-f-possessives')">✅ Corregir todo</button>
+<button class="btn-reset" onclick="resetInline('ex-f-possessives')">🔄 Reset</button>
+<button class="btn-next" onclick="_rounds['f-possessives']&&_rounds['f-possessives'].next()">▶️ Siguiente ronda</button>
+</div>
+<div id="ex-f-possessives-score" class="score-box" style="display:none"></div></div>`;
 
 SECTIONS['f-there-is-are'] = `<div class="section active" style="display:block">
 <h2>📍 There is / There are</h2>
@@ -1551,7 +1822,15 @@ SECTIONS['f-there-is-are'] = `<div class="section active" style="display:block">
 </div>
 <div class="example">💡 Para enumerar varias cosas, el verbo <b>concuerda con el primer elemento</b>:<br>
 <span class="en"><b>There is</b> a pen and two books.</span> ✓<br>
-<span class="en"><b>There are</b> two books and a pen.</span> ✓</div></div>`;
+<span class="en"><b>There are</b> two books and a pen.</span> ✓</div>
+<h3>📝 Ejercicios <span id="ex-f-there-is-are-rnd" style="font-size:0.75rem;color:var(--text2)"></span></h3>
+<div id="ex-f-there-is-are"></div>
+<div class="btn-row" style="margin-top:12px">
+<button class="btn-check-all" onclick="checkAllInline('ex-f-there-is-are')">✅ Corregir todo</button>
+<button class="btn-reset" onclick="resetInline('ex-f-there-is-are')">🔄 Reset</button>
+<button class="btn-next" onclick="_rounds['f-there-is-are']&&_rounds['f-there-is-are'].next()">▶️ Siguiente ronda</button>
+</div>
+<div id="ex-f-there-is-are-score" class="score-box" style="display:none"></div></div>`;
 
 SECTIONS['f-quantifiers'] = `<div class="section active" style="display:block">
 <h2>🔢 Quantifiers — much, many, some, any, a lot of, few, little</h2>
@@ -1576,7 +1855,15 @@ SECTIONS['f-quantifiers'] = `<div class="section active" style="display:block">
 <span class="en">There is <b>little</b> milk.</span> — Queda poca leche.<br>
 <span class="en"><b>A few</b> people came.</span> — Vinieron unas pocas personas (suficientes).<br>
 <span class="en"><b>A little</b> sugar, please.</span> — Un poco de azúcar, por favor.</div>
-</div></div>`;
+</div>
+<h3>📝 Ejercicios <span id="ex-f-quantifiers-rnd" style="font-size:0.75rem;color:var(--text2)"></span></h3>
+<div id="ex-f-quantifiers"></div>
+<div class="btn-row" style="margin-top:12px">
+<button class="btn-check-all" onclick="checkAllInline('ex-f-quantifiers')">✅ Corregir todo</button>
+<button class="btn-reset" onclick="resetInline('ex-f-quantifiers')">🔄 Reset</button>
+<button class="btn-next" onclick="_rounds['f-quantifiers']&&_rounds['f-quantifiers'].next()">▶️ Siguiente ronda</button>
+</div>
+<div id="ex-f-quantifiers-score" class="score-box" style="display:none"></div></div>`;
 
 SECTIONS['f-prepositions'] = `<div class="section active" style="display:block">
 <h2>🗺️ Prepositions — Time, Place &amp; Movement</h2>
@@ -1611,7 +1898,15 @@ SECTIONS['f-prepositions'] = `<div class="section active" style="display:block">
 <span class="en">Walk <b>across</b> the street.</span> — Cruza la calle.<br>
 <span class="en">The train goes <b>through</b> the tunnel.</span> — El tren atraviesa el túnel.<br>
 <span class="en">Walk <b>along</b> the beach.</span> — Camina a lo largo de la playa.</div>
-</div></div>`;
+</div>
+<h3>📝 Ejercicios <span id="ex-f-prepositions-rnd" style="font-size:0.75rem;color:var(--text2)"></span></h3>
+<div id="ex-f-prepositions"></div>
+<div class="btn-row" style="margin-top:12px">
+<button class="btn-check-all" onclick="checkAllInline('ex-f-prepositions')">✅ Corregir todo</button>
+<button class="btn-reset" onclick="resetInline('ex-f-prepositions')">🔄 Reset</button>
+<button class="btn-next" onclick="_rounds['f-prepositions']&&_rounds['f-prepositions'].next()">▶️ Siguiente ronda</button>
+</div>
+<div id="ex-f-prepositions-score" class="score-box" style="display:none"></div></div>`;
 
 SECTIONS['f-connectors'] = `<div class="section active" style="display:block">
 <h2>🔗 Basic Connectors</h2>
@@ -1628,7 +1923,15 @@ SECTIONS['f-connectors'] = `<div class="section active" style="display:block">
 </tbody></table>
 </div>
 <div class="example">💡 <b>However</b> va al inicio de una nueva oración, separado por punto.<br>
-💡 <b>Although</b> va al inicio de la misma oración, sin punto.</div></div>`;
+💡 <b>Although</b> va al inicio de la misma oración, sin punto.</div>
+<h3>📝 Ejercicios <span id="ex-f-connectors-rnd" style="font-size:0.75rem;color:var(--text2)"></span></h3>
+<div id="ex-f-connectors"></div>
+<div class="btn-row" style="margin-top:12px">
+<button class="btn-check-all" onclick="checkAllInline('ex-f-connectors')">✅ Corregir todo</button>
+<button class="btn-reset" onclick="resetInline('ex-f-connectors')">🔄 Reset</button>
+<button class="btn-next" onclick="_rounds['f-connectors']&&_rounds['f-connectors'].next()">▶️ Siguiente ronda</button>
+</div>
+<div id="ex-f-connectors-score" class="score-box" style="display:none"></div></div>`;
 
 SECTIONS['f-sentence-structure'] = `<div class="section active" style="display:block">
 <h2>📐 Basic Sentence Structure</h2>
@@ -1660,7 +1963,15 @@ En español podríamos decir «Chocolate, me encanta», pero en inglés NO se pu
 <p>Para negar en presente: <b>don't</b> (I/you/we/they) o <b>doesn't</b> (he/she/it) + verbo en infinitivo</p>
 <div class="example"><span class="en">I <b>don't</b> like spinach.</span> — No me gustan las espinacas.<br>
 <span class="en">She <b>doesn't</b> speak French.</span> — Ella no habla francés.</div>
-</div></div>`;
+</div>
+<h3>📝 Ejercicios <span id="ex-f-sentence-structure-rnd" style="font-size:0.75rem;color:var(--text2)"></span></h3>
+<div id="ex-f-sentence-structure"></div>
+<div class="btn-row" style="margin-top:12px">
+<button class="btn-check-all" onclick="checkAllInline('ex-f-sentence-structure')">✅ Corregir todo</button>
+<button class="btn-reset" onclick="resetInline('ex-f-sentence-structure')">🔄 Reset</button>
+<button class="btn-next" onclick="_rounds['f-sentence-structure']&&_rounds['f-sentence-structure'].next()">▶️ Siguiente ronda</button>
+</div>
+<div id="ex-f-sentence-structure-score" class="score-box" style="display:none"></div></div>`;
 
 // ==================== GRAMMAR — Nuevos temas ====================
 
