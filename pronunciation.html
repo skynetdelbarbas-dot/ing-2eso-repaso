@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🗣️ Pronunciation — 2º ESO</title>
+<link rel="stylesheet" href="style.css?v=5">
+</head>
+<body data-topic="pronunciation">
+<div class="container">
+<nav class="sidebar">
+  <h1><a href="index.html" style="color:inherit;text-decoration:none">📚 Inglés 2º ESO</a></h1>
+  <div class="subtitle">Repaso para el examen final</div>
+  <h2>🗣️ SPEAKING</h2>
+  <a href="pronunciation.html" class="active">Pronunciation</a>
+
+  <h2>🗣️ Grammar</h2>
+  <a href="present-perfect.html">Present Perfect S/C</a>
+  <a href="reported-speech.html">Reported Speech</a>
+  <a href="conditionals.html">Conditionals</a>
+  <a href="wish-if-only.html">I wish / If only</a>
+  <a href="question-tags.html">Question Tags</a>
+  <a href="articles.html">Articles (a/an/the/∅)</a>
+  <a href="passive.html">Passive Voice</a>
+  <a href="indefinite-pronouns.html">Indefinite Pronouns</a>
+  <a href="nor-neither-so.html">Nor / Neither / So</a>
+  <h2>📖 Vocabulary</h2>
+  <a href="vocabulary.html">Units 1-3, 5-11</a>
+  <h2>🔄 Review</h2>
+  <a href="grammar-review.html">Grammar Review 1º ESO</a>
+  <h2>🎯 Exams</h2>
+  <a href="cambridge-a2.html">Cambridge A2 Key</a>
+  <h2>🎯 Simulacro</h2>
+  <a href="simulacro.html">Examen mixto</a>
+</nav>
+
+<main class="main">
+<style>
+/* ── Pronunciation-specific styles ── */
+.pron-header{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.pron-header h2{margin:0;border:none;padding:0}
+.pron-audio-btn{display:inline-flex;align-items:center;gap:5px;padding:8px 14px;border-radius:8px;border:2px solid var(--primary);background:#e7f5ff;color:var(--primary-dark);font-size:.9rem;font-weight:600;cursor:pointer;transition:all .15s}
+.pron-audio-btn:hover{background:var(--primary);color:#fff;transform:scale(1.03)}
+.pron-audio-btn:active{transform:scale(.95)}
+.pron-exercise{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px 20px;margin:12px 0;box-shadow:var(--shadow)}
+.pron-exercise .prompt{font-size:.92rem;margin-bottom:10px;color:var(--text2)}
+.pron-exercise .target-word{font-size:1.4rem;font-weight:700;color:var(--primary-dark);display:inline-block;margin:6px 0}
+.pron-options{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.pron-opt{padding:10px 20px;border-radius:8px;border:2px solid var(--border);background:var(--card);font-size:.9rem;font-weight:600;cursor:pointer;transition:all .15s;min-width:60px;text-align:center}
+.pron-opt:hover{border-color:var(--primary);background:#e7f5ff;transform:translateY(-1px)}
+.pron-opt.correct{border-color:var(--success);background:var(--success-bg);color:#2b8a3e}
+.pron-opt.wrong{border-color:var(--error);background:var(--error-bg);color:#c92a2a}
+.stress-hint{font-size:.8rem;color:var(--text2);margin-top:4px}
+.pron-feedback{margin-top:10px;padding:10px 14px;border-radius:8px;font-size:.9rem;display:none}
+.pron-feedback.show{display:block}
+.pron-feedback.ok{background:var(--success-bg);border:1px solid var(--success);color:#2b8a3e}
+.pron-feedback.ko{background:var(--error-bg);border:1px solid var(--error);color:#c92a2a}
+.pron-score{display:inline-flex;align-items:center;gap:6px;background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:4px 12px;font-size:.82rem;color:var(--text2);margin-left:12px}
+.pron-score .num{font-weight:700;color:var(--primary-dark);font-size:.95rem}
+.pron-summary{display:none;background:linear-gradient(135deg,#e7f5ff,#d3f9d8);border:2px solid var(--success);border-radius:var(--radius);padding:20px;margin:16px 0;text-align:center}
+.pron-summary.show{display:block}
+.pron-summary .big{font-size:2.2rem;font-weight:700;color:var(--primary-dark)}
+.pron-summary .sub{font-size:1rem;color:var(--text2);margin-top:6px}
+.phoneme-table{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px;margin:12px 0}
+.phoneme-card{background:#f1f3f5;border-radius:8px;padding:12px 14px;text-align:center}
+.phoneme-card .symbol{font-size:1.8rem;font-weight:700;color:var(--primary-dark)}
+.phoneme-card .example{color:var(--text2);font-size:.85rem}
+.phoneme-card .sound-btn{display:inline-block;padding:6px 14px;border-radius:6px;background:var(--primary);color:#fff;border:none;cursor:pointer;font-size:.82rem;margin-top:4px;transition:all .1s}
+.phoneme-card .sound-btn:hover{background:var(--primary-dark)}
+@media(max-width:700px){
+  .pron-options{gap:6px}
+  .pron-opt{padding:8px 14px;min-width:50px;font-size:.85rem}
+}
+</style>
+  <div class="breadcrumb"><a href="index.html">Inicio</a> / Pronunciation</div>
+  <h1 class="page-title">🗣️ Pronunciation</h1>
+  <p class="intro">Mejora tu pronunciación con estos 5 temas. Pulsa 🔊 para escuchar los ejemplos.</p>
+
+  <!-- ════════════════════════════════════════ -->
+  <!-- 1. WORD STRESS -->
+  <!-- ════════════════════════════════════════ -->
+  <div class="section pron-topic" data-topic="word-stress">
+    <div class="pron-header">
+      <h2>🔊 1. Word Stress — Acentuación</h2>
+      <span class="pron-score" id="score-ws">✅ <span class="num" id="score-ws-num">0</span>/<span id="score-ws-total">0</span></span>
+    </div>
+    <p style="color:var(--text2);font-size:.9rem;margin-bottom:12px">
+      En inglés, cada palabra tiene una sílaba que se pronuncia con más fuerza (sílaba tónica).
+      Aprender a identificar el <em>word stress</em> es clave para sonar natural.
+    </p>
+
+    <div class="theory-box">
+      <strong>📌 Reglas básicas:</strong><br>
+      • La mayoría de <strong>nombres y adjetivos de 2 sílabas</strong> se acentúan en la <strong>primera</strong>: <span class="pron-word">TA-ble</span>, <span class="pron-word">HAP-py</span>, <span class="pron-word">DOC-tor</span>, <span class="pron-word">CLE-ver</span><br>
+      • La mayoría de <strong>verbos de 2 sílabas</strong> se acentúan en la <strong>segunda</strong>: <span class="pron-word">be-GIN</span>, <span class="pron-word">de-CIDE</span>, <span class="pron-word">pre-FER</span>, <span class="pron-word">re-CEIVE</span><br>
+      • Palabras que terminan en <strong>-tion / -sion</strong>: acento en la sílaba anterior: <span class="pron-word">in-for-MA-tion</span>, <span class="pron-word">de-ci-SION</span><br>
+      • Palabras que terminan en <strong>-ic</strong>: acento en la sílaba anterior: <span class="pron-word">ter-RIF-ic</span>, <span class="pron-word">sci-en-TIF-ic</span><br>
+      • Palabras que terminan en <strong>-cy / -ty / -phy / -gy</strong>: acento en la 3ª por el final: <span class="pron-word">de-MO-cra-cy</span>, <span class="pron-word">bi-O-lo-gy</span>
+    </div>
+
+    <p style="margin:14px 0 6px;font-weight:600">🎯 Escucha la palabra y haz clic en la sílaba tónica:</p>
+    <div id="ws-exercises"></div>
+    <div id="ws-feedback" class="pron-feedback"></div>
+    <div class="btn-section">
+      <button class="btn btn-next" onclick="wsNewWord()">▶️ Siguiente palabra</button>
+      <button class="btn btn-reset" onclick="wsReset()">🔄 Reiniciar</button>
+    </div>
+    <div id="ws-summary" class="pron-summary"></div>
+  </div>
+
+  <!-- ════════════════════════════════════════ -->
+  <!-- 2. SENTENCE STRESS -->
+  <!-- ════════════════════════════════════════ -->
+  <div class="section pron-topic" data-topic="sentence-stress">
+    <div class="pron-header">
+      <h2>🔊 2. Sentence Stress — Acentuación en frases</h2>
+      <span class="pron-score" id="score-ss">✅ <span class="num" id="score-ss-num">0</span>/<span id="score-ss-total">0</span></span>
+    </div>
+    <p style="color:var(--text2);font-size:.9rem;margin-bottom:12px">
+      En las frases en inglés, no todas las palabras se pronuncian con la misma fuerza.
+      Las <strong>palabras de contenido</strong> (verbos, nombres, adjetivos) se acentúan;
+      las <strong>palabras de función</strong> (artículos, preposiciones, pronombres) se reducen.
+    </p>
+
+    <div class="theory-box">
+      <strong>📌 ¿Qué se acentúa?</strong><br>
+      ✅ <strong>Content words</strong> (se acentúan): <em>nouns, main verbs, adjectives, adverbs, question words</em><br>
+      ❌ <strong>Function words</strong> (se reducen): <em>pronouns, prepositions, articles, auxiliary verbs, conjunctions</em><br><br>
+      <strong>Ejemplo:</strong><br>
+      <span style="font-size:1.1rem">"I'll <strong>MEET</strong> you at the <strong>STA</strong>tion after <strong>WORK</strong>"</span><br>
+      <span style="font-size:.85rem;color:var(--text2)">Solo 3 palabras se acentúan: <em>meet, station, work</em></span>
+    </div>
+
+    <p style="margin:14px 0 6px;font-weight:600">🎯 Escucha la frase y elige qué palabra se acentúa más:</p>
+    <div id="ss-exercises"></div>
+    <div id="ss-feedback" class="pron-feedback"></div>
+    <div class="btn-section">
+      <button class="btn btn-next" onclick="ssNewSentence()">▶️ Siguiente frase</button>
+      <button class="btn btn-reset" onclick="ssReset()">🔄 Reiniciar</button>
+    </div>
+    <div id="ss-summary" class="pron-summary"></div>
+  </div>
+
+  <!-- ════════════════════════════════════════ -->
+  <!-- 3. SILENT LETTERS -->
+  <!-- ════════════════════════════════════════ -->
+  <div class="section pron-topic" data-topic="silent-letters">
+    <div class="pron-header">
+      <h2>🔇 3. Silent Letters — Letras mudas</h2>
+      <span class="pron-score" id="score-sl">✅ <span class="num" id="score-sl-num">0</span>/<span id="score-sl-total">0</span></span>
+    </div>
+    <p style="color:var(--text2);font-size:.9rem;margin-bottom:12px">
+      Muchas palabras en inglés tienen letras que <strong>no se pronuncian</strong>.
+      Estas letras mudas vienen de la historia del idioma y no hay reglas fijas, pero hay patrones comunes.
+    </p>
+
+    <div class="theory-box">
+      <strong>📌 Patrones comunes de letras mudas:</strong><br>
+      • <strong>K</strong> muda antes de <strong>N</strong>: <span class="pron-word">knee, know, knife, knock, know-ledge</span><br>
+      • <strong>W</strong> muda antes de <strong>R</strong>: <span class="pron-word">write, wrong, wrist, wrap, wreck</span><br>
+      • <strong>B</strong> muda después de <strong>M</strong> o antes de <strong>T</strong>: <span class="pron-word">climb, thumb, comb, doubt, subtle</span><br>
+      • <strong>GH</strong> mudo (a veces): <span class="pron-word">night, light, right, though, through</span><br>
+      • <strong>H</strong> muda al inicio (a veces): <span class="pron-word">hour, honest, honour, heir</span><br>
+      • <strong>L</strong> muda antes de <strong>K, M, F, D</strong>: <span class="pron-word">talk, walk, calm, half, could</span><br>
+      • <strong>P</strong> muda en <strong>PS, PT, PN</strong>: <span class="pron-word">psychology, receipt, pneumonia</span>
+    </div>
+
+    <p style="margin:14px 0 6px;font-weight:600">🎯 Escucha la palabra y señala qué letra es muda:</p>
+    <div id="sl-exercises"></div>
+    <div id="sl-feedback" class="pron-feedback"></div>
+    <div class="btn-section">
+      <button class="btn btn-next" onclick="slNewWord()">▶️ Siguiente palabra</button>
+      <button class="btn btn-reset" onclick="slReset()">🔄 Reiniciar</button>
+    </div>
+    <div id="sl-summary" class="pron-summary"></div>
+  </div>
+
+  <!-- ════════════════════════════════════════ -->
+  <!-- 4. TH SOUNDS -->
+  <!-- ════════════════════════════════════════ -->
+  <div class="section pron-topic" data-topic="th-sounds">
+    <div class="pron-header">
+      <h2>👅 4. TH Sounds — Los sonidos de «TH»</h2>
+      <span class="pron-score" id="score-th">✅ <span class="num" id="score-th-num">0</span>/<span id="score-th-total">0</span></span>
+    </div>
+    <p style="color:var(--text2);font-size:.9rem;margin-bottom:12px">
+      El dígrafo <strong>TH</strong> tiene <strong>dos pronunciaciones</strong> distintas.
+      La diferencia es si las cuerdas vocales vibran o no.
+    </p>
+
+    <div class="phoneme-table">
+      <div class="phoneme-card">
+        <div class="symbol">/θ/</div>
+        <div style="font-size:.82rem;color:#495057"><strong>Voiceless</strong> (sordo)</div>
+        <div style="font-size:.82rem;color:var(--text2)">lengua entre dientes, <em>sin</em> vibración</div>
+        <div class="example"><strong>th</strong>ink, <strong>th</strong>ree, <strong>th</strong>ank you, ba<strong>th</strong>, mou<strong>th</strong></div>
+        <button class="sound-btn" onclick="speakWord('/θ/ sound: think, three, thank you, bath, mouth')">🔊 Escuchar /θ/</button>
+      </div>
+      <div class="phoneme-card">
+        <div class="symbol">/ð/</div>
+        <div style="font-size:.82rem;color:#495057"><strong>Voiced</strong> (sonoro)</div>
+        <div style="font-size:.82rem;color:var(--text2)">lengua entre dientes, <em>con</em> vibración</div>
+        <div class="example"><strong>th</strong>e, <strong>th</strong>is, <strong>th</strong>at, wea<strong>th</strong>er, bro<strong>th</strong>er</div>
+        <button class="sound-btn" onclick="speakWord('/ð/ sound: the, this, that, weather, brother')">🔊 Escuchar /ð/</button>
+      </div>
+    </div>
+
+    <p style="margin:14px 0 6px;font-weight:600">🎯 Escucha la palabra y elige si su TH es /θ/ o /ð/:</p>
+    <div id="th-exercises"></div>
+    <div id="th-feedback" class="pron-feedback"></div>
+    <div class="btn-section">
+      <button class="btn btn-next" onclick="thNewWord()">▶️ Siguiente palabra</button>
+      <button class="btn btn-reset" onclick="thReset()">🔄 Reiniciar</button>
+    </div>
+    <div id="th-summary" class="pron-summary"></div>
+  </div>
+
+  <!-- ════════════════════════════════════════ -->
+  <!-- 5. ED ENDINGS -->
+  <!-- ════════════════════════════════════════ -->
+  <div class="section pron-topic" data-topic="ed-endings">
+    <div class="pron-header">
+      <h2>🔚 5. -ED Endings — Pronunciación de -ed</h2>
+      <span class="pron-score" id="score-ed">✅ <span class="num" id="score-ed-num">0</span>/<span id="score-ed-total">0</span></span>
+    </div>
+    <p style="color:var(--text2);font-size:.9rem;margin-bottom:12px">
+      La terminación <strong>-ed</strong> de los verbos regulares en pasado se pronuncia de <strong>3 formas distintas</strong>
+      según el sonido final del verbo en infinitivo.
+    </p>
+
+    <div class="theory-box">
+      <strong>📌 Regla de oro:</strong><br>
+      <table style="width:100%;border-collapse:collapse;margin:8px 0;font-size:.9rem">
+        <tr><td style="padding:6px 10px;border:1px solid var(--border);background:#fff3bf"><strong>/ɪd/</strong></td><td style="padding:6px 10px;border:1px solid var(--border)">Cuando el verbo termina en <strong>/t/ o /d/</strong></td><td style="padding:6px 10px;border:1px solid var(--border)"><span class="pron-word">want<b>ed</b></span> → /ˈwɒn.tɪd/<br><span class="pron-word">deci<b>ded</b></span> → /dɪˈsaɪ.dɪd/</td></tr>
+        <tr><td style="padding:6px 10px;border:1px solid var(--border);background:#e7f5ff"><strong>/t/</strong></td><td style="padding:6px 10px;border:1px solid var(--border)">Cuando el verbo termina en sonido <strong>sordo</strong> (p, k, f, s, sh, ch, x)</td><td style="padding:6px 10px;border:1px solid var(--border)"><span class="pron-word">hel<b>ped</b></span> → /helpt/<br><span class="pron-word">watc<b>hed</b></span> → /wɒtʃt/</td></tr>
+        <tr><td style="padding:6px 10px;border:1px solid var(--border);background:#d3f9d8"><strong>/d/</strong></td><td style="padding:6px 10px;border:1px solid var(--border)">Cuando el verbo termina en sonido <strong>sonoro</strong> (todo lo demás)</td><td style="padding:6px 10px;border:1px solid var(--border)"><span class="pron-word">play<b>ed</b></span> → /pleɪd/<br><span class="pron-word">open<b>ed</b></span> → /ˈəʊ.pənd/</td></tr>
+      </table>
+      <button class="sound-btn" style="margin-top:6px" onclick="speakWord('wanted /ˈwɒn.tɪd/, helped /helpt/, played /pleɪd/')">🔊 Escuchar los 3 sonidos</button>
+    </div>
+
+    <p style="margin:14px 0 6px;font-weight:600">🎯 Escucha el verbo en pasado y elige cómo se pronuncia su -ed:</p>
+    <div id="ed-exercises"></div>
+    <div id="ed-feedback" class="pron-feedback"></div>
+    <div class="btn-section">
+      <button class="btn btn-next" onclick="edNewWord()">▶️ Siguiente palabra</button>
+      <button class="btn btn-reset" onclick="edReset()">🔄 Reiniciar</button>
+    </div>
+    <div id="ed-summary" class="pron-summary"></div>
+  </div>
+
+</main>
+</div>
+
+<script>
+// ============================================================
+// GLOBALS
+// ============================================================
+var currentUtterance = null;
+
+// Speak helper
+function speakWord(text, rate) {
+  if (currentUtterance) { speechSynthesis.cancel(); currentUtterance = null; }
+  var u = new SpeechSynthesisUtterance(text);
+  u.lang = 'en-GB';
+  u.rate = rate || 0.85;
+  var voices = speechSynthesis.getVoices();
+  var enVoice = voices.find(function(v) { return v.lang.startsWith('en'); });
+  if (enVoice) u.voice = enVoice;
+  currentUtterance = u;
+  speechSynthesis.speak(u);
+}
+
+// Preload voices
+speechSynthesis.getVoices();
+speechSynthesis.onvoiceschanged = function() { speechSynthesis.getVoices(); };
+
+// ============================================================
+// 1. WORD STRESS
+// ============================================================
+var wsData = [
+  { word: 'PHOto', syllables: ['PHO', 'to'], answer: 0, hint: 'Los nombres de 2 s\xEDlabas suelen acentuarse en la 1\xAA' },
+  { word: 'beGIN', syllables: ['be', 'GIN'], answer: 1, hint: 'Los verbos de 2 s\xEDlabas suelen acentuarse en la 2\xAA' },
+  { word: 'TABLE', syllables: ['TA', 'ble'], answer: 0, hint: 'Los nombres de 2 s\xEDlabas \u2192 1\xAA s\xEDlaba' },
+  { word: 'enJOY', syllables: ['en', 'JOY'], answer: 1, hint: 'Verbo de 2 s\xEDlabas \u2192 2\xAA s\xEDlaba' },
+  { word: 'HAPpy', syllables: ['HAP', 'py'], answer: 0, hint: 'Adjetivo de 2 s\xEDlabas \u2192 1\xAA s\xEDlaba' },
+  { word: 'reCEIVE', syllables: ['re', 'CEIVE'], answer: 1, hint: 'Verbo de 2 s\xEDlabas \u2192 2\xAA s\xEDlaba' },
+  { word: 'DOCtor', syllables: ['DOC', 'tor'], answer: 0, hint: 'Nombres de 2 s\xEDlabas \u2192 1\xAA s\xEDlaba' },
+  { word: 'preFER', syllables: ['pre', 'FER'], answer: 1, hint: 'Verbo de 2 s\xEDlabas \u2192 2\xAA s\xEDlaba' },
+  { word: 'CLEver', syllables: ['CLE', 'ver'], answer: 0, hint: 'Adjetivo de 2 s\xEDlabas \u2192 1\xAA s\xEDlaba' },
+  { word: 'deCIDE', syllables: ['de', 'CIDE'], answer: 1, hint: 'Verbo de 2 s\xEDlabas \u2192 2\xAA s\xEDlaba' },
+  { word: 'inforMAtion', syllables: ['in', 'for', 'MA', 'tion'], answer: 2, hint: 'Palabras terminadas en -tion: acento en la anterior' },
+  { word: 'biOLogy', syllables: ['bi', 'O', 'lo', 'gy'], answer: 1, hint: 'Palabras terminadas en -gy: 3\xAA por el final' },
+  { word: 'Terrific', syllables: ['Ter', 'RIF', 'ic'], answer: 1, hint: 'Palabras terminadas en -ic: acento en la anterior' },
+  { word: 'deMOcracy', syllables: ['de', 'MO', 'cra', 'cy'], answer: 1, hint: 'Palabras terminadas en -cy: 3\xAA por el final' },
+  { word: 'COMPuter', syllables: ['COM', 'PU', 'ter'], answer: 0, hint: 'Innombrable pero se acent\xFAa en la 1\xAA' },
+  { word: 'toDAY', syllables: ['to', 'DAY'], answer: 1, hint: 'Palabra de 2 s\xEDlabas que se acent\xFAa en la 2\xAA' },
+  { word: 'SCIence', syllables: ['SCI', 'ence'], answer: 0, hint: 'Nombres de 2 s\xEDlabas \u2192 1\xAA s\xEDlaba' },
+  { word: 'deCIsion', syllables: ['de', 'CI', 'sion'], answer: 1, hint: 'Terminaci\xF3n -sion: acento en la anterior' },
+  { word: 'MU sic', syllables: ['MU', 'sic'], answer: 0, hint: 'Nombres de 2 s\xEDlabas \u2192 1\xAA s\xEDlaba' },
+  { word: 'aLIVE', syllables: ['a', 'LIVE'], answer: 1, hint: 'Adjetivos de 2 s\xEDlabas con prefijo a- \u2192 2\xAA' },
+];
+var wsIndex = 0;
+var wsCorrect = 0;
+var wsTotal = 0;
+var wsAnswered = false;
+
+function wsRender() {
+  var el = document.getElementById('ws-exercises');
+  var d = wsData[wsIndex];
+  if (!d) { el.innerHTML = '\u2705 \xA1Todos los ejercicios completados!'; return; }
+  var displayWord = d.syllables.join('');
+  var html = '<div class="pron-exercise">';
+  html += '<div class="pron-header" style="margin-bottom:8px">';
+  html += '<button class="pron-audio-btn" onclick="speakWord(\'' + displayWord.replace(/'/g,"\\'") + '\')">\uD83D\uDD0A <span>Escuchar</span></button>';
+  html += '<span style="font-size:.85rem;color:var(--text2)">Word <strong>' + (wsIndex + 1) + '</strong> of ' + wsData.length + '</span>';
+  html += '</div>';
+  html += '<div class="target-word">' + displayWord + '</div>';
+  html += '<div class="pron-options" id="ws-options">';
+  d.syllables.forEach(function(syl, i) {
+    html += '<div class="pron-opt" data-idx="' + i + '" onclick="wsSelect(' + i + ')">' + syl + '</div>';
+  });
+  html += '</div>';
+  html += '<div class="stress-hint">\uD83D\uDCA1 Haz clic en la s\xEDlaba que creas que se acent\xFAa</div>';
+  html += '</div>';
+  el.innerHTML = html;
+  document.getElementById('ws-feedback').className = 'pron-feedback';
+  document.getElementById('ws-feedback').style.display = 'none';
+  wsAnswered = false;
+  wsUpdateScore();
+}
+
+function wsSelect(idx) {
+  if (wsAnswered) return;
+  wsAnswered = true;
+  wsTotal++;
+  var d = wsData[wsIndex];
+  var opts = document.querySelectorAll('#ws-options .pron-opt');
+  opts.forEach(function(o) { o.style.pointerEvents = 'none'; });
+  if (idx === d.answer) {
+    wsCorrect++;
+    opts[idx].className = 'pron-opt correct';
+    showFeedback('ws-feedback', true, '\u2705 \xA1Correcto! ' + d.syllables[d.answer] + ' es la s\xEDlaba t\xF3nica.');
+  } else {
+    opts[idx].className = 'pron-opt wrong';
+    opts[d.answer].className = 'pron-opt correct';
+    showFeedback('ws-feedback', false, '\u274C Casi. La s\xEDlaba t\xF3nica es <strong>' + d.syllables[d.answer] + '</strong>. ' + d.hint);
+  }
+  wsUpdateScore();
+}
+
+function wsNewWord() {
+  wsIndex++;
+  if (wsIndex >= wsData.length) {
+    showSummary('ws-summary', wsCorrect, wsData.length);
+    document.getElementById('ws-exercises').innerHTML = '';
+    return;
+  }
+  wsRender();
+}
+
+function wsReset() {
+  wsIndex = 0; wsCorrect = 0; wsTotal = 0;
+  document.getElementById('ws-summary').className = 'pron-summary';
+  wsRender();
+  wsUpdateScore();
+}
+
+function wsUpdateScore() {
+  document.getElementById('score-ws-num').textContent = wsCorrect;
+  document.getElementById('score-ws-total').textContent = wsTotal;
+}
+
+// ============================================================
+// 2. SENTENCE STRESS
+// ============================================================
+var ssData = [
+  { sentence: "I'll MEET you at the STA tion", answer: ['MEET', 'STA'], options: ['MEET', 'station', 'at', 'the', "I'll"] },
+  { sentence: "SHE bought a NEW DRESS", answer: ['SHE', 'NEW', 'DRESS'], options: ['SHE', 'bought', 'NEW', 'DRESS', 'a'] },
+  { sentence: "We had a GREAT TIME", answer: ['GREAT', 'TIME'], options: ['We', 'had', 'GREAT', 'TIME', 'a'] },
+  { sentence: "He WORKS in a HOSpital", answer: ['WORKS', 'HOS'], options: ['He', 'WORKS', 'in', 'HOSpital', 'a'] },
+  { sentence: "I don't KNOW what to DO", answer: ['KNOW', 'DO'], options: ['I', 'KNOW', 'what', 'to', 'DO'] },
+  { sentence: "LET'S GO to the PARK", answer: ["LET'S", 'GO', 'PARK'], options: ["LET'S", 'GO', 'to', 'the', 'PARK'] },
+  { sentence: "Your CAR is very FAST", answer: ['CAR', 'FAST'], options: ['Your', 'CAR', 'is', 'very', 'FAST'] },
+  { sentence: "We STUDied all NIGHT", answer: ['STUD', 'NIGHT'], options: ['We', 'STUDied', 'all', 'NIGHT', 'the'] },
+  { sentence: "She SPEAKS three LANguages", answer: ['SPEAKS', 'LAN'], options: ['She', 'SPEAKS', 'three', 'LANguages', 'fluently'] },
+  { sentence: "I LOVE Lis-tening to MUSic", answer: ['LOVE', 'Lis', 'MUS'], options: ['I', 'LOVE', 'Lis', 'to', 'MUSic'] },
+];
+var ssIndex = 0;
+var ssCorrect = 0;
+var ssTotal = 0;
+var ssAnswered = false;
+
+function ssRender() {
+  var el = document.getElementById('ss-exercises');
+  var d = ssData[ssIndex];
+  if (!d) { el.innerHTML = ''; return; }
+  var html = '<div class="pron-exercise">';
+  html += '<div class="pron-header" style="margin-bottom:8px">';
+  html += '<button class="pron-audio-btn" onclick="speakWord(\'' + d.sentence.replace(/'/g,"\\'") + '\', 0.9)">\uD83D\uDD0A <span>Escuchar frase</span></button>';
+  html += '<span style="font-size:.85rem;color:var(--text2)">Sentence <strong>' + (ssIndex + 1) + '</strong> of ' + ssData.length + '</span>';
+  html += '</div>';
+  html += '<div class="prompt">\u00BFQu\xE9 palabra(s) se acent\xFAan m\xE1s en esta frase?</div>';
+  html += '<div class="pron-options" id="ss-options">';
+  d.options.forEach(function(opt, i) {
+    html += '<div class="pron-opt" data-idx="' + i + '" onclick="ssSelect(' + i + ')">' + opt + '</div>';
+  });
+  html += '</div>';
+  html += '</div>';
+  el.innerHTML = html;
+  document.getElementById('ss-feedback').className = 'pron-feedback';
+  document.getElementById('ss-feedback').style.display = 'none';
+  ssAnswered = false;
+  ssUpdateScore();
+  setTimeout(function() { speakWord(d.sentence.replace(/<br>/g, ' '), 0.9); }, 500);
+}
+
+function ssSelect(idx) {
+  if (ssAnswered) return;
+  ssAnswered = true;
+  ssTotal++;
+  var d = ssData[ssIndex];
+  var opts = document.querySelectorAll('#ss-options .pron-opt');
+  opts.forEach(function(o) { o.style.pointerEvents = 'none'; });
+  var selected = d.options[idx];
+  var isCorrect = false;
+  for (var a = 0; a < d.answer.length; a++) {
+    if (selected.indexOf(d.answer[a]) === 0 || d.answer[a].indexOf(selected) === 0) { isCorrect = true; break; }
+  }
+  if (isCorrect) {
+    ssCorrect++;
+    opts[idx].className = 'pron-opt correct';
+    showFeedback('ss-feedback', true, '\u2705 \xA1Correcto! <strong>' + selected + '</strong> es una palabra de contenido y se acent\xFAa.');
+  } else {
+    opts[idx].className = 'pron-opt wrong';
+    d.options.forEach(function(o, i) {
+      for (var a = 0; a < d.answer.length; a++) {
+        if (o.indexOf(d.answer[a]) === 0 || d.answer[a].indexOf(o) === 0) { opts[i].className = 'pron-opt correct'; break; }
+      }
+    });
+    showFeedback('ss-feedback', false, '\u274C Las palabras que se acent\xFAan son: <strong>' + d.answer.join(', ') + '</strong>. Content words llevan la fuerza de la frase.');
+  }
+  ssUpdateScore();
+}
+
+function ssNewSentence() {
+  ssIndex++;
+  if (ssIndex >= ssData.length) {
+    showSummary('ss-summary', ssCorrect, ssData.length);
+    document.getElementById('ss-exercises').innerHTML = '';
+    return;
+  }
+  ssRender();
+}
+
+function ssReset() {
+  ssIndex = 0; ssCorrect = 0; ssTotal = 0;
+  document.getElementById('ss-summary').className = 'pron-summary';
+  ssRender();
+  ssUpdateScore();
+}
+
+function ssUpdateScore() {
+  document.getElementById('score-ss-num').textContent = ssCorrect;
+  document.getElementById('score-ss-total').textContent = ssTotal;
+}
+
+// ============================================================
+// 3. SILENT LETTERS
+// ============================================================
+var slData = [
+  { word: 'knife', silent: 'k', hint: 'La K es muda antes de N' },
+  { word: 'write', silent: 'w', hint: 'La W es muda antes de R' },
+  { word: 'climb', silent: 'b', hint: 'La B es muda despu\xE9s de M' },
+  { word: 'night', silent: 'gh', hint: 'GH es mudo en muchas palabras' },
+  { word: 'hour', silent: 'h', hint: 'La H es muda al inicio en algunas palabras' },
+  { word: 'talk', silent: 'l', hint: 'La L es muda antes de K' },
+  { word: 'psychology', silent: 'p', hint: 'La P es muda al inicio de palabras PS...' },
+  { word: 'doubt', silent: 'b', hint: 'La B es muda antes de T' },
+  { word: 'wrong', silent: 'w', hint: 'La W es muda antes de R' },
+  { word: 'half', silent: 'l', hint: 'La L es muda antes de F' },
+  { word: 'know', silent: 'k', hint: 'La K es muda antes de N' },
+  { word: 'receipt', silent: 'p', hint: 'La P es muda en palabras PT' },
+  { word: 'could', silent: 'l', hint: 'La L es muda antes de D' },
+  { word: 'honest', silent: 'h', hint: 'La H es muda al inicio' },
+  { word: 'pneumonia', silent: 'p', hint: 'La P es muda al inicio de PN...' },
+  { word: 'wrist', silent: 'w', hint: 'La W es muda antes de R' },
+  { word: 'thumb', silent: 'b', hint: 'La B es muda despu\xE9s de M' },
+  { word: 'calm', silent: 'l', hint: 'La L es muda despu\xE9s de A' },
+  { word: 'through', silent: 'gh', hint: 'GH es mudo al final de palabra' },
+  { word: 'heir', silent: 'h', hint: 'La H es muda al inicio' },
+];
+var slIndex = 0;
+var slCorrect = 0;
+var slTotal = 0;
+var slAnswered = false;
+var slLetters = []; slData.forEach(function(d){if(slLetters.indexOf(d.silent)===-1)slLetters.push(d.silent);}); slLetters.sort();
+
+function slRender() {
+  var el = document.getElementById('sl-exercises');
+  var d = slData[slIndex];
+  if (!d) { el.innerHTML = ''; return; }
+  var html = '<div class="pron-exercise">';
+  html += '<div class="pron-header" style="margin-bottom:8px">';
+  html += '<button class="pron-audio-btn" onclick="speakWord(\'' + d.word + '\')">\uD83D\uDD0A <span>Escuchar</span></button>';
+  html += '<span style="font-size:.85rem;color:var(--text2)">Word <strong>' + (slIndex + 1) + '</strong> of ' + slData.length + '</span>';
+  html += '</div>';
+  html += '<div class="target-word">' + d.word + '</div>';
+  html += '<div class="prompt">\u00BFQu\xE9 letra es muda en esta palabra?</div>';
+  html += '<div class="pron-options" id="sl-options">';
+  slLetters.forEach(function(l) {
+    html += '<div class="pron-opt" data-letter="' + l + '" onclick="slSelect(\'' + l + '\')">' + l + '</div>';
+  });
+  html += '</div>';
+  html += '</div>';
+  el.innerHTML = html;
+  document.getElementById('sl-feedback').className = 'pron-feedback';
+  document.getElementById('sl-feedback').style.display = 'none';
+  slAnswered = false;
+  slUpdateScore();
+}
+
+function slSelect(letter) {
+  if (slAnswered) return;
+  slAnswered = true;
+  slTotal++;
+  var d = slData[slIndex];
+  var opts = document.querySelectorAll('#sl-options .pron-opt');
+  opts.forEach(function(o) { o.style.pointerEvents = 'none'; });
+  opts.forEach(function(o) {
+    if (o.getAttribute('data-letter') === d.silent) o.className = 'pron-opt correct';
+    else if (o.classList.contains('selected')) o.className = 'pron-opt wrong';
+  });
+  if (letter === d.silent) {
+    slCorrect++;
+    showFeedback('sl-feedback', true, '\u2705 \xA1Correcto! La <strong>' + d.silent + '</strong> es muda en \xAB' + d.word + '\xBB. ' + d.hint);
+  } else {
+    showFeedback('sl-feedback', false, '\u274C La letra muda en \xAB' + d.word + '\xBB es <strong>' + d.silent + '</strong>. ' + d.hint);
+  }
+  slUpdateScore();
+}
+
+function slNewWord() {
+  slIndex++;
+  if (slIndex >= slData.length) {
+    showSummary('sl-summary', slCorrect, slData.length);
+    document.getElementById('sl-exercises').innerHTML = '';
+    return;
+  }
+  slRender();
+}
+
+function slReset() {
+  slIndex = 0; slCorrect = 0; slTotal = 0;
+  document.getElementById('sl-summary').className = 'pron-summary';
+  slRender();
+  slUpdateScore();
+}
+
+function slUpdateScore() {
+  document.getElementById('score-sl-num').textContent = slCorrect;
+  document.getElementById('score-sl-total').textContent = slTotal;
+}
+
+// ============================================================
+// 4. TH SOUNDS
+// ============================================================
+var thData = [
+  { word: 'think', type: '\u03B8' },
+  { word: 'the', type: '\u00F0' },
+  { word: 'three', type: '\u03B8' },
+  { word: 'that', type: '\u00F0' },
+  { word: 'thank', type: '\u03B8' },
+  { word: 'this', type: '\u00F0' },
+  { word: 'bath', type: '\u03B8' },
+  { word: 'weather', type: '\u00F0' },
+  { word: 'tooth', type: '\u03B8' },
+  { word: 'brother', type: '\u00F0' },
+  { word: 'nothing', type: '\u03B8' },
+  { word: 'mother', type: '\u00F0' },
+  { word: 'path', type: '\u03B8' },
+  { word: 'father', type: '\u00F0' },
+  { word: 'both', type: '\u03B8' },
+  { word: 'together', type: '\u00F0' },
+  { word: 'thin', type: '\u03B8' },
+  { word: 'other', type: '\u00F0' },
+  { word: 'month', type: '\u03B8' },
+  { word: 'another', type: '\u00F0' },
+];
+var thIndex = 0;
+var thCorrect = 0;
+var thTotal = 0;
+var thAnswered = false;
+
+function thRender() {
+  var el = document.getElementById('th-exercises');
+  var d = thData[thIndex];
+  if (!d) { el.innerHTML = ''; return; }
+  var html = '<div class="pron-exercise">';
+  html += '<div class="pron-header" style="margin-bottom:8px">';
+  html += '<button class="pron-audio-btn" onclick="speakWord(\'' + d.word + '\')">\uD83D\uDD0A <span>Escuchar</span></button>';
+  html += '<span style="font-size:.85rem;color:var(--text2)">Word <strong>' + (thIndex + 1) + '</strong> of ' + thData.length + '</span>';
+  html += '</div>';
+  html += '<div class="target-word" style="font-size:1.6rem">' + d.word + '</div>';
+  html += '<div class="prompt">El sonido <strong>TH</strong> en esta palabra es\u2026</div>';
+  html += '<div class="pron-options" id="th-options">';
+  html += '<div class="pron-opt" data-type="\u03B8" onclick="thSelect(\'\u03B8\')">/\u03B8/ \u2014 sordo (think)</div>';
+  html += '<div class="pron-opt" data-type="\u00F0" onclick="thSelect(\'\u00F0\')">/\u00F0/ \u2014 sonoro (the)</div>';
+  html += '</div>';
+  html += '<div style="margin-top:6px;font-size:.82rem;color:var(--text2)">\uD83D\uDCA1 Pon la mano en la garganta: si vibra \u2192 /\u00F0/, si no \u2192 /\u03B8/</div>';
+  html += '</div>';
+  el.innerHTML = html;
+  document.getElementById('th-feedback').className = 'pron-feedback';
+  document.getElementById('th-feedback').style.display = 'none';
+  thAnswered = false;
+  thUpdateScore();
+}
+
+function thSelect(type) {
+  if (thAnswered) return;
+  thAnswered = true;
+  thTotal++;
+  var d = thData[thIndex];
+  var opts = document.querySelectorAll('#th-options .pron-opt');
+  opts.forEach(function(o) { o.style.pointerEvents = 'none'; });
+  opts.forEach(function(o) {
+    if (o.getAttribute('data-type') === d.type) o.className = 'pron-opt correct';
+    else if (o.classList.contains('selected')) o.className = 'pron-opt wrong';
+  });
+  if (type === d.type) {
+    thCorrect++;
+    showFeedback('th-feedback', true, '\u2705 \xA1Correcto! \xAB' + d.word + '\xBB se pronuncia con /' + d.type + '/.');
+  } else {
+    showFeedback('th-feedback', false, '\u274C \xAB' + d.word + '\xBB se pronuncia con /' + d.type + '/, no con /' + type + '/.');
+  }
+  thUpdateScore();
+}
+
+function thNewWord() {
+  thIndex++;
+  if (thIndex >= thData.length) {
+    showSummary('th-summary', thCorrect, thData.length);
+    document.getElementById('th-exercises').innerHTML = '';
+    return;
+  }
+  thRender();
+}
+
+function thReset() {
+  thIndex = 0; thCorrect = 0; thTotal = 0;
+  document.getElementById('th-summary').className = 'pron-summary';
+  thRender();
+  thUpdateScore();
+}
+
+function thUpdateScore() {
+  document.getElementById('score-th-num').textContent = thCorrect;
+  document.getElementById('score-th-total').textContent = thTotal;
+}
+
+// ============================================================
+// 5. -ED ENDINGS
+// ============================================================
+var edData = [
+  { word: 'wanted', sound: '/\u026Ad/' },
+  { word: 'played', sound: '/d/' },
+  { word: 'helped', sound: '/t/' },
+  { word: 'decided', sound: '/\u026Ad/' },
+  { word: 'watched', sound: '/t/' },
+  { word: 'opened', sound: '/d/' },
+  { word: 'started', sound: '/\u026Ad/' },
+  { word: 'lived', sound: '/d/' },
+  { word: 'walked', sound: '/t/' },
+  { word: 'needed', sound: '/\u026Ad/' },
+  { word: 'called', sound: '/d/' },
+  { word: 'liked', sound: '/t/' },
+  { word: 'visited', sound: '/\u026Ad/' },
+  { word: 'listened', sound: '/d/' },
+  { word: 'stopped', sound: '/t/' },
+  { word: 'ended', sound: '/\u026Ad/' },
+  { word: 'learned', sound: '/d/' },
+  { word: 'cooked', sound: '/t/' },
+  { word: 'waited', sound: '/\u026Ad/' },
+  { word: 'closed', sound: '/d/' },
+];
+var edIndex = 0;
+var edCorrect = 0;
+var edTotal = 0;
+var edAnswered = false;
+
+function edRender() {
+  var el = document.getElementById('ed-exercises');
+  var d = edData[edIndex];
+  if (!d) { el.innerHTML = ''; return; }
+  var html = '<div class="pron-exercise">';
+  html += '<div class="pron-header" style="margin-bottom:8px">';
+  html += '<button class="pron-audio-btn" onclick="speakWord(\'' + d.word + '\')">\uD83D\uDD0A <span>Escuchar</span></button>';
+  html += '<span style="font-size:.85rem;color:var(--text2)">Word <strong>' + (edIndex + 1) + '</strong> of ' + edData.length + '</span>';
+  html += '</div>';
+  html += '<div class="target-word" style="font-size:1.6rem">' + d.word + '</div>';
+  html += '<div class="prompt">\u00BFC\xF3mo se pronuncia la terminaci\xF3n <strong>-ed</strong>?</div>';
+  html += '<div class="pron-options" id="ed-options">';
+  html += '<div class="pron-opt" data-sound="/t/" onclick="edSelect(\'/t/\')">/t/ (walked)</div>';
+  html += '<div class="pron-opt" data-sound="/d/" onclick="edSelect(\'/d/\')">/d/ (played)</div>';
+  html += '<div class="pron-opt" data-sound="/\u026Ad/" onclick="edSelect(\'/\u026Ad/\')">/\u026Ad/ (wanted)</div>';
+  html += '</div>';
+  html += '</div>';
+  el.innerHTML = html;
+  document.getElementById('ed-feedback').className = 'pron-feedback';
+  document.getElementById('ed-feedback').style.display = 'none';
+  edAnswered = false;
+  edUpdateScore();
+}
+
+function edSelect(sound) {
+  if (edAnswered) return;
+  edAnswered = true;
+  edTotal++;
+  var d = edData[edIndex];
+  var opts = document.querySelectorAll('#ed-options .pron-opt');
+  opts.forEach(function(o) { o.style.pointerEvents = 'none'; });
+  opts.forEach(function(o) {
+    if (o.getAttribute('data-sound') === d.sound) o.className = 'pron-opt correct';
+    else if (o.classList.contains('selected')) o.className = 'pron-opt wrong';
+  });
+  if (sound === d.sound) {
+    edCorrect++;
+    showFeedback('ed-feedback', true, '\u2705 \xA1Correcto! \xAB' + d.word + '\xBB termina en ' + d.sound + '.');
+  } else {
+    showFeedback('ed-feedback', false, '\u274C \xAB' + d.word + '\xBB se pronuncia con <strong>' + d.sound + '</strong>, no con ' + sound + '.');
+  }
+  edUpdateScore();
+}
+
+function edNewWord() {
+  edIndex++;
+  if (edIndex >= edData.length) {
+    showSummary('ed-summary', edCorrect, edData.length);
+    document.getElementById('ed-exercises').innerHTML = '';
+    return;
+  }
+  edRender();
+}
+
+function edReset() {
+  edIndex = 0; edCorrect = 0; edTotal = 0;
+  document.getElementById('ed-summary').className = 'pron-summary';
+  edRender();
+  edUpdateScore();
+}
+
+function edUpdateScore() {
+  document.getElementById('score-ed-num').textContent = edCorrect;
+  document.getElementById('score-ed-total').textContent = edTotal;
+}
+
+// ============================================================
+// UTILITIES
+// ============================================================
+function showFeedback(elId, ok, msg) {
+  var el = document.getElementById(elId);
+  el.className = 'pron-feedback show ' + (ok ? 'ok' : 'ko');
+  el.innerHTML = msg;
+  el.style.display = 'block';
+}
+
+function showSummary(elId, correct, total) {
+  var el = document.getElementById(elId);
+  if (!el) return;
+  var pct = total > 0 ? Math.round(correct / total * 100) : 0;
+  var msg = '';
+  if (pct >= 90) msg = '\uD83C\uDF1F \xA1Excelente! Tienes un o\xEDdo fant\xE1stico.';
+  else if (pct >= 70) msg = '\uD83D\uDC4F \xA1Muy bien! Sigue practicando para perfeccionarlo.';
+  else if (pct >= 50) msg = '\uD83D\uDCAA Vas por buen camino. Repasa la teor\xEDa y vuelve a intentarlo.';
+  else msg = '\uD83E\uDD14 Necesitas m\xE1s pr\xE1ctica. Vuelve a leer la teor\xEDa y prueba de nuevo.';
+  el.className = 'pron-summary show';
+  el.innerHTML = '<div class="big">' + correct + '/' + total + '</div><div class="sub">' + msg + '</div>';
+}
+
+// ============================================================
+// INIT
+// ============================================================
+wsRender();
+ssRender();
+slRender();
+thRender();
+edRender();
+</script>
+</body>
+</html>

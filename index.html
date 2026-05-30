@@ -172,6 +172,9 @@ input.correct,textarea.correct{border-color:var(--success)!important;background:
     <a onclick="show('f-sentence-structure')" id="nfss">📐 Sentence Structure</a>
   </div>
   <a onclick="show('verbs')" id="nv">📋 Irregular Verbs</a>
+  <h2>🗣️ SPEAKING</h2>
+  <a onclick="show('pronunciation')" id="npron">🔊 Pronunciation</a>
+
   <h2>🗣️ GRAMMAR</h2>
 
   <!-- 🟢 A1 Foundations -->
@@ -295,7 +298,8 @@ const NAV_MAP = {home:'nh',fundamentals:'nf',verbs:'nv',writing:'nw',simulacro:'
   'g-advanced-modals':'ngam',
   'grammar-review':'ngr','cambridge-a2':'nca',
   'vocab-topics':'nvt','vocab-collocations':'nvc','vocab-phrasal':'nvp',
-  'vocab-idioms':'nvi','vocab-formation':'nvf','vocab-mixed':'nvm',
+  'vocab-mixed':'nvm',
+  'pronunciation':'npron',
   'reading':'nrd','listening':'nlst','writing-practice':'nwp','songs':'nsng'};
 
 const PAGE_MAP = {
@@ -311,7 +315,8 @@ const PAGE_MAP = {
   'g-present-perfect-continuous':'present-perfect-continuous.html',
   'vocab-topics':'vocabulary.html','simulacro':'simulacro.html?v=4',
   'grammar-review':'grammar-review.html','cambridge-a2':'cambridge-a2.html',
-  'songs':'canciones.html'};
+  'songs':'canciones.html',
+  'pronunciation':'pronunciation.html'};
 
 var APP_VERSION = '5.4.0';
 
