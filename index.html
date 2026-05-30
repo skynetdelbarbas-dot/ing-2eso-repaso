@@ -22,6 +22,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .gram-sub{max-height:0;overflow:hidden;transition:max-height .3s;margin-left:12px}
 .gram-sub.open{max-height:800px}
 .gram-sub a{font-size:0.8rem;padding:5px 12px}
+.gram-level-label{font-size:0.65rem;text-transform:uppercase;letter-spacing:1px;color:var(--text2);padding:8px 12px 2px;font-weight:700;opacity:0.7}
 .main{flex:1;padding:30px 40px;max-width:900px}
 .section{background:var(--card);border-radius:var(--radius);padding:24px;margin-bottom:20px;box-shadow:var(--shadow)}
 .section h2{font-size:1.15rem;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid var(--primary);display:inline-block}
@@ -161,7 +162,7 @@ input.correct,textarea.correct{border-color:var(--success)!important;background:
   <h2>🗣️ GRAMMAR</h2>
   <div class="gram-toggle" id="gt" onclick="toggleGrammar()"><span class="arr">▶</span> <span id="gt-text">Abrir Temas</span></div>
   <div class="gram-sub" id="gs">
-    <!-- A1-A2 -->
+    <div class="gram-level-label">A1 - A2</div>
     <a onclick="show('g-present-simple')" id="ngps">📖 Present Simple</a>
     <a onclick="show('g-present-continuous')" id="ngpc">⏳ Present Continuous</a>
     <a onclick="show('g-imperatives')" id="ngimp">❗ Imperatives</a>
@@ -171,7 +172,7 @@ input.correct,textarea.correct{border-color:var(--success)!important;background:
     <a onclick="show('g-articles')" id="ngar">📝 Articles (a/an/the)</a>
     <a onclick="show('g-comparatives')" id="ngc">📊 Comparatives &amp; Superlatives</a>
     <a onclick="show('g-possessives-s-of')" id="ngposs">📌 Possessives ('s / of)</a>
-    <!-- A2-B1 -->
+    <div class="gram-level-label">A2 - B1</div>
     <a onclick="show('g-future')" id="ngf">🔮 Future Tenses</a>
     <a onclick="show('g-modal')" id="ngm">⚠️ Modal Verbs</a>
     <a onclick="show('g-present-perfect')" id="ngpp">⏳ Present Perfect S/C</a>
@@ -182,7 +183,7 @@ input.correct,textarea.correct{border-color:var(--success)!important;background:
     <a onclick="show('g-relative-clauses')" id="ngrc">🔗 Relative Clauses</a>
     <a onclick="show('g-question-tags')" id="ngqt">❓ Question Tags</a>
     <a onclick="show('g-linking-words')" id="nglw">🧩 Linking Words</a>
-    <!-- B1-B2 -->
+    <div class="gram-level-label">B1 - B2</div>
     <a onclick="show('g-conditionals')" id="ngcd">🔀 Conditionals</a>
     <a onclick="show('g-wish-if-only')" id="ngwi">💭 I wish / If only</a>
     <a onclick="show('g-passive')" id="ngpv">🔄 Passive Voice</a>
@@ -820,6 +821,54 @@ const GERUNDS_INF_EX = [
   {stem:"My mom made me ___ (clean) my room.", answer:"clean", alts:[]},
   {stem:"Let's ___ (go) to the park.", answer:"go", alts:[]},
 ];
+const RELATIVE_CLAUSES_EX = [
+  {stem:"The girl ___ lives next door is nice.", answer:"who", alts:["that"]},
+  {stem:"The book ___ I bought is great.", answer:"which", alts:["that"]},
+  {stem:"The park ___ we play is near.", answer:"where", alts:[]},
+  {stem:"The student ___ pen I found is Ana.", answer:"whose", alts:[]},
+  {stem:"The car ___ I like is red.", answer:"which", alts:["that"]},
+  {stem:"The man ___ helped me was kind.", answer:"who", alts:["that"]},
+  {stem:"The restaurant ___ we ate was cheap.", answer:"where", alts:[]},
+  {stem:"Do you know the people ___ live here?", answer:"who", alts:["that"]},
+  {stem:"The film ___ won the Oscar was great.", answer:"which", alts:["that"]},
+  {stem:"The woman ___ dog I found was grateful.", answer:"whose", alts:[]},
+];
+const POSSESSIVES_EX = [
+  {stem:"This is ___ car. (Ana)", answer:"Ana's", alts:[]},
+  {stem:"The ___ is red. (cover / book)", answer:"cover of the book", alts:["book cover"]},
+  {stem:"My ___ house is big. (parents)", answer:"parents'", alts:["parents' house"]},
+  {stem:"The ___ are on the table. (keys / car)", answer:"keys of the car", alts:["car keys"]},
+  {stem:"___ toys are everywhere. (children)", answer:"Children's", alts:[]},
+  {stem:"The ___ is Madrid. (capital / Spain)", answer:"capital of Spain", alts:[]},
+  {stem:"I'm going to the ___. (dentist)", answer:"dentist's", alts:[]},
+  {stem:"___ tail is long. (cat)", answer:"The cat's", alts:[]},
+  {stem:"A friend of ___ is coming. (I)", answer:"mine", alts:[]},
+  {stem:"The ___ is broken. (leg / table)", answer:"leg of the table", alts:["table leg"]},
+];
+const LINKING_WORDS_EX = [
+  {stem:"___, I'd like to thank everyone. (first)", answer:"Firstly", alts:["First"]},
+  {stem:"It was expensive. ___, I bought it. (however)", answer:"However", alts:[]},
+  {stem:"He studied hard. ___ he passed. (as a result)", answer:"As a result", alts:["Therefore"]},
+  {stem:"It's cheap. ___, it's good quality. (moreover)", answer:"Moreover", alts:["Furthermore"]},
+  {stem:"I was tired, ___ I left early. (therefore)", answer:"therefore", alts:["so"]},
+  {stem:"___ the trip was amazing. (in conclusion)", answer:"In conclusion", alts:["To sum up"]},
+  {stem:"We need more time. ___, we need a bigger budget. (secondly)", answer:"Secondly", alts:["Second"]},
+  {stem:"It's a good car. ___, it's too small for us. (on the other hand)", answer:"On the other hand", alts:["However"]},
+  {stem:"The location is ideal. ___, it's very safe. (furthermore)", answer:"Furthermore", alts:["Moreover"]},
+  {stem:"___, it's a great option for families. (to sum up)", answer:"To sum up", alts:["In conclusion"]},
+];
+const PHRASAL_VERBS_EX = [
+  {stem:"I ___ at 7am every day. (get up)", answer:"get up", alts:[]},
+  {stem:"Please ___ the light. (turn on)", answer:"turn on", alts:[]},
+  {stem:"She ___ her little brother. (look after)", answer:"looks after", alts:["looks-after"]},
+  {stem:"Never ___ even when it's hard. (give up)", answer:"give up", alts:[]},
+  {stem:"___ your coat, it's cold outside. (put on)", answer:"Put on", alts:[]},
+  {stem:"I'm ___ my keys. Have you seen them? (look for)", answer:"looking for", alts:["looking-for"]},
+  {stem:"Please ___ your shoes at the door. (take off)", answer:"take off", alts:[]},
+  {stem:"Let's ___ tonight! (go out)", answer:"go out", alts:[]},
+  {stem:"Don't forget to ___ your phone in class. (turn off)", answer:"turn off", alts:[]},
+  {stem:"She ___ smoking last year. (give up)", answer:"gave up", alts:[]},
+];
 
 const EXERCISES = {
   'g-modal': {data:MODAL_EXERCISES, cid:'ex-modal', rounds:3},
@@ -833,6 +882,10 @@ const EXERCISES = {
   'g-used-to': {data:USED_TO_EX, cid:'ex-used', rounds:3},
   'g-imperatives': {data:IMPERATIVES_EX, cid:'ex-imp', rounds:3},
   'g-gerunds-infinitives': {data:GERUNDS_INF_EX, cid:'ex-gi', rounds:3},
+  'g-relative-clauses': {data:RELATIVE_CLAUSES_EX, cid:'ex-rc', rounds:3},
+  'g-possessives-s-of': {data:POSSESSIVES_EX, cid:'ex-pos', rounds:3},
+  'g-linking-words': {data:LINKING_WORDS_EX, cid:'ex-lw', rounds:3},
+  'g-phrasal-verbs': {data:PHRASAL_VERBS_EX, cid:'ex-pv', rounds:3},
 };
 
 // ==================== SIMULACRO CHECKBOXES ====================
@@ -1641,7 +1694,16 @@ SECTIONS['g-relative-clauses'] = `<div class="section active" style="display:blo
 </div>
 <div class="example">💡 <b>Who</b> y <b>that</b> se pueden usar para personas. <b>That</b> es más coloquial.<br>
 💡 <b>Whom</b> es muy formal; en conversación se usa <b>who</b> o se omite.<br>
-💡 <b>Whose</b> es para posesión, no confundir con <b>who's</b> (who is / who has).</div></div>`;
+💡 <b>Whose</b> es para posesión, no confundir con <b>who's</b> (who is / who has).</div>
+</div>
+<h3>📝 Ejercicios <span id="ex-rc-rnd" style="font-size:0.75rem;color:var(--text2)"></span></h3>
+<div id="ex-rc"></div>
+<div class="btn-row" style="margin-top:12px">
+<button class="btn-check-all" onclick="checkAllInline('ex-rc')">✅ Corregir todo</button>
+<button class="btn-reset" onclick="resetInline('ex-rc')">🔄 Reset</button>
+<button class="btn-next" onclick="_rounds['g-relative-clauses']&&_rounds['g-relative-clauses'].next()">▶️ Siguiente ronda</button>
+</div>
+<div id="ex-rc-score" class="score-box" style="display:none"></div></div>`;
 
 SECTIONS['g-possessives-s-of'] = `<div class="section active" style="display:block">
 <h2>📌 Possessives — 's / of</h2>
@@ -1666,7 +1728,16 @@ SECTIONS['g-possessives-s-of'] = `<div class="section active" style="display:blo
 <div class="example"><span class="en">A <b>friend of my mother's</b>.</span> — Un amigo de mi madre.<br>
 <span class="en">A <b>friend of mine</b>.</span> — Un amigo mío.</div>
 </div>
-<div class="example">💡 Con lugares conocidos a veces se usa 's: <span class="en">I'm going to <b>the dentist's</b>.</span></div></div>`;
+<div class="example">💡 Con lugares conocidos a veces se usa 's: <span class="en">I'm going to <b>the dentist's</b>.</span></div>
+</div>
+<h3>📝 Ejercicios <span id="ex-pos-rnd" style="font-size:0.75rem;color:var(--text2)"></span></h3>
+<div id="ex-pos"></div>
+<div class="btn-row" style="margin-top:12px">
+<button class="btn-check-all" onclick="checkAllInline('ex-pos')">✅ Corregir todo</button>
+<button class="btn-reset" onclick="resetInline('ex-pos')">🔄 Reset</button>
+<button class="btn-next" onclick="_rounds['g-possessives-s-of']&&_rounds['g-possessives-s-of'].next()">▶️ Siguiente ronda</button>
+</div>
+<div id="ex-pos-score" class="score-box" style="display:none"></div></div>`;
 
 SECTIONS['g-imperatives'] = `<div class="section active" style="display:block">
 <h2>❗ Imperatives</h2>
@@ -1723,7 +1794,16 @@ SECTIONS['g-linking-words'] = `<div class="section active" style="display:block"
 <tr><td><b>to sum up</b></td><td>en resumen</td><td><span class="en"><b>To sum up</b>, the trip was great.</span></td></tr>
 </tbody></table>
 </div>
-<div class="example">💡 Estas palabras son clave para el <b>Writing</b> de Cambridge y exámenes oficiales. No abuses de ellas: 2-3 por escrito es suficiente.</div></div>`;
+<div class="example">💡 Estas palabras son clave para el <b>Writing</b> de Cambridge y exámenes oficiales. No abuses de ellas: 2-3 por escrito es suficiente.</div>
+</div>
+<h3>📝 Ejercicios <span id="ex-lw-rnd" style="font-size:0.75rem;color:var(--text2)"></span></h3>
+<div id="ex-lw"></div>
+<div class="btn-row" style="margin-top:12px">
+<button class="btn-check-all" onclick="checkAllInline('ex-lw')">✅ Corregir todo</button>
+<button class="btn-reset" onclick="resetInline('ex-lw')">🔄 Reset</button>
+<button class="btn-next" onclick="_rounds['g-linking-words']&&_rounds['g-linking-words'].next()">▶️ Siguiente ronda</button>
+</div>
+<div id="ex-lw-score" class="score-box" style="display:none"></div></div>`;
 
 SECTIONS['g-phrasal-verbs'] = `<div class="section active" style="display:block">
 <h2>🔀 Phrasal Verbs</h2>
@@ -1751,7 +1831,16 @@ SECTIONS['g-phrasal-verbs'] = `<div class="section active" style="display:block"
 <div class="example"><span class="en">I <b>look after</b> my sister.</span> (no "look my sister after")<br>
 <span class="en">She <b>looks for</b> her keys.</span></div>
 </div>
-<div class="example">💡 Con pronombres (it, them, me...), los separables SIEMPRE se separan: <span class="en">Take <b>it</b> off.</span> ✅</div></div>`;
+<div class="example">💡 Con pronombres (it, them, me...), los separables SIEMPRE se separan: <span class="en">Take <b>it</b> off.</span> ✅</div>
+</div>
+<h3>📝 Ejercicios <span id="ex-pv-rnd" style="font-size:0.75rem;color:var(--text2)"></span></h3>
+<div id="ex-pv"></div>
+<div class="btn-row" style="margin-top:12px">
+<button class="btn-check-all" onclick="checkAllInline('ex-pv')">✅ Corregir todo</button>
+<button class="btn-reset" onclick="resetInline('ex-pv')">🔄 Reset</button>
+<button class="btn-next" onclick="_rounds['g-phrasal-verbs']&&_rounds['g-phrasal-verbs'].next()">▶️ Siguiente ronda</button>
+</div>
+<div id="ex-pv-score" class="score-box" style="display:none"></div></div>`;
 
 // ==================== REGISTER POOL SECTIONS ====================
 if (typeof registerPoolSections === 'function') registerPoolSections(SECTIONS);
