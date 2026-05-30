@@ -411,7 +411,6 @@ function ssRender() {
   document.getElementById('ss-feedback').style.display = 'none';
   ssAnswered = false;
   ssUpdateScore();
-  setTimeout(function() { speakWord(d.sentence.replace(/<br>/g, ' '), 0.9); }, 500);
 }
 
 function ssSelect(idx) {
