@@ -302,6 +302,16 @@ function show(name) {
   document.querySelectorAll('.sidebar a').forEach(a=>a.classList.remove('active'));
   const nid = NAV_MAP[name];
   if (nid) document.getElementById(nid).classList.add('active');
+  // Dual highlight: topics that appear in both FUNDAMENTOS and GRAMMAR
+  const DUAL = {
+    'f-to-be': 'ngtb', 'f-there-is-are': 'ngti', 'f-possessives': 'ngposs',
+    'f-quantifiers': 'ngq'
+  };
+  var dualId = DUAL[name];
+  if (dualId) {
+    var dualEl = document.getElementById(dualId);
+    if (dualEl) dualEl.classList.add('active');
+  }
   currentSection = name;
   const main = document.getElementById('main-content');
 
@@ -1573,18 +1583,30 @@ SECTIONS['g-future'] = `<div class="section active" style="display:block">
 
 SECTIONS['g-comparatives'] = `<div class="section active" style="display:block">
 <h2>🗣️ Comparatives &amp; Superlatives</h2>
-<h3>Adjetivos cortos (1 sílaba)</h3>
-<div class="theory-box"><p><b>adj + -er + than</b> · Superlativo: <b>the + adj + -est</b></p><p>big→big<b>ger</b>, hot→hot<b>ter</b>, easy→eas<b>ier</b></p></div>
-<div class="example"><span class="en">My car is <b>bigger than</b> yours. / She is <b>the tallest</b> in class.</span></div>
-<h3>Adjetivos largos (2+ sílabas)</h3>
-<div class="theory-box"><p><b>more + adj + than</b> · <b>the most + adj</b></p></div>
-<div class="example"><span class="en">This is <b>more interesting than</b> that. / She is <b>the most intelligent</b> student.</span></div>
-<h3>Irregulares</h3>
-<div class="theory-box"><p>good → <b>better</b> → <b>the best</b> · bad → <b>worse</b> → <b>the worst</b> · far → <b>farther/further</b></p></div>
-<div class="example"><span class="en">This book is <b>better than</b> the movie. / That was <b>the worst</b> day ever.</span></div>
-<h3>Igualdad</h3>
+<h3>📈 Superioridad — cortos (1 sílaba)</h3>
+<div class="theory-box"><p><b>adj + -er + than</b> = más...que</p><p>big→big<b>ger</b>, hot→hot<b>ter</b>, easy→eas<b>ier</b>, tall→tall<b>er</b></p></div>
+<div class="example"><span class="en">My car is <b>bigger than</b> yours. / She is <b>taller than</b> me.</span></div>
+<h3>📈 Superioridad — largos (2+ sílabas)</h3>
+<div class="theory-box"><p><b>more + adj + than</b> = más...que</p></div>
+<div class="example"><span class="en">This is <b>more interesting than</b> that. / She is <b>more intelligent than</b> him.</span></div>
+<h3>📉 Inferioridad</h3>
+<div class="theory-box"><p><b>less + adj + than</b> = menos...que</p></div>
+<div class="example"><span class="en">This book is <b>less expensive than</b> that one. / He is <b>less tall than</b> his brother.</span></div>
+<h3>⚖️ Igualdad</h3>
 <div class="theory-box"><p><b>as + adj + as</b> = tan...como · <b>not as + adj + as</b> = no tan...como</p></div>
 <div class="example"><span class="en">She is <b>as tall as</b> her brother. / It's <b>not as easy as</b> it looks.</span></div>
+<h3>🏆 Superlativos — cortos</h3>
+<div class="theory-box"><p><b>the + adj + -est</b> = el/la más...</p><p>the big<b>gest</b>, the hot<b>test</b>, the eas<b>iest</b>, the tall<b>est</b></p></div>
+<div class="example"><span class="en">She is <b>the tallest</b> in class. / This is <b>the biggest</b> room.</span></div>
+<h3>🏆 Superlativos — largos</h3>
+<div class="theory-box"><p><b>the most + adj</b> = el/la más...</p></div>
+<div class="example"><span class="en">She is <b>the most intelligent</b> student. / It's <b>the most expensive</b> car.</span></div>
+<h3>🔻 Superlativo de inferioridad</h3>
+<div class="theory-box"><p><b>the least + adj</b> = el/la menos...</p></div>
+<div class="example"><span class="en">This is <b>the least expensive</b> option. / He is <b>the least tall</b> player.</span></div>
+<h3>⚠️ Irregulares</h3>
+<div class="theory-box"><p>good → <b>better</b> → <b>the best</b> · bad → <b>worse</b> → <b>the worst</b> · far → <b>farther/further</b> → <b>the farthest/furthest</b></p></div>
+<div class="example"><span class="en">This book is <b>better than</b> the movie. / That was <b>the worst</b> day ever. / I ran <b>further than</b> him.</span></div>
 <h3>📝 Ejercicios <span id="ex-comp-rnd" style="font-size:0.75rem;color:var(--text2)"></span></h3>
 <div id="ex-comp"></div>
 <div class="btn-row" style="margin-top:12px">
