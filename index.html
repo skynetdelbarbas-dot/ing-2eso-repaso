@@ -15,6 +15,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .sidebar h2{font-size:0.8rem;text-transform:uppercase;letter-spacing:.5px;color:var(--text2);margin:16px 0 6px}
 .sidebar a{display:block;padding:7px 12px;border-radius:6px;color:var(--text);text-decoration:none;font-size:0.88rem;margin-bottom:2px;transition:all .15s;cursor:pointer}
 .sidebar a:hover,.sidebar a.active{background:var(--primary);color:#fff}
+.sidebar-search{width:100%;padding:7px 10px;border-radius:6px;border:2px solid var(--border);font-size:0.78rem;margin-bottom:10px;background:var(--bg);color:var(--text);transition:border-color .2s;outline:none}
+.sidebar-search:focus{border-color:var(--primary)}
+.sidebar-search::placeholder{color:var(--text2);opacity:0.7}
 .gram-toggle{cursor:pointer;user-select:none;display:flex;align-items:center;gap:4px;padding:7px 12px;border-radius:6px;font-size:0.88rem;margin-bottom:2px;color:var(--text);transition:all .15s}
 .gram-toggle:hover{background:var(--primary);color:#fff}
 .gram-toggle .arr,.cefr-toggle .arr{font-size:0.7rem;transition:transform .2s;display:inline-block}
@@ -146,6 +149,7 @@ input.correct,textarea.correct{border-color:var(--success)!important;background:
   <h1>📚 Inglés</h1>
   <div class="subtitle">Aprende, traduce y practica</div>
   <a onclick="show('home')" class="active" id="nh" style="margin-bottom:6px">🏠 Inicio</a>
+  <input type="text" class="sidebar-search" id="sidebar-search" placeholder="🔍 Buscar tema..." oninput="filterSidebar(this.value)">
   <h2>🗺️ RUTAS</h2>
   <a onclick="show('home')" style="font-size:0.8rem">🌱 Beginner Path</a>
   <a onclick="show('home')" style="font-size:0.8rem">📚 2º ESO Path</a>
@@ -235,7 +239,7 @@ input.correct,textarea.correct{border-color:var(--success)!important;background:
   <a onclick="show('grammar-review')" id="ngr">🔄 Grammar Review</a>
   <a onclick="show('cambridge-a2')" id="nca">🎓 Cambridge A2 Key</a>
   <a onclick="show('simulacro')" id="nsim">🎯 Simulacro examen</a>
-  <div style="margin-top:20px;font-size:0.7rem;color:var(--text2)"><p>🗣️ UK 🇬🇧 / US 🇺🇸</p><p>🔤 Botón flotante = traductor</p><p>📦 v4.4.1</p></div>
+  <div style="margin-top:20px;font-size:0.7rem;color:var(--text2)"><p>🗣️ UK 🇬🇧 / US 🇺🇸</p><p>🔤 Botón flotante = traductor · 💬 Globo = tutor IA</p><p>📦 v5.0.0</p></div>
 </nav>
 <main class="main" id="main-content"></main>
 </div>
@@ -292,7 +296,7 @@ const PAGE_MAP = {
   'grammar-review':'grammar-review.html','cambridge-a2':'cambridge-a2.html',
   'songs':'canciones.html'};
 
-var APP_VERSION = '4.5.0';
+var APP_VERSION = '5.0.0';
 
 function show(name) {
   document.querySelectorAll('.sidebar a').forEach(a=>a.classList.remove('active'));
@@ -516,7 +520,21 @@ function toggleCEFR(level) {
   s.classList.toggle('open');
 }
 
-// ==================== FUNDAMENTOS TOGGLE ====================
+// ==================== SIDEBAR SEARCH ====================
+function filterSidebar(query) {
+  var q = query.toLowerCase().trim();
+  var links = document.querySelectorAll('.sidebar a, .cefr-toggle, .gram-toggle, .sidebar h2');
+  links.forEach(function(el) {
+    if (el.tagName === 'H2') { return; } // always show headings
+    var text = el.textContent.toLowerCase();
+    el.style.display = (!q || text.includes(q)) ? '' : 'none';
+  });
+  // Also filter submenu items
+  document.querySelectorAll('.cefr-sub a, .gram-sub a').forEach(function(a) {
+    if (!q) { a.style.display = ''; return; }
+    a.style.display = a.textContent.toLowerCase().includes(q) ? '' : 'none';
+  });
+}
 function toggleFund() {
   const t = document.getElementById('ft');
   const s = document.getElementById('fs');
