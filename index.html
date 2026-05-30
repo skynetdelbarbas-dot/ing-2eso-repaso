@@ -230,6 +230,16 @@ input.correct,textarea.correct{border-color:var(--success)!important;background:
     <a onclick="show('g-reported-speech')" id="ngrsa">🗣️ Advanced Reported Speech</a>
     <a onclick="show('g-advanced-modals')" id="ngam">🔹 Advanced Modals</a>
   </div>
+  <h2>🧠 VOCABULARY HUB</h2>
+  <div class="gram-toggle" id="vt" onclick="toggleVocab()"><span class="arr">▶</span> <span id="vt-text">Abrir Vocabulary Hub</span></div>
+  <div class="gram-sub" id="vs">
+    <a onclick="show('vocab-topics')" id="nvt">📚 Topics</a>
+    <a onclick="show('vocab-collocations')" id="nvc">🔗 Collocations</a>
+    <a onclick="show('vocab-phrasal')" id="nvp">🔀 Phrasal Verbs</a>
+    <a onclick="show('vocab-idioms')" id="nvi">💬 Idioms</a>
+    <a onclick="show('vocab-formation')" id="nvf">🎯 Word Formation</a>
+    <a onclick="show('vocab-mixed')" id="nvm">✏️ Mixed Review</a>
+  </div>
   <h2>✍️ WRITING</h2>
   <a onclick="show('writing')" id="nw">📝 Plantillas</a>
   <a onclick="show('writing-practice')" id="nwp">🖊️ Writing Practice</a>
@@ -239,11 +249,10 @@ input.correct,textarea.correct{border-color:var(--success)!important;background:
   <a onclick="show('listening')" id="nlst">🎧 Listening Practice</a>
   <a href="canciones.html" id="nsng">🎵 Songs</a>
   <h2>📝 PRÁCTICA</h2>
-  <a onclick="show('vocabulary')" id="nvoc">🧠 Vocabulary Hub</a>
   <a onclick="show('grammar-review')" id="ngr">🔄 Grammar Review</a>
   <a onclick="show('cambridge-a2')" id="nca">🎓 Cambridge A2 Key</a>
   <a onclick="show('simulacro')" id="nsim">🎯 Simulacro examen</a>
-  <div style="margin-top:20px;font-size:0.7rem;color:var(--text2)"><p>🗣️ UK 🇬🇧 / US 🇺🇸</p><p>🔤 Botón flotante = traductor</p><p>💬 Globo = tutor IA</p><p>📦 v5.3.0</p></div>
+  <div style="margin-top:20px;font-size:0.7rem;color:var(--text2)"><p>🗣️ UK 🇬🇧 / US 🇺🇸</p><p>🔤 Botón flotante = traductor</p><p>💬 Globo = tutor IA</p><p>📦 v5.4.0</p></div>
 </nav>
 <main class="main" id="main-content"></main>
 </div>
@@ -268,7 +277,7 @@ input.correct,textarea.correct{border-color:var(--success)!important;background:
 const SECTIONS = {};
 let currentSection = 'home';
 
-const NAV_MAP = {home:'nh',fundamentals:'nf',verbs:'nv',writing:'nw',simulacro:'nsim',vocabulary:'nvoc',
+const NAV_MAP = {home:'nh',fundamentals:'nf',verbs:'nv',writing:'nw',simulacro:'nsim',
   'f-to-be':'nftb','f-subject-pronouns':'nfsp','f-object-pronouns':'nfop',
   'f-possessives':'nfps','f-there-is-are':'nfti','f-quantifiers':'nfq',
   'f-prepositions':'nfpr','f-connectors':'nfc','f-sentence-structure':'nfss',
@@ -285,6 +294,8 @@ const NAV_MAP = {home:'nh',fundamentals:'nf',verbs:'nv',writing:'nw',simulacro:'
   'g-articles':'ngar','g-passive-adv':'ngpva','g-reported-speech-adv':'ngrsa',
   'g-advanced-modals':'ngam',
   'grammar-review':'ngr','cambridge-a2':'nca',
+  'vocab-topics':'nvt','vocab-collocations':'nvc','vocab-phrasal':'nvp',
+  'vocab-idioms':'nvi','vocab-formation':'nvf','vocab-mixed':'nvm',
   'reading':'nrd','listening':'nlst','writing-practice':'nwp','songs':'nsng'};
 
 const PAGE_MAP = {
@@ -298,11 +309,11 @@ const PAGE_MAP = {
   'g-third-conditional':'third-conditional.html',
   'g-mixed-conditionals':'mixed-conditionals.html',
   'g-present-perfect-continuous':'present-perfect-continuous.html',
-  'vocabulary':'vocabulary.html','simulacro':'simulacro.html?v=4',
+  'vocab-topics':'vocabulary.html','simulacro':'simulacro.html?v=4',
   'grammar-review':'grammar-review.html','cambridge-a2':'cambridge-a2.html',
   'songs':'canciones.html'};
 
-var APP_VERSION = '5.3.0';
+var APP_VERSION = '5.4.0';
 
 function show(name) {
   document.querySelectorAll('.sidebar a').forEach(a=>a.classList.remove('active'));
@@ -558,6 +569,14 @@ function toggleFund() {
   t.classList.toggle('open');
   s.classList.toggle('open');
   txt.textContent = t.classList.contains('open') ? 'Cerrar Fundamentos' : 'Abrir Fundamentos';
+}
+function toggleVocab() {
+  const t = document.getElementById('vt');
+  const s = document.getElementById('vs');
+  const txt = document.getElementById('vt-text');
+  t.classList.toggle('open');
+  s.classList.toggle('open');
+  txt.textContent = t.classList.contains('open') ? 'Cerrar Vocabulary Hub' : 'Abrir Vocabulary Hub';
 }
 
 // ==================== FLOATING TRANSLATOR ====================
@@ -1512,6 +1531,101 @@ const F_FREQUENCY_ADVERBS_EX = [
   {stem:"He ___ studies in the library. (a menudo)", answer:"often studies", alts:[]},
 ];
 
+// ── Collocations (vocab-collocations) ──
+const COLLOCATIONS_EX = [
+  {stem:"I need to ___ a decision about my future career.", answer:"make", alts:[]},
+  {stem:"She always ___ her homework right after school.", answer:"does", alts:[]},
+  {stem:"Can you ___ a photo of us in front of the castle?", answer:"take", alts:[]},
+  {stem:"I usually ___ a shower before breakfast.", answer:"have", alts:[]},
+  {stem:"Don't be afraid to ___ mistakes — that's how we learn.", answer:"make", alts:[]},
+  {stem:"We need to ___ the shopping before the supermarket closes.", answer:"do", alts:[]},
+  {stem:"My little sister ___ a great time at the birthday party.", answer:"had", alts:["had\""]},
+  {stem:"He wants to ___ a job in a café this summer.", answer:"get", alts:[]},
+  {stem:"Let's ___ a short break and grab some coffee.", answer:"take", alts:[]},
+  {stem:"She ___ a terrible headache after the loud concert.", answer:"had", alts:[]},
+  {stem:"She ___ dressed in five minutes and ran to school.", answer:"got", alts:[]},
+  {stem:"You should ___ more exercise if you want to stay fit.", answer:"do", alts:[]},
+];
+
+// ── Phrasal Verbs (vocab-phrasal) ──
+const PHRASAL_VERBS_VOCAB_EX = [
+  {stem:"I need to ___ up at 7 am tomorrow for the flight.", answer:"get", alts:["wake"]},
+  {stem:"Please ___ up your room before Mum gets home.", answer:"tidy", alts:["clean"]},
+  {stem:"Don't give ___! You're almost at the finish line!", answer:"up", alts:[]},
+  {stem:"My car broke ___ on the way to the beach.", answer:"down", alts:[]},
+  {stem:"Could you please ___ down the music? I'm trying to study.", answer:"turn", alts:[]},
+  {stem:"Don't forget to ___ off the lights when you leave.", answer:"turn", alts:["switch"]},
+  {stem:"The plane will ___ off at 6 pm from gate 12.", answer:"take", alts:[]},
+  {stem:"Don't ___ off your homework until the last minute.", answer:"put", alts:[]},
+  {stem:"I need to ___ out what really happened yesterday.", answer:"find", alts:["figure"]},
+  {stem:"We've run ___ of bread. Can you buy some?", answer:"out", alts:[]},
+  {stem:"Please ___ in this form with your personal details.", answer:"fill", alts:[]},
+  {stem:"Can I ___ in the game too? It looks fun!", answer:"join", alts:[]},
+];
+
+// ── Idioms (vocab-idioms) ──
+const IDIOMS_EX = [
+  {stem:"When something is very easy, we say it's a ___ of cake.", answer:"piece", alts:[]},
+  {stem:"We say '___ a leg!' to wish someone good luck before a performance.", answer:"break", alts:[]},
+  {stem:"If something is very expensive, it costs an arm and a ___.", answer:"leg", alts:[]},
+  {stem:"If you're feeling ill, you say you're under the ___.", answer:"weather", alts:[]},
+  {stem:"When it's raining very heavily, it's raining cats and ___.", answer:"dogs", alts:[]},
+  {stem:"If someone tells a secret, they spill the ___.", answer:"beans", alts:[]},
+  {stem:"When you describe something exactly right, you hit the nail on the ___.", answer:"head", alts:[]},
+  {stem:"Something that happens very rarely happens once in a blue ___.", answer:"moon", alts:[]},
+  {stem:"The idiom 'better late than ___' means it's OK to arrive late.", answer:"never", alts:[]},
+  {stem:"To stop working for the day is to ___ it a day.", answer:"call", alts:[]},
+  {stem:"When you're listening very carefully, you're all ___.", answer:"ears", alts:[]},
+  {stem:"If you accidentally reveal a secret, you let the cat out of the ___.", answer:"bag", alts:[]},
+];
+
+// ── Word Formation (vocab-formation) ──
+const WORD_FORMATION_EX = [
+  {stem:"A person who teaches is a teach___.", answer:"er", alts:["-er"]},
+  {stem:"The noun form of 'inform' is inform___.", answer:"ation", alts:["-ation","tion","-tion"]},
+  {stem:"When you are happy, you feel happi___.", answer:"ness", alts:["-ness"]},
+  {stem:"To 'agree' becomes a noun: agree___.", answer:"ment", alts:["-ment"]},
+  {stem:"The adverb form of 'quick' is quick___.", answer:"ly", alts:["-ly"]},
+  {stem:"Something full of beauty is beauti___.", answer:"ful", alts:["-ful"]},
+  {stem:"When something has no hope, it is hope___.", answer:"less", alts:["-less"]},
+  {stem:"The opposite of 'happy' is ___happy.", answer:"un", alts:["un-"]},
+  {stem:"The opposite of 'possible' is ___possible.", answer:"im", alts:["im-"]},
+  {stem:"The opposite of 'appear' is ___appear.", answer:"dis", alts:["dis-"]},
+  {stem:"To write again is to ___write.", answer:"re", alts:["re-"]},
+  {stem:"A person who acts on stage is an act___.", answer:"or", alts:["-or"]},
+];
+
+// ── Mixed Review (vocab-mixed) — pool of 20 diverse questions ──
+const MIXED_VOCAB_EX = [
+  // Collocations
+  {stem:"I need to ___ a decision soon. (make/do)", answer:"make", alts:[]},
+  {stem:"She always ___ her homework before dinner. (makes/does)", answer:"does", alts:[]},
+  {stem:"Can you ___ me a favour? (make/do)", answer:"do", alts:[]},
+  // Phrasal verbs
+  {stem:"Please ___ up your room before Mum arrives. (tidy/clean)", answer:"tidy", alts:["clean"]},
+  {stem:"We've run ___ of milk. Can you buy some?", answer:"out", alts:[]},
+  {stem:"Don't give ___, you're almost there!", answer:"up", alts:[]},
+  // Idioms
+  {stem:"The exam was a ___ of cake. (very easy)", answer:"piece", alts:[]},
+  {stem:"He's feeling under the ___ today. (ill)", answer:"weather", alts:[]},
+  {stem:"She spilled the ___ about the surprise party. (told the secret)", answer:"beans", alts:[]},
+  // Word Formation
+  {stem:"A person who writes books is a write___.", answer:"r", alts:["-er","er","-r"]},
+  {stem:"The opposite of 'like' is ___like.", answer:"dis", alts:["dis-"]},
+  {stem:"The noun form of 'enjoy' is enjoy___.", answer:"ment", alts:["-ment"]},
+  // Topics — places in town
+  {stem:"You go here to borrow books: l___.", answer:"library", alts:[]},
+  {stem:"You go here to see a film: c___.", answer:"cinema", alts:["movie theater","theatre"]},
+  {stem:"You go here to buy medicine: p___.", answer:"pharmacy", alts:["chemist's","drugstore"]},
+  // Topics — daily routines
+  {stem:"I ___ up at 7 am every morning. (wake/get)", answer:"wake", alts:["get"]},
+  {stem:"I ___ breakfast at 8 am. (make/have)", answer:"have", alts:["make"]},
+  {stem:"I go to ___ by bus every day. (school/work)", answer:"school", alts:["work"]},
+  // Topics — food
+  {stem:"For breakfast I eat cereal with ___. (milk/water)", answer:"milk", alts:[]},
+  {stem:"A popular fast food: ham___ and chips.", answer:"burger", alts:["hamburger"]},
+];
+
 const EXERCISES = {
   'g-modal': {data:MODAL_EXERCISES, cid:'ex-modal', rounds:3},
   'g-future': {data:FUTURE_EXERCISES, cid:'ex-future', rounds:3},
@@ -1541,6 +1655,11 @@ const EXERCISES = {
   'f-question-words': {data:F_QUESTION_WORDS_EX, cid:'ex-f-question-words', rounds:3},
   'f-numbers': {data:F_NUMBERS_EX, cid:'ex-f-numbers', rounds:3},
   'f-frequency-adverbs': {data:F_FREQUENCY_ADVERBS_EX, cid:'ex-f-frequency-adverbs', rounds:3},
+  'vocab-collocations': {data:COLLOCATIONS_EX, cid:'ex-vc', rounds:3},
+  'vocab-phrasal': {data:PHRASAL_VERBS_VOCAB_EX, cid:'ex-vp', rounds:3},
+  'vocab-idioms': {data:IDIOMS_EX, cid:'ex-vi', rounds:3},
+  'vocab-formation': {data:WORD_FORMATION_EX, cid:'ex-vf', rounds:3},
+  'vocab-mixed': {data:MIXED_VOCAB_EX, cid:'ex-vm', rounds:3},
 };
 
 // ==================== SIMULACRO CHECKBOXES ====================
@@ -1626,16 +1745,6 @@ SECTIONS['home'] = `<div class="section active" style="display:block" id="dash-s
 <div class="dash-panel">
   <h3>🗺️ Rutas de aprendizaje</h3>
   <div class="dash-paths" id="dash-paths"></div>
-</div>
-
-<h3 style="margin-top:20px">🔍 Acceso rápido</h3>
-<div class="card-grid">
-<div class="gram-card" onclick="show('fundamentals')"><h4>📖 Fundamentos</h4><p>To Be, To Have, To Get y reglas esenciales</p></div>
-<div class="gram-card" onclick="show('verbs')"><h4>📋 Irregular Verbs</h4><p>Tabla completa con pronunciación</p></div>
-<div class="gram-card" onclick="toggleGrammar();setTimeout(()=>show('g-modal'),400)"><h4>🗣️ Grammar</h4><p>Modal, future, comparatives + 9 temas</p></div>
-<div class="gram-card" onclick="show('writing')"><h4>✍️ Writing</h4><p>Plantillas con cajas de texto</p></div>
-<div class="gram-card" onclick="show('simulacro')"><h4>🎯 Simulacro</h4><p>Examen con temas seleccionables</p></div>
-<div class="gram-card" onclick="window.open('pdfs/GUIA_ALUMNO.pdf','_blank')"><h4>📘 Guía de Uso</h4><p>PDF descargable</p></div>
 </div>
 </div>`;
 
@@ -2801,6 +2910,386 @@ SECTIONS['g-advanced-modals'] = `<div class="section active" style="display:bloc
 <button class="btn-next" onclick="_rounds['g-advanced-modals']&&_rounds['g-advanced-modals'].next()">▶️ Siguiente ronda</button>
 </div>
 <div id="ex-adv-modals-score" class="score-box" style="display:none"></div></div>`;
+
+// ── Vocab: Collocations (make / do / take / have / get) ──
+SECTIONS['vocab-collocations'] = `<div class="section active" style="display:block">
+<h2>🔗 Collocations — Make / Do / Take / Have / Get</h2>
+<div class="theory-box">
+<p>Las <b>collocations</b> son combinaciones de palabras que suenan naturales juntas en inglés. Aprender qué verbo usar con cada sustantivo es clave para sonar más natural.</p>
+<p>Los verbos <b>make, do, take, have</b> y <b>get</b> aparecen en cientos de collocations comunes. Aquí tienes las más importantes:</p>
+</div>
+
+<div class="theory-box">
+<h3>🛠️ MAKE — Crear, producir, causar</h3>
+<p>Se usa cuando <b>creamos algo nuevo</b> o <b>producimos un resultado</b>.</p>
+<div class="example">
+<span class="en"><b>make</b> a decision — tomar una decisión</span><br>
+<span class="en"><b>make</b> a mistake — cometer un error</span><br>
+<span class="en"><b>make</b> dinner / breakfast / lunch — preparar la cena / desayuno / comida</span><br>
+<span class="en"><b>make</b> a phone call — hacer una llamada</span><br>
+<span class="en"><b>make</b> plans — hacer planes</span><br>
+<span class="en"><b>make</b> money — ganar dinero</span><br>
+<span class="en"><b>make</b> noise — hacer ruido</span><br>
+<span class="en"><b>make</b> an effort — hacer un esfuerzo</span>
+</div>
+</div>
+
+<div class="theory-box">
+<h3>✅ DO — Trabajo, tareas, actividades generales</h3>
+<p>Se usa para <b>tareas, trabajos</b> y actividades sin un objeto físico como resultado.</p>
+<div class="example">
+<span class="en"><b>do</b> homework — hacer los deberes</span><br>
+<span class="en"><b>do</b> the shopping — hacer la compra</span><br>
+<span class="en"><b>do</b> housework — hacer las tareas del hogar</span><br>
+<span class="en"><b>do</b> exercise — hacer ejercicio</span><br>
+<span class="en"><b>do</b> a favour — hacer un favor</span><br>
+<span class="en"><b>do</b> business — hacer negocios</span><br>
+<span class="en"><b>do</b> your best — dar lo mejor de ti</span><br>
+<span class="en"><b>do</b> nothing — no hacer nada</span>
+</div>
+</div>
+
+<div class="theory-box">
+<h3>📸 TAKE — Movimiento, tiempo, fotos, transporte</h3>
+<p>Se usa para <b>tomar, coger</b> algo, o para acciones que requieren <b>movimiento</b>.</p>
+<div class="example">
+<span class="en"><b>take</b> a photo / a picture — hacer una foto</span><br>
+<span class="en"><b>take</b> a break — tomarse un descanso</span><br>
+<span class="en"><b>take</b> a shower / a bath — ducharse / bañarse</span><br>
+<span class="en"><b>take</b> the bus / the train — coger el autobús / tren</span><br>
+<span class="en"><b>take</b> care of — cuidar de</span><br>
+<span class="en"><b>take</b> part in — participar en</span><br>
+<span class="en"><b>take</b> a walk — dar un paseo</span><br>
+<span class="en"><b>take</b> an exam — hacer un examen</span>
+</div>
+</div>
+
+<div class="theory-box">
+<h3>🎉 HAVE — Comer, beber, experiencias, sensaciones</h3>
+<p>Se usa para <b>comidas, bebidas, experiencias</b> y <b>sensaciones físicas</b>.</p>
+<div class="example">
+<span class="en"><b>have</b> breakfast / lunch / dinner — desayunar / almorzar / cenar</span><br>
+<span class="en"><b>have</b> a shower / a bath — ducharse / bañarse (UK)</span><br>
+<span class="en"><b>have</b> a good time / fun — pasarlo bien / divertirse</span><br>
+<span class="en"><b>have</b> a party — hacer una fiesta</span><br>
+<span class="en"><b>have</b> a drink — tomar una bebida</span><br>
+<span class="en"><b>have</b> a headache / a cold — tener dolor de cabeza / resfriado</span><br>
+<span class="en"><b>have</b> a conversation — mantener una conversación</span><br>
+<span class="en"><b>have</b> a look — echar un vistazo</span>
+</div>
+</div>
+
+<div class="theory-box">
+<h3>🎯 GET — Recibir, conseguir, llegar, cambiarse</h3>
+<p>Es un verbo muy versátil. Se usa para <b>obtener, recibir, llegar</b> y <b>cambios de estado</b>.</p>
+<div class="example">
+<span class="en"><b>get</b> a job — conseguir un trabajo</span><br>
+<span class="en"><b>get</b> dressed / undressed — vestirse / desvestirse</span><br>
+<span class="en"><b>get</b> ready — prepararse</span><br>
+<span class="en"><b>get</b> home / to school — llegar a casa / al colegio</span><br>
+<span class="en"><b>get</b> married — casarse</span><br>
+<span class="en"><b>get</b> tired / hungry / cold — cansarse / tener hambre / tener frío</span><br>
+<span class="en"><b>get</b> lost — perderse</span><br>
+<span class="en"><b>get</b> along (with) — llevarse bien (con)</span>
+</div>
+</div>
+
+<div class="theory-box">
+<h3>⚡ Tabla rápida de collocations</h3>
+<table class="verbs"><thead><tr><th>Verbo</th><th>Uso principal</th><th>Ejemplos</th></tr></thead><tbody>
+<tr><td><b>MAKE</b></td><td>Crear / producir</td><td><span class="en">make a decision, make a mistake, make dinner, make a plan</span></td></tr>
+<tr><td><b>DO</b></td><td>Tareas / trabajo</td><td><span class="en">do homework, do the shopping, do exercise, do a favour</span></td></tr>
+<tr><td><b>TAKE</b></td><td>Coger / mover</td><td><span class="en">take a photo, take a break, take a shower, take the bus</span></td></tr>
+<tr><td><b>HAVE</b></td><td>Comer / experimentar</td><td><span class="en">have breakfast, have fun, have a headache, have a party</span></td></tr>
+<tr><td><b>GET</b></td><td>Recibir / conseguir / cambio</td><td><span class="en">get a job, get dressed, get home, get tired</span></td></tr>
+</tbody></table>
+</div>
+
+<h3>📝 Ejercicios <span id="ex-vc-rnd" style="font-size:0.75rem;color:var(--text2)"></span></h3>
+<div id="ex-vc"></div>
+<div class="btn-row" style="margin-top:12px">
+<button class="btn-check-all" onclick="checkAllInline('ex-vc')">✅ Corregir todo</button>
+<button class="btn-reset" onclick="resetInline('ex-vc')">🔄 Reset</button>
+<button class="btn-next" onclick="_rounds['vocab-collocations']&&_rounds['vocab-collocations'].next()">▶️ Siguiente ronda</button>
+</div>
+<div id="ex-vc-score" class="score-box" style="display:none"></div></div>`;
+
+// ── Vocab: Phrasal Verbs (UP / DOWN / OFF / OUT / IN) ──
+SECTIONS['vocab-phrasal'] = `<div class="section active" style="display:block">
+<h2>🔀 Phrasal Verbs — UP / DOWN / OFF / OUT / IN</h2>
+<div class="theory-box">
+<p>Los <b>phrasal verbs</b> son combinaciones de <b>verbo + partícula</b> (up, down, off, out, in, etc.) cuyo significado suele ser diferente al del verbo original. Aquí tienes los agrupados por partícula para aprenderlos más fácilmente.</p>
+</div>
+
+<div class="theory-box">
+<h3>⬆️ UP — Arriba, aumentar, completar</h3>
+<p>UP sugiere <b>movimiento hacia arriba, aumento o finalización</b> de una acción.</p>
+<div class="example">
+<span class="en"><b>get up</b> — levantarse: I <b>get up</b> at 7 am every day.</span><br>
+<span class="en"><b>wake up</b> — despertarse: She <b>woke up</b> late this morning.</span><br>
+<span class="en"><b>give up</b> — rendirse / dejar: Never <b>give up</b> on your dreams!</span><br>
+<span class="en"><b>tidy up / clean up</b> — recoger / limpiar: Please <b>tidy up</b> your room.</span><br>
+<span class="en"><b>pick up</b> — recoger: Can you <b>pick up</b> the kids from school?</span><br>
+<span class="en"><b>look up</b> — buscar información: <b>Look up</b> the word in a dictionary.</span><br>
+<span class="en"><b>grow up</b> — crecer: I want to be a doctor when I <b>grow up</b>.</span><br>
+<span class="en"><b>turn up</b> — subir volumen / aparecer: <b>Turn up</b> the music!</span>
+</div>
+</div>
+
+<div class="theory-box">
+<h3>⬇️ DOWN — Abajo, reducir, parar</h3>
+<p>DOWN sugiere <b>movimiento hacia abajo, reducción o parada</b>.</p>
+<div class="example">
+<span class="en"><b>turn down</b> — bajar volumen / rechazar: Please <b>turn down</b> the TV.</span><br>
+<span class="en"><b>calm down</b> — calmarse: <b>Calm down</b>! Everything will be OK.</span><br>
+<span class="en"><b>break down</b> — averiarse: The car <b>broke down</b> on the motorway.</span><br>
+<span class="en"><b>write down</b> — apuntar: <b>Write down</b> the important information.</span><br>
+<span class="en"><b>put down</b> — dejar: <b>Put down</b> your bags and rest.</span><br>
+<span class="en"><b>slow down</b> — reducir velocidad: <b>Slow down</b>! You're driving too fast.</span><br>
+<span class="en"><b>settle down</b> — establecerse / sentar la cabeza: He wants to <b>settle down</b>.</span>
+</div>
+</div>
+
+<div class="theory-box">
+<h3>🚀 OFF — Salir, separarse, apagar, empezar</h3>
+<p>OFF sugiere <b>separación, salida, apagado o inicio de un viaje</b>.</p>
+<div class="example">
+<span class="en"><b>turn off / switch off</b> — apagar: Don't forget to <b>turn off</b> the lights.</span><br>
+<span class="en"><b>take off</b> — quitarse ropa / despegar: <b>Take off</b> your shoes / The plane <b>took off</b> at 6pm.</span><br>
+<span class="en"><b>put off</b> — posponer: Don't <b>put off</b> your homework until tomorrow.</span><br>
+<span class="en"><b>set off</b> — ponerse en camino: We <b>set off</b> early in the morning.</span><br>
+<span class="en"><b>go off</b> — estropearse / sonar (alarma): The milk has <b>gone off</b>.</span><br>
+<span class="en"><b>show off</b> — presumir: He's always <b>showing off</b> his new phone.</span><br>
+<span class="en"><b>pay off</b> — pagar deuda / dar resultado: Hard work <b>pays off</b>.</span>
+</div>
+</div>
+
+<div class="theory-box">
+<h3>🚪 OUT — Salir, descubrir, agotar</h3>
+<p>OUT sugiere <b>salir, desaparecer, descubrir o agotar algo</b>.</p>
+<div class="example">
+<span class="en"><b>find out</b> — descubrir / averiguar: I need to <b>find out</b> what happened.</span><br>
+<span class="en"><b>go out</b> — salir / apagarse: Let's <b>go out</b> tonight! / The fire <b>went out</b>.</span><br>
+<span class="en"><b>run out of</b> — quedarse sin: We've <b>run out of</b> milk.</span><br>
+<span class="en"><b>work out</b> — resolver / hacer ejercicio: I <b>work out</b> three times a week.</span><br>
+<span class="en"><b>figure out</b> — entender / resolver: I can't <b>figure out</b> this problem.</span><br>
+<span class="en"><b>sort out</b> — solucionar / ordenar: We need to <b>sort out</b> this mess.</span><br>
+<span class="en"><b>check out</b> — echar un vistazo: <b>Check out</b> this new app!</span><br>
+<span class="en"><b>come out</b> — salir / publicarse: The new album <b>comes out</b> on Friday.</span>
+</div>
+</div>
+
+<div class="theory-box">
+<h3>🚪 IN — Entrar, participar, ceder</h3>
+<p>IN sugiere <b>entrada, participación, registro o rendición</b>.</p>
+<div class="example">
+<span class="en"><b>come in</b> — entrar: <b>Come in</b> and sit down.</span><br>
+<span class="en"><b>get in</b> — entrar al coche / llegar: <b>Get in</b> the car! / What time did you <b>get in</b>?</span><br>
+<span class="en"><b>give in</b> — rendirse / ceder: Don't <b>give in</b> to pressure.</span><br>
+<span class="en"><b>fill in</b> — rellenar: Please <b>fill in</b> this form.</span><br>
+<span class="en"><b>check in</b> — registrarse (hotel) / facturar (vuelo): We <b>checked in</b> at the hotel.</span><br>
+<span class="en"><b>join in</b> — unirse / participar: Can I <b>join in</b> the game?</span><br>
+<span class="en"><b>believe in</b> — creer en: I <b>believe in</b> you!</span>
+</div>
+</div>
+
+<div class="theory-box">
+<h3>⚡ Tabla rápida de partículas</h3>
+<table class="verbs"><thead><tr><th>Partícula</th><th>Significado general</th><th>Ejemplos</th></tr></thead><tbody>
+<tr><td><b>UP</b> ⬆️</td><td>Arriba, aumentar, completar</td><td><span class="en">get up, give up, tidy up, grow up, turn up</span></td></tr>
+<tr><td><b>DOWN</b> ⬇️</td><td>Abajo, reducir, parar</td><td><span class="en">turn down, calm down, break down, slow down</span></td></tr>
+<tr><td><b>OFF</b> 🚀</td><td>Separarse, apagar, salir</td><td><span class="en">turn off, take off, put off, set off, show off</span></td></tr>
+<tr><td><b>OUT</b> 🚪</td><td>Salir, descubrir, agotar</td><td><span class="en">find out, go out, run out, work out, figure out</span></td></tr>
+<tr><td><b>IN</b> 📥</td><td>Entrar, participar, ceder</td><td><span class="en">come in, get in, fill in, join in, give in</span></td></tr>
+</tbody></table>
+</div>
+
+<div class="example">💡 <b>Consejo:</b> Los phrasal verbs con pronombres (it, them, me...) se separan. Ej: <span class="en">Take <b>it</b> off ✅</span> (no "take off it").</div>
+
+<h3>📝 Ejercicios <span id="ex-vp-rnd" style="font-size:0.75rem;color:var(--text2)"></span></h3>
+<div id="ex-vp"></div>
+<div class="btn-row" style="margin-top:12px">
+<button class="btn-check-all" onclick="checkAllInline('ex-vp')">✅ Corregir todo</button>
+<button class="btn-reset" onclick="resetInline('ex-vp')">🔄 Reset</button>
+  <button class="btn-next" onclick="_rounds['vocab-phrasal']&&_rounds['vocab-phrasal'].next()">▶️ Siguiente ronda</button>
+</div>
+<div id="ex-vp-score" class="score-box" style="display:none"></div></div>`;
+
+// ── Vocab: Idioms (vocab-idioms) ──
+SECTIONS['vocab-idioms'] = `<div class="section active" style="display:block">
+<h2>💬 Idioms — Expresiones Idiomáticas</h2>
+<div class="theory-box">
+<p>Los <b>idioms</b> son expresiones fijas cuyo significado no es literal. No puedes traducirlas palabra por palabra. ¡Aprender idioms te hace sonar como un nativo!</p>
+</div>
+
+<div class="theory-box">
+<h3>🍰 Piece of cake — Pan comido / Muy fácil</h3>
+<p>Algo extremadamente fácil de hacer.</p>
+<div class="example"><span class="en">The exam was a <b>piece of cake</b>.</span><br><span class="es">El examen fue pan comido.</span></div>
+</div>
+
+<div class="theory-box">
+<h3>🦵 Break a leg — ¡Mucha mierda! (buena suerte)</h3>
+<p>Se dice para desear buena suerte, especialmente antes de una actuación.</p>
+<div class="example"><span class="en"><b>Break a leg</b> on stage tonight!</span><br><span class="es">¡Mucha mierda en el escenario esta noche!</span></div>
+</div>
+
+<div class="theory-box">
+<h3>💸 Cost an arm and a leg — Costar un ojo de la cara</h3>
+<p>Algo extremadamente caro.</p>
+<div class="example"><span class="en">That bag <b>cost an arm and a leg</b>.</span><br><span class="es">Ese bolso costó un ojo de la cara.</span></div>
+</div>
+
+<div class="theory-box">
+<h3>🤒 Under the weather — Indispuesto / Malito</h3>
+<p>Sentirse enfermo o con poca energía.</p>
+<div class="example"><span class="en">I'm feeling a bit <b>under the weather</b> today.</span><br><span class="es">Hoy me siento un poco malito.</span></div>
+</div>
+
+<div class="theory-box">
+<h3>🐱 Raining cats and dogs — Llover a cántaros</h3>
+<p>Llover muy intensamente.</p>
+<div class="example"><span class="en">Don't go out — it's <b>raining cats and dogs</b>!</span><br><span class="es">¡No salgas — está lloviendo a cántaros!</span></div>
+</div>
+
+<div class="theory-box">
+<h3>🫘 Spill the beans — Irse de la lengua / Revelar un secreto</h3>
+<p>Contar un secreto sin querer o de forma imprudente.</p>
+<div class="example"><span class="en">Who <b>spilled the beans</b> about the surprise party?</span><br><span class="es">¿Quién se fue de la lengua sobre la fiesta sorpresa?</span></div>
+</div>
+
+<div class="theory-box">
+<h3>🔨 Hit the nail on the head — Dar en el clavo</h3>
+<p>Decir o hacer exactamente lo correcto.</p>
+<div class="example"><span class="en">You <b>hit the nail on the head</b> with that answer.</span><br><span class="es">Diste en el clavo con esa respuesta.</span></div>
+</div>
+
+<div class="theory-box">
+<h3>🌙 Once in a blue moon — De Pascuas a Ramos / Muy raramente</h3>
+<p>Algo que ocurre muy rara vez.</p>
+<div class="example"><span class="en">I go to the cinema <b>once in a blue moon</b>.</span><br><span class="es">Voy al cine de Pascuas a Ramos.</span></div>
+</div>
+
+<div class="theory-box">
+<h3>⏰ Better late than never — Más vale tarde que nunca</h3>
+<p>Es mejor llegar tarde que no llegar.</p>
+<div class="example"><span class="en">Sorry I'm late. <b>Better late than never</b>!</span><br><span class="es">Perdón por llegar tarde. ¡Más vale tarde que nunca!</span></div>
+</div>
+
+<div class="theory-box">
+<h3>📅 Call it a day — Dar por terminado el día</h3>
+<p>Decidir dejar de trabajar o de hacer algo por hoy.</p>
+<div class="example"><span class="en">I think we should <b>call it a day</b> and go home.</span><br><span class="es">Creo que deberíamos dar por terminado el día e irnos a casa.</span></div>
+</div>
+
+<div class="theory-box">
+<h3>👂 Be all ears — Ser todo oídos</h3>
+<p>Escuchar con mucha atención.</p>
+<div class="example"><span class="en">Tell me your story — I'm <b>all ears</b>!</span><br><span class="es">Cuéntame tu historia — ¡soy todo oídos!</span></div>
+</div>
+
+<div class="theory-box">
+<h3>🐱 Let the cat out of the bag — Revelar un secreto sin querer</h3>
+<p>Descubrir accidentalmente un secreto o un plan.</p>
+<div class="example"><span class="en">She <b>let the cat out of the bag</b> about the engagement.</span><br><span class="es">Ella reveló el secreto del compromiso sin querer.</span></div>
+</div>
+
+<div class="theory-box">
+<h3>⚡ Más idioms útiles</h3>
+<table class="verbs"><thead><tr><th>Idiom</th><th>Significado</th><th>Ejemplo</th></tr></thead><tbody>
+<tr><td><b>It's not my cup of tea</b></td><td>No es lo mío / no me gusta</td><td><span class="en">Football is <b>not my cup of tea</b>.</span></td></tr>
+<tr><td><b>When pigs fly</b></td><td>Nunca, cuando los cerdos vuelen</td><td><span class="en">He'll clean his room <b>when pigs fly</b>.</span></td></tr>
+<tr><td><b>Bite the bullet</b></td><td>Morderse la lengua, aguantar</td><td><span class="en">Just <b>bite the bullet</b> and do it.</span></td></tr>
+<tr><td><b>Let sleeping dogs lie</b></td><td>No remover el pasado</td><td><span class="en">Better to <b>let sleeping dogs lie</b>.</span></td></tr>
+</tbody></table>
+</div>
+
+<h3>📝 Ejercicios <span id="ex-vi-rnd" style="font-size:0.75rem;color:var(--text2)"></span></h3>
+<div id="ex-vi"></div>
+<div class="btn-row" style="margin-top:12px">
+<button class="btn-check-all" onclick="checkAllInline('ex-vi')">✅ Corregir todo</button>
+<button class="btn-reset" onclick="resetInline('ex-vi')">🔄 Reset</button>
+<button class="btn-next" onclick="_rounds['vocab-idioms']&&_rounds['vocab-idioms'].next()">▶️ Siguiente ronda</button>
+</div>
+<div id="ex-vi-score" class="score-box" style="display:none"></div></div>`;
+
+// ── Vocab: Word Formation (vocab-formation) ──
+SECTIONS['vocab-formation'] = `<div class="section active" style="display:block">
+<h2>🎯 Word Formation — Sufijos y Prefijos</h2>
+<div class="theory-box">
+<p>La <b>formación de palabras</b> (word formation) te permite crear nuevas palabras añadiendo <b>prefijos</b> al principio o <b>sufijos</b> al final. Es una habilidad clave para expandir tu vocabulario rápidamente.</p>
+</div>
+
+<div class="theory-box">
+<h3>➕ Suffixes — Sufijos (cambian la categoría gramatical)</h3>
+<p>Los sufijos se añaden al <b>final</b> de una palabra para cambiar su tipo (verbo → sustantivo, adjetivo → adverbio, etc.).</p>
+<table class="verbs"><thead><tr><th>Sufijo</th><th>Función</th><th>Ejemplo</th></tr></thead><tbody>
+<tr><td><b>-er / -or</b></td><td>Verbo → Persona que hace la acción</td><td><span class="en">teach → teach<b>er</b>, act → act<b>or</b></span></td></tr>
+<tr><td><b>-tion / -ation</b></td><td>Verbo → Sustantivo (acción/resultado)</td><td><span class="en">inform → informa<b>tion</b>, create → crea<b>tion</b></span></td></tr>
+<tr><td><b>-ness</b></td><td>Adjetivo → Sustantivo (cualidad)</td><td><span class="en">happy → happi<b>ness</b>, kind → kind<b>ness</b></span></td></tr>
+<tr><td><b>-ment</b></td><td>Verbo → Sustantivo (acción/resultado)</td><td><span class="en">agree → agree<b>ment</b>, enjoy → enjoy<b>ment</b></span></td></tr>
+<tr><td><b>-ly</b></td><td>Adjetivo → Adverbio de modo</td><td><span class="en">quick → quick<b>ly</b>, careful → careful<b>ly</b></span></td></tr>
+<tr><td><b>-ful</b></td><td>Sustantivo → Adjetivo (lleno de)</td><td><span class="en">beauty → beauti<b>ful</b>, hope → hope<b>ful</b></span></td></tr>
+<tr><td><b>-less</b></td><td>Sustantivo → Adjetivo (sin)</td><td><span class="en">hope → hope<b>less</b>, home → home<b>less</b></span></td></tr>
+</tbody></table>
+</div>
+
+<div class="theory-box">
+<h3>➖ Prefixes — Prefijos (cambian el significado)</h3>
+<p>Los prefijos se añaden al <b>principio</b> de una palabra para cambiar su significado, normalmente creando el opuesto.</p>
+<table class="verbs"><thead><tr><th>Prefijo</th><th>Función</th><th>Ejemplo</th></tr></thead><tbody>
+<tr><td><b>un-</b></td><td>Opuesto / negación</td><td><span class="en"><b>un</b>happy — infeliz, <b>un</b>kind — desagradable</span></td></tr>
+<tr><td><b>im-</b></td><td>Opuesto (con palabras empezando por p/m)</td><td><span class="en"><b>im</b>possible — imposible, <b>im</b>polite — descortés</span></td></tr>
+<tr><td><b>dis-</b></td><td>Opuesto / inverso</td><td><span class="en"><b>dis</b>appear — desaparecer, <b>dis</b>like — disgustar</span></td></tr>
+<tr><td><b>re-</b></td><td>Repetir / hacer de nuevo</td><td><span class="en"><b>re</b>write — reescribir, <b>re</b>play — reproducir</span></td></tr>
+</tbody></table>
+</div>
+
+<div class="theory-box">
+<h3>💡 Estrategias para word formation</h3>
+<div class="example">
+<p>🔹 <b>Identifica la palabra raíz:</b> <span class="en">care + ful = careful, care + less = careless</span></p>
+<p>🔹 <b>Pregúntate qué tipo de palabra necesitas:</b> ¿sustantivo, adjetivo, adverbio, verbo?</p>
+<p>🔹 <b>Los sufijos cambian la categoría:</b> <span class="en">quick (adj) → quickly (adv) → quickness (noun)</span></p>
+<p>🔹 <b>Los prefijos cambian el significado:</b> <span class="en">appear → disappear, do → undo</span></p>
+<p>🔹 <b>Practica con opuestos:</b> <span class="en">happy/unhappy, possible/impossible, appear/disappear</span></p>
+</div>
+</div>
+
+<h3>📝 Ejercicios <span id="ex-vf-rnd" style="font-size:0.75rem;color:var(--text2)"></span></h3>
+<div id="ex-vf"></div>
+<div class="btn-row" style="margin-top:12px">
+<button class="btn-check-all" onclick="checkAllInline('ex-vf')">✅ Corregir todo</button>
+<button class="btn-reset" onclick="resetInline('ex-vf')">🔄 Reset</button>
+<button class="btn-next" onclick="_rounds['vocab-formation']&&_rounds['vocab-formation'].next()">▶️ Siguiente ronda</button>
+</div>
+<div id="ex-vf-score" class="score-box" style="display:none"></div></div>`;
+
+// ── Vocab: Mixed Review (vocab-mixed) — no theory, just exercises ──
+SECTIONS['vocab-mixed'] = `<div class="section active" style="display:block">
+<h2>✏️ Mixed Review — Repaso Completo</h2>
+<div class="theory-box">
+<p>Esta sección mezcla preguntas de <b>todas las categorías</b>: collocations, phrasal verbs, idioms, word formation, temas de vocabulario, gramática básica y más. ¡Perfecto para poner a prueba todo lo que has aprendido!</p>
+</div>
+
+<div class="theory-box">
+<p>💡 <b>Consejos para el repaso:</b></p>
+<ul>
+<li>🔄 Si fallas una pregunta, <b>anótala</b> y repásala más tarde.</li>
+<li>📝 Lee cada frase con atención — a veces el contexto te da la pista.</li>
+<li>⏱ Intenta responder sin mirar las opciones primero.</li>
+<li>🏆 Usa las rondas para repasar una y otra vez hasta dominarlo todo.</li>
+</ul>
+</div>
+
+<h3>📝 Ejercicios <span id="ex-vm-rnd" style="font-size:0.75rem;color:var(--text2)"></span></h3>
+<div id="ex-vm"></div>
+<div class="btn-row" style="margin-top:12px">
+<button class="btn-check-all" onclick="checkAllInline('ex-vm')">✅ Corregir todo</button>
+<button class="btn-reset" onclick="resetInline('ex-vm')">🔄 Reset</button>
+<button class="btn-next" onclick="_rounds['vocab-mixed']&&_rounds['vocab-mixed'].next()">▶️ Siguiente ronda</button>
+</div>
+<div id="ex-vm-score" class="score-box" style="display:none"></div></div>`;
 
 // ==================== REGISTER POOL SECTIONS ====================
 if (typeof registerPoolSections === 'function') registerPoolSections(SECTIONS);
