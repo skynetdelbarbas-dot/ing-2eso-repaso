@@ -7,9 +7,8 @@
 <link rel="stylesheet" href="style.css?v=5">
 <style>
 .rp-scenarios{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;margin:12px 0}
-.rp-card{background:var(--card);border:2px solid var(--border);border-radius:var(--radius);padding:18px 18px 14px;cursor:pointer;transition:all .15s;user-select:none}
-.rp-card:hover{border-color:var(--primary);background:#e7f5ff;transform:translateY(-2px);box-shadow:0 4px 16px rgba(77,171,247,.2)}
-.rp-card:active{transform:translateY(0);box-shadow:none}
+.rp-card{background:var(--card);border:2px solid var(--border);border-radius:var(--radius);padding:18px 18px 14px;transition:all .15s}
+.rp-card:hover{border-color:var(--primary);background:#e7f5ff}
 .rp-card.active{border-color:var(--primary);background:#e7f5ff}
 .rp-card .icon{font-size:2.2rem;margin-bottom:6px}
 .rp-card .title{font-weight:700;font-size:1rem;color:var(--text)}
@@ -17,8 +16,8 @@
 .rp-card .role{display:inline-block;margin-top:8px;padding:3px 10px;border-radius:4px;font-size:.75rem;font-weight:600}
 .rp-card .role.you{background:var(--success-bg);color:#2b8a3e}
 .rp-card .role.tutor{background:#e7f5ff;color:var(--primary-dark)}
-.rp-card .btn-indicator{display:inline-block;margin-top:10px;padding:5px 16px;border-radius:6px;background:var(--primary);color:#fff;font-size:.75rem;font-weight:700;transition:all .1s;letter-spacing:.5px}
-.rp-card:hover .btn-indicator{background:var(--primary-dark);transform:scale(1.05)}
+.rp-card .btn-practice{border:none;margin-top:10px;padding:7px 20px;border-radius:8px;background:var(--primary);color:#fff;font-size:.82rem;font-weight:700;cursor:pointer;transition:all .15s;letter-spacing:.3px;font-family:inherit}
+.rp-card .btn-practice:hover{background:var(--primary-dark);transform:scale(1.05)}
 .rp-chat-area{display:none}
 .rp-chat-area.show{display:block}
 .rp-phrases{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;margin:12px 0}
@@ -71,40 +70,40 @@
   <div class="section">
     <h2>📋 Choose a scenario</h2>
     <div class="rp-scenarios">
-      <div class="rp-card" onclick="selectScenario(this,'restaurant')">
+      <div class="rp-card" data-scenario="restaurant">
         <div class="icon">🍽️</div>
         <div class="title">At the Restaurant</div>
-        <div class="desc">Order food, ask about the menu, pay the bill</div><div class="btn-indicator">▶ Start</div>
+        <div class="desc">Order food, ask about the menu, pay the bill</div><button class="btn-practice" onclick="selectScenario(this)">▶️ Start</button>
         <div><span class="role you">🧑 You: Customer</span> <span class="role tutor">🤖 Tutor: Waiter/Waitress</span></div>
       </div>
-      <div class="rp-card" onclick="selectScenario(this,'shop')">
+      <div class="rp-card" data-scenario="shop">
         <div class="icon">🛍️</div>
         <div class="title">At the Shop</div>
-        <div class="desc">Buy clothes, ask for sizes, pay and return items</div><div class="btn-indicator">▶ Start</div>
+        <div class="desc">Buy clothes, ask for sizes, pay and return items</div><button class="btn-practice" onclick="selectScenario(this)">▶️ Start</button>
         <div><span class="role you">🧑 You: Customer</span> <span class="role tutor">🤖 Tutor: Shop Assistant</span></div>
       </div>
-      <div class="rp-card" onclick="selectScenario(this,'doctor')">
+      <div class="rp-card" data-scenario="doctor">
         <div class="icon">🏥</div>
         <div class="title">At the Doctor</div>
-        <div class="desc">Describe symptoms, get advice, ask about medicine</div><div class="btn-indicator">▶ Start</div>
+        <div class="desc">Describe symptoms, get advice, ask about medicine</div><button class="btn-practice" onclick="selectScenario(this)">▶️ Start</button>
         <div><span class="role you">🧑 You: Patient</span> <span class="role tutor">🤖 Tutor: Doctor</span></div>
       </div>
-      <div class="rp-card" onclick="selectScenario(this,'hotel')">
+      <div class="rp-card" data-scenario="hotel">
         <div class="icon">🏨</div>
         <div class="title">At the Hotel</div>
-        <div class="desc">Book a room, check in, ask about facilities</div><div class="btn-indicator">▶ Start</div>
+        <div class="desc">Book a room, check in, ask about facilities</div><button class="btn-practice" onclick="selectScenario(this)">▶️ Start</button>
         <div><span class="role you">🧑 You: Guest</span> <span class="role tutor">🤖 Tutor: Receptionist</span></div>
       </div>
-      <div class="rp-card" onclick="selectScenario(this,'airport')">
+      <div class="rp-card" data-scenario="airport">
         <div class="icon">✈️</div>
         <div class="title">At the Airport</div>
-        <div class="desc">Check in, go through security, ask for the gate</div><div class="btn-indicator">▶ Start</div>
+        <div class="desc">Check in, go through security, ask for the gate</div><button class="btn-practice" onclick="selectScenario(this)">▶️ Start</button>
         <div><span class="role you">🧑 You: Passenger</span> <span class="role tutor">🤖 Tutor: Airport Staff</span></div>
       </div>
-      <div class="rp-card" onclick="selectScenario(this,'directions')">
+      <div class="rp-card" data-scenario="directions">
         <div class="icon">🗺️</div>
         <div class="title">Asking for Directions</div>
-        <div class="desc">Ask how to get somewhere, understand directions</div><div class="btn-indicator">▶ Start</div>
+        <div class="desc">Ask how to get somewhere, understand directions</div><button class="btn-practice" onclick="selectScenario(this)">▶️ Start</button>
         <div><span class="role you">🧑 You: Tourist</span> <span class="role tutor">🤖 Tutor: Local Person</span></div>
       </div>
     </div>
@@ -211,12 +210,20 @@ var SCENARIOS = {
 
 var currentScenario = null;
 
-function selectScenario(el, scenarioId) {
+function selectScenario(btn) {
+  var card = btn.closest('.rp-card');
+  if (!card) return;
+  var scenarioId = card.getAttribute('data-scenario');
   document.querySelectorAll('.rp-card').forEach(function(c) { c.classList.remove('active'); });
   el.classList.add('active');
 
   currentScenario = scenarioId;
   var data = SCENARIOS[scenarioId];
+  // Scroll to chat area
+  setTimeout(function() {
+    var chatArea = document.getElementById('chat-area');
+    if (chatArea) chatArea.scrollIntoView({behavior: 'smooth', block: 'start'});
+  }, 300);
 
   // Update chat
   var chatEl = document.getElementById('inline-chat');
