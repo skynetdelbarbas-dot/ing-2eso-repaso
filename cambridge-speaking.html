@@ -82,6 +82,10 @@
         <span class="badge">🟡 PET</span>
         <span class="desc">B1 Preliminary for Schools — Intermediate</span>
       </button>
+      <button class="cs-level" onclick="setCamLevel(this,'FCE')">
+        <span class="badge">🔵 FCE</span>
+        <span class="desc">B2 First for Schools — Upper Intermediate</span>
+      </button>
     </div>
   </div>
 
@@ -226,6 +230,62 @@ var CAM_DATA = {
         time: '3-4 minutes'
       },
     ]
+  },
+  FCE: {
+    name: 'B2 First for Schools',
+    parts: [
+      {
+        title: '🗣 Part 1: Interview',
+        instructions: 'The examiner asks you some questions about yourself, your interests and your experiences. Give full answers with reasons and examples. Show you can use a range of vocabulary and tenses naturally.',
+        questions: [
+          { q: 'What kind of music do you enjoy? How does it make you feel?', hint: 'Give details — genres, artists, why you like it, when you listen' },
+          { q: 'Tell us about a teacher who has inspired you.', hint: 'Describe their qualities, how they helped you, specific examples' },
+          { q: 'What do you enjoy doing with your friends at weekends?', hint: 'Describe activities, why you enjoy them, how often you meet' },
+          { q: 'If you could visit any country in the world, where would you go and why?', hint: 'Give reasons, what you would do there, who with' },
+          { q: 'How do you usually prepare for an important exam?', hint: 'Describe your study habits, schedule, techniques' },
+        ],
+        model: 'I really enjoy pop music and also some rock. My favourite artist is Taylor Swift because her lyrics tell stories that I can relate to. When I listen to music, it helps me relax after a long day at school or motivates me before a sports game. I usually listen to music on my phone while I\'m doing homework or travelling to school.',
+        time: '2 minutes'
+      },
+      {
+        title: '🗣 Part 2: Photo Comparison — Long Turn',
+        instructions: 'The examiner gives you two photos and asks you to compare them. You need to speak for about 1 minute. Describe what you can see, compare them, and answer the question written above the photos. Remember to speculate and express opinions.',
+        questions: [
+          { q: 'Compare two different ways of spending free time: one indoors and one outdoors. Which would you prefer and why?', hint: 'Describe both, compare their advantages, give your preference' },
+          { q: 'Compare two different types of holidays: a beach holiday and a city break. What are the benefits of each?', hint: 'Talk about activities, atmosphere, who would enjoy each type' },
+          { q: 'Compare two photos of different learning environments: a traditional classroom and an outdoor lesson. What are the advantages of each?', hint: 'Describe both scenes, compare facilities, engagement, and atmosphere' },
+          { q: 'Compare two different sports: an individual sport and a team sport. Which one do you think is more beneficial and why?', hint: 'Talk about skills, social aspects, health benefits, personal preference' },
+          { q: 'Compare two pictures of family meals: one at home and one at a restaurant. Which atmosphere do you prefer?', hint: 'Describe each setting, compare formality, conversation, food' },
+        ],
+        model: 'In the first photo, I can see some teenagers playing football in a park. The atmosphere looks energetic and social — they\'re working as a team and having fun together. In the second photo, there\'s a girl practising the violin alone in her room. It looks calm and focused. Both activities are beneficial but in different ways. Team sports help you develop social skills and stay fit, while individual activities like playing an instrument improve concentration and self-discipline. Personally, I would prefer the team sport because I enjoy being with other people and the competitive aspect motivates me.',
+        time: '3 minutes'
+      },
+      {
+        title: '🗣 Part 3: Collaborative Task',
+        instructions: 'The examiner gives you a scenario with different options. You need to discuss them with your partner, give opinions, agree/disagree, negotiate and try to reach a decision. Since you don\'t have a partner, read the scenario and think about how you would discuss each option.',
+        questions: [
+          { q: 'Your school wants to organise a special event for students. Options: a sports day, a music festival, a science fair, a charity fundraiser, or a film night. Which two would be best? Discuss and agree.', hint: 'Discuss each option, compare benefits, negotiate, reach agreement' },
+          { q: 'A new app for teenagers is being designed. Which feature is most important? Options: homework help, fitness tracking, mental health support, social networking, or career advice.', hint: 'Consider each feature, give reasons, discuss pros and cons' },
+          { q: 'Your class is planning an end-of-year trip. Options: a water park, a museum, a camping trip, a theme park, or a day at the beach.', hint: 'Discuss budget, fun factor, educational value, what everyone would enjoy' },
+          { q: 'The local council wants to build a new facility for teenagers. Options: a skate park, a music studio, a library with computers, a sports centre, or an art workshop.', hint: 'Think about which would benefit most people, be most used, and best for the community' },
+        ],
+        model: 'I think the best two options would be the sports day and the music festival. A sports day would encourage everyone to be active and compete in a fun way. It\'s also relatively easy to organise because we can use the school\'s sports facilities. A music festival would be great because many students love music and some even play instruments. We could have live performances from students, which would be really exciting. I don\'t think a science fair is a good idea because it might not appeal to everyone. A charity fundraiser is nice but maybe less fun for a celebration. What do you think? Do you agree with sports day and music festival?',
+        time: '3 minutes'
+      },
+      {
+        title: '🗣 Part 4: Discussion',
+        instructions: 'The examiner asks more questions related to the topic from Part 3. You need to express and justify opinions, agree and disagree politely, and discuss more abstract ideas. Show you can evaluate different viewpoints.',
+        questions: [
+          { q: 'Do you think schools should organise more events like the one you discussed? Why or why not?', hint: 'Give arguments for and against, use examples' },
+          { q: 'Some people say teenagers spend too much time indoors on screens. What is your opinion?', hint: 'Discuss both sides, give reasons, suggest a balance' },
+          { q: 'What makes a good leader when working in a team? Give examples.', hint: 'Describe qualities, give specific examples from your experience' },
+          { q: 'Do you think it\'s more important to study subjects you enjoy or subjects that are useful for your future career?', hint: 'Discuss both perspectives, justify your opinion' },
+          { q: 'How can young people make a positive difference in their local community?', hint: 'Give concrete ideas and examples' },
+        ],
+        model: 'I think schools should definitely organise more events like these. They give students a break from the normal routine and help us develop skills that we don\'t learn in class, like teamwork and communication. On the other hand, some people might say events take time away from studying, but in my opinion, a balanced approach is best. Regarding teenagers spending too much time on screens, I think it depends on the individual. Screens can be educational and social, but we also need physical activity and face-to-face interaction. The key is finding a healthy balance.',
+        time: '4 minutes'
+      },
+    ]
   }
 };
 
@@ -279,6 +339,7 @@ function renderPart(idx) {
     var descs = {
       KET: 'A family in a park having a picnic. The sun is shining and children are playing.',
       PET: 'A busy street market in an old city. There are colourful stalls and many people shopping.',
+      FCE: 'Two photos: one shows teenagers playing football outdoors, the other shows a girl playing the violin indoors.',
     };
     document.getElementById('photo-description').textContent = descs[camLevel] || 'A scene to describe in English.';
   } else {
