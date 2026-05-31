@@ -11,10 +11,9 @@
 
   function init() {
     // ─── API URL ───
-    // The static site is on GitHub Pages (ingles.skynetdelbarbas.com)
-    // The API is served via Cloudflare tunnel (tutor.skynetdelbarbas.com → localhost:18401)
+    // The API is served from the same origin (ingles.skynetdelbarbas.com → localhost:18401)
     // Override with window.TUTOR_API_URL if needed
-    const API_BASE = (window.TUTOR_API_URL || 'https://tutor.skynetdelbarbas.com/api').replace(/\/chat$/, '');
+    const API_BASE = (window.TUTOR_API_URL || location.origin + '/api').replace(/\/chat$/, '');
     const API_CHAT = API_BASE + '/chat';
     const API_START = API_BASE + '/start';
     const API_HEALTH = API_BASE + '/health';

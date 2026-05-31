@@ -16,7 +16,7 @@ import mimetypes
 from datetime import datetime, timezone
 from pathlib import Path
 
-from fastapi import FastAPI, HTTPException, Query, Request
+from fastapi import FastAPI, HTTPException, Query
 from fastapi.responses import HTMLResponse, JSONResponse, Response
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
@@ -435,21 +435,6 @@ async def chat_widget_middleware(request, call_next):
 
 # ─── API Endpoints ───
 
-@app.post("/api/debug-echo")
-async def debug_echo(request: Request):
-    """Debug endpoint to see what the server receives."""
-    import json
-    body_bytes = await request.body()
-    headers = dict(request.headers)
-    return {
-        "body_received": body_bytes.decode() if body_bytes else None,
-        "content_type": headers.get("content-type"),
-        "content_length": headers.get("content-length"),
-        "method": request.method,
-        "url": str(request.url),
-    }
-
-
 @app.post("/api/start")
 async def start_student(body: dict):
     """
@@ -804,4 +789,4 @@ def on_startup():
 
 if __name__ == "__main__":
     port = int(sys.argv[1]) if len(sys.argv) > 1 else PORT
-    uvicorn.run(app, host="0.0.0.0", port=port, log_level="warning")
+    uvicorn.run(app, host="127.0.0.1", port=port, log_level="warning")
