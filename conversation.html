@@ -7,8 +7,9 @@
 <link rel="stylesheet" href="style.css?v=5">
 <style>
 .conv-topics{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:12px 0}
-.conv-topic{background:var(--card);border:2px solid var(--border);border-radius:var(--radius);padding:16px;cursor:pointer;transition:all .15s;text-align:center}
-.conv-topic:hover{border-color:var(--primary);transform:translateY(-2px);box-shadow:0 4px 16px rgba(77,171,247,.2)}
+.conv-topic{background:var(--card);border:2px solid var(--border);border-radius:var(--radius);padding:16px;cursor:pointer;transition:all .15s;text-align:center;user-select:none}
+.conv-topic:hover{border-color:var(--primary);background:#e7f5ff;transform:translateY(-2px);box-shadow:0 4px 16px rgba(77,171,247,.2);color:var(--primary-dark)}
+.conv-topic:active{transform:translateY(0);box-shadow:none}
 .conv-topic.active{border-color:var(--primary);background:#e7f5ff}
 .conv-topic .icon{font-size:2rem;margin-bottom:6px}
 .conv-topic .title{font-weight:700;font-size:.95rem;color:var(--text)}

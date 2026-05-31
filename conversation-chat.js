@@ -30,7 +30,7 @@
 .inline-chat-msgs .msg.bot{background:#e9ecef;color:#212529;margin-right:auto;border-bottom-left-radius:4px}
 .inline-chat-msgs .msg.bot.loading{color:#868e96;font-style:italic}
 .inline-chat-msgs .msg.bot.sys{background:#fff9db;color:#212529;border:1px solid #ffd43b;font-size:.82rem}
-.inline-chat-msgs .msg .speak-btn{display:inline-flex;align-items:center;gap:4px;margin-top:6px;padding:4px 10px;border-radius:5px;border:1px solid var(--border);background:var(--card);color:var(--primary-dark);font-size:.78rem;cursor:pointer;transition:all .1s}
+.inline-chat-msgs .msg .speak-btn{display:inline-flex;align-items:center;gap:4px;margin-top:6px;padding:5px 12px;border-radius:6px;border:2px solid var(--primary);background:#e7f5ff;color:var(--primary-dark);font-size:.8rem;font-weight:600;cursor:pointer;transition:all .1s}
 .inline-chat-msgs .msg .speak-btn:hover{background:var(--primary);color:#fff;border-color:var(--primary)}
 .inline-chat-input{display:flex;padding:10px 12px;border-top:1px solid var(--border)}
 .inline-chat-input input{flex:1;padding:10px 12px;border:2px solid var(--border);border-radius:8px;font-size:.87rem;outline:none;font-family:inherit}
