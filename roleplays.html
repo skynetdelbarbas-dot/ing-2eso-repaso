@@ -241,7 +241,7 @@ function selectScenario(btn) {
     html += '<div class="rp-phrase">';
     html += '<div class="en">' + p.en + '</div>';
     html += '<div class="es">' + p.es + '</div>';
-    html += '<button class="sound-mini" data-speak="' + text + '">🔊 Listen</button>';
+    html += '<button class="sound-mini" data-speak="' + text + '" onclick="listenClick(event)">🔊 Listen</button>';
     html += '</div>';
   });
   html += '</div>';
@@ -276,6 +276,14 @@ function speakInline(text) {
   if (enVoice) u.voice = enVoice;
   window.currentInlineUtterance = u;
   speechSynthesis.speak(u);
+}
+
+// ─── Listen click helper (direct onclick, no delegation) ───
+function listenClick(e) {
+  e.preventDefault();
+  var btn = e.currentTarget;
+  var text = btn.getAttribute('data-speak');
+  if (text) speakInline(text);
 }
 </script>
 </body>

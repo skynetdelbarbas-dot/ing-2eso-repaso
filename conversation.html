@@ -303,7 +303,7 @@ function selectTopic(btn) {
     html += '<div class="conv-phrase">';
     html += '<div class="en">' + p.en + '</div>';
     html += '<div class="es">' + p.es + '</div>';
-    html += '<button class="sound-mini" data-speak="' + text + '">🔊 Listen</button>';
+    html += '<button class="sound-mini" data-speak="' + text + '" onclick="listenClick(event)">🔊 Listen</button>';
     html += '</div>';
   });
   html += '</div>';
@@ -321,6 +321,14 @@ function selectTopic(btn) {
     // Re-init
     window.initInlineChat('inline-chat');
   }
+}
+
+// ─── Listen click helper (direct onclick, no delegation) ───
+function listenClick(e) {
+  e.preventDefault();
+  var btn = e.currentTarget;
+  var text = btn.getAttribute('data-speak');
+  if (text) speakInline(text);
 }
 
 // ─── Init on page load (no topic selected yet) ───
