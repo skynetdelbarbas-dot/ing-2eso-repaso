@@ -57,30 +57,29 @@
     var studentName = localStorage.getItem(LS_NAME) || '';
     var studentLevel = localStorage.getItem(LS_LEVEL) || level;
     var studentId = localStorage.getItem(LS_ID) || '';
-    var online = true;
 
-    // Determine if registered
-    var isRegistered = !!(studentId && studentName);
+    // ─── Auto-register if first time (no registration form needed) ───
+    if (!studentId) {
+      studentId = 'anon_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6);
+      studentName = studentName || 'Student';
+      studentLevel = studentLevel || level;
+      localStorage.setItem(LS_ID, studentId);
+      localStorage.setItem(LS_NAME, studentName);
+      localStorage.setItem(LS_LEVEL, studentLevel);
+    }
 
     // ─── Build HTML ───
     var html = '<div class="inline-chat-wrap">';
     html += '<div class="inline-chat-header">';
-    html += '<span>' + (scenario ? '🎭 ' + scenario : '🗣 Conversation') + '</span>';
-    html += '<span class="inline-chat-status"><span class="dot ' + (online ? 'online' : 'offline') + '" id="ichat-dot"></span><span id="ichat-status-label">Connected</span></span>';
+    html += '<span>' + (scenario ? '🎭 ' + scenario.replace(/^You are /i,'') : '🗣 Conversation') + '</span>';
+    html += '<span class="inline-chat-status"><span class="dot online" id="ichat-dot"></span><span id="ichat-status-label">Online</span></span>';
     html += '</div>';
-
-    if (isRegistered) {
-      html += buildRegisterDone(scenario, studentName, studentLevel);
-    } else {
-      html += buildRegisterForm(scenario);
-    }
+    html += buildRegisterDone(scenario, studentName, studentLevel);
     html += '</div>';
     container.innerHTML = html;
 
-    // If already registered, show chat
-    if (isRegistered) {
-      showChat(container, scenario, studentName, studentLevel);
-    }
+    // Show chat directly
+    showChat(container, scenario, studentName, studentLevel);
   }
 
   function buildRegisterForm(scenario) {

@@ -336,14 +336,35 @@ function renderPart(idx) {
   var photoArea = document.getElementById('cs-photo');
   if (part.title.indexOf('Photo') >= 0 || part.title.indexOf('Picture') >= 0) {
     photoArea.style.display = 'flex';
+    var imgUrls = {
+      KET: 'https://picsum.photos/seed/ket-picnic/400/280',
+      PET: 'https://picsum.photos/seed/pet-market/400/280',
+      FCE: 'https://picsum.photos/seed/fce-sport/400/280',
+    };
     var descs = {
       KET: 'A family in a park having a picnic. The sun is shining and children are playing.',
       PET: 'A busy street market in an old city. There are colourful stalls and many people shopping.',
-      FCE: 'Two photos: one shows teenagers playing football outdoors, the other shows a girl playing the violin indoors.',
+      FCE: 'Compare these two photos: teenagers playing football outdoors vs a girl playing the violin indoors.',
     };
-    document.getElementById('photo-description').textContent = descs[camLevel] || 'A scene to describe in English.';
+    var imgUrl = imgUrls[camLevel] || 'https://picsum.photos/seed/default/400/280';
+    var desc = descs[camLevel] || 'A scene to describe in English.';
+    // Replace placeholder with actual image
+    var existingImg = photoArea.querySelector('img');
+    if (!existingImg) {
+      photoArea.innerHTML = '<img src="' + imgUrl + '" alt="' + desc + '" style="width:100%;max-width:400px;border-radius:8px;border:2px solid var(--border);margin-bottom:8px">' +
+        '<div class="photo-label">📸 Describe this picture</div>' +
+        '<div class="photo-desc" id="photo-description">' + desc + '</div>';
+    } else {
+      existingImg.src = imgUrl;
+      existingImg.alt = desc;
+      document.getElementById('photo-description').textContent = desc;
+    }
   } else {
     photoArea.style.display = 'none';
+    // Restore placeholder for next time
+    if (photoArea.querySelector('img')) {
+      photoArea.innerHTML = '<div class="photo-placeholder">🖼️</div><div class="photo-label">Imagine you are describing this picture</div><div class="photo-desc" id="photo-description"></div>';
+    }
   }
 
   // Questions
