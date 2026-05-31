@@ -443,7 +443,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // ─── Speak helper ───
 function speakInline(text) {
-  if (window.currentInlineUtterance) speechSynthesis.cancel();
+  speechSynthesis.cancel();
+  if (speechSynthesis.getVoices().length === 0) {
+    speechSynthesis.onvoiceschanged = function() { speechSynthesis.getVoices(); };
+  }
   var u = new SpeechSynthesisUtterance(text);
   u.lang = 'en-GB'; u.rate = 0.85;
   var voices = speechSynthesis.getVoices();

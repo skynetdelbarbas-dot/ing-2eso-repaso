@@ -7,11 +7,11 @@
 <link rel="stylesheet" href="style.css?v=5">
 <style>
 .cs-levels{display:flex;gap:8px;margin-bottom:16px}
-.cs-level{flex:1;text-align:center;padding:14px;border-radius:var(--radius);border:2px solid var(--border);background:var(--card);cursor:pointer;transition:all .15s}
+.cs-level{flex:1;text-align:center;padding:14px;border-radius:var(--radius);border:2px solid var(--border);background:var(--card);cursor:pointer;transition:all .15s;font-family:inherit;font-size:inherit;line-height:1.4}
 .cs-level:hover{border-color:var(--primary)}
 .cs-level.active{border-color:var(--primary);background:#e7f5ff}
-.cs-level .badge{font-size:1.3rem;font-weight:700;margin-bottom:4px}
-.cs-level .desc{font-size:.78rem;color:var(--text2)}
+.cs-level .badge{font-size:1.3rem;font-weight:700;margin-bottom:4px;display:block}
+.cs-level .desc{font-size:.78rem;color:var(--text2);display:block}
 .cs-part-selector{display:flex;gap:6px;margin:12px 0;flex-wrap:wrap}
 .cs-part-btn{padding:8px 18px;border-radius:6px;border:2px solid var(--border);background:var(--card);cursor:pointer;font-size:.85rem;font-weight:600;transition:all .1s}
 .cs-part-btn:hover{border-color:var(--primary)}
@@ -74,14 +74,14 @@
   <div class="section">
     <h2>📋 Select exam level</h2>
     <div class="cs-levels">
-      <div class="cs-level active" onclick="setCamLevel(this,'KET')" role="button" tabindex="0">
-        <div class="badge">🟢 KET</div>
-        <div class="desc">A2 Key for Schools — Elementary</div>
-      </div>
-      <div class="cs-level" onclick="setCamLevel(this,'PET')" role="button" tabindex="0">
-        <div class="badge">🟡 PET</div>
-        <div class="desc">B1 Preliminary for Schools — Intermediate</div>
-      </div>
+      <button class="cs-level active" onclick="setCamLevel(this,'KET')">
+        <span class="badge">🟢 KET</span>
+        <span class="desc">A2 Key for Schools — Elementary</span>
+      </button>
+      <button class="cs-level" onclick="setCamLevel(this,'PET')">
+        <span class="badge">🟡 PET</span>
+        <span class="desc">B1 Preliminary for Schools — Intermediate</span>
+      </button>
     </div>
   </div>
 
@@ -104,7 +104,7 @@
     <div id="cs-questions" class="cs-questions"></div>
     <div class="cs-model-toggle">
       <button class="btn btn-check-all" onclick="toggleCamModel()">💡 Show / Hide model answers</button>
-      <button class="btn btn-next" onclick="speakCamPrompt()" style="margin-left:6px">🔊 Listen to questions</button>
+      <button class="btn btn-next" onclick="speakCamPrompt()" style="margin-left:6px" id="cam-listen-btn">🔊 Listen to questions</button>
     </div>
     <div id="cs-model" class="cs-model-box">
       <div class="model-text" id="cam-model-text"></div>
@@ -230,6 +230,7 @@ var CAM_DATA = {
 
 var camLevel = 'KET';
 var camPart = 0;
+var camQuestionIndex = -1; // -1 = not started
 
 function setCamLevel(el, level) {
   document.querySelectorAll('.cs-level').forEach(function(l) { l.classList.remove('active'); });
@@ -256,6 +257,8 @@ function renderParts() {
 
 function renderPart(idx) {
   camPart = idx;
+  camQuestionIndex = -1;
+  document.getElementById('cam-listen-btn').textContent = '🔊 Listen to questions';
   var data = CAM_DATA[camLevel];
   var part = data.parts[idx];
 
@@ -295,19 +298,23 @@ function renderPart(idx) {
 
   // Model
   document.getElementById('cs-model').classList.remove('show');
+  document.getElementById('cs-model').style.display = '';
   document.getElementById('cam-model-text').innerHTML = '';
 }
 
 function toggleCamModel() {
   var modelEl = document.getElementById('cs-model');
   var textEl = document.getElementById('cam-model-text');
-  if (modelEl.classList.contains('show')) {
+  var isVisible = modelEl.classList.contains('show');
+  if (isVisible) {
     modelEl.classList.remove('show');
+    modelEl.style.display = 'none';
   } else {
     var data = CAM_DATA[camLevel];
     var part = data.parts[camPart];
     if (part.model) {
       textEl.innerHTML = '<strong>Model answer:</strong><br><br>' + part.model.replace(/\n/g, '<br>');
+      modelEl.style.display = '';
       modelEl.classList.add('show');
     }
   }
@@ -316,15 +323,34 @@ function toggleCamModel() {
 function speakCamPrompt() {
   var data = CAM_DATA[camLevel];
   var part = data.parts[camPart];
-  // Speak the first question
-  if (part.questions.length > 0) {
-    speakInline(part.questions[0].q);
+  var total = part.questions.length;
+
+  // Advance to next question (or start from first)
+  camQuestionIndex = (camQuestionIndex + 1) % total;
+
+  var q = part.questions[camQuestionIndex];
+  speakInline(q.q);
+
+  // Update button label
+  var btn = document.getElementById('cam-listen-btn');
+  if (camQuestionIndex < total - 1) {
+    btn.textContent = '⏭ Next question (' + (camQuestionIndex + 1) + '/' + total + ')';
+  } else {
+    btn.textContent = '🔄 Replay all questions';
+    // After 2 seconds reset to start label
+    setTimeout(function() {
+      camQuestionIndex = -1;
+      btn.textContent = '🔊 Listen to questions';
+    }, 2000);
   }
 }
 
 // ─── Speak helper ───
 function speakInline(text) {
-  if (window.currentInlineUtterance) speechSynthesis.cancel();
+  speechSynthesis.cancel();
+  if (speechSynthesis.getVoices().length === 0) {
+    speechSynthesis.onvoiceschanged = function() { speechSynthesis.getVoices(); };
+  }
   var u = new SpeechSynthesisUtterance(text);
   u.lang = 'en-GB'; u.rate = 0.85;
   var voices = speechSynthesis.getVoices();

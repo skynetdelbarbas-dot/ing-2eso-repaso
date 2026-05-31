@@ -258,8 +258,11 @@
 
   // ─── Speak helper ───
   window.speakInline = function(text) {
-    if (window.currentInlineUtterance) {
-      speechSynthesis.cancel();
+    // Always cancel any ongoing speech first (fixes iOS/Chromium silent-fail bug)
+    speechSynthesis.cancel();
+    // Ensure voices are loaded
+    if (speechSynthesis.getVoices().length === 0) {
+      speechSynthesis.onvoiceschanged = function() { speechSynthesis.getVoices(); };
     }
     var u = new SpeechSynthesisUtterance(text);
     u.lang = 'en-GB';
