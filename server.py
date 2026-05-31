@@ -16,10 +16,9 @@ import mimetypes
 from datetime import datetime, timezone
 from pathlib import Path
 
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import FastAPI, HTTPException, Query, Request
 from fastapi.responses import HTMLResponse, JSONResponse, Response
 from fastapi.middleware.cors import CORSMiddleware
-from starlette.middleware.base import BaseHTTPMiddleware
 import uvicorn
 
 # ─── Paths ───
@@ -412,32 +411,44 @@ app.add_middleware(
 CHAT_WIDGET_SCRIPT = '<script src="/chat-widget.js?v=3"></script>'
 
 
-class ChatWidgetMiddleware(BaseHTTPMiddleware):
-    async def dispatch(self, request, call_next):
-        response = await call_next(request)
-        content_type = response.headers.get("content-type", "")
-        if "text/html" in content_type and response.status_code == 200:
-            try:
-                body = response.body
-                if isinstance(body, bytes):
-                    body_str = body.decode("utf-8")
-                    if "chat-widget.js" not in body_str:
-                        body_str = body_str.replace("</body>", f"{CHAT_WIDGET_SCRIPT}\n</body>")
-                        return Response(
-                            content=body_str.encode("utf-8"),
-                            status_code=response.status_code,
-                            headers=dict(response.headers),
-                            media_type=response.media_type,
-                        )
-            except Exception:
-                pass
-        return response
-
-
-app.add_middleware(ChatWidgetMiddleware)
+@app.middleware("http")
+async def chat_widget_middleware(request, call_next):
+    response = await call_next(request)
+    content_type = response.headers.get("content-type", "")
+    if "text/html" in content_type and response.status_code == 200:
+        try:
+            body = response.body
+            if isinstance(body, bytes):
+                body_str = body.decode("utf-8")
+                if "chat-widget.js" not in body_str:
+                    body_str = body_str.replace("</body>", f"{CHAT_WIDGET_SCRIPT}\n</body>")
+                    return Response(
+                        content=body_str.encode("utf-8"),
+                        status_code=response.status_code,
+                        headers=dict(response.headers),
+                        media_type=response.media_type,
+                    )
+        except Exception:
+            pass
+    return response
 
 
 # ─── API Endpoints ───
+
+@app.post("/api/debug-echo")
+async def debug_echo(request: Request):
+    """Debug endpoint to see what the server receives."""
+    import json
+    body_bytes = await request.body()
+    headers = dict(request.headers)
+    return {
+        "body_received": body_bytes.decode() if body_bytes else None,
+        "content_type": headers.get("content-type"),
+        "content_length": headers.get("content-length"),
+        "method": request.method,
+        "url": str(request.url),
+    }
+
 
 @app.post("/api/start")
 async def start_student(body: dict):
@@ -793,4 +804,4 @@ def on_startup():
 
 if __name__ == "__main__":
     port = int(sys.argv[1]) if len(sys.argv) > 1 else PORT
-    uvicorn.run(app, host="127.0.0.1", port=port, log_level="warning")
+    uvicorn.run(app, host="0.0.0.0", port=port, log_level="warning")

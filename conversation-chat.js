@@ -6,7 +6,7 @@
 (function() {
   'use strict';
 
-  var API_BASE = (window.TUTOR_API_URL || 'https://tutor.skynetdelbarbas.com/api').replace(/\/chat$/, '');
+  var API_BASE = (window.TUTOR_API_URL || location.origin + '/api').replace(/\/chat$/, '');
   var API_CHAT = API_BASE + '/chat';
   var API_START = API_BASE + '/start';
 
