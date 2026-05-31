@@ -7,13 +7,15 @@
 <link rel="stylesheet" href="style.css?v=5">
 <style>
 .conv-topics{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:12px 0}
-.conv-topic{background:var(--card);border:2px solid var(--border);border-radius:var(--radius);padding:16px;cursor:pointer;transition:all .15s;text-align:center;user-select:none}
-.conv-topic:hover{border-color:var(--primary);background:#e7f5ff;transform:translateY(-2px);box-shadow:0 4px 16px rgba(77,171,247,.2);color:var(--primary-dark)}
+.conv-topic{background:var(--card);border:2px solid var(--border);border-radius:var(--radius);padding:16px 16px 12px;cursor:pointer;transition:all .15s;text-align:center;user-select:none}
+.conv-topic:hover{border-color:var(--primary);background:#e7f5ff;transform:translateY(-2px);box-shadow:0 4px 16px rgba(77,171,247,.2)}
 .conv-topic:active{transform:translateY(0);box-shadow:none}
 .conv-topic.active{border-color:var(--primary);background:#e7f5ff}
-.conv-topic .icon{font-size:2rem;margin-bottom:6px}
+.conv-topic .icon{font-size:2rem;margin-bottom:4px}
 .conv-topic .title{font-weight:700;font-size:.95rem;color:var(--text)}
 .conv-topic .desc{font-size:.78rem;color:var(--text2);margin-top:4px}
+.conv-topic .btn-indicator{display:inline-block;margin-top:10px;padding:5px 16px;border-radius:6px;background:var(--primary);color:#fff;font-size:.75rem;font-weight:700;transition:all .1s;letter-spacing:.5px}
+.conv-topic:hover .btn-indicator{background:var(--primary-dark);transform:scale(1.05)}
 .conv-chat-area{display:none}
 .conv-chat-area.show{display:block}
 .conv-phrases{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;margin:12px 0}
@@ -68,51 +70,61 @@
         <div class="icon">🌅</div>
         <div class="title">Daily Routine</div>
         <div class="desc">Talk about your day, habits, and schedules</div>
+      <div class="btn-indicator">▶ Practice</div>
       </div>
       <div class="conv-topic" onclick="selectTopic(this,'hobbies')">
         <div class="icon">🎨</div>
         <div class="title">Hobbies & Free Time</div>
         <div class="desc">What you do for fun, sports, music, games</div>
+      <div class="btn-indicator">▶ Practice</div>
       </div>
       <div class="conv-topic" onclick="selectTopic(this,'family')">
         <div class="icon">👨‍👩‍👧‍👦</div>
         <div class="title">Family & Friends</div>
         <div class="desc">Describe your family, friends, and relationships</div>
+      <div class="btn-indicator">▶ Practice</div>
       </div>
       <div class="conv-topic" onclick="selectTopic(this,'school')">
         <div class="icon">📚</div>
         <div class="title">School & Studies</div>
         <div class="desc">Your subjects, teachers, and school life</div>
+      <div class="btn-indicator">▶ Practice</div>
       </div>
       <div class="conv-topic" onclick="selectTopic(this,'travel')">
         <div class="icon">✈️</div>
         <div class="title">Travel & Holidays</div>
         <div class="desc">Past trips, future plans, dream destinations</div>
+      <div class="btn-indicator">▶ Practice</div>
       </div>
       <div class="conv-topic" onclick="selectTopic(this,'food')">
         <div class="icon">🍕</div>
         <div class="title">Food & Cooking</div>
         <div class="desc">Favourite foods, restaurants, cooking habits</div>
+      <div class="btn-indicator">▶ Practice</div>
       </div>
       <div class="conv-topic" onclick="selectTopic(this,'weather')">
         <div class="icon">☀️</div>
         <div class="title">Weather & Seasons</div>
         <div class="desc">Describe the weather, seasons, and activities</div>
+      <div class="btn-indicator">▶ Practice</div>
       </div>
       <div class="conv-topic" onclick="selectTopic(this,'technology')">
         <div class="icon">💻</div>
         <div class="title">Technology</div>
         <div class="desc">Social media, apps, video games, devices</div>
+      <div class="btn-indicator">▶ Practice</div>
       </div>
       <div class="conv-topic" onclick="selectTopic(this,'movies')">
         <div class="icon">🎬</div>
         <div class="title">Movies & TV</div>
         <div class="desc">Favourite films, series, actors, genres</div>
+      <div class="btn-indicator">▶ Practice</div>
       </div>
       <div class="conv-topic" onclick="selectTopic(this,'future')">
         <div class="icon">🔮</div>
         <div class="title">Future Plans</div>
         <div class="desc">What you want to be, do, and achieve</div>
+      <div class="btn-indicator">▶ Practice</div>
       </div>
     </div>
   </div>
