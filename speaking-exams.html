@@ -68,9 +68,9 @@
   <div class="section">
     <h2>⚙️ Settings</h2>
     <div class="se-difficulty">
-      <div class="diff-btn active" data-level="A2" onclick="setDifficulty(this,'A2')">🟢 A2 — Easy</div>
-      <div class="diff-btn" data-level="B1" onclick="setDifficulty(this,'B1')">🟡 B1 — Medium</div>
-      <div class="diff-btn" data-level="B2" onclick="setDifficulty(this,'B2')">🟠 B2 — Challenging</div>
+      <button class="diff-btn active" onclick="setDifficulty(this,'A2')">🟢 A2 — Easy</button>
+      <button class="diff-btn" onclick="setDifficulty(this,'B1')">🟡 B1 — Medium</button>
+      <button class="diff-btn" onclick="setDifficulty(this,'B2')">🟠 B2 — Challenging</button>
     </div>
     <p style="font-size:.82rem;color:var(--text2)">Preparation time: <strong id="prep-time-display">45</strong> seconds. Response time: <strong id="resp-time-display">60</strong> seconds.</p>
   </div>
@@ -79,14 +79,14 @@
   <div class="section">
     <h2>📋 Pick a topic</h2>
     <div class="se-topics" id="topic-tags">
-      <span class="tag active" onclick="pickTopic(this,'daily')">🌅 Daily Life</span>
-      <span class="tag" onclick="pickTopic(this,'hobbies')">🎨 Hobbies</span>
-      <span class="tag" onclick="pickTopic(this,'family')">👨‍👩‍👧‍👦 Family</span>
-      <span class="tag" onclick="pickTopic(this,'school')">📚 School</span>
-      <span class="tag" onclick="pickTopic(this,'travel')">✈️ Travel</span>
-      <span class="tag" onclick="pickTopic(this,'future')">🔮 Future</span>
-      <span class="tag" onclick="pickTopic(this,'opinion')">💭 Opinions</span>
-      <span class="tag" onclick="pickTopic(this,'describe')">📸 Describe</span>
+      <button class="tag active" onclick="pickTopic(this,'daily')">🌅 Daily Life</button>
+      <button class="tag" onclick="pickTopic(this,'hobbies')">🎨 Hobbies</button>
+      <button class="tag" onclick="pickTopic(this,'family')">👨‍👩‍👧‍👦 Family</button>
+      <button class="tag" onclick="pickTopic(this,'school')">📚 School</button>
+      <button class="tag" onclick="pickTopic(this,'travel')">✈️ Travel</button>
+      <button class="tag" onclick="pickTopic(this,'future')">🔮 Future</button>
+      <button class="tag" onclick="pickTopic(this,'opinion')">💭 Opinions</button>
+      <button class="tag" onclick="pickTopic(this,'describe')">📸 Describe</button>
     </div>
   </div>
 

@@ -74,11 +74,11 @@
   <div class="section">
     <h2>📋 Select exam level</h2>
     <div class="cs-levels">
-      <div class="cs-level active" onclick="setCamLevel(this,'KET')">
+      <div class="cs-level active" onclick="setCamLevel(this,'KET')" role="button" tabindex="0">
         <div class="badge">🟢 KET</div>
         <div class="desc">A2 Key for Schools — Elementary</div>
       </div>
-      <div class="cs-level" onclick="setCamLevel(this,'PET')">
+      <div class="cs-level" onclick="setCamLevel(this,'PET')" role="button" tabindex="0">
         <div class="badge">🟡 PET</div>
         <div class="desc">B1 Preliminary for Schools — Intermediate</div>
       </div>
@@ -245,9 +245,9 @@ function renderParts() {
   var container = document.getElementById('parts-container');
   container.innerHTML = '';
   data.parts.forEach(function(part, i) {
-    var btn = document.createElement('div');
+    var btn = document.createElement('button');
     btn.className = 'cs-part-btn' + (i === 0 ? ' active' : '');
-    btn.textContent = 'Part ' + (i + 1);
+    btn.innerHTML = 'Part ' + (i + 1);
     btn.onclick = function() { renderPart(i); };
     container.appendChild(btn);
   });

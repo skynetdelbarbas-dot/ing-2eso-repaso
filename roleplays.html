@@ -215,7 +215,7 @@ function selectScenario(btn) {
   if (!card) return;
   var scenarioId = card.getAttribute('data-scenario');
   document.querySelectorAll('.rp-card').forEach(function(c) { c.classList.remove('active'); });
-  el.classList.add('active');
+  card.classList.add('active');
 
   currentScenario = scenarioId;
   var data = SCENARIOS[scenarioId];

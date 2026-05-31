@@ -279,7 +279,7 @@ function selectTopic(btn) {
   var topicId = card.getAttribute('data-topic');
   // Update active visual
   document.querySelectorAll('.conv-topic').forEach(function(t) { t.classList.remove('active'); });
-  el.classList.add('active');
+  card.classList.add('active');
 
   currentTopic = topicId;
   var data = TOPICS[topicId];
