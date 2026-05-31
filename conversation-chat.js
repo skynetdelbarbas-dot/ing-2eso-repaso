@@ -247,7 +247,7 @@
     var div = document.createElement('div');
     div.className = 'msg ' + cls;
     if (cls.indexOf('bot') >= 0 && cls.indexOf('loading') < 0 && cls.indexOf('sys') < 0) {
-      div.innerHTML = text + '<br><button class="speak-btn" onclick="speakInline(\'' + escapeAttr(text.replace(/<[^>]*>/g,'')) + '\')">🔊 Listen</button>';
+      div.innerHTML = text + '<br><button class="speak-btn" data-speak="' + escapeAttr(text.replace(/<[^>]*>/g,'')) + '">🔊 Listen</button>';
     } else {
       div.innerHTML = text;
     }
@@ -274,12 +274,24 @@
     speechSynthesis.speak(u);
   };
 
+  // Event delegation for speak-btn and sound-mini buttons
+  document.addEventListener('DOMContentLoaded', function() {
+    document.body.addEventListener('click', function(e) {
+      var btn = e.target.closest('.speak-btn, .sound-mini');
+      if (btn) {
+        e.preventDefault();
+        var text = btn.getAttribute('data-speak');
+        if (text) window.speakInline(text);
+      }
+    });
+  });
+
   // Preload voices
   speechSynthesis.getVoices();
   speechSynthesis.onvoiceschanged = function() { speechSynthesis.getVoices(); };
 
   function escapeAttr(str) {
-    return str.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+    return str.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   }
 
   // ─── Public API ───

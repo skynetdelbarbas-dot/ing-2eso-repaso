@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>🎓 Cambridge Speaking — 2º ESO</title>
-<link rel="stylesheet" href="style.css?v=5">
+<link rel="stylesheet" href="style.css?v=6">
 <style>
 .cs-levels{display:flex;gap:8px;margin-bottom:16px}
 .cs-level{flex:1;text-align:center;padding:14px;border-radius:var(--radius);border:2px solid var(--border);background:var(--card);cursor:pointer;transition:all .15s;font-family:inherit;font-size:inherit;line-height:1.4}
@@ -104,6 +104,7 @@
     <div id="cs-questions" class="cs-questions"></div>
     <div class="cs-model-toggle">
       <button class="btn btn-check-all" onclick="toggleCamModel()">💡 Show / Hide model answers</button>
+      <button class="btn btn-next" onclick="speakPrevCamPrompt()" style="margin-left:6px" id="cam-prev-btn" title="Previous question">⏮️</button>
       <button class="btn btn-next" onclick="speakCamPrompt()" style="margin-left:6px" id="cam-listen-btn">🔊 Listen to questions</button>
     </div>
     <div id="cs-model" class="cs-model-box">
@@ -258,7 +259,6 @@ function renderParts() {
 function renderPart(idx) {
   camPart = idx;
   camQuestionIndex = -1;
-  document.getElementById('cam-listen-btn').textContent = '🔊 Listen to questions';
   var data = CAM_DATA[camLevel];
   var part = data.parts[idx];
 
@@ -300,6 +300,9 @@ function renderPart(idx) {
   document.getElementById('cs-model').classList.remove('show');
   document.getElementById('cs-model').style.display = '';
   document.getElementById('cam-model-text').innerHTML = '';
+
+  // Reset nav buttons
+  updateCamNav();
 }
 
 function toggleCamModel() {
@@ -320,29 +323,52 @@ function toggleCamModel() {
   }
 }
 
+function updateCamNav() {
+  var total = CAM_DATA[camLevel].parts[camPart].questions.length;
+  var listenBtn = document.getElementById('cam-listen-btn');
+  var prevBtn = document.getElementById('cam-prev-btn');
+
+  // Update listen button label
+  if (camQuestionIndex === -1) {
+    listenBtn.textContent = '🔊 Listen to questions';
+  } else if (camQuestionIndex < total - 1) {
+    listenBtn.textContent = '⏭ Next (' + (camQuestionIndex + 1) + '/' + total + ')';
+  } else {
+    listenBtn.textContent = '🔄 Replay';
+  }
+
+  // Enable/disable prev button
+  prevBtn.disabled = (camQuestionIndex <= 0);
+  prevBtn.style.opacity = prevBtn.disabled ? '0.4' : '1';
+  prevBtn.style.cursor = prevBtn.disabled ? 'default' : 'pointer';
+}
+
 function speakCamPrompt() {
   var data = CAM_DATA[camLevel];
   var part = data.parts[camPart];
   var total = part.questions.length;
 
   // Advance to next question (or start from first)
-  camQuestionIndex = (camQuestionIndex + 1) % total;
+  if (camQuestionIndex >= total - 1) {
+    camQuestionIndex = -1; // reset for replay
+  }
+  camQuestionIndex++;
 
   var q = part.questions[camQuestionIndex];
   speakInline(q.q);
+  updateCamNav();
+}
 
-  // Update button label
-  var btn = document.getElementById('cam-listen-btn');
-  if (camQuestionIndex < total - 1) {
-    btn.textContent = '⏭ Next question (' + (camQuestionIndex + 1) + '/' + total + ')';
-  } else {
-    btn.textContent = '🔄 Replay all questions';
-    // After 2 seconds reset to start label
-    setTimeout(function() {
-      camQuestionIndex = -1;
-      btn.textContent = '🔊 Listen to questions';
-    }, 2000);
-  }
+function speakPrevCamPrompt() {
+  var data = CAM_DATA[camLevel];
+  var part = data.parts[camPart];
+
+  if (camQuestionIndex <= 0) return;
+  camQuestionIndex--;
+
+  var q = part.questions[camQuestionIndex];
+  speakInline(q.q);
+  updateCamNav();
 }
 
 // ─── Speak helper ───

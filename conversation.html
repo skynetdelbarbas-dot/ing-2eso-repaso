@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>🗣 Conversation Practice — 2º ESO</title>
-<link rel="stylesheet" href="style.css?v=5">
+<link rel="stylesheet" href="style.css?v=6">
 <style>
 .conv-topics{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:12px 0}
 .conv-topic{background:var(--card);border:2px solid var(--border);border-radius:var(--radius);padding:16px 16px 12px;cursor:pointer;transition:all .15s;text-align:center;user-select:none}
@@ -144,7 +144,7 @@
 </main>
 </div>
 
-<script src="conversation-chat.js?v=1"></script>
+<script src="conversation-chat.js?v=2"></script>
 <script>
 // ─── Topic data with scenarios and phrases ───
 var TOPICS = {
@@ -299,11 +299,11 @@ function selectTopic(btn) {
   var phrasesContent = document.getElementById('phrases-content');
   var html = '<div class="conv-phrases">';
   data.phrases.forEach(function(p) {
-    var enClean = p.en.replace(/'/g, "\\'");
+    var text = p.en.replace(/'/g, '&apos;').replace(/"/g, '&quot;');
     html += '<div class="conv-phrase">';
     html += '<div class="en">' + p.en + '</div>';
     html += '<div class="es">' + p.es + '</div>';
-    html += '<button class="sound-mini" onclick="speakInline(\'' + enClean + '\')">🔊 Listen</button>';
+    html += '<button class="sound-mini" data-speak="' + text + '">🔊 Listen</button>';
     html += '</div>';
   });
   html += '</div>';
@@ -329,6 +329,21 @@ document.addEventListener('DOMContentLoaded', function() {
   speechSynthesis.getVoices();
   speechSynthesis.onvoiceschanged = function() { speechSynthesis.getVoices(); };
 });
+
+// ─── Speak helper (local fallback) ───
+function speakInline(text) {
+  speechSynthesis.cancel();
+  if (speechSynthesis.getVoices().length === 0) {
+    speechSynthesis.onvoiceschanged = function() { speechSynthesis.getVoices(); };
+  }
+  var u = new SpeechSynthesisUtterance(text);
+  u.lang = 'en-GB'; u.rate = 0.85;
+  var voices = speechSynthesis.getVoices();
+  var enVoice = voices.find(function(v) { return v.lang.startsWith('en'); });
+  if (enVoice) u.voice = enVoice;
+  window.currentInlineUtterance = u;
+  speechSynthesis.speak(u);
+}
 </script>
 </body>
 </html>
