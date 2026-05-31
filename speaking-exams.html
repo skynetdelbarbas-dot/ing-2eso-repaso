@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎤 Speaking Exams — 2º ESO</title>
+<link rel="stylesheet" href="style.css?v=5">
+<style>
+.se-timer{font-size:2.5rem;font-weight:700;text-align:center;padding:20px;background:var(--card);border:2px solid var(--border);border-radius:var(--radius);margin:12px 0}
+.se-timer .label{font-size:.85rem;color:var(--text2);font-weight:400}
+.se-timer.running{color:var(--primary-dark);border-color:var(--primary)}
+.se-timer.warning{color:#e67700;border-color:#fab005}
+.se-timer.done{color:var(--success);border-color:var(--success)}
+.se-prompt{background:var(--card);border:len2px solid var(--border);border-radius:var(--radius);padding:20px;margin:12px 0;text-align:center;font-size:1.1rem;line-height:1.6}
+.se-prompt .en{color:var(--primary-dark);font-weight:600}
+.se-model{background:#e7f5ff;border:1px solid var(--primary);border-radius:var(--radius);padding:16px 20px;margin:12px 0;display:none}
+.se-model.show{display:block}
+.se-model .label{font-size:.8rem;color:var(--text2);margin-bottom:4px}
+.se-model .text{font-style:italic;line-height:1.6;color:var(--text)}
+.se-controls{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.se-difficulty{display:flex;gap:8px;margin-bottom:12px}
+.se-difficulty .diff-btn{padding:8px 18px;border-radius:6px;border:2px solid var(--border);background:var(--card);cursor:pointer;font-size:.85rem;font-weight:600;transition:all .1s}
+.se-difficulty .diff-btn.active{border-color:var(--primary);background:var(--primary);color:#fff}
+.se-difficulty .diff-btn:hover{border-color:var(--primary)}
+.se-topics{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0}
+.se-topics .tag{padding:5px 12px;border-radius:6px;border:1px solid var(--border);background:var(--card);cursor:pointer;font-size:.82rem;transition:all .1s}
+.se-topics .tag.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+.se-topics .tag:hover{border-color:var(--primary)}
+</style>
+</head>
+<body data-topic="speaking-exams">
+<div class="container">
+<nav class="sidebar">
+  <h1><a href="index.html" style="color:inherit;text-decoration:none">📚 Inglés 2º ESO</a></h1>
+  <div class="subtitle">Repaso para el examen final</div>
+  <h2>🗣️ SPEAKING</h2>
+  <a href="pronunciation.html">Pronunciation</a>
+  <a href="conversation.html">Conversation Practice</a>
+  <a href="roleplays.html">Roleplays</a>
+  <a href="speaking-exams.html" class="active">Speaking Exams</a>
+  <a href="cambridge-speaking.html">Cambridge Speaking</a>
+  <h2>🗣️ Grammar</h2>
+  <a href="present-perfect.html">Present Perfect S/C</a>
+  <a href="reported-speech.html">Reported Speech</a>
+  <a href="conditionals.html">Conditionals</a>
+  <a href="wish-if-only.html">I wish / If only</a>
+  <a href="question-tags.html">Question Tags</a>
+  <a href="articles.html">Articles (a/an/the/∅)</a>
+  <a href="passive.html">Passive Voice</a>
+  <a href="indefinite-pronouns.html">Indefinite Pronouns</a>
+  <a href="nor-neither-so.html">Nor / Neither / So</a>
+  <h2>📖 Vocabulary</h2>
+  <a href="vocabulary.html">Units 1-3, 5-11</a>
+  <h2>🔄 Review</h2>
+  <a href="grammar-review.html">Grammar Review 1º ESO</a>
+  <h2>🎯 Exams</h2>
+  <a href="cambridge-a2.html">Cambridge A2 Key</a>
+  <h2>🎯 Simulacro</h2>
+  <a href="simulacro.html">Examen mixto</a>
+</nav>
+
+<main class="main">
+  <div class="breadcrumb"><a href="index.html">Inicio</a> / Speaking Exams</div>
+  <h1 class="page-title">🎤 Speaking Exams</h1>
+  <p class="intro">Practica para tu examen oral. Elige un tema, prepara tu respuesta con el temporizador y compara con una respuesta modelo.</p>
+
+  <!-- ─── Difficulty ─── -->
+  <div class="section">
+    <h2>⚙️ Settings</h2>
+    <div class="se-difficulty">
+      <div class="diff-btn active" data-level="A2" onclick="setDifficulty(this,'A2')">🟢 A2 — Easy</div>
+      <div class="diff-btn" data-level="B1" onclick="setDifficulty(this,'B1')">🟡 B1 — Medium</div>
+      <div class="diff-btn" data-level="B2" onclick="setDifficulty(this,'B2')">🟠 B2 — Challenging</div>
+    </div>
+    <p style="font-size:.82rem;color:var(--text2)">Preparation time: <strong id="prep-time-display">45</strong> seconds. Response time: <strong id="resp-time-display">60</strong> seconds.</p>
+  </div>
+
+  <!-- ─── Topic Selection ─── -->
+  <div class="section">
+    <h2>📋 Pick a topic</h2>
+    <div class="se-topics" id="topic-tags">
+      <span class="tag active" onclick="pickTopic(this,'daily')">🌅 Daily Life</span>
+      <span class="tag" onclick="pickTopic(this,'hobbies')">🎨 Hobbies</span>
+      <span class="tag" onclick="pickTopic(this,'family')">👨‍👩‍👧‍👦 Family</span>
+      <span class="tag" onclick="pickTopic(this,'school')">📚 School</span>
+      <span class="tag" onclick="pickTopic(this,'travel')">✈️ Travel</span>
+      <span class="tag" onclick="pickTopic(this,'future')">🔮 Future</span>
+      <span class="tag" onclick="pickTopic(this,'opinion')">💭 Opinions</span>
+      <span class="tag" onclick="pickTopic(this,'describe')">📸 Describe</span>
+    </div>
+  </div>
+
+  <!-- ─── Exercise Area ─── -->
+  <div class="section" id="exercise-area">
+    <h2>🎯 Your turn!</h2>
+    <div id="se-prompt" class="se-prompt">
+      <div class="en" id="prompt-text">Select a topic above to start.</div>
+    </div>
+
+    <div class="se-controls">
+      <button class="btn btn-check-all" onclick="startPrep()">⏱ Start Preparation</button>
+      <button class="btn btn-next" onclick="startResponse()" id="btn-start-resp" disabled>🎤 Start Speaking</button>
+      <button class="btn btn-reset" onclick="showModel()" id="btn-model" disabled>💡 Show Model Answer</button>
+      <button class="btn btn-reset" onclick="newPrompt()">🔄 New Question</button>
+    </div>
+
+    <div id="se-timer" class="se-timer">
+      <span id="timer-value">--</span>
+      <div class="label" id="timer-label">Press "Start Preparation" to begin</div>
+    </div>
+
+    <div id="se-model" class="se-model">
+      <div class="label">💡 Model answer:</div>
+      <div class="text" id="model-text"></div>
+      <button class="sound-mini" style="margin-top:8px;padding:6px 14px;border-radius:6px;background:var(--primary);color:#fff;border:none;cursor:pointer;font-size:.82rem" onclick="speakInline(document.getElementById('model-text').innerText)">🔊 Listen to model</button>
+    </div>
+  </div>
+
+</main>
+</div>
+
+<script>
+// ─── Prompts by topic and level ───
+var PROMPTS = {
+  daily: {
+    A2: [
+      'Tell me about your typical day. What time do you wake up?',
+      'What do you usually have for breakfast?',
+      'Describe your morning routine before school.',
+      'What do you do after school?',
+      'Tell me about what you do at the weekend.',
+    ],
+    B1: [
+      'Describe a perfect day in your life. What would you do?',
+      'How has your daily routine changed compared to last year?',
+      'What is the best part of your day? Why?',
+      'Describe a typical school day in your country.',
+      'If you could change one thing about your routine, what would it be?',
+    ],
+    B2: [
+      'Discuss how teenagers\' daily routines have changed with technology.',
+      'Compare your weekday and weekend routines. Which do you prefer?',
+      'Describe the daily routine of someone you admire.',
+      'How do you think your routine will change in the next five years?',
+      'Talk about the importance of having a balanced daily schedule.',
+    ],
+  },
+  hobbies: {
+    A2: [
+      'What do you like to do in your free time?',
+      'Do you prefer playing indoors or outdoors? Why?',
+      'What is your favourite sport or game?',
+      'Do you listen to music? What kind?',
+      'How much time do you spend on your hobby?',
+    ],
+    B1: [
+      'Describe a hobby you have and explain why you enjoy it.',
+      'How did you start your favourite hobby?',
+      'Compare two hobbies you like. Which is better?',
+      'Would you like to try a new hobby? What and why?',
+      'Is it important to have a hobby? Explain your opinion.',
+    ],
+    B2: [
+      'Discuss how hobbies can help with personal development.',
+      'How have your hobbies changed as you have grown older?',
+      'Compare how teenagers spend free time now versus in the past.',
+      'What hobby would you recommend to someone who is always stressed?',
+      'Talk about a hobby that is popular in your country but not in other countries.',
+    ],
+  },
+  family: {
+    A2: [
+      'Tell me about your family. How many people are there?',
+      'Describe your mother or father.',
+      'Do you have brothers or sisters? Tell me about them.',
+      'Who do you spend most time with in your family?',
+      'What do you like to do with your family?',
+    ],
+    B1: [
+      'Describe a family member you admire and explain why.',
+      'How is your family similar to or different from other families?',
+      'Tell me about a tradition your family has.',
+      'Who is the funniest person in your family? Why?',
+      'Do you prefer spending time with family or friends? Explain.',
+    ],
+    B2: [
+      'Discuss how family relationships change as children grow up.',
+      'Compare family life in your country with another country you know.',
+      'What is the role of grandparents in modern families?',
+      'Talk about the advantages and disadvantages of large families.',
+      'How do you think families will change in the future?',
+    ],
+  },
+  school: {
+    A2: [
+      'What is your favourite subject at school? Why?',
+      'Tell me about your school. Is it big or small?',
+      'Who is your favourite teacher? Describe them.',
+      'What subject do you find difficult? Why?',
+      'What time does school start and finish?',
+    ],
+    B1: [
+      'Describe a typical school day from start to finish.',
+      'What subject is most useful for the future? Explain.',
+      'Compare two subjects you study. Which is more interesting?',
+      'Would you change anything about your school? What and why?',
+      'How do you prepare for exams?',
+    ],
+    B2: [
+      'Discuss the advantages and disadvantages of online learning vs traditional school.',
+      'How has education changed since your parents went to school?',
+      'Should students choose their own subjects? Give reasons.',
+      'Talk about the importance of learning English at school.',
+      'What makes a good teacher? Give specific qualities.',
+    ],
+  },
+  travel: {
+    A2: [
+      'Have you visited another country? Where did you go?',
+      'How do you prefer to travel: by car, train, or plane? Why?',
+      'Where would you like to go on holiday? Why?',
+      'What do you usually pack when you go on holiday?',
+      'Tell me about the best holiday you ever had.',
+    ],
+    B1: [
+      'Describe your dream holiday destination in detail.',
+      'Compare a beach holiday with a city break. Which do you prefer?',
+      'What is the most interesting place you have ever visited?',
+      'Would you prefer to travel alone or with others? Explain.',
+      'How do you think travel will change in the future?',
+    ],
+    B2: [
+      'Discuss the impact of tourism on local communities.',
+      'Compare the benefits of domestic vs international travel.',
+      'What does "sustainable tourism" mean to you?',
+      'Talk about a travel experience that changed your perspective.',
+      'Should young people travel before starting university? Give arguments.',
+    ],
+  },
+  future: {
+    A2: [
+      'What do you want to be when you grow up?',
+      'Where do you want to live in the future?',
+      'What will you do next summer?',
+      'Do you want to go to university? What would you study?',
+      'What is your biggest dream?',
+    ],
+    B1: [
+      'Describe your ideal job in the future.',
+      'Where do you see yourself in ten years?',
+      'What are your plans after you finish school?',
+      'Would you prefer to live in your country or abroad? Explain.',
+      'What skills do you need for the job you want?',
+    ],
+    B2: [
+      'Discuss how technology will change the job market in the future.',
+      'What global challenges do you think your generation will face?',
+      'Would you rather work for a company or be self-employed? Explain.',
+      'How do you think your life will be different from your parents\' lives?',
+      'Talk about the importance of setting goals for the future.',
+    ],
+  },
+  opinion: {
+    A2: [
+      'Do you think it is important to learn English? Why?',
+      'What is the best TV show? Why do you like it?',
+      'Is it better to read books or watch movies? Why?',
+      'Do you think homework is useful? Why or why not?',
+      'What is the best animal to have as a pet?',
+    ],
+    B1: [
+      'Do you think social media is good or bad? Explain.',
+      'Should students wear school uniforms? Give your opinion.',
+      'What is the most important quality in a friend?',
+      'Is it better to live in a city or in the countryside?',
+      'Do you think video games are a waste of time? Explain.',
+    ],
+    B2: [
+      'Should smartphones be banned in schools? Discuss both sides.',
+      'Is climate change the most important issue facing teenagers today?',
+      'Do you think artificial intelligence will replace teachers?',
+      'Should young people be required to do volunteer work?',
+      'Is it better to specialize in one subject or study many?',
+    ],
+  },
+  describe: {
+    A2: [
+      'Describe your bedroom. What is in it?',
+      'Describe your best friend. What do they look like?',
+      'Describe your favourite place in your town.',
+      'Describe an animal you like.',
+      'Describe what you are wearing today.',
+    ],
+    B1: [
+      'Describe a memorable celebration or party.',
+      'Describe a person who has influenced you.',
+      'Describe a beautiful place you have visited.',
+      'Describe your favourite item and why it is special.',
+      'Describe a typical house in your area.',
+    ],
+    B2: [
+      'Describe a painting, photo or film that made an impression on you.',
+      'Describe a tradition from your country that visitors would find interesting.',
+      'Describe a technological device that has changed your life.',
+      'Describe a moment when you felt proud of yourself.',
+      'Describe a book or story that changed your way of thinking.',
+    ],
+  }
+};
+
+var currentLevel = 'A2';
+var currentTopic = 'daily';
+var currentPrompt = '';
+var prepTimer = null;
+var respTimer = null;
+var prepSeconds = 45;
+var respSeconds = 60;
+var state = 'idle'; // idle | prep | speaking | done
+
+function setDifficulty(el, level) {
+  document.querySelectorAll('.diff-btn').forEach(function(d) { d.classList.remove('active'); });
+  el.classList.add('active');
+  currentLevel = level;
+  prepSeconds = level === 'A2' ? 60 : level === 'B1' ? 45 : 30;
+  respSeconds = level === 'A2' ? 45 : level === 'B1' ? 60 : 90;
+  document.getElementById('prep-time-display').textContent = prepSeconds;
+  document.getElementById('resp-time-display').textContent = respSeconds;
+  newPrompt();
+}
+
+function pickTopic(el, topic) {
+  document.querySelectorAll('.se-topics .tag').forEach(function(t) { t.classList.remove('active'); });
+  el.classList.add('active');
+  currentTopic = topic;
+  newPrompt();
+}
+
+function newPrompt() {
+  stopAllTimers();
+  state = 'idle';
+  var prompts = PROMPTS[currentTopic][currentLevel];
+  currentPrompt = prompts[Math.floor(Math.random() * prompts.length)];
+  document.getElementById('prompt-text').textContent = currentPrompt;
+  document.getElementById('se-model').classList.remove('show');
+  document.getElementById('btn-start-resp').disabled = true;
+  document.getElementById('btn-model').disabled = true;
+  updateTimerDisplay('--', 'Press "Start Preparation" to begin');
+  document.getElementById('se-timer').className = 'se-timer';
+}
+
+function startPrep() {
+  stopAllTimers();
+  state = 'prep';
+  var secs = prepSeconds;
+  document.getElementById('btn-start-resp').disabled = true;
+  document.getElementById('btn-model').disabled = true;
+  updateTimerDisplay(secs, '⏳ Prepare your answer...');
+  document.getElementById('se-timer').className = 'se-timer running';
+
+  prepTimer = setInterval(function() {
+    secs--;
+    if (secs <= 0) {
+      clearInterval(prepTimer);
+      prepTimer = null;
+      state = 'ready';
+      document.getElementById('btn-start-resp').disabled = false;
+      document.getElementById('btn-model').disabled = false;
+      updateTimerDisplay(0, '🎤 Time to speak! Press "Start Speaking"');
+      document.getElementById('se-timer').className = 'se-timer warning';
+      return;
+    }
+    updateTimerDisplay(secs, '⏳ Prepare your answer...');
+    if (secs <= 10) document.getElementById('se-timer').className = 'se-timer warning';
+  }, 1000);
+}
+
+function startResponse() {
+  if (state !== 'ready') return;
+  stopAllTimers();
+  state = 'speaking';
+  var secs = respSeconds;
+  document.getElementById('btn-start-resp').disabled = true;
+  updateTimerDisplay(secs, '🎤 Speak!');
+  document.getElementById('se-timer').className = 'se-timer running';
+
+  respTimer = setInterval(function() {
+    secs--;
+    if (secs <= 0) {
+      clearInterval(respTimer);
+      respTimer = null;
+      state = 'done';
+      document.getElementById('btn-model').disabled = false;
+      updateTimerDisplay(0, '✅ Time\'s up! Check the model answer');
+      document.getElementById('se-timer').className = 'se-timer done';
+      showModel();
+      return;
+    }
+    updateTimerDisplay(secs, '🎤 Keep speaking...');
+    if (secs <= 10) document.getElementById('se-timer').className = 'se-timer warning';
+  }, 1000);
+}
+
+function showModel() {
+  if (!currentPrompt) return;
+  var model = buildModelAnswer(currentTopic, currentLevel, currentPrompt);
+  document.getElementById('model-text').innerText = model;
+  document.getElementById('se-model').classList.add('show');
+}
+
+function buildModelAnswer(topic, level, prompt) {
+  // Fallback model answers
+  var models = {
+    daily: 'I usually wake up at 7 o\'clock. First, I have breakfast — I usually eat cereal or toast. Then I brush my teeth and get dressed. I go to school at 8.30. School starts at 9 and finishes at 4. After school, I do my homework and then I relax. In the evening, I have dinner with my family and watch TV. I go to bed at 10.30.',
+    hobbies: 'In my free time, I like to play football with my friends. I also enjoy listening to music and playing video games. My favourite hobby is reading because it helps me relax. I usually spend about two hours on my hobbies every day. I think having a hobby is important because it makes you happy.',
+    family: 'There are four people in my family: my mother, my father, my brother and me. My mother works as a nurse and my father is a teacher. My brother is 15 years old. We get on well most of the time. On Sundays, we usually have lunch together and watch a film. I love my family very much.',
+    school: 'My favourite subject is English because I like learning new languages. I also like PE because I enjoy sport. I find Maths quite difficult but I try my best. My English teacher is very nice and she explains things clearly. School starts at 9 and finishes at 4. We have 6 lessons a day.',
+    travel: 'Last summer I went to the beach with my family. We travelled by car and it took about two hours. The weather was hot and sunny, so we swam in the sea and built sandcastles. I love going to the beach because it\'s fun and relaxing. Next summer, I would like to visit a different country.',
+    future: 'When I grow up, I want to be a doctor because I want to help people. I am going to study hard at school and then go to university. I would like to live in a big city, maybe Madrid or Barcelona. My dream is to have a good job and travel around the world.',
+    opinion: 'In my opinion, learning English is very important because it helps you communicate with people from other countries. English is also useful for finding a good job in the future. I think everyone should learn at least one foreign language. It can be difficult sometimes, but it is worth it.',
+    describe: 'This is a photo of a beautiful beach. In the foreground, there is golden sand and clear blue water. In the background, I can see mountains and palm trees. On the left, there are some people swimming in the sea. The atmosphere looks very relaxing and peaceful. I would love to be there right now.',
+  };
+  return models[topic] || 'Try to talk about the topic, give examples, and explain your ideas. Remember to use complete sentences and organize your ideas clearly.';
+}
+
+function stopAllTimers() {
+  if (prepTimer) { clearInterval(prepTimer); prepTimer = null; }
+  if (respTimer) { clearInterval(respTimer); respTimer = null; }
+}
+
+function updateTimerDisplay(secs, label) {
+  var m = Math.floor(secs / 60);
+  var s = secs % 60;
+  document.getElementById('timer-value').textContent = m > 0 ? m + ':' + (s < 10 ? '0' : '') + s : secs;
+  document.getElementById('timer-label').textContent = label;
+}
+
+// ─── Init ───
+document.addEventListener('DOMContentLoaded', function() {
+  speechSynthesis.getVoices();
+  speechSynthesis.onvoiceschanged = function() { speechSynthesis.getVoices(); };
+  newPrompt();
+});
+
+// ─── Speak helper ───
+function speakInline(text) {
+  if (window.currentInlineUtterance) speechSynthesis.cancel();
+  var u = new SpeechSynthesisUtterance(text);
+  u.lang = 'en-GB'; u.rate = 0.85;
+  var voices = speechSynthesis.getVoices();
+  var enVoice = voices.find(function(v) { return v.lang.startsWith('en'); });
+  if (enVoice) u.voice = enVoice;
+  window.currentInlineUtterance = u;
+  speechSynthesis.speak(u);
+}
+</script>
+</body>
+</html>

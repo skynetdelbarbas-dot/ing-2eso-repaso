@@ -486,6 +486,7 @@ async def chat(body: dict):
     """
     student_id = body.get("student_id")
     message = body.get("message", "").strip()
+    scenario = body.get("scenario", "").strip()
 
     if not student_id:
         raise HTTPException(400, "student_id is required")
@@ -527,6 +528,8 @@ async def chat(body: dict):
     # Build the system prompt for this level
     level_prompt = LEVEL_PROMPTS.get(level, LEVEL_PROMPTS["A2"])
     system_prompt = level_prompt + f"\n\nThe student's name is {name}. Always address them by their name to make the conversation personal."
+    if scenario:
+        system_prompt += f"\n\n--- SCENARIO ---\n{scenario}\n--- END SCENARIO ---"
 
     # Build messages array for OpenRouter
     or_messages = [{"role": "system", "content": system_prompt}]

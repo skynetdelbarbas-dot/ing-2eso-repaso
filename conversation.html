@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🗣 Conversation Practice — 2º ESO</title>
+<link rel="stylesheet" href="style.css?v=5">
+<style>
+.conv-topics{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:12px 0}
+.conv-topic{background:var(--card);border:2px solid var(--border);border-radius:var(--radius);padding:16px;cursor:pointer;transition:all .15s;text-align:center}
+.conv-topic:hover{border-color:var(--primary);transform:translateY(-2px);box-shadow:0 4px 16px rgba(77,171,247,.2)}
+.conv-topic.active{border-color:var(--primary);background:#e7f5ff}
+.conv-topic .icon{font-size:2rem;margin-bottom:6px}
+.conv-topic .title{font-weight:700;font-size:.95rem;color:var(--text)}
+.conv-topic .desc{font-size:.78rem;color:var(--text2);margin-top:4px}
+.conv-chat-area{display:none}
+.conv-chat-area.show{display:block}
+.conv-phrases{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;margin:12px 0}
+.conv-phrase{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:10px 14px;font-size:.85rem;line-height:1.5}
+.conv-phrase .en{color:var(--primary-dark);font-weight:600}
+.conv-phrase .es{color:var(--text2);font-size:.82rem}
+.conv-phrase .sound-mini{display:inline-block;padding:2px 8px;border-radius:4px;background:var(--bg);border:1px solid var(--border);cursor:pointer;font-size:.75rem;margin-top:4px;transition:all .1s}
+.conv-phrase .sound-mini:hover{background:var(--primary);color:#fff;border-color:var(--primary)}
+</style>
+</head>
+<body data-topic="conversation">
+<div class="container">
+<nav class="sidebar">
+  <h1><a href="index.html" style="color:inherit;text-decoration:none">📚 Inglés 2º ESO</a></h1>
+  <div class="subtitle">Repaso para el examen final</div>
+  <h2>🗣️ SPEAKING</h2>
+  <a href="pronunciation.html">Pronunciation</a>
+  <a href="conversation.html" class="active">Conversation Practice</a>
+  <a href="roleplays.html">Roleplays</a>
+  <a href="speaking-exams.html">Speaking Exams</a>
+  <a href="cambridge-speaking.html">Cambridge Speaking</a>
+  <h2>🗣️ Grammar</h2>
+  <a href="present-perfect.html">Present Perfect S/C</a>
+  <a href="reported-speech.html">Reported Speech</a>
+  <a href="conditionals.html">Conditionals</a>
+  <a href="wish-if-only.html">I wish / If only</a>
+  <a href="question-tags.html">Question Tags</a>
+  <a href="articles.html">Articles (a/an/the/∅)</a>
+  <a href="passive.html">Passive Voice</a>
+  <a href="indefinite-pronouns.html">Indefinite Pronouns</a>
+  <a href="nor-neither-so.html">Nor / Neither / So</a>
+  <h2>📖 Vocabulary</h2>
+  <a href="vocabulary.html">Units 1-3, 5-11</a>
+  <h2>🔄 Review</h2>
+  <a href="grammar-review.html">Grammar Review 1º ESO</a>
+  <h2>🎯 Exams</h2>
+  <a href="cambridge-a2.html">Cambridge A2 Key</a>
+  <h2>🎯 Simulacro</h2>
+  <a href="simulacro.html">Examen mixto</a>
+</nav>
+
+<main class="main">
+  <div class="breadcrumb"><a href="index.html">Inicio</a> / Conversation Practice</div>
+  <h1 class="page-title">🗣 Conversation Practice</h1>
+  <p class="intro">Elige un tema y practica conversación en inglés con el tutor virtual. Escribe tus respuestas y escucha las del tutor. ¡No tengas miedo de equivocarte!</p>
+
+  <!-- ─── Topic Grid ─── -->
+  <div class="section">
+    <h2>📋 Choose a topic</h2>
+    <div class="conv-topics">
+      <div class="conv-topic" onclick="selectTopic(this,'daily-routine')">
+        <div class="icon">🌅</div>
+        <div class="title">Daily Routine</div>
+        <div class="desc">Talk about your day, habits, and schedules</div>
+      </div>
+      <div class="conv-topic" onclick="selectTopic(this,'hobbies')">
+        <div class="icon">🎨</div>
+        <div class="title">Hobbies & Free Time</div>
+        <div class="desc">What you do for fun, sports, music, games</div>
+      </div>
+      <div class="conv-topic" onclick="selectTopic(this,'family')">
+        <div class="icon">👨‍👩‍👧‍👦</div>
+        <div class="title">Family & Friends</div>
+        <div class="desc">Describe your family, friends, and relationships</div>
+      </div>
+      <div class="conv-topic" onclick="selectTopic(this,'school')">
+        <div class="icon">📚</div>
+        <div class="title">School & Studies</div>
+        <div class="desc">Your subjects, teachers, and school life</div>
+      </div>
+      <div class="conv-topic" onclick="selectTopic(this,'travel')">
+        <div class="icon">✈️</div>
+        <div class="title">Travel & Holidays</div>
+        <div class="desc">Past trips, future plans, dream destinations</div>
+      </div>
+      <div class="conv-topic" onclick="selectTopic(this,'food')">
+        <div class="icon">🍕</div>
+        <div class="title">Food & Cooking</div>
+        <div class="desc">Favourite foods, restaurants, cooking habits</div>
+      </div>
+      <div class="conv-topic" onclick="selectTopic(this,'weather')">
+        <div class="icon">☀️</div>
+        <div class="title">Weather & Seasons</div>
+        <div class="desc">Describe the weather, seasons, and activities</div>
+      </div>
+      <div class="conv-topic" onclick="selectTopic(this,'technology')">
+        <div class="icon">💻</div>
+        <div class="title">Technology</div>
+        <div class="desc">Social media, apps, video games, devices</div>
+      </div>
+      <div class="conv-topic" onclick="selectTopic(this,'movies')">
+        <div class="icon">🎬</div>
+        <div class="title">Movies & TV</div>
+        <div class="desc">Favourite films, series, actors, genres</div>
+      </div>
+      <div class="conv-topic" onclick="selectTopic(this,'future')">
+        <div class="icon">🔮</div>
+        <div class="title">Future Plans</div>
+        <div class="desc">What you want to be, do, and achieve</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── Phrases Panel ─── -->
+  <div class="section" id="phrases-panel" style="display:none">
+    <h2>💡 Useful Phrases</h2>
+    <div id="phrases-content"></div>
+  </div>
+
+  <!-- ─── Chat Area ─── -->
+  <div class="section conv-chat-area" id="chat-area">
+    <h2>💬 Practice</h2>
+    <div id="inline-chat" data-scenario="" data-level="A2"></div>
+    <p style="font-size:.78rem;color:var(--text2);margin-top:8px">💡 The tutor adapts to your level. Write in English and the tutor will help you improve.</p>
+  </div>
+
+</main>
+</div>
+
+<script src="conversation-chat.js?v=1"></script>
+<script>
+// ─── Topic data with scenarios and phrases ───
+var TOPICS = {
+  'daily-routine': {
+    name: 'Daily Routine',
+    icon: '🌅',
+    scenario: 'You are an English tutor having a conversation with a student about their daily routine. Ask about what time they wake up, what they do in the morning, afternoon and evening, their school schedule, and weekend activities. Keep the conversation natural and encouraging. Correct mistakes gently.',
+    phrases: [
+      { en: 'I usually wake up at...', es: 'Normalmente me despierto a las...' },
+      { en: 'I have breakfast at...', es: 'Desayuno a las...' },
+      { en: 'I go to school by...', es: 'Voy al colegio en...' },
+      { en: 'After school, I...', es: 'Después del colegio, yo...' },
+      { en: 'In the evening, I...', es: 'Por la tarde, yo...' },
+      { en: 'On weekends, I...', es: 'Los fines de semana, yo...' },
+    ]
+  },
+  'hobbies': {
+    name: 'Hobbies & Free Time',
+    icon: '🎨',
+    scenario: 'You are an English tutor talking with a student about hobbies and free time. Ask about what they do for fun, what sports they play, if they play video games, listen to music, or do creative activities. Encourage them to describe their hobbies in detail.',
+    phrases: [
+      { en: 'In my free time, I like to...', es: 'En mi tiempo libre me gusta...' },
+      { en: 'I play...', es: 'Juego a...' },
+      { en: 'I am interested in...', es: 'Estoy interesado en...' },
+      { en: 'My favourite hobby is...', es: 'Mi hobby favorito es...' },
+      { en: 'I usually do this...', es: 'Normalmente hago esto...' },
+    ]
+  },
+  'family': {
+    name: 'Family & Friends',
+    icon: '👨‍👩‍👧‍👦',
+    scenario: 'You are an English tutor having a conversation with a student about their family and friends. Ask about their family members, what their parents do, if they have siblings, who they are similar to, and about their best friend. Keep it friendly and natural.',
+    phrases: [
+      { en: 'There are... people in my family', es: 'Hay... personas en mi familia' },
+      { en: 'My mother/father works as...', es: 'Mi madre/padre trabaja como...' },
+      { en: 'I have... brothers and sisters', es: 'Tengo... hermanos y hermanas' },
+      { en: 'My best friend is... because...', es: 'Mi mejor amigo es... porque...' },
+      { en: 'I look like my...', es: 'Me parezco a mi...' },
+    ]
+  },
+  'school': {
+    name: 'School & Studies',
+    icon: '📚',
+    scenario: 'You are an English tutor talking with a student about school and studies. Ask about their favourite subjects, teachers, what they find difficult, their school schedule, and what they want to study in the future. Be encouraging.',
+    phrases: [
+      { en: 'My favourite subject is...', es: 'Mi asignatura favorita es...' },
+      { en: 'I am good at...', es: 'Se me da bien...' },
+      { en: 'I find... difficult', es: '... me resulta difícil' },
+      { en: 'We have... lessons a week', es: 'Tenemos... clases a la semana' },
+      { en: 'My teacher is...', es: 'Mi profesor es...' },
+    ]
+  },
+  'travel': {
+    name: 'Travel & Holidays',
+    icon: '✈️',
+    scenario: 'You are an English tutor talking with a student about travel and holidays. Ask about places they have visited, where they go on holiday, their dream destination, what they like to do on holiday, and how they travel. Use past simple and future forms naturally.',
+    phrases: [
+      { en: 'Last summer I went to...', es: 'El verano pasado fui a...' },
+      { en: 'I travelled by...', es: 'Viajé en...' },
+      { en: 'I would love to visit...', es: 'Me encantaría visitar...' },
+      { en: 'The best holiday I ever had was...', es: 'Las mejores vacaciones que tuve fueron...' },
+      { en: 'I usually go on holiday with...', es: 'Normalmente voy de vacaciones con...' },
+    ]
+  },
+  'food': {
+    name: 'Food & Cooking',
+    icon: '🍕',
+    scenario: 'You are an English tutor having a conversation with a student about food and cooking. Ask about their favourite foods, what they eat for breakfast/lunch/dinner, if they can cook, their favourite restaurant, and foods from their country.',
+    phrases: [
+      { en: 'I like... but I don\'t like...', es: 'Me gusta... pero no me gusta...' },
+      { en: 'My favourite food is...', es: 'Mi comida favorita es...' },
+      { en: 'I can cook...', es: 'Sé cocinar...' },
+      { en: 'For breakfast I usually eat...', es: 'Para desayunar normalmente como...' },
+      { en: 'A typical dish from my region is...', es: 'Un plato típico de mi región es...' },
+    ]
+  },
+  'weather': {
+    name: 'Weather & Seasons',
+    icon: '☀️',
+    scenario: 'You are an English tutor talking with a student about weather and seasons. Ask about the weather today, their favourite season, what they do in different seasons, the weather in their city, and what clothes they wear in different weather.',
+    phrases: [
+      { en: 'Today it is... (sunny/cloudy/rainy)', es: 'Hoy hace... (sol/nubes/lluvia)' },
+      { en: 'My favourite season is... because...', es: 'Mi estación favorita es... porque...' },
+      { en: 'In summer I...', es: 'En verano yo...' },
+      { en: 'The temperature is... degrees', es: 'La temperatura es de... grados' },
+      { en: 'I wear... when it\'s cold', es: 'Llevo... cuando hace frío' },
+    ]
+  },
+  'technology': {
+    name: 'Technology',
+    icon: '💻',
+    scenario: 'You are an English tutor talking with a student about technology. Ask about what devices they use, their favourite apps or video games, how much time they spend online, social media, and what they think about technology. Keep it age-appropriate.',
+    phrases: [
+      { en: 'I use my phone to...', es: 'Uso mi móvil para...' },
+      { en: 'My favourite app is... because...', es: 'Mi aplicación favorita es... porque...' },
+      { en: 'I spend... hours online', es: 'Paso... horas online' },
+      { en: 'I play... on my console/computer', es: 'Juego a... en mi consola/ordenador' },
+      { en: 'Technology is useful for...', es: 'La tecnología es útil para...' },
+    ]
+  },
+  'movies': {
+    name: 'Movies & TV',
+    icon: '🎬',
+    scenario: 'You are an English tutor talking with a student about movies and TV shows. Ask about their favourite films, what genre they prefer, the last film they watched, favourite actors, and what series they are watching now.',
+    phrases: [
+      { en: 'My favourite film is...', es: 'Mi película favorita es...' },
+      { en: 'I prefer... (comedies/horror/action)', es: 'Prefiero... (comedias/terror/acción)' },
+      { en: 'The last film I saw was...', es: 'La última película que vi fue...' },
+      { en: 'My favourite actor/actress is...', es: 'Mi actor/actriz favorito es...' },
+      { en: 'I am watching... on Netflix', es: 'Estoy viendo... en Netflix' },
+    ]
+  },
+  'future': {
+    name: 'Future Plans',
+    icon: '🔮',
+    scenario: 'You are an English tutor talking with a student about their future plans and dreams. Ask about what they want to be when they grow up, where they want to live, what they will do after finishing school, and their big dreams. Use future tenses naturally.',
+    phrases: [
+      { en: 'When I grow up, I want to be...', es: 'Cuando sea mayor quiero ser...' },
+      { en: 'I am going to study...', es: 'Voy a estudiar...' },
+      { en: 'In 10 years, I will...', es: 'En 10 años, yo...' },
+      { en: 'I would like to live in...', es: 'Me gustaría vivir en...' },
+      { en: 'My dream is to...', es: 'Mi sueño es...' },
+    ]
+  }
+};
+
+var currentTopic = null;
+
+function selectTopic(el, topicId) {
+  // Update active visual
+  document.querySelectorAll('.conv-topic').forEach(function(t) { t.classList.remove('active'); });
+  el.classList.add('active');
+
+  currentTopic = topicId;
+  var data = TOPICS[topicId];
+
+  // Update chat scenario
+  var chatEl = document.getElementById('inline-chat');
+  if (chatEl) chatEl.setAttribute('data-scenario', data.scenario);
+
+  // Show phrases
+  var phrasesPanel = document.getElementById('phrases-panel');
+  phrasesPanel.style.display = 'block';
+  var phrasesContent = document.getElementById('phrases-content');
+  var html = '<div class="conv-phrases">';
+  data.phrases.forEach(function(p) {
+    var enClean = p.en.replace(/'/g, "\\'");
+    html += '<div class="conv-phrase">';
+    html += '<div class="en">' + p.en + '</div>';
+    html += '<div class="es">' + p.es + '</div>';
+    html += '<button class="sound-mini" onclick="speakInline(\'' + enClean + '\')">🔊 Listen</button>';
+    html += '</div>';
+  });
+  html += '</div>';
+  phrasesContent.innerHTML = html;
+
+  // Show chat area
+  var chatArea = document.getElementById('chat-area');
+  chatArea.classList.add('show');
+
+  // Re-init chat with new scenario
+  if (window.initInlineChat) {
+    // Clear old chat messages
+    var oldMsgs = document.getElementById('ichat-msgs');
+    if (oldMsgs) oldMsgs.innerHTML = '';
+    // Re-init
+    window.initInlineChat('inline-chat');
+  }
+}
+
+// ─── Init on page load (no topic selected yet) ───
+document.addEventListener('DOMContentLoaded', function() {
+  // Preload voices
+  speechSynthesis.getVoices();
+  speechSynthesis.onvoiceschanged = function() { speechSynthesis.getVoices(); };
+});
+</script>
+</body>
+</html>

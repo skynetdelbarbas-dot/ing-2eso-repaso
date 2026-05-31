@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎓 Cambridge Speaking — 2º ESO</title>
+<link rel="stylesheet" href="style.css?v=5">
+<style>
+.cs-levels{display:flex;gap:8px;margin-bottom:16px}
+.cs-level{flex:1;text-align:center;padding:14px;border-radius:var(--radius);border:2px solid var(--border);background:var(--card);cursor:pointer;transition:all .15s}
+.cs-level:hover{border-color:var(--primary)}
+.cs-level.active{border-color:var(--primary);background:#e7f5ff}
+.cs-level .badge{font-size:1.3rem;font-weight:700;margin-bottom:4px}
+.cs-level .desc{font-size:.78rem;color:var(--text2)}
+.cs-part-selector{display:flex;gap:6px;margin:12px 0;flex-wrap:wrap}
+.cs-part-btn{padding:8px 18px;border-radius:6px;border:2px solid var(--border);background:var(--card);cursor:pointer;font-size:.85rem;font-weight:600;transition:all .1s}
+.cs-part-btn:hover{border-color:var(--primary)}
+.cs-part-btn.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+.cs-content{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin:12px 0;display:none}
+.cs-content.show{display:block}
+.cs-content .instructions{background:#e7f5ff;border-left:4px solid var(--primary);padding:12px 16px;border-radius:0 8px 8px 0;margin:12px 0;font-size:.9rem;line-height:1.5}
+.cs-photo-area{text-align:center;padding:16px;background:#f8f9fa;border-radius:8px;margin:12px 0;min-height:120px;display:flex;align-items:center;justify-content:center;flex-direction:column}
+.cs-photo-area .photo-placeholder{font-size:4rem;opacity:.4}
+.cs-photo-area .photo-label{font-size:.85rem;color:var(--text2);margin-top:8px}
+.cs-photo-area .photo-desc{font-size:.9rem;color:var(--text);margin-top:4px;font-style:italic}
+.cs-questions{margin:12px 0}
+.cs-questions .q-item{padding:10px 14px;border-bottom:1px solid var(--border);font-size:.9rem;line-height:1.5}
+.cs-questions .q-item:last-child{border-bottom:none}
+.cs-questions .q-item .q-en{color:var(--primary-dark);font-weight:600}
+.cs-questions .q-item .q-note{font-size:.8rem;color:var(--text2);margin-top:4px}
+.cs-model-toggle{margin:12px 0}
+.cs-model-box{background:#e7f5ff;border:1px solid var(--primary);border-radius:var(--radius);padding:16px 20px;margin:12px 0;display:none}
+.cs-model-box.show{display:block}
+.cs-model-box .model-text{font-style:italic;line-height:1.6}
+</style>
+</head>
+<body data-topic="cambridge-speaking">
+<div class="container">
+<nav class="sidebar">
+  <h1><a href="index.html" style="color:inherit;text-decoration:none">📚 Inglés 2º ESO</a></h1>
+  <div class="subtitle">Repaso para el examen final</div>
+  <h2>🗣️ SPEAKING</h2>
+  <a href="pronunciation.html">Pronunciation</a>
+  <a href="conversation.html">Conversation Practice</a>
+  <a href="roleplays.html">Roleplays</a>
+  <a href="speaking-exams.html">Speaking Exams</a>
+  <a href="cambridge-speaking.html" class="active">Cambridge Speaking</a>
+  <h2>🗣️ Grammar</h2>
+  <a href="present-perfect.html">Present Perfect S/C</a>
+  <a href="reported-speech.html">Reported Speech</a>
+  <a href="conditionals.html">Conditionals</a>
+  <a href="wish-if-only.html">I wish / If only</a>
+  <a href="question-tags.html">Question Tags</a>
+  <a href="articles.html">Articles (a/an/the/∅)</a>
+  <a href="passive.html">Passive Voice</a>
+  <a href="indefinite-pronouns.html">Indefinite Pronouns</a>
+  <a href="nor-neither-so.html">Nor / Neither / So</a>
+  <h2>📖 Vocabulary</h2>
+  <a href="vocabulary.html">Units 1-3, 5-11</a>
+  <h2>🔄 Review</h2>
+  <a href="grammar-review.html">Grammar Review 1º ESO</a>
+  <h2>🎯 Exams</h2>
+  <a href="cambridge-a2.html">Cambridge A2 Key</a>
+  <h2>🎯 Simulacro</h2>
+  <a href="simulacro.html">Examen mixto</a>
+</nav>
+
+<main class="main">
+  <div class="breadcrumb"><a href="index.html">Inicio</a> / Cambridge Speaking</div>
+  <h1 class="page-title">🎓 Cambridge Speaking</h1>
+  <p class="intro">Practica las partes del speaking de los exámenes oficiales de Cambridge (KET & PET).</p>
+
+  <!-- ─── Level Selector ─── -->
+  <div class="section">
+    <h2>📋 Select exam level</h2>
+    <div class="cs-levels">
+      <div class="cs-level active" onclick="setCamLevel(this,'KET')">
+        <div class="badge">🟢 KET</div>
+        <div class="desc">A2 Key for Schools — Elementary</div>
+      </div>
+      <div class="cs-level" onclick="setCamLevel(this,'PET')">
+        <div class="badge">🟡 PET</div>
+        <div class="desc">B1 Preliminary for Schools — Intermediate</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── Part Selector ─── -->
+  <div class="section">
+    <h2>📋 Choose a part</h2>
+    <p style="font-size:.85rem;color:var(--text2);margin-bottom:8px" id="part-desc">Click a part to see its structure and practice questions.</p>
+    <div class="cs-part-selector" id="parts-container"></div>
+  </div>
+
+  <!-- ─── Content ─── -->
+  <div class="cs-content" id="cs-content">
+    <h2 id="cs-part-title"></h2>
+    <div id="cs-instructions" class="instructions"></div>
+    <div id="cs-photo" class="cs-photo-area" style="display:none">
+      <div class="photo-placeholder">🖼️</div>
+      <div class="photo-label">Imagine you are describing this picture</div>
+      <div class="photo-desc" id="photo-description"></div>
+    </div>
+    <div id="cs-questions" class="cs-questions"></div>
+    <div class="cs-model-toggle">
+      <button class="btn btn-check-all" onclick="toggleCamModel()">💡 Show / Hide model answers</button>
+      <button class="btn btn-next" onclick="speakCamPrompt()" style="margin-left:6px">🔊 Listen to questions</button>
+    </div>
+    <div id="cs-model" class="cs-model-box">
+      <div class="model-text" id="cam-model-text"></div>
+    </div>
+  </div>
+
+</main>
+</div>
+
+<script>
+// ─── Cambridge Speaking Structure ───
+var CAM_DATA = {
+  KET: {
+    name: 'A2 Key for Schools',
+    parts: [
+      {
+        title: '🗣 Part 1: Personal Questions',
+        instructions: 'The examiner asks you some simple questions about yourself. Answer with short, complete sentences. Listen carefully and respond naturally.',
+        questions: [
+          { q: 'What\'s your name?', hint: 'Say your full name clearly' },
+          { q: 'How old are you?', hint: 'I\'m... years old' },
+          { q: 'Where do you live?', hint: 'I live in...' },
+          { q: 'Do you have any brothers or sisters?', hint: 'Yes, I have... / No, I\'m an only child' },
+          { q: 'What\'s your favourite subject at school? Why?', hint: 'Because it\'s interesting/fun/easy' },
+        ],
+        model: 'My name is Marcos García. I\'m 13 years old. I live in Murcia, in Spain. I have one brother and one sister. My favourite subject is English because it\'s interesting and I like learning new words.',
+        time: '3-4 minutes'
+      },
+      {
+        title: '🗣 Part 2: Extended Response',
+        instructions: 'The examiner gives you a card with a question. You need to speak for about 1 minute. Think about what to say, then speak. Use the ideas on the card.',
+        questions: [
+          { q: 'Tell me about your best friend. What do you like about them?', hint: 'Describe their personality and why you\'re friends' },
+          { q: 'What do you like doing in your free time?', hint: 'Talk about hobbies, sports, activities' },
+          { q: 'Tell me about your house or flat.', hint: 'Describe rooms, your favourite place, what you do there' },
+          { q: 'What did you do last weekend?', hint: 'Use past simple: I went... I played... I watched...' },
+          { q: 'What are you going to do next summer?', hint: 'Use going to or will for future plans' },
+        ],
+        model: 'I want to tell you about my best friend. His name is Pablo and he\'s 13 years old. He\'s very funny and kind. We like playing football together after school. On Saturdays, we sometimes go to the cinema or play video games at his house. He\'s a good friend because he always helps me when I have a problem.',
+        time: '5-6 minutes'
+      },
+      {
+        title: '🗣 Part 3: Photo Description',
+        instructions: 'The examiner shows you a photo and asks you to describe it. Say what you can see — people, places, objects, colours, actions, and how people feel.',
+        questions: [
+          { q: 'Describe this photo. What can you see?', hint: 'Start with "In this photo, I can see..." then describe: who, what, where, colours, weather, feelings' },
+          { q: 'What are the people doing?', hint: 'Use present continuous: He is...ing, They are...ing' },
+          { q: 'What do you think the weather is like?', hint: 'Look at clothes, shadows, sky' },
+          { q: 'How do you think the people feel? Why?', hint: 'They look happy/sad/excited because...' },
+        ],
+        model: 'In this photo, I can see a family having a picnic in a park. There are four people: a man, a woman and two children. The weather looks sunny and warm. The children are playing with a ball and the parents are sitting on a blanket eating sandwiches. I think they are happy because they are smiling and spending time together. In the background, I can see some trees and a lake.',
+        time: '5-7 minutes'
+      },
+      {
+        title: '🗣 Part 4: General Conversation',
+        instructions: 'The examiner talks with you about a topic related to Part 3. Give your opinion and explain your ideas. You don\'t need to speak for a long time — just answer naturally.',
+        questions: [
+          { q: 'Do you like spending time outdoors? Why?', hint: 'Yes, because... / Not really, I prefer...' },
+          { q: 'What do you like to do in the park?', hint: 'I like playing football / having a picnic / walking' },
+          { q: 'Do you prefer summer or winter? Why?', hint: 'Give reasons for your preference' },
+          { q: 'Who do you like to spend time with?', hint: 'Family, friends, or alone?' },
+        ],
+        model: 'Yes, I like spending time outdoors because I can play with my friends and do sport. In the park, I like playing football or just walking around. I prefer summer because the weather is nice and I can go to the beach. I like to spend time with my family and friends — it\'s always fun when we are together.',
+        time: '3-4 minutes'
+      },
+    ]
+  },
+  PET: {
+    name: 'B1 Preliminary for Schools',
+    parts: [
+      {
+        title: '🗣 Part 1: Personal Questions',
+        instructions: 'The examiner asks you some questions about yourself. Give longer answers with explanations, not just one word. Show you can express opinions.',
+        questions: [
+          { q: 'Can you tell me a little about yourself?', hint: 'Talk about age, where you live, family, studies' },
+          { q: 'What do you enjoy most about your school?', hint: 'Give reasons and examples' },
+          { q: 'How do you usually spend your weekends?', hint: 'Describe typical activities in some detail' },
+          { q: 'What kind of music do you like? Why?', hint: 'Explain your taste and give examples' },
+          { q: 'Tell me about a film you have seen recently.', hint: 'Use present perfect + past simple' },
+        ],
+        model: 'I\'m Laura and I\'m 14 years old. I live in Cartagena with my parents and my little sister. I\'m in 3rd of ESO at IES El Bohío. What I enjoy most about my school is the sports facilities — we have a great basketball court and I play every week. At weekends, I usually meet my friends at the shopping centre or we go to the cinema. Last weekend I saw a really good action film called...',
+        time:  '3-4 minutes'
+      },
+      {
+        title: '🗣 Part 2: Picture Description + Discussion',
+        instructions: 'The examiner shows you a photo and asks you to describe it in detail. Talk about the scene, the people, the atmosphere, and what is happening. Then the examiner asks follow-up questions.',
+        questions: [
+          { q: 'Describe this photo in detail.', hint: 'Use a variety of vocabulary: in the foreground/background, on the left/right, it looks like...' },
+          { q: 'What do you think happened just before this moment?', hint: 'Speculate using might have / could have / probably' },
+          { q: 'How do the people feel? How can you tell?', hint: 'Look at body language, facial expressions, the situation' },
+          { q: 'Would you like to be in this situation? Why/why not?', hint: 'Give reasons and personal reactions' },
+        ],
+        model: 'This photo shows a busy street market in a city. In the foreground, there are several stalls with fruit and vegetables. A woman is choosing some apples while the seller is weighing oranges. In the background, I can see old buildings and people walking. The atmosphere looks lively and colourful. The people seem relaxed and happy. I think just before this moment, it was quieter because the market had just opened. I would like to be there because I enjoy the atmosphere of traditional markets.',
+        time: '5-7 minutes'
+      },
+      {
+        title: '🗣 Part 3: Collaborative Task',
+        instructions: 'The examiner gives you a scenario and you need to discuss it with your partner. You should discuss the different options, give your opinion, and try to agree. Since you don\'t have a partner here, read the scenario and think about how you would discuss it.',
+        questions: [
+          { q: 'A friend from England is visiting your city for a day. What should you do? (Visit the cathedral? Go to the beach? Visit a museum? Go shopping?)', hint: 'Discuss each option, say why it\'s good or not, and agree on the best plan' },
+          { q: 'Your class wants to do something special for the last day of school. What ideas can you suggest? (A party? A trip? A sports tournament? A film day?)', hint: 'Consider each idea, give opinions, suggest compromises' },
+          { q: 'Your family wants to adopt a pet. Which one is best? (A dog? A cat? A rabbit? A bird?)', hint: 'Think about space, time, responsibility, and family preferences' },
+          { q: 'You have 50€ to spend on a present for your best friend. What do you choose? (Video game? Clothes? Books? Concert tickets?)', hint: 'Justify your choice, consider their interests' },
+        ],
+        model: 'I think we should visit the cathedral first because it\'s the most famous monument in our city. Then we could go to the beach in the afternoon since the weather is usually nice. I don\'t think the museum is a good idea because my friend might find it boring after a long day. Shopping could be good if we have time at the end. I think the best plan is: cathedral in the morning, beach for lunch and swimming, then shopping before dinner. Do you agree?',
+        time: '5-7 minutes'
+      },
+      {
+        title: '🗣 Part 4: Extended Discussion',
+        instructions: 'The examiner asks you more questions about the topic from Part 3. You need to express your opinions, agree/disagree, and give reasons. Show that you can discuss abstract ideas.',
+        questions: [
+          { q: 'Do you think it\'s important to learn about your city\'s history? Why?', hint: 'Give arguments for and against' },
+          { q: 'Some people prefer beach holidays. Others prefer city breaks. What do you think?', hint: 'Compare both and give your preference' },
+          { q: 'Do you prefer doing activities alone or with other people? Why?', hint: 'Discuss advantages of both' },
+          { q: 'What makes a perfect day out for you?', hint: 'Describe your ideal day in some detail' },
+        ],
+        model: 'I think it\'s very important to learn about your city\'s history because it helps you understand your culture and identity. For example, when you visit an old building, it\'s more interesting if you know the story behind it. On the other hand, some people might say history is boring and we should focus on the future. In my opinion, we need both — to know where we come from and to look forward. As for holidays, I prefer beach holidays because I love swimming and relaxing.',
+        time: '3-4 minutes'
+      },
+    ]
+  }
+};
+
+var camLevel = 'KET';
+var camPart = 0;
+
+function setCamLevel(el, level) {
+  document.querySelectorAll('.cs-level').forEach(function(l) { l.classList.remove('active'); });
+  el.classList.add('active');
+  camLevel = level;
+  camPart = 0;
+  renderParts();
+  renderPart(0);
+}
+
+function renderParts() {
+  var data = CAM_DATA[camLevel];
+  var container = document.getElementById('parts-container');
+  container.innerHTML = '';
+  data.parts.forEach(function(part, i) {
+    var btn = document.createElement('div');
+    btn.className = 'cs-part-btn' + (i === 0 ? ' active' : '');
+    btn.textContent = 'Part ' + (i + 1);
+    btn.onclick = function() { renderPart(i); };
+    container.appendChild(btn);
+  });
+  document.getElementById('part-desc').textContent = data.name + ' — ' + data.parts.length + ' parts. Pick one to practice.';
+}
+
+function renderPart(idx) {
+  camPart = idx;
+  var data = CAM_DATA[camLevel];
+  var part = data.parts[idx];
+
+  // Update active button
+  document.querySelectorAll('.cs-part-btn').forEach(function(b, i) {
+    b.classList.toggle('active', i === idx);
+  });
+
+  var content = document.getElementById('cs-content');
+  content.classList.add('show');
+  document.getElementById('cs-part-title').textContent = part.title;
+  document.getElementById('cs-instructions').innerHTML = '<strong>📝 Instructions:</strong> ' + part.instructions + '<br><span style="font-size:.8rem;color:var(--text2)">⏱ Approx. ' + part.time + '</span>';
+
+  // Photo area
+  var photoArea = document.getElementById('cs-photo');
+  if (part.title.indexOf('Photo') >= 0 || part.title.indexOf('Picture') >= 0) {
+    photoArea.style.display = 'flex';
+    var descs = {
+      KET: 'A family in a park having a picnic. The sun is shining and children are playing.',
+      PET: 'A busy street market in an old city. There are colourful stalls and many people shopping.',
+    };
+    document.getElementById('photo-description').textContent = descs[camLevel] || 'A scene to describe in English.';
+  } else {
+    photoArea.style.display = 'none';
+  }
+
+  // Questions
+  var qContainer = document.getElementById('cs-questions');
+  var html = '';
+  part.questions.forEach(function(q, i) {
+    html += '<div class="q-item">';
+    html += '<div class="q-en">' + (i + 1) + '. ' + q.q + '</div>';
+    html += '<div class="q-note">💡 ' + q.hint + '</div>';
+    html += '</div>';
+  });
+  qContainer.innerHTML = html;
+
+  // Model
+  document.getElementById('cs-model').classList.remove('show');
+  document.getElementById('cam-model-text').innerHTML = '';
+}
+
+function toggleCamModel() {
+  var modelEl = document.getElementById('cs-model');
+  var textEl = document.getElementById('cam-model-text');
+  if (modelEl.classList.contains('show')) {
+    modelEl.classList.remove('show');
+  } else {
+    var data = CAM_DATA[camLevel];
+    var part = data.parts[camPart];
+    if (part.model) {
+      textEl.innerHTML = '<strong>Model answer:</strong><br><br>' + part.model.replace(/\n/g, '<br>');
+      modelEl.classList.add('show');
+    }
+  }
+}
+
+function speakCamPrompt() {
+  var data = CAM_DATA[camLevel];
+  var part = data.parts[camPart];
+  // Speak the first question
+  if (part.questions.length > 0) {
+    speakInline(part.questions[0].q);
+  }
+}
+
+// ─── Speak helper ───
+function speakInline(text) {
+  if (window.currentInlineUtterance) speechSynthesis.cancel();
+  var u = new SpeechSynthesisUtterance(text);
+  u.lang = 'en-GB'; u.rate = 0.85;
+  var voices = speechSynthesis.getVoices();
+  var enVoice = voices.find(function(v) { return v.lang.startsWith('en'); });
+  if (enVoice) u.voice = enVoice;
+  window.currentInlineUtterance = u;
+  speechSynthesis.speak(u);
+}
+
+// ─── Init ───
+document.addEventListener('DOMContentLoaded', function() {
+  speechSynthesis.getVoices();
+  speechSynthesis.onvoiceschanged = function() { speechSynthesis.getVoices(); };
+  renderParts();
+  renderPart(0);
+});
+</script>
+</body>
+</html>

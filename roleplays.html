@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎭 Roleplays — 2º ESO</title>
+<link rel="stylesheet" href="style.css?v=5">
+<style>
+.rp-scenarios{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;margin:12px 0}
+.rp-card{background:var(--card);border:2px solid var(--border);border-radius:var(--radius);padding:18px;cursor:pointer;transition:all .15s}
+.rp-card:hover{border-color:var(--primary);transform:translateY(-2px);box-shadow:0 4px 16px rgba(77,171,247,.2)}
+.rp-card.active{border-color:var(--primary);background:#e7f5ff}
+.rp-card .icon{font-size:2.2rem;margin-bottom:6px}
+.rp-card .title{font-weight:700;font-size:1rem;color:var(--text)}
+.rp-card .desc{font-size:.82rem;color:var(--text2);margin-top:4px;line-height:1.4}
+.rp-card .role{display:inline-block;margin-top:8px;padding:3px 10px;border-radius:4px;font-size:.75rem;font-weight:600}
+.rp-card .role.you{background:var(--success-bg);color:#2b8a3e}
+.rp-card .role.tutor{background:#e7f5ff;color:var(--primary-dark)}
+.rp-chat-area{display:none}
+.rp-chat-area.show{display:block}
+.rp-phrases{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;margin:12px 0}
+.rp-phrase{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:10px 14px;font-size:.85rem;line-height:1.5}
+.rp-phrase .en{color:var(--primary-dark);font-weight:600}
+.rp-phrase .es{color:var(--text2);font-size:.82rem}
+.rp-phrase .sound-mini{display:inline-block;padding:2px 8px;border-radius:4px;background:var(--bg);border:1px solid var(--border);cursor:pointer;font-size:.75rem;margin-top:4px;transition:all .1s}
+.rp-phrase .sound-mini:hover{background:var(--primary);color:#fff;border-color:var(--primary)}
+.rp-tips{margin:12px 0;padding:12px 16px;background:#fff9db;border:1px solid #ffd43b;border-radius:8px;font-size:.85rem;line-height:1.5}
+.rp-tips strong{color:#e67700}
+</style>
+</head>
+<body data-topic="roleplays">
+<div class="container">
+<nav class="sidebar">
+  <h1><a href="index.html" style="color:inherit;text-decoration:none">📚 Inglés 2º ESO</a></h1>
+  <div class="subtitle">Repaso para el examen final</div>
+  <h2>🗣️ SPEAKING</h2>
+  <a href="pronunciation.html">Pronunciation</a>
+  <a href="conversation.html">Conversation Practice</a>
+  <a href="roleplays.html" class="active">Roleplays</a>
+  <a href="speaking-exams.html">Speaking Exams</a>
+  <a href="cambridge-speaking.html">Cambridge Speaking</a>
+  <h2>🗣️ Grammar</h2>
+  <a href="present-perfect.html">Present Perfect S/C</a>
+  <a href="reported-speech.html">Reported Speech</a>
+  <a href="conditionals.html">Conditionals</a>
+  <a href="wish-if-only.html">I wish / If only</a>
+  <a href="question-tags.html">Question Tags</a>
+  <a href="articles.html">Articles (a/an/the/∅)</a>
+  <a href="passive.html">Passive Voice</a>
+  <a href="indefinite-pronouns.html">Indefinite Pronouns</a>
+  <a href="nor-neither-so.html">Nor / Neither / So</a>
+  <h2>📖 Vocabulary</h2>
+  <a href="vocabulary.html">Units 1-3, 5-11</a>
+  <h2>🔄 Review</h2>
+  <a href="grammar-review.html">Grammar Review 1º ESO</a>
+  <h2>🎯 Exams</h2>
+  <a href="cambridge-a2.html">Cambridge A2 Key</a>
+  <h2>🎯 Simulacro</h2>
+  <a href="simulacro.html">Examen mixto</a>
+</nav>
+
+<main class="main">
+  <div class="breadcrumb"><a href="index.html">Inicio</a> / Roleplays</div>
+  <h1 class="page-title">🎭 Roleplays</h1>
+  <p class="intro">Practica situaciones reales en inglés. El tutor interpreta un personaje y tú interactúas con él. Usa las frases útiles para ayudarte.</p>
+
+  <!-- ─── Roleplay Scenarios ─── -->
+  <div class="section">
+    <h2>📋 Choose a scenario</h2>
+    <div class="rp-scenarios">
+      <div class="rp-card" onclick="selectScenario(this,'restaurant')">
+        <div class="icon">🍽️</div>
+        <div class="title">At the Restaurant</div>
+        <div class="desc">Order food, ask about the menu, pay the bill</div>
+        <div><span class="role you">🧑 You: Customer</span> <span class="role tutor">🤖 Tutor: Waiter/Waitress</span></div>
+      </div>
+      <div class="rp-card" onclick="selectScenario(this,'shop')">
+        <div class="icon">🛍️</div>
+        <div class="title">At the Shop</div>
+        <div class="desc">Buy clothes, ask for sizes, pay and return items</div>
+        <div><span class="role you">🧑 You: Customer</span> <span class="role tutor">🤖 Tutor: Shop Assistant</span></div>
+      </div>
+      <div class="rp-card" onclick="selectScenario(this,'doctor')">
+        <div class="icon">🏥</div>
+        <div class="title">At the Doctor</div>
+        <div class="desc">Describe symptoms, get advice, ask about medicine</div>
+        <div><span class="role you">🧑 You: Patient</span> <span class="role tutor">🤖 Tutor: Doctor</span></div>
+      </div>
+      <div class="rp-card" onclick="selectScenario(this,'hotel')">
+        <div class="icon">🏨</div>
+        <div class="title">At the Hotel</div>
+        <div class="desc">Book a room, check in, ask about facilities</div>
+        <div><span class="role you">🧑 You: Guest</span> <span class="role tutor">🤖 Tutor: Receptionist</span></div>
+      </div>
+      <div class="rp-card" onclick="selectScenario(this,'airport')">
+        <div class="icon">✈️</div>
+        <div class="title">At the Airport</div>
+        <div class="desc">Check in, go through security, ask for the gate</div>
+        <div><span class="role you">🧑 You: Passenger</span> <span class="role tutor">🤖 Tutor: Airport Staff</span></div>
+      </div>
+      <div class="rp-card" onclick="selectScenario(this,'directions')">
+        <div class="icon">🗺️</div>
+        <div class="title">Asking for Directions</div>
+        <div class="desc">Ask how to get somewhere, understand directions</div>
+        <div><span class="role you">🧑 You: Tourist</span> <span class="role tutor">🤖 Tutor: Local Person</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── Tips ─── -->
+  <div class="rp-tips" id="tips-panel" style="display:none">
+    💡 <strong>Tip:</strong> Read your role description first. Say hello to start the conversation, then respond according to the situation. Don't worry about mistakes — the tutor will help you!
+  </div>
+
+  <!-- ─── Phrases Panel ─── -->
+  <div class="section" id="phrases-panel" style="display:none">
+    <h2>💡 Useful Phrases for this scenario</h2>
+    <div id="phrases-content"></div>
+  </div>
+
+  <!-- ─── Chat Area ─── -->
+  <div class="section rp-chat-area" id="chat-area">
+    <h2>💬 Start the conversation</h2>
+    <div id="inline-chat" data-scenario="" data-level="A2"></div>
+    <p style="font-size:.78rem;color:var(--text2);margin-top:8px">💡 Say hello to begin the roleplay. The tutor will respond as their character!</p>
+  </div>
+
+</main>
+</div>
+
+<script src="conversation-chat.js?v=1"></script>
+<script>
+// ─── Scenario data ───
+var SCENARIOS = {
+  'restaurant': {
+    name: 'At the Restaurant',
+    icon: '🍽️',
+    scenario: 'You are a waiter/waitress at a restaurant called "The London Grill". A student (customer) comes to your restaurant. Greet them, give them the menu, take their order, and handle the payment. Use natural restaurant English. The student is the customer — you are the waiter. Start by greeting them and asking how many people.',
+    phrases: [
+      { en: 'Can I see the menu, please?', es: '¿Puedo ver el menú, por favor?' },
+      { en: 'I would like to order...', es: 'Me gustaría pedir...' },
+      { en: 'What do you recommend?', es: '¿Qué recomiendas?' },
+      { en: 'Could I have the bill, please?', es: '¿Podría tener la cuenta, por favor?' },
+      { en: 'Is service included?', es: '¿Está incluido el servicio?' },
+    ]
+  },
+  'shop': {
+    name: 'At the Shop',
+    icon: '🛍️',
+    scenario: 'You are a shop assistant in a clothes store. A student comes in as a customer. Greet them, ask if they need help, help them find sizes and colours, and process the purchase. Use natural shop English. The student is the customer — you are the assistant.',
+    phrases: [
+      { en: 'I\'m just looking, thanks', es: 'Solo estoy mirando, gracias' },
+      { en: 'Do you have this in size...?', es: '¿Tienes esto en la talla...?' },
+      { en: 'Can I try it on?', es: '¿Puedo probármelo?' },
+      { en: 'How much does it cost?', es: '¿Cuánto cuesta?' },
+      { en: 'I\'ll take it', es: 'Me lo llevo' },
+    ]
+  },
+  'doctor': {
+    name: 'At the Doctor',
+    icon: '🏥',
+    scenario: 'You are a friendly doctor at a clinic. A student comes in as a patient. Ask what the problem is, ask about symptoms, give advice and prescribe medicine. Reassure the patient. The student is the patient — you are the doctor. Start by asking what\'s wrong.',
+    phrases: [
+      { en: 'I don\'t feel well', es: 'No me encuentro bien' },
+      { en: 'I have a headache / a sore throat', es: 'Tengo dolor de cabeza / de garganta' },
+      { en: 'I feel dizzy', es: 'Me siento mareado' },
+      { en: 'How long have you felt like this?', es: '¿Cuánto tiempo llevas así?' },
+      { en: 'You should rest and drink water', es: 'Deberías descansar y beber agua' },
+    ]
+  },
+  'hotel': {
+    name: 'At the Hotel',
+    icon: '🏨',
+    scenario: 'You are a hotel receptionist at the "Grand Hotel". A student arrives as a guest. Greet them, check them in, give them information about the hotel (breakfast times, pool hours, WiFi), and give them their room key. The student is the guest — you are the receptionist.',
+    phrases: [
+      { en: 'I have a reservation under the name...', es: 'Tengo una reserva a nombre de...' },
+      { en: 'What time is breakfast?', es: '¿A qué hora es el desayuno?' },
+      { en: 'Is there WiFi in the room?', es: '¿Hay WiFi en la habitación?' },
+      { en: 'What floor is my room on?', es: '¿En qué piso está mi habitación?' },
+      { en: 'Can I have a wake-up call?', es: '¿Puedo tener una llamada de despertador?' },
+    ]
+  },
+  'airport': {
+    name: 'At the Airport',
+    icon: '✈️',
+    scenario: 'You are an airport check-in clerk at Heathrow Airport. A student is a passenger. Ask for their passport and ticket, check their luggage, give them their boarding pass, and tell them the gate number and boarding time. The student is the passenger — you are the clerk.',
+    phrases: [
+      { en: 'Can I see your passport, please?', es: '¿Puedo ver su pasaporte, por favor?' },
+      { en: 'How many bags are you checking in?', es: '¿Cuántas maletas factura?' },
+      { en: 'What gate do I need to go to?', es: '¿A qué puerta tengo que ir?' },
+      { en: 'Is the flight on time?', es: '¿El vuelo sale a la hora?' },
+      { en: 'What time does boarding start?', es: '¿A qué hora empieza el embarque?' },
+    ]
+  },
+  'directions': {
+    name: 'Asking for Directions',
+    icon: '🗺️',
+    scenario: 'You are a friendly local person in London. A student is a tourist who needs help finding places. Give clear directions using prepositions of place (turn left, go straight, next to, opposite). Offer to help them find their way. The student is the tourist — you are the local.',
+    phrases: [
+      { en: 'Excuse me, where is the...?', es: 'Disculpa, ¿dónde está...?' },
+      { en: 'How do I get to...?', es: '¿Cómo llego a...?' },
+      { en: 'Turn left / right at the corner', es: 'Gira a la izquierda / derecha en la esquina' },
+      { en: 'Go straight ahead', es: 'Sigue recto' },
+      { en: 'It\'s next to / opposite the...', es: 'Está al lado de / enfrente de...' },
+    ]
+  }
+};
+
+var currentScenario = null;
+
+function selectScenario(el, scenarioId) {
+  document.querySelectorAll('.rp-card').forEach(function(c) { c.classList.remove('active'); });
+  el.classList.add('active');
+
+  currentScenario = scenarioId;
+  var data = SCENARIOS[scenarioId];
+
+  // Update chat
+  var chatEl = document.getElementById('inline-chat');
+  if (chatEl) chatEl.setAttribute('data-scenario', data.scenario);
+
+  // Show tips
+  document.getElementById('tips-panel').style.display = 'block';
+
+  // Show phrases
+  document.getElementById('phrases-panel').style.display = 'block';
+  var phrasesContent = document.getElementById('phrases-content');
+  var html = '<div class="rp-phrases">';
+  data.phrases.forEach(function(p) {
+    var enClean = p.en.replace(/'/g, "\\'");
+    html += '<div class="rp-phrase">';
+    html += '<div class="en">' + p.en + '</div>';
+    html += '<div class="es">' + p.es + '</div>';
+    html += '<button class="sound-mini" onclick="speakInline(\'' + enClean + '\')">🔊 Listen</button>';
+    html += '</div>';
+  });
+  html += '</div>';
+  phrasesContent.innerHTML = html;
+
+  // Show chat
+  var chatArea = document.getElementById('chat-area');
+  chatArea.classList.add('show');
+
+  if (window.initInlineChat) {
+    var oldMsgs = document.getElementById('ichat-msgs');
+    if (oldMsgs) oldMsgs.innerHTML = '';
+    window.initInlineChat('inline-chat');
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  speechSynthesis.getVoices();
+  speechSynthesis.onvoiceschanged = function() { speechSynthesis.getVoices(); };
+});
+</script>
+</body>
+</html>

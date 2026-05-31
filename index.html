@@ -174,6 +174,10 @@ input.correct,textarea.correct{border-color:var(--success)!important;background:
   <a onclick="show('verbs')" id="nv">📋 Irregular Verbs</a>
   <h2>🗣️ SPEAKING</h2>
   <a onclick="show('pronunciation')" id="npron">🔊 Pronunciation</a>
+  <a onclick="show('conversation')" id="nconv">🗣 Conversation</a>
+  <a onclick="show('roleplays')" id="nrole">🎭 Roleplays</a>
+  <a onclick="show('speaking-exams')" id="nsexam">🎤 Speaking Exams</a>
+  <a onclick="show('cambridge-speaking')" id="ncamsp">🎓 Cambridge Speaking</a>
 
   <h2>🗣️ GRAMMAR</h2>
 
@@ -300,6 +304,10 @@ const NAV_MAP = {home:'nh',fundamentals:'nf',verbs:'nv',writing:'nw',simulacro:'
   'vocab-topics':'nvt','vocab-collocations':'nvc','vocab-phrasal':'nvp',
   'vocab-mixed':'nvm',
   'pronunciation':'npron',
+  'conversation':'nconv',
+  'roleplays':'nrole',
+  'speaking-exams':'nsexam',
+  'cambridge-speaking':'ncamsp',
   'reading':'nrd','listening':'nlst','writing-practice':'nwp','songs':'nsng'};
 
 const PAGE_MAP = {
@@ -316,7 +324,12 @@ const PAGE_MAP = {
   'vocab-topics':'vocabulary.html','simulacro':'simulacro.html?v=4',
   'grammar-review':'grammar-review.html','cambridge-a2':'cambridge-a2.html',
   'songs':'canciones.html',
-  'pronunciation':'pronunciation.html'};
+  'pronunciation':'pronunciation.html',
+  'conversation':'conversation.html',
+  'roleplays':'roleplays.html',
+  'speaking-exams':'speaking-exams.html',
+  'cambridge-speaking':'cambridge-speaking.html',
+};
 
 var APP_VERSION = '5.4.0';
 
